@@ -36,6 +36,9 @@ body {
   line-height: 1.6;
 }
 main { margin-top: var(--nav-height); }
+
+main { margin-top: 0; }
+
 a { text-decoration: none; color: inherit; }
 
 /* ====================

@@ -1,0 +1,269 @@
+/* ====================
+   Variables & Theme
+   ==================== */
+:root {
+  /* Dimensions & Layout */
+  --nav-height: 80px;
+  --content-max-width: 1000px;
+
+  /* Colors */
+  --bg-color: #f0f4f8;
+  --text-color: #222;
+  --primary-color: #007acc;
+  --link-color: #007acc;
+  --button-bg: #007acc;
+  --button-text: #fff;
+  --nav-bg: #ffffff;
+  --nav-text-color: #007acc;
+  --section-bg: #ffffff;
+  --section-bg-alt: #fafafa;
+  --card-bg: #f8f9fa;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+
+  /* Hero Gradient */
+  --hero-gradient-start: #1a1a40;
+  --hero-gradient-end:   #2e86de;
+}
+
+/* ====================
+   Base Reset & Typography
+   ==================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+main { margin-top: var(--nav-height); }
+a { text-decoration: none; color: inherit; }
+
+/* ====================
+   Navbar
+   ==================== */
+.navbar { position: fixed; top: 0; width: 100%; height: var(--nav-height); padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; background-color: var(--nav-bg); box-shadow: 0 2px 8px var(--shadow-light); z-index: 1000; }
+.nav-left, .nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-right { margin-left: auto; list-style: none; }
+.nav-left > .nav-icon, .nav-left > #colorPicker, .nav-left > #darkModeToggle { width: 2.5rem; height: 2.5rem; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; background: transparent; color: var(--nav-text-color); font-size: 1.2rem; border: none; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; }
+.nav-icon i { font-size: 1.2rem; }
+.nav-left > .nav-icon:hover, .nav-left > #colorPicker:hover, .nav-left > #darkModeToggle:hover { background-color: var(--button-bg); color: var(--button-text); transform: scale(1.1); }
+.nav-right li a { padding: 0.3rem 0.6rem; font-weight: 500; border-radius: 8px; color: var(--primary-color); transition: background 0.3s ease, transform 0.2s ease; }
+.nav-right li a:hover { background-color: var(--primary-color); color: var(--button-text); transform: translateY(-2px); }
+#darkModeToggle { background: var(--button-bg); color: var(--button-text); }
+#colorPicker { -webkit-appearance: none; background: none; }
+#colorPicker::-webkit-color-swatch-wrapper { padding: 0; }
+#colorPicker::-webkit-color-swatch { border: none; border-radius: 50%; }
+
+/* ====================
+   Hero Section
+   ==================== */
+#hero { min-height: 100vh; width: 100%; background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%); color: white; display: flex; justify-content: center; align-items: center; padding: 4rem 2rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+.hero-inner { max-width: 900px; transition: transform 0.3s ease; }
+#hero h1 { font-size: 3.5rem; font-weight: bold; margin-bottom: 1rem; line-height: 1.2; transition: transform 0.3s ease; }
+#hero h1:hover { transform: scale(1.1); }
+#hero p { font-size: 1.5rem; margin: 0.5rem 0; }
+#typewriter { display: inline-block; min-width: 200px; font-family: monospace; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 5px #fff; border-right: 2px solid white; animation: blink-caret 0.75s step-end infinite; }
+@keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: white; } }
+
+/* ====================
+   Generic Sections
+   ==================== */
+section { width: min(90%, var(--content-max-width)); margin: 3rem auto; padding: 2rem; background: var(--section-bg); border-radius: 10px; box-shadow: 0 3px 10px var(--shadow-light); }
+h2 { font-size: 2rem; margin-bottom: 1rem; border-bottom: 3px solid var(--primary-color); padding-bottom: 0.4rem; }
+
+/* ====================
+   Experience
+   ==================== */
+#experience .projects-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+.project-card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 6px var(--shadow-light); transition: transform 0.3s ease; }
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px var(--shadow-light); }
+#experience .project-card p { margin-bottom: 1rem; }
+#experience .project-card ul { padding-left: 2rem; }
+
+/* ====================
+   Projects
+   ==================== */
+#projects .projects-grid { display: flex; gap: 2rem; flex-wrap: wrap; }
+.btn { margin-top: 5px; display: inline-block; background-color: var(--button-bg); color: var(--button-text); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 500; transition: background 0.3s ease, transform 0.2s ease; }
+.btn:hover { background-color: var(--link-color); transform: translateY(-2px); }
+
+/* ====================
+   Skills
+   ==================== */
+.skills-list { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; }
+.skills-list li { position: relative; padding-left: 1.5rem; cursor: default; transition: color 0.3s ease; }
+.skills-list li::before { content: '▹'; position: absolute; left: 0; color: var(--primary-color); }
+.skills-list li:hover { color: var(--primary-color); transform: translateX(4px); }
+
+/* ====================
+   Education
+   ==================== */
+.education-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 6rem; }
+.edu-card { flex: 1 1 300px; max-width: 350px; background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 6px var(--shadow-light); display: flex; flex-direction: column; }
+.edu-card img { max-width: 80%; object-fit: contain; margin: 0 auto 1rem; }
+.edu-card:hover img { transform: scale(1.1); }
+.edu-info { text-align: center; margin-top: auto; }
+
+/* ====================
+   Courses
+   ==================== */
+#courses { max-width: var(--content-max-width); margin: 3rem auto; padding: 2rem; background: var(--section-bg); border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 2px 6px var(--shadow-light); }
+#courses .courses-list { display: flex; flex-direction: column; align-items: center; padding: 0; margin: 0; list-style: none; }
+#courses .courses-list li { width: 100%; padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 6px; transition: color 0.3s ease, transform 0.3s ease; padding-left: 2rem; background: var(--section-bg); position: relative; }
+#courses .courses-list li::before { content: '▹'; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--primary-color); }
+#courses .courses-list li:hover { color: var(--primary-color); transform: translateX(4px); }
+
+
+
+/* ====================
+   Footer
+   ==================== */
+footer .footer-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;  
+}
+
+/* make each column flex:1 and reset the section’s default spacing */
+footer .footer-content > div#contact,
+footer .footer-content > section#contact {
+  flex: 1;
+  margin: 0;      
+  padding: 0;
+}
+
+/* give them the same little bit of padding */
+footer .footer-content > div#contact,
+footer .footer-content > section#contact {
+  padding: 1rem;
+}
+
+/* unify the two headings so they start at the same spot */
+footer .footer-content > div#contact h3,
+footer .footer-content > section#contact h2 {
+  margin: 0 0 1rem;    
+  font-size: 1.8rem;  
+}
+
+footer { background-color: var(--primary-color); color: white; border-top: 1px solid #ccc; padding-top: 1.5rem; }
+.footer-content { max-width: var(--content-max-width); margin: 0 auto; padding: 1rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; }
+.footer-contact-list { list-style: none; padding: 0; margin: 0; }
+.footer-contact-list li { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.6rem; font-size: 1.6em; }
+.footer-contact-list li i { font-size: 1.3rem; }
+footer > p { padding-bottom: 35px; text-align: center; margin: 2rem auto 0; }
+
+/* ====================
+   Chat Window
+   ==================== */
+#chatWindow { width: 100%; height: 200px; border: 1px solid #ccc; padding: 1rem; background: #fff; overflow-y: auto; border-radius: 0; }
+#chatInput { width: 100%; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ccc; }
+.chat-window { max-height: 300px; overflow-y: auto; background: var(--card-bg); color: var(--text-color); padding: 1rem; border-radius: 10px; box-shadow: 0 2px 6px var(--shadow-light); }
+.chat-message { display: flex; justify-content: space-between; align-items: center; background: var(--section-bg); color: var(--text-color); padding: 0.5rem 1rem; margin-bottom: 0.5rem; border-radius: 6px; }
+.chat-message .delete-btn { background: transparent; border: none; cursor: pointer; color: var(--link-color); font-size: 1rem; }
+
+/* ====================
+   Dark & Light Mode Overrides
+   ==================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --nav-bg: #1c1c1c;
+  --section-bg: #1e1e1e;
+  --section-bg-alt: var(--section-bg);
+  --card-bg: #2a2a2a;
+}
+/* Outline all main containers except hero and footer sections */
+body.dark-mode section:not(#hero):not(#contacts):not(#chat),
+body.dark-mode .project-card,
+body.dark-mode .edu-card,
+body.dark-mode #courses,
+body.dark-mode .courses-list li {
+  border: 1px solid var(--text-color);
+}
+/* Remove chat window default border in dark mode */
+body.dark-mode #chatWindow {
+  border: none;
+}
+body.light-mode footer {
+  color: var(--text-color);
+}
+
+/* Chat window container */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 300px;
+  padding: 1rem;
+  background: var(--section-bg);
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px var(--shadow-light);
+}
+
+/* Each message bubble */
+.chat-message {
+  position: relative;
+  max-width: 70%;
+  padding: 0.75rem 1rem;
+  border-radius: 15px;
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.chat-message.sent {
+  align-self: flex-end;
+  background: var(--primary-color);
+  color: var(--button-text);
+}
+
+/* Author name */
+.chat-message .message-author {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* The actual text */
+.chat-message .message-text {
+  word-wrap: break-word;
+}
+
+/* Timestamp in corner */
+.chat-message .timestamp {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 0.75rem;
+  color: gray;
+}
+
+/* Form layout */
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.chat-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#chatInput {
+  flex: 1;
+}
+
+.chat-form button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chat-form button:hover {
+  background: var(--link-color);
+}

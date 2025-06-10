@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elijah Farrell | Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+\</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a class="nav-icon" href="#" aria-label="Home"><i class="fa fa-home"></i></a>
+        <a class="nav-icon" href="mailto:elijah5003@gmail.com" aria-label="Email"><i class="fa fa-envelope"></i></a>
+        <a class="nav-icon" href="https://github.com/efarrell0609" target="_blank" aria-label="GitHub"><i class="fa fa-github"></i></a>
+        <a class="nav-icon" id="resumeLink" href="resume/Elijah Farrell.pdf" download aria-label="Download Resume"><i class="fa fa-download"></i></a>
+        <input type="color" id="colorPicker" title="Pick theme color" aria-label="Pick theme color" value="#007acc" />
+        <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+      </div>
+      <ul class="nav-right">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="hero-inner">
+        <h1>Hi, I'm Elijah Farrell.</h1>
+        <p>Computer Science graduate ready to build and learn in the real world.</p>
+        <p>I love <span id="typewriter"></span></p>
+      </div>
+    </section>
+
+    <!-- About Me -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Computer Science graduate with hands-on experience in technical environments, from setting up systems to troubleshooting software and working on team-based projects. 
+        I enjoy solving problems, learning new tools, and staying involved in the practical side of tech. I'm looking for a role where I can keep growing my skills while 
+        contributing to real-world work that matters. When I'm not coding or working on my technical skills you can catch me hanging out with friends, hiking in the Adirondacks, 
+        playing video games, or eating good ice cream.</p>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Research Assistant</h3>
+          <p>Center for Safe and Secure AI Robotics · High Performance Computing and Distributed Systems Division<br>SUNY Polytechnic Institute | Feb 2025 – May 2025</p>
+          <ul>
+            <li>Developed a real-time, multi-agent conversation application in C++/GTK for structured LLM dialogues over HTTP.</li>
+            <li>Led deployment across 30 NVIDIA Orin Nano lab machines, handling network configurations and support.</li>
+            <li>Designed memory architecture and message-routing pipelines for long-running, context-aware sessions.</li>
+          </ul>
+        </div>
+        <div class="project-card">
+          <h3>Work Study Assistant</h3>
+          <p>The Workplace | Watertown, NY · Aug 2021 – Dec 2021</p>
+          <ul>
+            <li>Provided technical support and troubleshooting for devices and user software.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Portfolio Website</h3>
+          <p>A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming (light/dark mode and color picker), a typewriter effect, and a real-time chat powered by Firebase Firestore. Next up: integrating a local SQLite backend for message storage.</p>
+          <a href="#" class="btn">View Code</a>
+        </div>
+        <div class="project-card">
+          <h3>Valorant Stats Scraper</h3>
+          <p>A Python scraper that collects per-match agent performance data from VLR.gg to support fantasy pick’em tools and analytics.</p>
+          <a href="#" class="btn">View Code</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>Python · C/C++ · Java · SQL · HTML/CSS · JavaScript</li>
+        <li>Windows · Linux · macOS</li>
+        <li>Debugging · API Integration · Git · Documentation</li>
+        <li>Adaptability · Teamwork · Problem-Solving</li>
+      </ul>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="education-logos">
+        <div class="edu-card">
+          <img src="image/suny-poly-logo.jpg" alt="SUNY Poly Logo" />
+          <div class="edu-info">
+            <h3>SUNY Polytechnic Institute</h3>
+            <p>B.S. in Computer Science (May 2025) · GPA: 3.88 · Magna Cum Laude</p>
+          </div>
+        </div>
+        <div class="edu-card">
+          <img src="image/jcc-logo.png" alt="JCC Logo" />
+          <div class="edu-info">
+            <h3>Jefferson Community College</h3>
+            <p>A.S. in Computer Science (2023) · Phi Theta Kappa Honor Society</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Relevant Courses -->
+    <section id="courses">
+      <h2>Relevant Courses</h2>
+      <ul class="courses-list">
+         <li>Intro to Web Page Design</li>
+        <li>Principles of Programming Languages</li>
+        <li>Software Engineering</li>
+        <li>Operating Systems & Networking</li>
+        <li>Computer Organization</li>
+        <li>Systems Analysis & Design</li>
+        <li>Information & Knowledge Management</li>
+        <li>Computer Vision and Image Processing</li>
+        <li>Data Structures & Algorithms</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div id="contact">
+        <h3>Connect with Me</h3>
+        <ul class="footer-contact-list">
+          <li><i class="fa fa-map-marker"></i> Watertown, NY</li>
+          <li><i class="fa fa-phone"></i> <a href="tel:3158040601">(315) 804‑0601</a></li>
+          <li><i class="fa fa-envelope"></i> <a href="mailto:elijah5003@gmail.com">elijah5003@gmail.com</a></li>
+          <li><i class="fa fa-github"></i> <a href="https://github.com/efarrell0609" target="_blank">GitHub</a></li>
+          <li><i class="fa fa-download"></i> <a href="resume/Elijah Farrell.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+       <!-- Contact -->
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Have questions or want to connect? Post a comment below:</p>
+        <div id="chatWindow" class="chat-window"></div>
+        <form id="chat-form" class="chat-form">
+          <input type="text" id="chatInput" placeholder="Type your message..." required />
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </section>
+    </div>
+    <p>&copy; 2025 Elijah Farrell. All rights reserved.</p>
+  </footer>
+  
+   <!-- Firestore SDK + your Firebase config -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script>
+    // ← replace these values with YOUR Firebase console values
+    firebase.initializeApp({
+      apiKey: "AIzaSyC4NVfs7CcrPGpCw65g8NasE_qFu8KUse0",
+      authDomain: "portfolio-a4434.firebaseapp.com",
+      projectId: "portfolio-a4434",
+      storageBucket: "portfolio-a4434.firebasestorage.app",
+      messagingSenderId: "907871113255",
+      appId: "1:907871113255:web:d5af0f5998348f5f7dbe02",
+      measurementId: "G-6W3RQEM5ZZ"
+    });
+    const db = firebase.firestore();
+  </script>
+
+  <script defer src="script.js"></script>
+
+</body>
+</html>

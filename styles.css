@@ -53,7 +53,7 @@ a { text-decoration: none; color: inherit; }
 .nav-right li a { padding: 0.3rem 0.6rem; font-weight: 500; border-radius: 8px; color: var(--primary-color); transition: background 0.3s ease, transform 0.2s ease; }
 .nav-right li a:hover { background-color: var(--primary-color); color: var(--button-text); transform: translateY(-2px); }
 #darkModeToggle { background: var(--button-bg); color: var(--button-text); }
-#colorPicker { -webkit-appearance: none; background: none; }
+#colorPicker { background: none; }
 #colorPicker::-webkit-color-swatch-wrapper { padding: 0; }
 #colorPicker::-webkit-color-swatch { border: none; border-radius: 50%; }
 
@@ -524,5 +524,40 @@ footer .footer-content {
 @media (max-width: 768px) {
   footer .footer-content {
     padding: 1rem;    /* add horizontal padding so it never hugs the edge */
+  }
+}
+
+|
+/* ────── NAV COLLAPSE EARLIER + SCROLLABLE ────── */
+@media (max-width: 992px) {
+  /* show hamburger earlier */
+  #menuToggle {
+    display: inline-flex;
+  }
+
+  /* hide the inline nav links */
+  .nav-right {
+    display: none;
+  }
+
+  /* style & scroll the dropdown when open */
+  .navbar.open .nav-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    /* same positioning as before */
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    background: var(--nav-bg);
+
+    /* cap & scroll */
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }

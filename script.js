@@ -28,11 +28,20 @@ function typeCycle() {
   const current = full.slice(0, charIndex);
   twEl.textContent = current;
   if (!isDeleting) {
-    if (charIndex < full.length) charIndex++;
-    else { isDeleting = true; setTimeout(typeCycle, pauseDuration); return; }
+    if (charIndex < full.length) {
+      charIndex++;
+    } else {
+      isDeleting = true;
+      setTimeout(typeCycle, pauseDuration);
+      return;
+    }
   } else {
-    if (charIndex > 0) charIndex--;
-    else { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; }
+    if (charIndex > 0) {
+      charIndex--;
+    } else {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+    }
   }
   setTimeout(typeCycle, isDeleting ? deletingSpeed : typingSpeed);
 }
@@ -76,6 +85,12 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   applyColor(picker.value);
   picker.addEventListener('input', e => applyColor(e.target.value));
+
+  // Mobile menu toggle (hamburger)
+  const menuToggle = document.getElementById('menuToggle');
+  menuToggle.addEventListener('click', () => {
+    document.querySelector('.navbar').classList.toggle('open');
+  });
 
   // –– Elements & Firebase setup ––
   const chatWindow    = document.getElementById('chatWindow');
@@ -128,7 +143,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // populate modal
     modalCommentInput.value = txt;
-
     previewModal.style.display = 'flex';
   });
 
@@ -139,7 +153,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // –– Confirm & post ––
   confirmBtn.addEventListener('click', () => {
-
     const textVal = modalCommentInput.value.trim();
     const nameVal = modalNameInput.value.trim();
     const emailVal = modalEmailInput.value.trim();

@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Elijah Farrell's Portfolio</title>
+  <link rel="icon" type="image/png" href="image/favicon_neutral.png">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-\</head>
+</head>
 <body>
   <!-- Header / Navigation -->
   <header>
@@ -18,6 +19,9 @@
         <a class="nav-icon" id="resumeLink" href="resume/Elijah-Farrell.pdf" download aria-label="Download Resume"><i class="fa fa-download"></i></a>
         <input type="color" id="colorPicker" title="Pick theme color" aria-label="Pick theme color" value="#007acc" />
         <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+        <button id="menuToggle" class="nav-icon" aria-label="Toggle menu">
+          <i class="fa fa-bars"></i>
+        </button>
       </div>
       <ul class="nav-right">
         <li><a href="#about">About</a></li>
@@ -35,7 +39,7 @@
     <!-- Hero Section -->
     <section id="hero">
       <div class="hero-inner">
-        <h1>Hi, I'm Elijah Farrell.</h1>
+        <h1>Hi, I’m <span class="nobreak">Elijah Farrell</span></h1>
         <p>Computer Science graduate ready to build and learn in the real world.</p>
         <p>I like to <span id="typewriter"></span></p>
       </div>
@@ -161,7 +165,6 @@
        <!-- Contact -->
       <section id="contact">
         <h2>Comments</h2>
-        <p>Have questions or want to connect? Leave a comment below:</p>
 
         <!-- Chat Window -->
         <div id="chatWindow"></div>

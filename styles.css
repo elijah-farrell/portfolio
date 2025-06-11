@@ -390,3 +390,139 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
   color: var(--text-color);
   border: 1px solid var(--text-color);
 }
+
+
+/* Clean chat message responsiveness */
+.chat-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Responsive footer layout */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .nav-left, .nav-right {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    margin-left: 0;
+    gap: 0.5rem;
+  }
+
+  .nav-icon, .nav-right li a {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  #chatInput {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .chat-message {
+    max-width: 100%;
+  }
+}
+
+
+/* ── Mobile Menu Toggle & Dropdown ── */
+#menuToggle {
+  display: none;            /* hidden by default */
+  cursor: pointer;
+}
+
+/* show hamburger only on small screens */
+@media (max-width: 768px) {
+  #menuToggle {
+    display: inline-flex;
+  }
+
+  /* hide the nav list by default */
+  .nav-right {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--nav-bg);
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    z-index: 999;
+  }
+
+  /* when .open is on .navbar, show it */
+  .navbar.open .nav-right {
+    display: flex;
+  }
+
+  /* prevent the old stacking rules from kicking in */
+  .nav-left,
+  .nav-right {
+    flex-direction: row !important;
+    width: auto !important;
+    align-items: center !important;
+  }
+}
+/* ─── Make mobile dropdown scrollable ─── */
+@media (max-width: 768px) {
+  .navbar.open .nav-right {
+    max-height: calc(100vh - var(--nav-height));  /* fill the rest of the screen */
+    overflow-y: auto;                             /* allow scrolling */
+  }
+}
+
+/* ─── Prevent mid-word cuts in your hero title ─── */
+#hero h1 {
+  white-space: normal;         /* allow wrap at spaces */
+  overflow-wrap: break-word;   /* wrap long words if needed */
+}
+
+/* optional: if you wrap just your name in a span.nobreak, force it to stay together */
+.hero-inner h1 .nobreak {
+  white-space: nowrap;
+}
+
+/* ─── Center & constrain footer on all viewports ─── */
+footer .footer-content {
+  width: min(90%, var(--content-max-width));
+  margin: 0 auto;
+  padding: 1rem 0;  /* vertical padding only, since horizontal is handled by the width */
+}
+
+/* ─── Tweak on mobile if you need extra side‐padding ─── */
+@media (max-width: 768px) {
+  footer .footer-content {
+    padding: 1rem;    /* add horizontal padding so it never hugs the edge */
+  }
+}

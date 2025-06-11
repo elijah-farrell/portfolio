@@ -456,12 +456,12 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
 
 /* ── Mobile Menu Toggle & Dropdown ── */
 #menuToggle {
-  display: none;            /* hidden by default */
+  display: none;
   cursor: pointer;
 }
 
 /* show hamburger only on small screens */
-@media (max-width: 768px) {
+@media (max-width: 985px) {
   #menuToggle {
     display: inline-flex;
   }
@@ -481,12 +481,10 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
     z-index: 999;
   }
 
-  /* when .open is on .navbar, show it */
   .navbar.open .nav-right {
     display: flex;
   }
 
-  /* prevent the old stacking rules from kicking in */
   .nav-left,
   .nav-right {
     flex-direction: row !important;
@@ -497,18 +495,17 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
 /* ─── Make mobile dropdown scrollable ─── */
 @media (max-width: 768px) {
   .navbar.open .nav-right {
-    max-height: calc(100vh - var(--nav-height));  /* fill the rest of the screen */
-    overflow-y: auto;                             /* allow scrolling */
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
   }
 }
 
 /* ─── Prevent mid-word cuts in your hero title ─── */
 #hero h1 {
-  white-space: normal;         /* allow wrap at spaces */
-  overflow-wrap: break-word;   /* wrap long words if needed */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
-/* optional: if you wrap just your name in a span.nobreak, force it to stay together */
 .hero-inner h1 .nobreak {
   white-space: nowrap;
 }
@@ -517,19 +514,18 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
 footer .footer-content {
   width: min(90%, var(--content-max-width));
   margin: 0 auto;
-  padding: 1rem 0;  /* vertical padding only, since horizontal is handled by the width */
+  padding: 1rem 0; 
 }
 
 /* ─── Tweak on mobile if you need extra side‐padding ─── */
 @media (max-width: 768px) {
   footer .footer-content {
-    padding: 1rem;    /* add horizontal padding so it never hugs the edge */
-  }
+    padding: 1rem;    
 }
 
 |
 /* ────── NAV COLLAPSE EARLIER + SCROLLABLE ────── */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   /* show hamburger earlier */
   #menuToggle {
     display: inline-flex;

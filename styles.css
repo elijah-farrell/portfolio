@@ -36,43 +36,101 @@ body {
   line-height: 1.6;
 }
 main { margin-top: var(--nav-height); }
-
-main { margin-top: 0; }
-
 a { text-decoration: none; color: inherit; }
 
 /* ====================
    Navbar
    ==================== */
-.navbar { position: fixed; top: 0; width: 100%; height: var(--nav-height); padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; background-color: var(--nav-bg); box-shadow: 0 2px 8px var(--shadow-light); z-index: 1000; }
+.navbar {
+  position: fixed;
+  top: 0; width: 100%; height: var(--nav-height);
+  padding: 0 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background-color: var(--nav-bg);
+  box-shadow: 0 2px 8px var(--shadow-light);
+  z-index: 1000;
+}
 .nav-left, .nav-right { display: flex; align-items: center; gap: 1rem; }
 .nav-right { margin-left: auto; list-style: none; }
-.nav-left > .nav-icon, .nav-left > #colorPicker, .nav-left > #darkModeToggle { width: 2.5rem; height: 2.5rem; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; background: transparent; color: var(--nav-text-color); font-size: 1.2rem; border: none; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; }
+.nav-left > .nav-icon,
+.nav-left > #colorPicker,
+.nav-left > #darkModeToggle {
+  width: 2.5rem; height: 2.5rem;
+  display: inline-flex; justify-content: center; align-items: center;
+  border-radius: 50%; background: transparent; color: var(--nav-text-color);
+  font-size: 1.2rem; border: none; cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
 .nav-icon i { font-size: 1.2rem; }
-.nav-left > .nav-icon:hover, .nav-left > #colorPicker:hover, .nav-left > #darkModeToggle:hover { background-color: var(--button-bg); color: var(--button-text); transform: scale(1.1); }
-.nav-right li a { padding: 0.3rem 0.6rem; font-weight: 500; border-radius: 8px; color: var(--primary-color); transition: background 0.3s ease, transform 0.2s ease; }
-.nav-right li a:hover { background-color: var(--primary-color); color: var(--button-text); transform: translateY(-2px); }
+.nav-left > .nav-icon:hover,
+.nav-left > #colorPicker:hover,
+.nav-left > #darkModeToggle:hover {
+  background-color: var(--button-bg); color: var(--button-text); transform: scale(1.1);
+}
+.nav-right li a {
+  padding: 0.3rem 0.6rem; font-weight: 500; border-radius: 8px;
+  color: var(--primary-color);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.nav-right li a:hover {
+  background-color: var(--primary-color); color: var(--button-text); transform: translateY(-2px);
+}
 #darkModeToggle { background: var(--button-bg); color: var(--button-text); }
 #colorPicker { background: none; }
 #colorPicker::-webkit-color-swatch-wrapper { padding: 0; }
 #colorPicker::-webkit-color-swatch { border: none; border-radius: 50%; }
 
+/* Hamburger Menu - Hidden by Default */
+#menuToggle {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--nav-text-color);
+}
+
+/* ====================
+   Main Section
+   ==================== */
+section {
+  width: min(90%, var(--content-max-width));
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--section-bg);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px var(--shadow-light);
+}
+h2 {
+  font-size: 2rem; margin-bottom: 1rem;
+  border-bottom: 3px solid var(--primary-color); padding-bottom: 0.4rem;
+}
+
 /* ====================
    Hero Section
    ==================== */
-#hero { min-height: 100vh; width: 100%; background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%); color: white; display: flex; justify-content: center; align-items: center; padding: 4rem 2rem; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+#hero {
+  min-height: 100vh; width: 100%;
+  background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+  color: white;
+  display: flex; justify-content: center; align-items: center;
+  padding: 4rem 2rem; text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
 .hero-inner { max-width: 900px; transition: transform 0.3s ease; }
-#hero h1 { font-size: 3.5rem; font-weight: bold; margin-bottom: 1rem; line-height: 1.2; transition: transform 0.3s ease; }
+#hero h1 {
+  font-size: 3.5rem; font-weight: bold; margin-bottom: 1rem; line-height: 1.2;
+  transition: transform 0.3s ease; white-space: normal; overflow-wrap: break-word;
+}
 #hero h1:hover { transform: scale(1.1); }
+.hero-inner h1 .nobreak { white-space: nowrap; }
 #hero p { font-size: 1.5rem; margin: 0.5rem 0; }
-#typewriter { display: inline-block; min-width: 200px; font-family: monospace; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 5px #fff; border-right: 2px solid white; animation: blink-caret 0.75s step-end infinite; }
+#typewriter {
+  display: inline-block; min-width: 200px; font-family: monospace;
+  font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 5px #fff;
+  border-right: 2px solid white; animation: blink-caret 0.75s step-end infinite;
+}
 @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: white; } }
-
-/* ====================
-   Generic Sections
-   ==================== */
-section { width: min(90%, var(--content-max-width)); margin: 3rem auto; padding: 2rem; background: var(--section-bg); border-radius: 10px; box-shadow: 0 3px 10px var(--shadow-light); }
-h2 { font-size: 2rem; margin-bottom: 1rem; border-bottom: 3px solid var(--primary-color); padding-bottom: 0.4rem; }
 
 /* ====================
    Experience
@@ -116,162 +174,59 @@ h2 { font-size: 2rem; margin-bottom: 1rem; border-bottom: 3px solid var(--primar
 #courses .courses-list li::before { content: '▹'; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--primary-color); }
 #courses .courses-list li:hover { color: var(--primary-color); transform: translateX(4px); }
 
-
-
 /* ====================
    Footer
    ==================== */
+footer { background-color: var(--primary-color); color: white; border-top: 1px solid #ccc; padding-top: 1.5rem; }
 footer .footer-content {
+  width: min(90%, var(--content-max-width));
+  margin: 0 auto;
+  padding: 1rem 0;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   gap: 2rem;
-  align-items: flex-start;  
+  align-items: flex-start;
 }
-
-/* make each column flex:1 and reset the section’s default spacing */
 footer .footer-content > div#contact,
 footer .footer-content > section#contact {
   flex: 1;
-  margin: 0;      
-  padding: 0;
-}
-
-/* give them the same little bit of padding */
-footer .footer-content > div#contact,
-footer .footer-content > section#contact {
+  margin: 0;
   padding: 1rem;
 }
-
-/* unify the two headings so they start at the same spot */
 footer .footer-content > div#contact h3,
 footer .footer-content > section#contact h2 {
-  margin: 0 0 1rem;    
-  font-size: 1.8rem;  
+  margin: 0 0 1rem;
+  font-size: 1.8rem;
 }
-
-footer { background-color: var(--primary-color); color: white; border-top: 1px solid #ccc; padding-top: 1.5rem; }
-.footer-content { max-width: var(--content-max-width); margin: 0 auto; padding: 1rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; }
 .footer-contact-list { list-style: none; padding: 0; margin: 0; }
 .footer-contact-list li { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 1.6em; }
 .footer-contact-list li i { font-size: 1.3rem; }
 footer > p { padding-bottom: 35px; text-align: center; margin: 2rem auto 0; }
 
-/* ====================
-   Chat Window
-   ==================== */
-#chatWindow { width: 100%; height: 200px; border: 1px solid #ccc; padding: 1rem; background: #fff; overflow-y: auto; border-radius: 0; }
-#chatInput { width: 100%; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ccc; }
-.chat-window { max-height: 300px; overflow-y: auto; background: var(--card-bg); color: var(--text-color); padding: 1rem; border-radius: 10px; box-shadow: 0 2px 6px var(--shadow-light); }
-.chat-message { display: flex; justify-content: space-between; align-items: center; background: var(--section-bg); color: var(--text-color); padding: 0.5rem 1rem; margin-bottom: 0.5rem; border-radius: 6px; }
-.chat-message .delete-btn { background: transparent; border: none; cursor: pointer; color: var(--link-color); font-size: 1rem; }
-
-/* ====================
-   Dark & Light Mode Overrides
-   ==================== */
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --nav-bg: #1c1c1c;
-  --section-bg: #1e1e1e;
-  --section-bg-alt: var(--section-bg);
-  --card-bg: #2a2a2a;
+/* --- Responsive: Comments go below contact at 700px --- */
+footer .footer-content {
+  flex-direction: row;
 }
-/* Outline all main containers except hero and footer sections */
-body.dark-mode section:not(#hero):not(#contacts):not(#chat),
-body.dark-mode .project-card,
-body.dark-mode .edu-card,
-body.dark-mode #courses,
-body.dark-mode .courses-list li {
-  border: 1px solid var(--text-color);
-}
-/* Remove chat window default border in dark mode */
-body.dark-mode #chatWindow {
-  border: none;
-}
-body.light-mode footer {
-  color: var(--text-color);
-}
-
-/* Chat window container */
-.chat-window {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-height: 300px;
-  padding: 1rem;
-  background: var(--section-bg);
-  border-radius: 10px;
-  overflow-y: auto;
-  box-shadow: 0 2px 6px var(--shadow-light);
-}
-
-/* Each message bubble */
-.chat-message {
-  position: relative;
-  max-width: 70%;
-  padding: 0.75rem 1rem;
-  border-radius: 15px;
-  background: var(--card-bg);
-  color: var(--text-color);
-}
-
-.chat-message.sent {
-  align-self: flex-end;
-  background: var(--primary-color);
-  color: var(--button-text);
-}
-
-/* Author name */
-.chat-message .message-author {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-/* The actual text */
-.chat-message .message-text {
-  word-wrap: break-word;
-}
-
-/* Timestamp in corner */
-.chat-message .timestamp {
-  position: absolute;
-  bottom: 4px;
-  right: 8px;
-  font-size: 0.75rem;
-  color: gray;
-}
-
-/* Form layout */
-.chat-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.chat-input-group {
-  display: flex;
-  gap: 0.5rem;
-}
-
-#chatInput {
+footer .footer-content > .comments-section {
   flex: 1;
 }
-
-.chat-form button {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+@media (max-width: 700px) {
+  footer .footer-content {
+    flex-direction: column;
+  }
+  footer .footer-content > div#contact,
+  footer .footer-content > section#contact,
+  footer .footer-content > .comments-section {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
-.chat-form button:hover {
-  background: var(--link-color);
-}
-/* ── Chat Window ── */
-#chatWindow {
+/* ====================
+   Chat Window & Modal
+   ==================== */
+#chatWindow, .chat-window {
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
@@ -279,64 +234,144 @@ body.light-mode footer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px var(--shadow-light);
 }
+#chatInput { width: 100%; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ccc; }
+.chat-form { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+.chat-input-group { display: flex; gap: 0.5rem; }
+#chatInput { flex: 1; }
+.chat-form button { background: var(--button-bg); color: var(--button-text); border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+.chat-form button:hover { background: var(--link-color); }
 
-/* ── Message Bubbles ── */
+/* --- Chat Message Responsive Improvements --- */
 .chat-message {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem auto;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  word-wrap: break-word;
+  word-break: break-word;
+  flex-direction: row;
+  box-sizing: border-box;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.chat-message.sent {
+  align-self: flex-end;
+  background: var(--primary-color);
+  color: var(--button-text);
 }
 .chat-message .avatar {
-  flex: 0 0 40px;
-  width: 40px; height: 40px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
   background: var(--primary-color);
   color: var(--button-text);
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.1rem;
+  margin-bottom: 0;
 }
 .chat-message .message-body {
   background: var(--card-bg);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   position: relative;
-  width: calc(100% - 50px);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.chat-message.sent .message-body {
+  background: var(--primary-color);
+  color: var(--button-text);
 }
 .chat-message .message-author {
   font-weight: bold;
   margin-bottom: 0.25rem;
   color: var(--primary-color);
+  font-size: 1rem;
+}
+.chat-message.sent .message-author {
+  color: var(--button-text);
 }
 .chat-message .message-text {
   margin: 0 0 0.5rem;
   line-height: 1.5;
+  word-break: break-word;
+  font-size: 1rem;
 }
 .chat-message .timestamp {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: gray;
-  position: absolute;
-  bottom: 6px; right: 10px;
+  position: static;
+  text-align: right;
+  margin-top: 0.25rem;
+}
+.chat-message .delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--link-color);
+  font-size: 1rem;
+  margin-left: 8px;
+  align-self: flex-end;
 }
 
-/* ── Form ── */
-.chat-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 0.5rem;
-  align-items: start;
+/* --- Collapse chat message at 620px --- */
+@media (max-width: 620px) {
+  .chat-message {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 100vw;
+    padding: 0.75rem 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .chat-message .avatar {
+    margin-bottom: 0.5rem;
+    align-self: flex-start;
+  }
+  .chat-message .message-body {
+    padding: 0.75rem 0.7rem;
+    border-radius: 12px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
 }
-.chat-form input,
-.chat-form textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font: inherit;
-}
-.chat-form textarea { grid-column: 1 / -1; resize: vertical; min-height: 80px; }
-.chat-form .btn { grid-column: 3; align-self: end; }
 
-/* ── Modal ── */
+@media (max-width: 430px) {
+  .chat-message {
+    padding: 0.5rem 0.2rem;
+  }
+  .chat-message .message-body {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.97rem;
+  }
+  .chat-message .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ====================
+   Modal
+   ==================== */
 .modal {
   display: none;
   position: fixed; top:0; left:0; right:0; bottom:0;
@@ -352,121 +387,42 @@ body.light-mode footer {
   display: flex; flex-direction: column; gap: 0.75rem;
 }
 .modal-content h3 { margin: 0; }
-.modal-content label {
-  display: flex; flex-direction: column; font-size: 0.9rem;
-}
-.modal-content input,
-.modal-content textarea {
-  margin-top: 0.25rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font: inherit;
-}
-.modal-actions {
-  margin-top: 1rem;
-  display: flex; justify-content: flex-end; gap: 0.5rem;
-}
-.btn-secondary {
-  background: #aaa; color: #fff;
-}
+.modal-content label { display: flex; flex-direction: column; font-size: 0.9rem; }
+.modal-content input, .modal-content textarea { margin-top: 0.25rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 6px; font: inherit; }
+.modal-actions { margin-top: 1rem; display: flex; justify-content: flex-end; gap: 0.5rem; }
+.btn-secondary { background: #aaa; color: #fff; }
+.modal-note { font-size: 0.9rem; color: gray; margin-bottom: 0.75rem; }
 
-/* ── Dark Mode Tweaks ── */
-body.dark-mode #chatWindow { background: var(--section-bg); }
-body.dark-mode .chat-message .message-body {
-  background: var(--section-bg);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+/* ====================
+   Dark & Light Mode Overrides
+   ==================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --nav-bg: #1c1c1c;
+  --section-bg: #1e1e1e;
+  --section-bg-alt: var(--section-bg);
+  --card-bg: #2a2a2a;
 }
-
-.modal-note {
-  font-size: 0.9rem;
-  color: gray;
-  margin-bottom: 0.75rem;
-}
-
-
-body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
-  background: #2a2a2a;
-  color: var(--text-color);
+body.dark-mode section:not(#hero):not(#contacts):not(#chat),
+body.dark-mode .project-card,
+body.dark-mode .edu-card,
+body.dark-mode #courses,
+body.dark-mode .courses-list li {
   border: 1px solid var(--text-color);
 }
+body.dark-mode #chatWindow { border: none; background: var(--section-bg); }
+body.dark-mode .chat-message .message-body { background: var(--section-bg); box-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+body.dark-mode #chatInput, body.dark-mode .chat-form textarea { background: #2a2a2a; color: var(--text-color); border: 1px solid var(--text-color); }
+body.light-mode footer { color: var(--text-color); }
 
-
-/* Clean chat message responsiveness */
-.chat-message {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  background: var(--card-bg);
-  color: var(--text-color);
-  word-wrap: break-word;
-  word-break: break-word;
-}
-
-/* Responsive footer layout */
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-  }
-
-  .navbar {
-    flex-wrap: wrap;
-    padding: 1rem;
-  }
-
-  .nav-left, .nav-right {
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-start;
-  }
-
-  .nav-right {
-    margin-left: 0;
-    gap: 0.5rem;
-  }
-
-  .nav-icon, .nav-right li a {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  #chatInput {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .chat-message {
-    max-width: 100%;
-  }
-}
-
-
-/* ── Mobile Menu Toggle & Dropdown ── */
-#menuToggle {
-  display: none;
-  cursor: pointer;
-}
-
-/* show hamburger only on small screens */
-@media (max-width: 985px) {
+/* ====================
+   Navbar/Dropdown Responsive
+   ==================== */
+@media (max-width: 1020px) {
   #menuToggle {
     display: inline-flex;
   }
-
-  /* hide the nav list by default */
   .nav-right {
     display: none;
     flex-direction: column;
@@ -475,85 +431,24 @@ body.dark-mode #chatInput, body.dark-mode .chat-form textarea {
     position: absolute;
     top: var(--nav-height);
     left: 0;
-    width: 100%;
+    width: 100vw; /* FULL width of viewport */
+    min-width: 100vw;
+    max-width: 100vw;
     padding: 1rem 2rem;
     box-shadow: 0 2px 8px var(--shadow-light);
     z-index: 999;
-  }
-
-  .navbar.open .nav-right {
-    display: flex;
-  }
-
-  .nav-left,
-  .nav-right {
-    flex-direction: row !important;
-    width: auto !important;
-    align-items: center !important;
-  }
-}
-/* ─── Make mobile dropdown scrollable ─── */
-@media (max-width: 768px) {
-  .navbar.open .nav-right {
+    border-radius: 0;
     max-height: calc(100vh - var(--nav-height));
     overflow-y: auto;
   }
+  .navbar.open .nav-right { display: flex; }
+  .nav-left, .nav-right { flex-direction: row !important; width: auto !important; align-items: center !important; }
 }
 
-/* ─── Prevent mid-word cuts in your hero title ─── */
-#hero h1 {
-  white-space: normal;
-  overflow-wrap: break-word;
-}
-
-.hero-inner h1 .nobreak {
-  white-space: nowrap;
-}
-
-/* ─── Center & constrain footer on all viewports ─── */
-footer .footer-content {
-  width: min(90%, var(--content-max-width));
-  margin: 0 auto;
-  padding: 1rem 0; 
-}
-
-/* ─── Tweak on mobile if you need extra side‐padding ─── */
 @media (max-width: 768px) {
-  footer .footer-content {
-    padding: 1rem;    
-}
-
-|
-/* ────── NAV COLLAPSE EARLIER + SCROLLABLE ────── */
-@media (max-width: 1200px) {
-  /* show hamburger earlier */
-  #menuToggle {
-    display: inline-flex;
-  }
-
-  /* hide the inline nav links */
-  .nav-right {
-    display: none;
-  }
-
-  /* style & scroll the dropdown when open */
-  .navbar.open .nav-right {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    /* same positioning as before */
-    position: absolute;
-    top: var(--nav-height);
-    left: 0;
-    width: 100%;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 8px var(--shadow-light);
-    background: var(--nav-bg);
-
-    /* cap & scroll */
-    max-height: calc(100vh - var(--nav-height));
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  .navbar { flex-wrap: wrap; padding: 1rem; }
+  .nav-left, .nav-right { flex-direction: column; width: 100%; align-items: flex-start; }
+  .nav-right { margin-left: 0; gap: 0.5rem; }
+  .nav-icon, .nav-right li a { width: 100%; justify-content: flex-start; }
+  #chatInput { width: 100%; font-size: 1rem; }
 }

@@ -17,7 +17,7 @@ This repository contains the source code for my personal portfolio website, show
 
 ## View Live
 
-The site is available live via GitHub Pages: [Visit Portfolio](https://efarrell0609.github.io/portfolio/)
+The site is available live via GitHub Pages: [Visit Portfolio](https://elijah-farrell.github.io/portfolio/)
 
 ## Setup and Usage
 

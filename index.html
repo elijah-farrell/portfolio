@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elijah Farrell | Portfolio</title>
+  <title>Elijah Farrell's Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 \</head>
@@ -15,7 +15,7 @@
         <a class="nav-icon" href="#" aria-label="Home"><i class="fa fa-home"></i></a>
         <a class="nav-icon" href="mailto:elijah5003@gmail.com" aria-label="Email"><i class="fa fa-envelope"></i></a>
         <a class="nav-icon" href="https://github.com/efarrell0609" target="_blank" aria-label="GitHub"><i class="fa fa-github"></i></a>
-        <a class="nav-icon" id="resumeLink" href="resume/Elijah Farrell.pdf" download aria-label="Download Resume"><i class="fa fa-download"></i></a>
+        <a class="nav-icon" id="resumeLink" href="resume/Elijah-Farrell.pdf" download aria-label="Download Resume"><i class="fa fa-download"></i></a>
         <input type="color" id="colorPicker" title="Pick theme color" aria-label="Pick theme color" value="#007acc" />
         <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
       </div>
@@ -79,8 +79,12 @@
       <div class="projects-grid">
         <div class="project-card">
           <h3>Portfolio Website</h3>
-          <p>A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming (light/dark mode and color picker), a typewriter effect, and a real-time chat powered by Firebase Firestore. Next up: integrating a local SQLite backend for message storage.</p>
-          <a href="#" class="btn">View Code</a>
+          <p>
+              A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming
+              (light/dark mode and custom color picker), a typewriter effect, and a live comment
+              section powered by a NoSQL cloud database (Firestore). 
+            </p>          
+            <a href="https://github.com/efarrell0609/portfolio" class="btn">View Code</a>
         </div>
         <div class="project-card">
           <h3>Valorant Stats Scraper</h3>
@@ -94,10 +98,10 @@
     <section id="skills">
       <h2>Skills</h2>
       <ul class="skills-list">
-        <li>Python · C/C++ · Java · SQL · HTML/CSS · JavaScript</li>
-        <li>Windows · Linux · macOS</li>
-        <li>Debugging · API Integration · Git · Documentation</li>
-        <li>Adaptability · Teamwork · Problem-Solving</li>
+         <li>Languages: Python, C/C++, Java, SQL, HTML, CSS, JavaScript</li>
+        <li>Platforms: Windows, Linux, UNIX, Mac OS</li>
+        <li>Strengths: Technical support, Debugging, Scripting, Documentation, Git, APIs, LLMs</li>
+        <li>Soft Skills: Fast Learner, Teamwork, Problem-Solver, Adaptability, GRIT</li>
       </ul>
     </section>
 
@@ -144,36 +148,64 @@
   <footer>
     <div class="footer-content">
       <div id="contact">
-        <h3>Connect with Me</h3>
+        <h3>Contact</h3>
         <ul class="footer-contact-list">
           <li><i class="fa fa-map-marker"></i> Watertown, NY</li>
           <li><i class="fa fa-phone"></i> <a href="tel:3158040601">(315) 804‑0601</a></li>
           <li><i class="fa fa-envelope"></i> <a href="mailto:elijah5003@gmail.com">elijah5003@gmail.com</a></li>
           <li><i class="fa fa-github"></i> <a href="https://github.com/efarrell0609" target="_blank">GitHub</a></li>
-          <li><i class="fa fa-download"></i> <a href="resume/Elijah Farrell.pdf" download>Resume</a></li>
+          <li><i class="fa fa-download"></i> <a href="resume/Elijah-Farrell.pdf" download>Resume</a></li>
         </ul>
       </div>
+      
        <!-- Contact -->
       <section id="contact">
-        <h2>Contact</h2>
-        <p>Have questions or want to connect? Post a comment below:</p>
-        <div id="chatWindow" class="chat-window"></div>
+        <h2>Comments</h2>
+        <p>Have questions or want to connect? Leave a comment below:</p>
+
+        <!-- Chat Window -->
+        <div id="chatWindow"></div>
+
+        <!-- Comment Form -->
         <form id="chat-form" class="chat-form">
-          <input type="text"    id="chatName"  placeholder="Your name (optional)" />
-          <input type="email"   id="chatEmail" placeholder="Your email (optional)" />
-          <input type="text"    id="chatInput" placeholder="Your comment…" required />
+          <textarea            id="chatInput" placeholder="Your comment…" required></textarea>
           <button type="submit" class="btn">Send</button>
         </form>
       </section>
+        
+      <!-- Preview/Edit Modal -->
+        <div id="previewModal" class="modal">
+          <div class="modal-content">
+            <h3>Preview & Edit Your Comment</h3>
+            <p class="modal-note">
+              Your name will appear publicly with your comment. Leave the name field blank to post as “Anonymous.”
+            </p>
+            <label>
+              Name (optional):
+              <input type="text" id="modalNameInput" placeholder="e.g. Jane Doe">
+            </label>
+            <label>
+              Email (optional):
+              <input type="email" id="modalEmailInput" placeholder="e.g. jane@example.com">
+            </label>
+            <label>
+              Comment:
+              <textarea id="modalCommentInput"></textarea>
+            </label>
+            <div class="modal-actions">
+              <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+              <button id="confirmBtn" class="btn">Confirm &amp; Post</button>
+            </div>
+          </div>
+        </div>
     </div>
     <p>&copy; 2025 Elijah Farrell. All rights reserved.</p>
   </footer>
   
-   <!-- Firestore SDK + your Firebase config -->
+   <!-- Firestore SDK + Firebase config -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
   <script>
-    // ← replace these values with YOUR Firebase console values
     firebase.initializeApp({
       apiKey: "AIzaSyC4NVfs7CcrPGpCw65g8NasE_qFu8KUse0",
       authDomain: "portfolio-a4434.firebaseapp.com",
@@ -185,8 +217,6 @@
     });
     const db = firebase.firestore();
   </script>
-
   <script defer src="script.js"></script>
-
 </body>
 </html>

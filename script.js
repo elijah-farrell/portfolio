@@ -1,5 +1,3 @@
-// script.js
-
 const phrases = [
   "learn new things.",
   "code cool stuff.",
@@ -79,50 +77,90 @@ window.addEventListener('DOMContentLoaded', () => {
   applyColor(picker.value);
   picker.addEventListener('input', e => applyColor(e.target.value));
 
-  // ===== Firestore Chat =====
-  const chatWindow = document.getElementById('chatWindow');
-  const chatForm   = document.getElementById('chat-form');
-  const chatName   = document.getElementById('chatName');
-  const chatEmail  = document.getElementById('chatEmail');
-  const chatInput  = document.getElementById('chatInput');
+  // –– Elements & Firebase setup ––
+  const chatWindow    = document.getElementById('chatWindow');
+  const chatForm      = document.getElementById('chat-form');
+  const chatName      = document.getElementById('chatName');
+  const chatEmail     = document.getElementById('chatEmail');
+  const chatInput     = document.getElementById('chatInput');
 
+  const previewModal     = document.getElementById('previewModal');
+  const modalNameInput   = document.getElementById('modalNameInput');
+  const modalEmailInput  = document.getElementById('modalEmailInput');
+  const modalCommentInput= document.getElementById('modalCommentInput');
+  const cancelBtn        = document.getElementById('cancelBtn');
+  const confirmBtn       = document.getElementById('confirmBtn');
+
+  // –– Render one comment ––
   function appendComment({ name, content, createdAt }) {
     const author = name || 'Anonymous';
-    const ts = createdAt.toDate().toLocaleString('en-US', {
-      month: 'short', day: 'numeric', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
+    const ts     = createdAt.toDate().toLocaleString('en-US', {
+      month:'short', day:'numeric', year:'numeric',
+      hour:'2-digit', minute:'2-digit'
     });
+
     const msg = document.createElement('div');
-    msg.className = 'chat-message sent';
+    msg.className = 'chat-message';
     msg.innerHTML = `
-      <div class="message-author">${author}</div>
-      <div class="message-text">${content}</div>
-      <div class="timestamp">${ts}</div>
+      <div class="avatar"><i class="fa fa-user"></i></div>
+      <div class="message-body">
+        <div class="message-author">${author}</div>
+        <div class="message-text">${content}</div>
+        <div class="timestamp">${ts}</div>
+      </div>
     `;
     chatWindow.appendChild(msg);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 
-  // load + live‐update
-  db.collection('comments')
-    .orderBy('createdAt', 'asc')
+  // –– Live update ––
+  db.collection('comments').orderBy('createdAt','asc')
     .onSnapshot(snap => {
       chatWindow.innerHTML = '';
       snap.forEach(doc => appendComment(doc.data()));
     });
 
-  // post new
+  // –– Form submit → preview modal ––
   chatForm.addEventListener('submit', e => {
     e.preventDefault();
-    const text = chatInput.value.trim();
-    if (!text) return;
-    db.collection('comments').add({
-      name:  chatName.value.trim() || null,
-      email: chatEmail.value.trim() || null,
-      content: text,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    chatInput.value = '';
+    const txt = chatInput.value.trim();
+    if (!txt) return;
+
+    // populate modal
+    modalCommentInput.value = txt;
+
+    previewModal.style.display = 'flex';
   });
 
+  // –– Cancel preview ––
+  cancelBtn.addEventListener('click', () => {
+    previewModal.style.display = 'none';
+  });
+
+  // –– Confirm & post ––
+  confirmBtn.addEventListener('click', () => {
+
+    const textVal = modalCommentInput.value.trim();
+    const nameVal = modalNameInput.value.trim();
+    const emailVal = modalEmailInput.value.trim();
+
+    if (emailVal && !emailVal.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    db.collection('comments').add({
+      content: textVal,
+      name: nameVal || null,
+      email: emailVal || null,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      // reset form + hide modal
+      chatForm.reset();
+      previewModal.style.display = 'none';
+    }).catch(err => {
+      console.error(err);
+      previewModal.style.display = 'none';
+    });
+  });
 });

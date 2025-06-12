@@ -51,16 +51,24 @@ window.addEventListener('DOMContentLoaded', () => {
   twEl = document.getElementById('typewriter');
   typeCycle();
 
-  // Dark / Light Mode Toggle
+  // Dark / Light Mode Toggle (Font Awesome icons)
   const dm = document.getElementById('darkModeToggle');
+  const dmIcon = dm.querySelector('i');
   function updateIcon() {
-    dm.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    if (document.body.classList.contains('dark-mode')) {
+      dmIcon.classList.remove('fa-moon');
+      dmIcon.classList.add('fa-lightbulb');
+    } else {
+      dmIcon.classList.remove('fa-lightbulb');
+      dmIcon.classList.add('fa-moon');
+    }
   }
   if (localStorage.getItem('dark-mode') === 'light') {
     document.body.classList.add('light-mode');
     document.body.classList.remove('dark-mode');
   } else {
     document.body.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
   }
   updateIcon();
   dm.addEventListener('click', () => {

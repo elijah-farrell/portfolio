@@ -24,6 +24,6 @@ The site is available live via GitHub Pages: [Visit Portfolio](https://elijah-fa
 To run this locally:
 
 ```sh
-git clone https://github.com/efarrell0609/portfolio.git
+git clone https://github.com/elijah-farrell/portfolio.git
 cd portfolio
 open index.html

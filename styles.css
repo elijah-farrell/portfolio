@@ -117,6 +117,8 @@ html {
   font-size: 16px !important;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -130,6 +132,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
+  width: 100%;
+  min-width: 320px;
 }
 
 /* ====================

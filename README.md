@@ -1,34 +1,32 @@
-# Elijah Farrell's Portfolio Website
+# Elijah Farrell's Portfolio
 
-A modern, interactive portfolio website showcasing my projects, experience, and skills.
+A modern, responsive portfolio website showcasing my projects, experience, and skills as a Computer Science student.
 
 ## Features
 
-- **Responsive Design**: Works perfectly on all devices
-- **Dark/Light Mode**: Toggle between themes
-- **Custom Color Picker**: Choose any color for the theme
-- **Typewriter Effect**: Dynamic text cycling through developer phrases
-- **Live Comments**: Real-time comment system powered by Firebase
-- **Smooth Animations**: Modern CSS animations and transitions
+- **Responsive Design**: Optimized for all screen sizes
+- **Dark/Light Mode**: Theme toggle with custom color picker
+- **Interactive Elements**: Smooth animations and typewriter effects
+- **Live Comments**: Real-time comment system via Firebase
+- **Modern UI**: Clean, professional design with accessibility features
 
-## Technologies Used
+## Tech Stack
 
 - HTML5, CSS3, JavaScript
-- Firebase Firestore (for comments)
+- Firebase Firestore (comments)
 - Font Awesome Icons
 
-## Setup
+## Quick Start
 
 ```bash
-git clone https://github.com/elijah-farrell/portfolio.git
-cd portfolio
+git clone <repository-url>
+cd portfolio-website
 open index.html
 ```
 
 ## Contact
 
 - **Email**: elijah5003@gmail.com
-- **Phone**: (315) 804‑0601
 - **GitHub**: [elijah-farrell](https://github.com/elijah-farrell)
 - **Location**: Watertown, NY
 

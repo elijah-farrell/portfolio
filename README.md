@@ -70,31 +70,6 @@ The website features a sophisticated theme system:
 - **Touch-Friendly**: Optimized for touch interactions
 - **Accessible**: WCAG compliant with keyboard navigation support
 
-## 🎯 Interactive Elements
-
-### Enhanced Buttons
-- Shimmer effects on hover
-- 3D transform animations
-- Theme-aware glow effects
-- Scale and translate animations
-
-### Timeline Experience
-- Interactive timeline markers
-- Hover animations with color transitions
-- Smooth reveal animations
-- Responsive layout adjustments
-
-### Project Cards
-- 3D hover effects
-- Tech stack tags with animations
-- Smooth transitions
-- Responsive grid layout
-
-### Skill Bars
-- Animated progress bars
-- Intersection observer triggers
-- Smooth fill animations
-- Category-based organization
 
 ## 🔧 Setup and Usage
 
@@ -132,47 +107,6 @@ portfolio-website/
 └── README.md           # This file
 ```
 
-## 🎨 Customization
-
-### Adding New Phrases
-Edit the `phrases` array in `script.js` to customize the typewriter effect:
-```javascript
-const phrases = [
-  "learn new things.",
-  "code cool stuff.",
-  // Add your own phrases here
-];
-```
-
-### Theme Colors
-The theme system automatically generates color variations. To modify:
-1. Use the color picker in the navigation
-2. Edit CSS custom properties in `styles.css`
-3. Modify the `shadeColor` function in `script.js`
-
-### Adding Sections
-The modular CSS structure makes it easy to add new sections:
-1. Add HTML structure in `index.html`
-2. Create corresponding CSS classes in `styles.css`
-3. Add animations and interactions in `script.js`
-
-## 🌟 Recent Updates
-
-### v2.0 - Complete Modernization
-- **Redesigned UI**: Apple-inspired design with frosted glass effects
-- **Dynamic Hero Background**: Color-adaptive particle system
-- **Enhanced Animations**: Smooth transitions and micro-interactions
-- **Improved Accessibility**: Better keyboard navigation and screen reader support
-- **Mobile Optimization**: Enhanced mobile experience
-- **Theme System**: Advanced color picker with light/dark mode
-- **Interactive Elements**: 3D effects, hover animations, and smooth scrolling
-
-### v1.5 - Feature Additions
-- **Live Comments**: Real-time comment system with Firebase
-- **Typewriter Effect**: Dynamic text cycling
-- **Responsive Design**: Mobile-first approach
-- **Dark Mode**: Theme toggle functionality
-
 ## 📞 Contact
 
 - **Email**: elijah5003@gmail.com
@@ -180,10 +114,3 @@ The modular CSS structure makes it easy to add new sections:
 - **GitHub**: [elijah-farrell](https://github.com/elijah-farrell)
 - **Location**: Watertown, NY
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-*Built with ❤️ and modern web technologies*

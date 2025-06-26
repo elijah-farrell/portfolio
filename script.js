@@ -10,7 +10,6 @@ const phrases = [
   "debug challenging issues.",
   "design user experiences.",
   "optimize performance.",
-  "contribute to open source.",
   "stay up-to-date with tech.",
   "write clean code.",
   "think outside the box."
@@ -108,28 +107,86 @@ window.addEventListener('DOMContentLoaded', () => {
     updateIcon();
   });
 
-  // Theme Color Picker
-  const picker = document.getElementById('colorPicker');
-  picker.value = localStorage.getItem('theme-color') || '#007acc';
-  const applyColor = (c) => {
-    document.documentElement.style.setProperty('--primary-color', c);
-    document.documentElement.style.setProperty('--primary-light', shadeColor(c, 30));
-    document.documentElement.style.setProperty('--primary-dark', shadeColor(c, -30));
-    
-    // Create additional color variations for hero background
-    const heroColor1 = shadeColor(c, -20); // Slightly darker
-    const heroColor2 = shadeColor(c, 15);  // Slightly lighter
-    const heroColor3 = shadeColor(c, -40); // Much darker for depth
-    
-    // Apply hero background colors
-    document.documentElement.style.setProperty('--hero-color-1', heroColor1);
-    document.documentElement.style.setProperty('--hero-color-2', heroColor2);
-    document.documentElement.style.setProperty('--hero-color-3', heroColor3);
-    
-    localStorage.setItem('theme-color', c);
+  // Modern Theme Selector
+  const themeSelector = document.querySelector('.theme-selector');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeOptions = document.querySelectorAll('.theme-option');
+  
+  // Predefined theme colors
+  const themes = {
+    blue: '#007acc',
+    emerald: '#10b981', 
+    amber: '#f59e0b',
+    red: '#ef4444',
+    purple: '#8b5cf6',
+    cyan: '#06b6d4',
+    pink: '#ec4899',
+    lime: '#84cc16',
+    orange: '#f97316',
+    teal: '#14b8a6',
+    indigo: '#6366f1',
+    green: '#22c55e'
   };
-  applyColor(picker.value);
-  picker.addEventListener('input', e => applyColor(e.target.value));
+  
+  // Get saved theme or default to blue
+  const savedThemeColor = localStorage.getItem('theme-color') || themes.blue;
+  
+  const applyTheme = (color) => {
+    // Add transition class for smooth color changes
+    document.documentElement.classList.add('color-transitioning');
+    
+    // Apply all color variations simultaneously
+    const colorVariations = {
+      '--primary-color': color,
+      '--primary-light': shadeColor(color, 30),
+      '--primary-dark': shadeColor(color, -30),
+      '--hero-color-1': shadeColor(color, -20),
+      '--hero-color-2': shadeColor(color, 15),
+      '--hero-color-3': shadeColor(color, -40),
+      '--accent-color': shadeColor(color, 20),
+      '--highlight-color': shadeColor(color, 40)
+    };
+    
+    // Apply all colors at once
+    Object.entries(colorVariations).forEach(([property, value]) => {
+      document.documentElement.style.setProperty(property, value);
+    });
+    
+    // Store the theme
+    localStorage.setItem('theme-color', color);
+    
+    // Update active state
+    themeOptions.forEach(option => {
+      option.classList.remove('active');
+      if (option.dataset.color === color) {
+        option.classList.add('active');
+        themeToggle.classList.add('active');
+      }
+    });
+    
+    // Remove transition class after animation
+    setTimeout(() => {
+      document.documentElement.classList.remove('color-transitioning');
+    }, 300);
+  };
+  
+  // Initialize with saved theme
+  applyTheme(savedThemeColor);
+  
+  // Handle theme selection
+  themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const color = option.dataset.color;
+      applyTheme(color);
+    });
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!themeSelector.contains(e.target)) {
+      themeSelector.classList.remove('open');
+    }
+  });
 
   // Mobile menu toggle (hamburger)
   const menuToggle = document.getElementById('menuToggle');

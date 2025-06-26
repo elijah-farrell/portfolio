@@ -85,6 +85,25 @@
 }
 
 /* ====================
+   Color Transition System
+   ==================== */
+.color-transitioning * {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.color-transitioning .btn-primary,
+.color-transitioning .btn-secondary,
+.color-transitioning .btn-outline,
+.color-transitioning .nav-link,
+.color-transitioning .timeline-marker,
+.color-transitioning .contact-icon,
+.color-transitioning .skill-progress,
+.color-transitioning .hero-particles,
+.color-transitioning .hero-gradient {
+  transition: all 0.3s ease !important;
+}
+
+/* ====================
    Base Reset & Typography
    ==================== */
 * {
@@ -95,7 +114,9 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 16px !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -103,24 +124,25 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  font-size: var(--font-size-base);
+  font-size: 16px !important;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 /* ====================
    Container & Layout
    ==================== */
 .container {
-  max-width: var(--container-max-width);
+  max-width: 1200px !important;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 1.5rem !important;
 }
 
 .section {
-  padding: var(--spacing-3xl) 0;
+  padding: 4rem 0 !important;
 }
 
 .section-alt {
@@ -129,11 +151,11 @@ body {
 
 .section-header {
   text-align: center;
-  margin-bottom: var(--spacing-3xl);
+  margin-bottom: 4rem !important;
 }
 
 .section-title {
-  font-size: var(--font-size-4xl);
+  font-size: 2.25rem !important;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: var(--spacing-md);
@@ -144,7 +166,7 @@ body {
 }
 
 .section-subtitle {
-  font-size: var(--font-size-lg);
+  font-size: 1.125rem !important;
   color: var(--text-secondary);
   font-weight: 400;
 }
@@ -157,7 +179,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: var(--nav-height);
+  height: 80px !important;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -171,9 +193,9 @@ body {
 }
 
 .nav-container {
-  max-width: var(--container-max-width);
+  max-width: 1200px !important;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 1.5rem !important;
   height: 100%;
   display: flex;
   align-items: center;
@@ -275,29 +297,13 @@ body {
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
+  transition: all 0.2s ease;
 }
 
 .resume-btn:hover {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
   color: white;
-}
-
-.color-picker {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: var(--radius-full);
-  overflow: hidden;
-}
-
-.color-picker::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.color-picker::-webkit-color-swatch {
-  border: none;
-  border-radius: var(--radius-full);
 }
 
 .mobile-menu-btn {
@@ -314,7 +320,7 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding-top: var(--nav-height);
+  padding-top: 80px !important;
 }
 
 .hero-background {
@@ -382,7 +388,7 @@ body {
 
 .hero-name {
   display: block;
-  font-size: var(--font-size-6xl);
+  font-size: 3.75rem !important;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.1;
@@ -522,6 +528,7 @@ body {
   background: transparent;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
+  transition: all 0.2s ease;
 }
 
 .btn-outline:hover {
@@ -2350,5 +2357,109 @@ body {
   
   .scroll-progress {
     height: 1px;
+  }
+}
+
+/* ====================
+   Modern Theme Selector
+   ==================== */
+.theme-selector {
+  position: relative;
+}
+
+.theme-btn {
+  position: relative;
+}
+
+.theme-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px var(--shadow-medium);
+  padding: var(--spacing-sm);
+  min-width: 140px;
+  max-height: 300px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.theme-selector:hover .theme-dropdown,
+.theme-dropdown:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.theme-option:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.theme-option.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.theme-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.theme-option:hover .theme-preview {
+  border-color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.theme-option.active .theme-preview {
+  border-color: white;
+}
+
+/* Theme Color Previews */
+.theme-preview.blue { background: #007acc; }
+.theme-preview.emerald { background: #10b981; }
+.theme-preview.amber { background: #f59e0b; }
+.theme-preview.red { background: #ef4444; }
+.theme-preview.purple { background: #8b5cf6; }
+.theme-preview.cyan { background: #06b6d4; }
+.theme-preview.pink { background: #ec4899; }
+.theme-preview.lime { background: #84cc16; }
+.theme-preview.orange { background: #f97316; }
+.theme-preview.teal { background: #14b8a6; }
+.theme-preview.indigo { background: #6366f1; }
+.theme-preview.green { background: #22c55e; }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .theme-dropdown {
+    right: -50px;
+    min-width: 120px;
   }
 }

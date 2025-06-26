@@ -3,212 +3,473 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elijah Farrell's Portfolio</title>
+  <title>Elijah Farrell — Developer & Designer</title>
   <link rel="icon" type="image/png" href="image/favicon_neutral.png">
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body>
-  <!-- Header / Navigation -->
-  <header>
-    <nav class="navbar">
-      <div class="nav-left">
-        <a class="nav-icon" href="#" aria-label="Home"><i class="fa fa-home"></i></a>
-        <a class="nav-icon" href="mailto:elijah5003@gmail.com" aria-label="Email"><i class="fa fa-envelope"></i></a>
-        <a class="nav-icon" href="https://github.com/elijah-farrell" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a class="nav-icon" id="resumeLink" href="resume/Elijah-Farrell.pdf" download aria-label="Download Resume"><i class="fa fa-download"></i></a>
-        <button id="darkModeToggle" aria-label="Toggle Dark Mode">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="#hero" class="brand-link">
+          <span class="brand-text">EF</span>
+        </a>
+      </div>
+      
+      <div class="nav-menu">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="darkModeToggle" class="nav-action-btn" aria-label="Toggle Dark Mode">
           <i class="fa fa-moon"></i>
         </button>
-        <input type="color" id="colorPicker" title="Pick theme color" aria-label="Pick theme color" value="#007acc" />
-        <button id="menuToggle" class="nav-icon" aria-label="Toggle menu">
+        <input type="color" id="colorPicker" class="nav-action-btn color-picker" title="Pick theme color" aria-label="Pick theme color" value="#007acc" />
+        <a href="resume/Elijah-Farrell.pdf" download class="nav-action-btn resume-btn">
+          <i class="fa fa-download"></i>
+          <span>Resume</span>
+        </a>
+        <button id="menuToggle" class="nav-action-btn mobile-menu-btn" aria-label="Toggle menu">
           <i class="fa fa-bars"></i>
         </button>
       </div>
-      <ul class="nav-right">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#courses">Courses</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
   <main>
     <!-- Hero Section -->
-    <section id="hero">
-      <div class="hero-inner">
-        <h1>Hi, I’m <span class="nobreak">Elijah Farrell</span></h1>
-        <p>Computer Science graduate ready to build and learn in the real world.</p>
-        <p>I like to <span id="typewriter"></span></p>
-      </div>
-    </section>
-
-    <!-- About Me -->
-    <section id="about">
-      <h2>About Me</h2>
-      <p>Computer Science graduate with hands-on experience in technical environments, from setting up systems to troubleshooting software and working on team-based projects. 
-        I enjoy solving problems, learning new tools, and staying involved in the practical side of tech. I'm looking for a role where I can keep growing my skills while 
-        contributing to real-world work that matters. When I'm not coding or working on my technical skills you can catch me hanging out with friends, hiking in the Adirondacks, 
-        playing video games, or eating good ice cream.</p>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience">
-      <h2>Experience</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <h3>Research Assistant</h3>
-          <p>Center for Safe and Secure AI Robotics · High Performance Computing and Distributed Systems Division<br>SUNY Polytechnic Institute | Feb 2025 – May 2025</p>
-          <ul>
-            <li>Developed a real-time, multi-agent conversation application in C++/GTK for structured LLM dialogues over HTTP.</li>
-            <li>Led deployment across 30 NVIDIA Orin Nano lab machines, handling network configurations and support.</li>
-            <li>Designed memory architecture and message-routing pipelines for long-running, context-aware sessions.</li>
-          </ul>
-        </div>
-        <div class="project-card">
-          <h3>Work Study Assistant</h3>
-          <p>The Workplace | Watertown, NY · Aug 2021 – Dec 2021</p>
-          <ul>
-            <li>Provided technical support and troubleshooting for devices and user software.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <h3>Portfolio Website</h3>
-          <p>
-              A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming
-              (light/dark mode and custom color picker), a typewriter effect, and a live comment
-              section powered by a NoSQL cloud database (Firestore). 
-            </p>          
-            <a href="https://github.com/efarrell0609/portfolio" class="btn">View Code</a>
-        </div>
-        <div class="project-card">
-          <h3>Valorant Pick'em Analyzer</h3>
-            <p>
-              Cross-platform CLI and standalone desktop tool for advanced Valorant esports analytics. Scrapes structured player/match data from <b>VLR.gg</b> and Underdog Fantasy’s public API, aggregates stats, cross-references fantasy pick'em lines, and generates color-coded Excel analytics. Modular architecture enables easy extension. Bundled for single-file Windows distribution with PyInstaller.
-            </p>
-            <a href="https://github.com/elijah-farrell/valorant-pickem-analyzer" class="btn" target="_blank">View Code</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul class="skills-list">
-         <li>Languages: Python, C/C++, Java, SQL, HTML, CSS, JavaScript</li>
-        <li>Platforms: Windows, Linux, UNIX, Mac OS</li>
-        <li>Strengths: Technical support, Debugging, Scripting, Documentation, Git, APIs, LLMs</li>
-        <li>Soft Skills: Fast Learner, Teamwork, Problem-Solver, Adaptability, GRIT</li>
-      </ul>
-    </section>
-
-    <!-- Education -->
-    <section id="education">
-      <h2>Education</h2>
-      <div class="education-logos">
-        <div class="edu-card">
-          <img src="image/suny-poly-logo.jpg" alt="SUNY Poly Logo" />
-          <div class="edu-info">
-            <h3>SUNY Polytechnic Institute</h3>
-            <p>B.S. in Computer Science (May 2025) · GPA: 3.88 · Magna Cum Laude</p>
-          </div>
-        </div>
-        <div class="edu-card">
-          <img src="image/jcc-logo.png" alt="JCC Logo" />
-          <div class="edu-info">
-            <h3>Jefferson Community College</h3>
-            <p>A.S. in Computer Science (2023) · Phi Theta Kappa Honor Society</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Relevant Courses -->
-    <section id="courses">
-      <h2>Relevant Courses</h2>
-      <ul class="courses-list">
-         <li>Intro to Web Page Design</li>
-        <li>Principles of Programming Languages</li>
-        <li>Software Engineering</li>
-        <li>Operating Systems & Networking</li>
-        <li>Computer Organization</li>
-        <li>Systems Analysis & Design</li>
-        <li>Information & Knowledge Management</li>
-        <li>Computer Vision and Image Processing</li>
-        <li>Data Structures & Algorithms</li>
-      </ul>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div id="contact">
-        <h3>Contact</h3>
-        <ul class="footer-contact-list">
-          <li><i class="fa fa-map-marker"></i> Watertown, NY</li>
-          <li><i class="fa fa-phone"></i> <a href="tel:3158040601">(315) 804‑0601</a></li>
-          <li><i class="fa fa-envelope"></i> <a href="mailto:elijah5003@gmail.com">elijah5003@gmail.com</a></li>
-          <li><i class="fab fa-github"></i> <a href="https://github.com/elijah-farrell" target="_blank">GitHub</a></li>
-          <li><i class="fa fa-download"></i> <a href="resume/Elijah-Farrell.pdf" download>Resume</a></li>
-        </ul>
+    <section id="hero" class="hero-section">
+      <div class="hero-background">
+        <div class="hero-gradient"></div>
+        <div class="hero-particles"></div>
       </div>
       
-       <!-- Contact -->
-      <section id="contact">
-        <h2>Comments</h2>
-
-        <!-- Chat Window -->
-        <div id="chatWindow"></div>
-
-        <!-- Comment Form -->
-        <form id="chat-form" class="chat-form">
-          <textarea            id="chatInput" placeholder="Your comment…" required></textarea>
-          <button type="submit" class="btn">Send</button>
-        </form>
-      </section>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="hero-greeting">Hi, I'm</span>
+            <span class="hero-name">Elijah Farrell</span>
+          </h1>
+          <p class="hero-subtitle">Computer Science graduate ready to build and learn in the real world.</p>
+          <p class="hero-description">I like to <span id="typewriter" class="typewriter"></span></p>
+        </div>
         
-      <!-- Preview/Edit Modal -->
-        <div id="previewModal" class="modal">
-          <div class="modal-content">
-            <h3>Preview & Edit Your Comment</h3>
-            <p class="modal-note">
-              Your name will appear publicly with your comment. Leave the name field blank to post as “Anonymous.”
-            </p>
-            <label>
-              Name (optional):
-              <input type="text" id="modalNameInput" placeholder="e.g. Jane Doe">
-            </label>
-            <label>
-              Email (optional):
-              <input type="email" id="modalEmailInput" placeholder="e.g. jane@example.com">
-            </label>
-            <label>
-              Comment:
-              <textarea id="modalCommentInput"></textarea>
-            </label>
-            <div class="modal-actions">
-              <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
-              <button id="confirmBtn" class="btn">Confirm &amp; Post</button>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <span>View My Work</span>
+            <i class="fa fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            <span>Get In Touch</span>
+            <i class="fa fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About Me</h2>
+          <p class="section-subtitle">Passionate about technology and innovation</p>
+        </div>
+        
+        <div class="about-content">
+          <div class="about-text">
+            <p>Computer Science graduate with hands-on experience in technical environments, from setting up systems to troubleshooting software and working on team-based projects. 
+              I enjoy solving problems, learning new tools, and staying involved in the practical side of tech. I'm looking for a role where I can keep growing my skills while 
+              contributing to real-world work that matters.</p>
+            <p>When I'm not coding or working on my technical skills you can catch me hanging out with friends, hiking in the Adirondacks, 
+              playing video games, or eating good ice cream. I'm always eager to learn new technologies and take on challenging projects that push me to grow.</p>
+          </div>
+          
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">3.88</div>
+              <div class="stat-label">GPA</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Languages</div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Experience</h2>
+          <p class="section-subtitle">My professional journey</p>
+        </div>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>Research Assistant</h3>
+                <div class="timeline-meta">
+                  <span class="company">Center for Safe and Secure AI Robotics</span>
+                  <span class="period">Feb 2025 – May 2025</span>
+                </div>
+              </div>
+              <p class="timeline-location">SUNY Polytechnic Institute · High Performance Computing and Distributed Systems Division</p>
+              <ul class="timeline-achievements">
+                <li>Developed a real-time, multi-agent conversation application in C++/GTK for structured LLM dialogues over HTTP.</li>
+                <li>Led deployment across 30 NVIDIA Orin Nano lab machines, handling network configurations and support.</li>
+                <li>Designed memory architecture and message-routing pipelines for long-running, context-aware sessions.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>Work Study Assistant</h3>
+                <div class="timeline-meta">
+                  <span class="company">The Workplace</span>
+                  <span class="period">Aug 2021 – Dec 2021</span>
+                </div>
+              </div>
+              <p class="timeline-location">Watertown, NY</p>
+              <ul class="timeline-achievements">
+                <li>Provided technical support and troubleshooting for devices and user software.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-subtitle">Some of my recent work</p>
+        </div>
+        
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <div class="project-placeholder">
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Portfolio Website</h3>
+              <p>A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming
+                (light/dark mode and custom color picker), a typewriter effect, and a live comment
+                section powered by a NoSQL cloud database (Firestore).</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Firebase</span>
+              </div>
+              <a href="https://github.com/efarrell0609/portfolio" class="btn btn-outline" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>View Code</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-image">
+              <div class="project-placeholder">
+                <i class="fa fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Valorant Pick'em Analyzer</h3>
+              <p>Cross-platform CLI and standalone desktop tool for advanced Valorant esports analytics. Scrapes structured player/match data from VLR.gg and Underdog Fantasy's public API, aggregates stats, cross-references fantasy pick'em lines, and generates color-coded Excel analytics.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">CLI</span>
+                <span class="tech-tag">API</span>
+                <span class="tech-tag">PyInstaller</span>
+              </div>
+              <a href="https://github.com/elijah-farrell/valorant-pickem-analyzer" class="btn btn-outline" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>View Code</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Skills & Expertise</h2>
+          <p class="section-subtitle">Technologies I work with</p>
+        </div>
+        
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>Programming Languages</h3>
+            <div class="skill-items">
+              <div class="skill-item">
+                <span class="skill-name">Python</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">C/C++</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Java</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 75%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-category">
+            <h3>Technologies & Languages</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">HTML/CSS</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Lua</span>
+              <span class="skill-tag">Perl</span>
+              <span class="skill-tag">Assembly</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">APIs</span>
+              <span class="skill-tag">LLMs</span>
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Windows</span>
+              <span class="skill-tag">UNIX</span>
+            </div>
+          </div>
+          
+          <div class="skill-category">
+            <h3>Soft Skills</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Fast Learner</span>
+              <span class="skill-tag">Teamwork</span>
+              <span class="skill-tag">Problem-Solver</span>
+              <span class="skill-tag">Adaptability</span>
+              <span class="skill-tag">GRIT</span>
+              <span class="skill-tag">Technical Support</span>
+              <span class="skill-tag">Debugging</span>
+              <span class="skill-tag">Documentation</span>
+              <span class="skill-tag">Communication</span>
+              <span class="skill-tag">Time Management</span>
+              <span class="skill-tag">Attention to Detail</span>
+              <span class="skill-tag">Critical Thinking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Education</h2>
+          <p class="section-subtitle">My academic background</p>
+        </div>
+        
+        <div class="education-grid">
+          <div class="education-card">
+            <div class="education-logo">
+              <img src="image/suny-poly-logo.jpg" alt="SUNY Poly Logo" />
+            </div>
+            <div class="education-content">
+              <h3>SUNY Polytechnic Institute</h3>
+              <p class="education-degree">B.S. in Computer Science</p>
+              <p class="education-details">May 2025 · GPA: 3.88 · Magna Cum Laude</p>
+            </div>
+          </div>
+          
+          <div class="education-card">
+            <div class="education-logo">
+              <img src="image/jcc-logo.png" alt="JCC Logo" />
+            </div>
+            <div class="education-content">
+              <h3>Jefferson Community College</h3>
+              <p class="education-degree">A.S. in Computer Science</p>
+              <p class="education-details">2023 · Phi Theta Kappa Honor Society</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="courses-section">
+          <h3>Relevant Courses</h3>
+          <div class="courses-grid">
+            <span class="course-tag">Intro to Web Page Design</span>
+            <span class="course-tag">Principles of Programming Languages</span>
+            <span class="course-tag">Software Engineering</span>
+            <span class="course-tag">Operating Systems & Networking</span>
+            <span class="course-tag">Computer Organization</span>
+            <span class="course-tag">Systems Analysis & Design</span>
+            <span class="course-tag">Information & Knowledge Management</span>
+            <span class="course-tag">Computer Vision and Image Processing</span>
+            <span class="course-tag">Data Structures & Algorithms</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">Let's work together</p>
+        </div>
+        
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Location</h4>
+                <p>Watertown, NY</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Phone</h4>
+                <a href="tel:3158040601">(315) 804‑0601</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <a href="mailto:elijah5003@gmail.com">elijah5003@gmail.com</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fab fa-github"></i>
+              </div>
+              <div class="contact-details">
+                <h4>GitHub</h4>
+                <a href="https://github.com/elijah-farrell" target="_blank">elijah-farrell</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-form-section">
+            <h3>Leave a Comment</h3>
+            <div id="chatWindow" class="chat-window"></div>
+            <form id="chat-form" class="chat-form">
+              <textarea id="chatInput" placeholder="Your comment..." required></textarea>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-paper-plane"></i>
+                <span>Send</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="brand-text">EF</span>
+          <p>Building the future, one line of code at a time.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Elijah Farrell. All rights reserved.</p>
+      </div>
     </div>
-    <p>&copy; 2025 Elijah Farrell. All rights reserved.</p>
   </footer>
-  
-   <!-- Firestore SDK + Firebase config -->
+
+  <!-- Preview/Edit Modal -->
+  <div id="previewModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Preview & Edit Your Comment</h3>
+        <button class="modal-close" id="cancelBtn">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <p class="modal-note">
+        Your name will appear publicly with your comment. Leave the name field blank to post as "Anonymous."
+      </p>
+      <div class="modal-form">
+        <div class="form-group">
+          <label for="modalNameInput">Name (optional)</label>
+          <input type="text" id="modalNameInput" placeholder="e.g. Jane Doe">
+        </div>
+        <div class="form-group">
+          <label for="modalEmailInput">Email (optional)</label>
+          <input type="email" id="modalEmailInput" placeholder="e.g. jane@example.com">
+        </div>
+        <div class="form-group">
+          <label for="modalCommentInput">Comment</label>
+          <textarea id="modalCommentInput"></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="confirmBtn" class="btn btn-primary">
+          <i class="fa fa-check"></i>
+          <span>Confirm & Post</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firestore SDK + Firebase config -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
   <script>

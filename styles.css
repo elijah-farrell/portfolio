@@ -454,9 +454,20 @@ body:not(.loaded) {
   
   /* Fix hero particles on mobile */
   .hero-particles {
-    background-image: radial-gradient(circle at 50% 50%, var(--primary-color) 0%, transparent 70%);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    display: none !important;
+  }
+  
+  /* iOS-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    .hero-particles {
+      display: none !important;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 50%, var(--primary-dark) 100%) !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
   }
   
   /* Grid Layouts Mobile */

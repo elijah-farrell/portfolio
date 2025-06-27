@@ -10,6 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- EmailJS for email notifications -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("j9dA8RYL2gVS_Isls");
+    })();
+  </script>
 </head>
 <body>
   <!-- Navigation -->
@@ -286,7 +294,7 @@
             <div class="project-content">
               <h3>Portfolio Website</h3>
               <p>A responsive site built with HTML, CSS, and JavaScript featuring dynamic theming
-                (light/dark mode and custom color picker), a typewriter effect, and a live comment
+                (light/dark mode and color picker), modern design, and a live comment
                 section powered by a NoSQL cloud database (Firestore).</p>
               <div class="project-tech">
                 <span class="tech-tag">HTML</span>

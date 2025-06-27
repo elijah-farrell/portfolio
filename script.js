@@ -82,7 +82,7 @@ function animateOnScroll() {
   elements.forEach(element => {
     const elementTop = element.getBoundingClientRect().top;
     const elementVisible = 150;
-    
+
     if (elementTop < window.innerHeight - elementVisible) {
       element.classList.add('animate-in');
     }
@@ -98,7 +98,7 @@ function typeCycle() {
   const full = phrases[phraseIndex];
   const current = full.slice(0, charIndex);
   twEl.textContent = current;
-  
+
   if (!isDeleting) {
     if (charIndex < full.length) {
       charIndex++;
@@ -141,7 +141,7 @@ function updateIcon() {
 function applyTheme(color) {
   // Add transition class for smooth color changes
   document.documentElement.classList.add('color-transitioning');
-  
+
   // Apply all color variations simultaneously
   const colorVariations = {
     '--primary-color': color,
@@ -153,19 +153,19 @@ function applyTheme(color) {
     '--accent-color': shadeColor(color, 20),
     '--highlight-color': shadeColor(color, 40)
   };
-  
+
   // Apply all colors at once
   Object.entries(colorVariations).forEach(([property, value]) => {
     document.documentElement.style.setProperty(property, value);
   });
-  
+
   // Store the theme
   localStorage.setItem('theme-color', color);
-  
+
   // Update active state
   const themeOptions = document.querySelectorAll('.theme-option');
   const themeToggle = document.getElementById('themeToggle');
-  
+
   themeOptions.forEach(option => {
     option.classList.remove('active');
     if (option.dataset.color === color) {
@@ -173,7 +173,7 @@ function applyTheme(color) {
       themeToggle.classList.add('active');
     }
   });
-  
+
   // Remove transition class after animation
   setTimeout(() => {
     document.documentElement.classList.remove('color-transitioning');
@@ -205,7 +205,7 @@ function appendComment({ name, content, createdAt }) {
       <div class="timestamp">${ts}</div>
     </div>
   `;
-  
+
   const chatWindow = document.getElementById('chatWindow');
   chatWindow.appendChild(msg);
   chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -216,11 +216,11 @@ function appendComment({ name, content, createdAt }) {
 // ============================================================================
 
 window.addEventListener('DOMContentLoaded', () => {
-  
+
   // ============================================================================
   // TYPEWRITER EFFECT SETUP
   // ============================================================================
-  
+
   twEl = document.getElementById('typewriter');
   if (twEl) {
     typeCycle();
@@ -229,14 +229,14 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // DARK/LIGHT MODE TOGGLE
   // ============================================================================
-  
+
   const dm = document.getElementById('darkModeToggle');
   if (dm) {
     // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateIcon();
-    
+
     // Handle theme toggle
     dm.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -250,15 +250,15 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // COLOR THEME SELECTOR
   // ============================================================================
-  
+
   const themeSelector = document.querySelector('.theme-selector');
   const themeToggle = document.getElementById('themeToggle');
   const themeOptions = document.querySelectorAll('.theme-option');
-  
+
   // Predefined theme colors
   const themes = {
     blue: '#007acc',
-    emerald: '#10b981', 
+    emerald: '#10b981',
     amber: '#f59e0b',
     red: '#ef4444',
     purple: '#8b5cf6',
@@ -270,13 +270,13 @@ window.addEventListener('DOMContentLoaded', () => {
     indigo: '#6366f1',
     green: '#22c55e'
   };
-  
+
   // Get saved theme or default to blue
   const savedThemeColor = localStorage.getItem('theme-color') || themes.blue;
-  
+
   // Initialize with saved theme
   applyTheme(savedThemeColor);
-  
+
   // Handle theme selection
   themeOptions.forEach(option => {
     option.addEventListener('click', () => {
@@ -284,7 +284,7 @@ window.addEventListener('DOMContentLoaded', () => {
       applyTheme(color);
     });
   });
-  
+
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     if (themeSelector && !themeSelector.contains(e.target)) {
@@ -295,22 +295,22 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // MOBILE MENU TOGGLE
   // ============================================================================
-  
+
   const menuToggle = document.getElementById('menuToggle');
   const navbar = document.querySelector('.navbar');
-  
+
   if (menuToggle && navbar) {
     menuToggle.addEventListener('click', () => {
       navbar.classList.toggle('mobile-open');
     });
-    
+
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!navbar.contains(e.target) && !menuToggle.contains(e.target)) {
         navbar.classList.remove('mobile-open');
       }
     });
-    
+
     // Close mobile menu on window resize
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
@@ -322,7 +322,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // SMOOTH SCROLLING FOR INTERNAL LINKS
   // ============================================================================
-  
+
   const internalLinks = document.querySelectorAll('a[href^="#"]');
   internalLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -346,12 +346,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // NAVBAR SCROLL EFFECTS
   // ============================================================================
-  
+
   let lastScrollTop = 0;
   window.addEventListener('scroll', debounce(() => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const isDesktop = window.innerWidth > 768;
-    
+
     if (navbar) {
       // Navbar background effect
       if (scrollTop > 100) {
@@ -359,7 +359,7 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         navbar.classList.remove('scrolled');
       }
-      
+
       // Simplified navbar hide/show logic - no mobile menu interference
       if (isDesktop && scrollTop > 200) {
         if (scrollTop > lastScrollTop) {
@@ -377,12 +377,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // SCROLL ANIMATIONS
   // ============================================================================
-  
+
   // Add animation classes to elements
   const animateElements = document.querySelectorAll('.section, .project-card, .skill-category, .education-card, .contact-item');
   animateElements.forEach((el, index) => {
     el.classList.add('animate-on-scroll');
-    
+
     // Add different animation types for variety
     if (index % 3 === 0) {
       el.classList.add('slide-left');
@@ -395,14 +395,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Initial animation check
   animateOnScroll();
-  
+
   // Listen for scroll animations
   window.addEventListener('scroll', debounce(animateOnScroll, 10));
 
   // ============================================================================
   // SKILL BARS ANIMATION
   // ============================================================================
-  
+
   const skillBars = document.querySelectorAll('.skill-progress');
   const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -423,12 +423,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // PARALLAX EFFECTS
   // ============================================================================
-  
+
   const heroBackground = document.querySelector('.hero-background');
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rate = scrolled * -0.5;
-    
+
     if (heroBackground) {
       heroBackground.style.transform = `translateY(${rate}px)`;
     }
@@ -437,7 +437,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // COMMENT SYSTEM SETUP
   // ============================================================================
-  
+
   const chatWindow = document.getElementById('chatWindow');
   const chatForm = document.getElementById('chat-form');
   const chatInput = document.getElementById('chatInput');
@@ -508,6 +508,13 @@ window.addEventListener('DOMContentLoaded', () => {
           email: emailVal || null,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
+          // Send email notification for ALL comments
+          sendEmailNotification({
+            name: nameVal,
+            email: emailVal,
+            content: textVal
+          });
+
           // reset form + hide modal
           chatForm.reset();
           previewModal.style.display = 'none';
@@ -521,17 +528,67 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Email notification function (EmailJS)
+  function sendEmailNotification(comment) {
+    // Send notification for ALL comments, even without email
+    const templateParams = {
+      to_email: 'elijah5003@gmail.com',
+      from_name: comment.name || 'Anonymous',
+      from_email: comment.email || 'N/A (No email provided)',
+      message: comment.content,
+      reply_to: comment.email || 'noreply@portfolio.com',
+      subject: 'New Comment on Your Portfolio',
+      timestamp: new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    };
+
+    // Replace these with your actual EmailJS credentials
+    const serviceId = 'service_o18qk9p';
+    const templateId = 'template_lzcvz8s';
+    const publicKey = 'j9dA8RYL2gVS_Isls';
+
+    console.log('Attempting to send email notification...', {
+      serviceId,
+      templateId,
+      hasPublicKey: !!publicKey,
+      commentEmail: comment.email || 'N/A',
+      commentName: comment.name || 'Anonymous'
+    });
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then(function(response) {
+        console.log('✅ Email notification sent successfully:', response);
+      }, function(error) {
+        console.error('❌ Email notification failed:', error);
+
+        // Provide specific error guidance
+        if (error.text && error.text.includes('412Gmail_API')) {
+          console.error('🔧 Gmail API Permission Issue:');
+          console.error('1. Go to EmailJS Dashboard → Email Services');
+          console.error('2. Edit your Gmail service and re-authenticate');
+          console.error('3. Make sure to grant ALL requested permissions');
+        }
+
+        // Don't show error to user - email failure shouldn't break comment posting
+      });
+  }
+
   // ============================================================================
   // INTERACTIVE ELEMENT EFFECTS
   // ============================================================================
-  
+
   // Add hover effects for interactive elements
   const interactiveElements = document.querySelectorAll('.project-card, .timeline-item, .contact-item, .education-card, .course-tag');
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
       el.style.transform = el.style.transform + ' scale(1.02)';
     });
-    
+
     el.addEventListener('mouseleave', () => {
       el.style.transform = el.style.transform.replace(' scale(1.02)', '');
     });
@@ -543,7 +600,7 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('mouseenter', () => {
       btn.style.transform = 'translateY(-2px) scale(1.02)';
     });
-    
+
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = 'translateY(0) scale(1)';
     });
@@ -552,7 +609,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // ACCESSIBILITY & KEYBOARD NAVIGATION
   // ============================================================================
-  
+
   // Add keyboard navigation support
   document.addEventListener('keydown', (e) => {
     // Escape key to close modal
@@ -569,7 +626,7 @@ window.addEventListener('DOMContentLoaded', () => {
       el.style.outline = '2px solid var(--primary-color)';
       el.style.outlineOffset = '2px';
     });
-    
+
     el.addEventListener('blur', () => {
       el.style.outline = 'none';
     });
@@ -578,7 +635,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   // LOADING STATES
   // ============================================================================
-  
+
   // Add loading states for better UX
   window.addEventListener('load', () => {
     document.body.classList.add('loaded');

@@ -452,6 +452,13 @@ body:not(.loaded) {
     font-size: 1.875rem !important;
   }
   
+  /* Fix hero particles on mobile */
+  .hero-particles {
+    background-image: radial-gradient(circle at 50% 50%, var(--primary-color) 0%, transparent 70%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  
   /* Grid Layouts Mobile */
   .about-content {
     grid-template-columns: 1fr !important;

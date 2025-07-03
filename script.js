@@ -309,10 +309,7 @@ window.addEventListener('DOMContentLoaded', () => {
     colorEl.addEventListener('click', () => {
       const color = colorEl.dataset.color;
       applyTheme(color);
-      // Only close theme dropdown on mobile (screen width < 768px)
-      if (window.innerWidth < 768) {
-        themeSelector.classList.remove('open');
-      }
+      // Do NOT close the themeSelector on color click
     });
   });
 

@@ -57,11 +57,43 @@ main {width: 100%; max-width: none; min-width: 100%;}
 .actions-btn::before {content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 122, 204, 0.15), transparent); transition: left 0.5s ease;}
 .actions-btn:hover::before {left: 100%;}
 .actions-btn:hover {background-color: var(--bg-tertiary); color: var(--primary-color); border-color: var(--primary-color); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 122, 204, 0.2);}
-.actions-dropdown {position: absolute; top: 100%; right: 0; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px var(--shadow-medium); padding: var(--spacing-md); min-width: 220px; opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; backdrop-filter: blur(10px); margin-top: var(--spacing-xs);}
+.actions-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px var(--shadow-medium);
+  padding: var(--spacing-md);
+  min-width: 220px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  margin-top: var(--spacing-xs);
+}
 .nav-actions-dropdown.open .actions-dropdown {opacity: 1; visibility: visible; transform: translateY(0) scale(1);}
-.dropdown-item {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: none; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500; border: 1px solid transparent;}
+.dropdown-item {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: 1px solid transparent; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500;}
 .dropdown-item:hover {background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-color);}
-.dropdown-divider {height: 1px; background: var(--border-color); margin: var(--spacing-xs) 0;}
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-color);
+  border: none;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-primary);
+}
+
+/* Add a divider at the top of the dropdown for consistency */
+.actions-dropdown > .dropdown-divider:first-child {
+  display: block;
+}
+
 .resume-item {color: var(--text-secondary); font-weight: 500; white-space: nowrap; background: transparent; border: 1px solid transparent;}
 .resume-item:hover {background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-color);}
 .nav-action-btn {display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs); padding: var(--spacing-sm) var(--spacing-md); background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: var(--font-size-sm); font-weight: 500; cursor: pointer; transition: var(--transition-fast); text-decoration: none; height: 44px; min-height: 44px; min-width: 44px; width: 44px;}
@@ -295,12 +327,48 @@ main {width: 100%; max-width: none; min-width: 100%;}
 .theme-btn {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: none; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500; border: 1px solid transparent;}
 .theme-btn:hover {background: var(--bg-secondary); color: var(--primary-color); border-color: var(--border-color);}
 .theme-btn.active {background: var(--primary-color); color: white;}
-.theme-grid {position: absolute; top: 0; right: 100%; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 10px 25px var(--shadow-medium); padding: var(--spacing-md); width: 200px; opacity: 0; visibility: hidden; transform: translateX(10px); transition: all 0.2s ease; z-index: 1001; backdrop-filter: blur(10px); margin-right: var(--spacing-xs); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-sm);}
-.theme-selector.open .theme-grid {opacity: 1; visibility: visible; transform: translateX(0);}
-.theme-selector.open .theme-btn {background: var(--bg-secondary); color: var(--primary-color); border-color: var(--border-color);}
-.theme-color {width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: all 0.2s ease; border: 2px solid var(--border-color); position: relative; background: transparent; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);}
+.theme-grid {
+  background: var(--bg-primary);
+  box-shadow: none;
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-md);
+  display: none;
+  position: static !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  margin: var(--spacing-xs) 0 0 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  border-radius: var(--radius-lg);
+  transform: none !important;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: var(--spacing-sm);
+  justify-items: center;
+}
+.theme-selector.open .theme-grid {
+  display: grid;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.theme-color {
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid var(--border-color);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 .theme-color:hover {transform: scale(1.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); border-color: var(--border-color);}
-.theme-color.active {border-color: var(--primary-color); background: var(--primary-color); box-shadow: 0 0 0 3px var(--bg-primary), 0 0 0 6px var(--primary-color), 0 4px 12px rgba(0, 0, 0, 0.3); transform: scale(1.15);}
+.theme-color.active {border-color: var(--primary-color); background: var(--primary-color); box-shadow: 0 0 0 3px var(--bg-primary), 0 0 0 6px var(--primary-color), 0 4px 12px rgba(0, 0, 0, 0.3); transform: scale(1.08);}
 
 /* Individual color hover effects */
 .theme-color[data-color="#007acc"]:hover {background: #007acc;}
@@ -892,39 +960,14 @@ body:not(.loaded) {
   }
   
   /* Theme color picker responsive */
-  .theme-grid {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: auto;
-    transform: translateY(0) scale(0.95);
-    margin-right: 0;
-    width: 280px;
-    max-width: 90vw;
-    z-index: 2000;
-    margin-top: var(--spacing-xs);
-  }
-  
-  .theme-selector.open .theme-grid {
-    transform: translateY(0) scale(1);
-  }
-  
-  /* Ensure color picker doesn't go off-screen */
-  .theme-selector {
-    position: relative;
-  }
-  
-  /* If color picker would go off bottom, position it above */
-  @media (max-height: 600px) {
-    .theme-grid {
-      top: auto;
-      bottom: 100%;
-      margin-top: 0;
-      margin-bottom: var(--spacing-xs);
-    }
-  }
-  
+  /* REMOVED theme-grid override here so it stays as above until a lower breakpoint */
+
   .brand-text {
     font-size: var(--font-size-lg);
   }
+}
+
+.dropdown-divider {
+  position: relative;
+  z-index: 1;
 }

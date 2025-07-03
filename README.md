@@ -16,14 +16,6 @@ A modern, responsive portfolio website showcasing my projects, experience, and s
 - Firebase Firestore (comments)
 - Font Awesome Icons
 
-## Quick Start
-
-```bash
-git clone <repository-url>
-cd portfolio-website
-open index.html
-```
-
 ## Contact
 
 - **Email**: elijah5003@gmail.com

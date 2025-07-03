@@ -36,125 +36,46 @@
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#education" class="nav-link">Education</a>
         <a href="#contact" class="nav-link">Contact</a>
-        
-        <!-- Theme selector for mobile -->
-        <div class="theme-selector">
-          <div class="theme-dropdown">
-            <div class="theme-option" data-color="#007acc" data-name="Blue">
-              <div class="theme-preview blue"></div>
-              <span>Blue</span>
-            </div>
-            <div class="theme-option" data-color="#10b981" data-name="Emerald">
-              <div class="theme-preview emerald"></div>
-              <span>Emerald</span>
-            </div>
-            <div class="theme-option" data-color="#f59e0b" data-name="Amber">
-              <div class="theme-preview amber"></div>
-              <span>Amber</span>
-            </div>
-            <div class="theme-option" data-color="#ef4444" data-name="Red">
-              <div class="theme-preview red"></div>
-              <span>Red</span>
-            </div>
-            <div class="theme-option" data-color="#8b5cf6" data-name="Purple">
-              <div class="theme-preview purple"></div>
-              <span>Purple</span>
-            </div>
-            <div class="theme-option" data-color="#06b6d4" data-name="Cyan">
-              <div class="theme-preview cyan"></div>
-              <span>Cyan</span>
-            </div>
-            <div class="theme-option" data-color="#ec4899" data-name="Pink">
-              <div class="theme-preview pink"></div>
-              <span>Pink</span>
-            </div>
-            <div class="theme-option" data-color="#84cc16" data-name="Lime">
-              <div class="theme-preview lime"></div>
-              <span>Lime</span>
-            </div>
-            <div class="theme-option" data-color="#f97316" data-name="Orange">
-              <div class="theme-preview orange"></div>
-              <span>Orange</span>
-            </div>
-            <div class="theme-option" data-color="#14b8a6" data-name="Teal">
-              <div class="theme-preview teal"></div>
-              <span>Teal</span>
-            </div>
-            <div class="theme-option" data-color="#6366f1" data-name="Indigo">
-              <div class="theme-preview indigo"></div>
-              <span>Indigo</span>
-            </div>
-            <div class="theme-option" data-color="#22c55e" data-name="Green">
-              <div class="theme-preview green"></div>
-              <span>Green</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="nav-actions">
-        <button id="darkModeToggle" class="nav-action-btn" aria-label="Toggle Dark Mode">
-          <i class="fa fa-moon"></i>
-        </button>
-        <div class="theme-selector">
-          <button id="themeToggle" class="nav-action-btn theme-btn" aria-label="Change Theme">
-            <i class="fa fa-palette"></i>
+        <div class="nav-actions-dropdown">
+          <button id="actionsToggle" class="nav-action-btn actions-btn" aria-label="Open menu">
+            <i class="fa fa-ellipsis-h"></i>
           </button>
-          <div class="theme-dropdown">
-            <div class="theme-option" data-color="#007acc" data-name="Blue">
-              <div class="theme-preview blue"></div>
-              <span>Blue</span>
+          <div class="actions-dropdown">
+            <button id="darkModeToggle" class="dropdown-item" aria-label="Toggle Dark Mode">
+              <i class="fa fa-moon"></i>
+              <span id="darkModeText">Dark Mode</span>
+            </button>
+            <div class="dropdown-divider"></div>
+            <div class="theme-selector">
+              <div class="dropdown-item theme-btn" aria-label="Change Theme">
+                <i class="fa fa-palette"></i>
+                <span>Theme</span>
+              </div>
+              <div class="theme-grid">
+                <div class="theme-color" data-color="#007acc" data-name="Blue" style="background-color: #007acc;"></div>
+                <div class="theme-color" data-color="#f59e0b" data-name="Amber" style="background-color: #f59e0b;"></div>
+                <div class="theme-color" data-color="#22c55e" data-name="Green" style="background-color: #22c55e;"></div>
+                <div class="theme-color" data-color="#006400" data-name="Dark Green" style="background-color: #006400;"></div>
+                <div class="theme-color" data-color="#8b5cf6" data-name="Purple" style="background-color: #8b5cf6;"></div>
+                <div class="theme-color" data-color="#f97316" data-name="Orange" style="background-color: #f97316;"></div>
+                <div class="theme-color" data-color="#ef4444" data-name="Red" style="background-color: #ef4444;"></div>
+                <div class="theme-color" data-color="#8b0000" data-name="Dark Red" style="background-color: #8b0000;"></div>
+                <div class="theme-color" data-color="#ec4899" data-name="Pink" style="background-color: #ec4899;"></div>
+                <div class="theme-color" data-color="#38bdf8" data-name="Sky Blue" style="background-color: #38bdf8;"></div>
+                <div class="theme-color" data-color="#808080" data-name="Grey" style="background-color: #808080;"></div>
+                <div class="theme-color" data-color="#f9a8d4" data-name="Peach" style="background-color: #f9a8d4;"></div>
+              </div>                          
             </div>
-            <div class="theme-option" data-color="#10b981" data-name="Emerald">
-              <div class="theme-preview emerald"></div>
-              <span>Emerald</span>
-            </div>
-            <div class="theme-option" data-color="#f59e0b" data-name="Amber">
-              <div class="theme-preview amber"></div>
-              <span>Amber</span>
-            </div>
-            <div class="theme-option" data-color="#ef4444" data-name="Red">
-              <div class="theme-preview red"></div>
-              <span>Red</span>
-            </div>
-            <div class="theme-option" data-color="#8b5cf6" data-name="Purple">
-              <div class="theme-preview purple"></div>
-              <span>Purple</span>
-            </div>
-            <div class="theme-option" data-color="#06b6d4" data-name="Cyan">
-              <div class="theme-preview cyan"></div>
-              <span>Cyan</span>
-            </div>
-            <div class="theme-option" data-color="#ec4899" data-name="Pink">
-              <div class="theme-preview pink"></div>
-              <span>Pink</span>
-            </div>
-            <div class="theme-option" data-color="#84cc16" data-name="Lime">
-              <div class="theme-preview lime"></div>
-              <span>Lime</span>
-            </div>
-            <div class="theme-option" data-color="#f97316" data-name="Orange">
-              <div class="theme-preview orange"></div>
-              <span>Orange</span>
-            </div>
-            <div class="theme-option" data-color="#14b8a6" data-name="Teal">
-              <div class="theme-preview teal"></div>
-              <span>Teal</span>
-            </div>
-            <div class="theme-option" data-color="#6366f1" data-name="Indigo">
-              <div class="theme-preview indigo"></div>
-              <span>Indigo</span>
-            </div>
-            <div class="theme-option" data-color="#22c55e" data-name="Green">
-              <div class="theme-preview green"></div>
-              <span>Green</span>
-            </div>
+            <div class="dropdown-divider"></div>
+            <a href="resume/Elijah-Farrell.pdf" download class="dropdown-item resume-item">
+              <i class="fa fa-download"></i>
+              <span>Download Resume</span>
+            </a>
           </div>
         </div>
-        <a href="resume/Elijah-Farrell.pdf" download class="nav-action-btn resume-btn">
-          <i class="fa fa-download"></i>
-          <span>Resume</span>
-        </a>
         <button id="menuToggle" class="nav-action-btn mobile-menu-btn" aria-label="Toggle menu">
           <i class="fa fa-bars"></i>
         </button>

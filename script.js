@@ -123,14 +123,34 @@ function typeCycle() {
 // ============================================================================
 
 /**
- * Updates the dark mode toggle icon
+ * Updates the dark mode toggle icon and text
  * Keeps moon icon for both modes for consistency
  */
 function updateIcon() {
   const dmIcon = document.querySelector('#darkModeToggle i');
+  const dmIconMobile = document.querySelector('#darkModeToggleMobile i');
+  const dmText = document.getElementById('darkModeText');
+  const dmTextMobile = document.getElementById('darkModeTextMobile');
+  
   if (dmIcon) {
     dmIcon.classList.remove('fa-sun');
     dmIcon.classList.add('fa-moon');
+  }
+  
+  if (dmIconMobile) {
+    dmIconMobile.classList.remove('fa-sun');
+    dmIconMobile.classList.add('fa-moon');
+  }
+  
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const modeText = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+  
+  if (dmText) {
+    dmText.textContent = modeText;
+  }
+  
+  if (dmTextMobile) {
+    dmTextMobile.textContent = modeText;
   }
 }
 
@@ -163,14 +183,13 @@ function applyTheme(color) {
   localStorage.setItem('theme-color', color);
 
   // Update active state
-  const themeOptions = document.querySelectorAll('.theme-option');
-  const themeToggle = document.getElementById('themeToggle');
+  const themeColors = document.querySelectorAll('.theme-color');
+  const themeBtn = document.querySelector('.theme-btn');
 
-  themeOptions.forEach(option => {
-    option.classList.remove('active');
-    if (option.dataset.color === color) {
-      option.classList.add('active');
-      themeToggle.classList.add('active');
+  themeColors.forEach(colorEl => {
+    colorEl.classList.remove('active');
+    if (colorEl.dataset.color === color) {
+      colorEl.classList.add('active');
     }
   });
 
@@ -231,20 +250,29 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
 
   const dm = document.getElementById('darkModeToggle');
-  if (dm) {
-    // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateIcon();
+  const dmMobile = document.getElementById('darkModeToggleMobile');
+  
+  // Initialize theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateIcon();
 
-    // Handle theme toggle
-    dm.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateIcon();
-    });
+  // Handle theme toggle function
+  function toggleDarkMode() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateIcon();
+  }
+
+  // Add event listeners for both desktop and mobile buttons
+  if (dm) {
+    dm.addEventListener('click', toggleDarkMode);
+  }
+  
+  if (dmMobile) {
+    dmMobile.addEventListener('click', toggleDarkMode);
   }
 
   // ============================================================================
@@ -252,8 +280,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
 
   const themeSelector = document.querySelector('.theme-selector');
-  const themeToggle = document.getElementById('themeToggle');
-  const themeOptions = document.querySelectorAll('.theme-option');
+  const themeColors = document.querySelectorAll('.theme-color');
 
   // Predefined theme colors
   const themes = {
@@ -278,11 +305,31 @@ window.addEventListener('DOMContentLoaded', () => {
   applyTheme(savedThemeColor);
 
   // Handle theme selection
-  themeOptions.forEach(option => {
-    option.addEventListener('click', () => {
-      const color = option.dataset.color;
+  themeColors.forEach(colorEl => {
+    colorEl.addEventListener('click', () => {
+      const color = colorEl.dataset.color;
       applyTheme(color);
+      // Only close theme dropdown on mobile (screen width < 768px)
+      if (window.innerWidth < 768) {
+        themeSelector.classList.remove('open');
+      }
     });
+  });
+
+  // Theme button click to toggle dropdown
+  const themeBtn = document.querySelector('.theme-btn');
+  if (themeBtn && themeSelector) {
+    themeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      themeSelector.classList.toggle('open');
+    });
+  }
+
+  // Close theme dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (themeSelector && !themeSelector.contains(e.target)) {
+      themeSelector.classList.remove('open');
+    }
   });
 
   // Close dropdown when clicking outside
@@ -290,7 +337,22 @@ window.addEventListener('DOMContentLoaded', () => {
     if (themeSelector && !themeSelector.contains(e.target)) {
       themeSelector.classList.remove('open');
     }
+    // Close actions dropdown when clicking outside
+    const actionsDropdown = document.querySelector('.nav-actions-dropdown');
+    if (actionsDropdown && !actionsDropdown.contains(e.target)) {
+      actionsDropdown.classList.remove('open');
+    }
   });
+
+  // Actions dropdown toggle
+  const actionsToggle = document.getElementById('actionsToggle');
+  const actionsDropdown = document.querySelector('.nav-actions-dropdown');
+  if (actionsToggle && actionsDropdown) {
+    actionsToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      actionsDropdown.classList.toggle('open');
+    });
+  }
 
   // ============================================================================
   // MOBILE MENU TOGGLE
@@ -398,6 +460,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Listen for scroll animations
   window.addEventListener('scroll', debounce(animateOnScroll, 10));
+
+  // Close dropdowns on scroll
+  window.addEventListener('scroll', debounce(() => {
+    if (themeSelector) {
+      themeSelector.classList.remove('open');
+    }
+    // Close actions dropdown on scroll
+    const actionsDropdown = document.querySelector('.nav-actions-dropdown');
+    if (actionsDropdown) {
+      actionsDropdown.classList.remove('open');
+    }
+  }, 10));
 
   // ============================================================================
   // SKILL BARS ANIMATION

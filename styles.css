@@ -721,6 +721,11 @@ body:not(.loaded) {
     font-size: var(--font-size-xs);
     word-wrap: break-word;
   }
+  
+  /* Remove centering for chat window/messages */
+  .chat-window, .chat-message, .chat-form, .contact-form-section {
+    text-align: left !important;
+  }
 }
 
 @media (max-width: 320px) {

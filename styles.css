@@ -77,7 +77,7 @@ main {width: 100%; max-width: none; min-width: 100%;}
   margin-top: var(--spacing-xs);
 }
 .nav-actions-dropdown.open .actions-dropdown {opacity: 1; visibility: visible; transform: translateY(0) scale(1);}
-.dropdown-item {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: 1px solid transparent; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500;}
+.dropdown-item {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: 1px solid transparent; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500; min-height: 44px; height: 44px;}
 .dropdown-item:hover {background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-color);}
 .dropdown-divider {
   height: 1px;
@@ -94,7 +94,7 @@ main {width: 100%; max-width: none; min-width: 100%;}
   display: block;
 }
 
-.resume-item {color: var(--text-secondary); font-weight: 500; white-space: nowrap; background: transparent; border: 1px solid transparent;}
+.resume-item {color: var(--text-secondary); font-weight: 500; white-space: nowrap; background: transparent; border: 1px solid transparent; min-height: 44px; height: 44px; display: flex; align-items: center;}
 .resume-item:hover {background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-color);}
 .nav-action-btn {display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs); padding: var(--spacing-sm) var(--spacing-md); background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: var(--font-size-sm); font-weight: 500; cursor: pointer; transition: var(--transition-fast); text-decoration: none; height: 44px; min-height: 44px; min-width: 44px; width: 44px;}
 .nav-action-btn:hover {background-color: var(--bg-tertiary); color: var(--primary-color); border-color: var(--primary-color); transform: translateY(-1px);}
@@ -324,7 +324,7 @@ main {width: 100%; max-width: none; min-width: 100%;}
 .animate-on-scroll.scale-in {transform: scale(0.9);}
 .animate-on-scroll.scale-in.animate-in {transform: scale(1);}
 .theme-selector {position: relative;}
-.theme-btn {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: none; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500; border: 1px solid transparent;}
+.theme-btn {display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; color: var(--text-secondary); font-size: var(--font-size-sm); background: transparent; border: none; width: 100%; text-align: left; text-decoration: none; position: relative; font-weight: 500; border: 1px solid transparent; min-height: 44px; height: 44px;}
 .theme-btn:hover {background: var(--bg-secondary); color: var(--primary-color); border-color: var(--border-color);}
 .theme-btn.active {background: var(--primary-color); color: white;}
 .theme-grid {
@@ -970,4 +970,18 @@ body:not(.loaded) {
 .dropdown-divider {
   position: relative;
   z-index: 1;
+}
+
+.dropdown-item:focus, .dropdown-item:active,
+.theme-btn:focus, .theme-btn:active,
+.resume-item:focus, .resume-item:active {
+  border-color: var(--border-color) !important;
+  outline: none !important;
+}
+
+.theme-selector.open .theme-btn {
+  color: var(--primary-color);
+}
+.theme-selector.open .theme-btn i {
+  color: var(--primary-color);
 }

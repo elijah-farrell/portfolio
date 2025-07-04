@@ -1043,3 +1043,14 @@ body:not(.loaded) {
     font-size: 0.95em;
   }
 }
+
+.dropdown-item, .resume-item, .theme-btn {
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+  font-family: inherit !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.dropdown-item:hover, .resume-item:hover, .theme-btn:hover {
+  color: var(--primary-color) !important;
+}

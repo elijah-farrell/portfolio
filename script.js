@@ -3,32 +3,6 @@
 // ============================================================================
 
 // ============================================================================
-// CONFIGURATION & CONSTANTS
-// ============================================================================
-
-// Typewriter animation phrases
-const phrases = [
-  "learn new things.",
-  "code cool stuff.",
-  "meet new people.",
-  "solve problems.",
-  "create innovative solutions.",
-  "build amazing projects.",
-  "explore new technologies.",
-  "collaborate with teams.",
-  "debug challenging issues.",
-  "design user experiences.",
-  "optimize performance.",
-  "stay up-to-date with tech.",
-  "write clean code.",
-  "think outside the box."
-];
-
-// Typewriter animation variables
-let twEl, phraseIndex = 0, charIndex = 0, isDeleting = false;
-const typingSpeed = 100, deletingSpeed = 50, pauseDuration = 2000;
-
-// ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
 
@@ -93,6 +67,27 @@ function animateOnScroll() {
  * Typewriter effect animation cycle
  * Types out phrases character by character, then deletes them
  */
+const phrases = [
+  "learn new things.",
+  "code cool stuff.",
+  "meet new people.",
+  "solve problems.",
+  "create innovative solutions.",
+  "build amazing projects.",
+  "explore new technologies.",
+  "collaborate with teams.",
+  "debug challenging issues.",
+  "design user experiences.",
+  "optimize performance.",
+  "stay up-to-date with tech.",
+  "write clean code.",
+  "think outside the box."
+];
+
+// Typewriter animation variables
+let twEl, phraseIndex = 0, charIndex = 0, isDeleting = false;
+const typingSpeed = 100, deletingSpeed = 50, pauseDuration = 2000;
+
 function typeCycle() {
   if (!twEl) return;
   const full = phrases[phraseIndex];

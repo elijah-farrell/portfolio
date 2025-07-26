@@ -204,10 +204,20 @@ function applyTheme(color) {
  */
 function appendComment({ name, content, createdAt }) {
   const author = name || 'Anonymous';
-  const ts = createdAt.toDate().toLocaleString('en-US', {
-    month:'short', day:'numeric', year:'numeric',
-    hour:'2-digit', minute:'2-digit'
-  });
+  
+  // Handle null/undefined timestamps gracefully
+  let ts = 'Just now';
+  if (createdAt && createdAt.toDate) {
+    try {
+      ts = createdAt.toDate().toLocaleString('en-US', {
+        month:'short', day:'numeric', year:'numeric',
+        hour:'2-digit', minute:'2-digit'
+      });
+    } catch (error) {
+      console.warn('Error formatting timestamp:', error);
+      ts = 'Just now';
+    }
+  }
 
   const msg = document.createElement('div');
   msg.className = 'chat-message';
@@ -618,29 +628,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const templateId = 'template_lzcvz8s';
     const publicKey = 'j9dA8RYL2gVS_Isls';
 
-    console.log('Attempting to send email notification...', {
-      serviceId,
-      templateId,
-      hasPublicKey: !!publicKey,
-      commentEmail: comment.email || 'N/A',
-      commentName: comment.name || 'Anonymous'
-    });
-
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(function(response) {
-        console.log('✅ Email notification sent successfully:', response);
+        // Email sent successfully - no need to log in production
       }, function(error) {
-        console.error('❌ Email notification failed:', error);
-
-        // Provide specific error guidance
-        if (error.text && error.text.includes('412Gmail_API')) {
-          console.error('🔧 Gmail API Permission Issue:');
-          console.error('1. Go to EmailJS Dashboard → Email Services');
-          console.error('2. Edit your Gmail service and re-authenticate');
-          console.error('3. Make sure to grant ALL requested permissions');
-        }
-
-        // Don't show error to user - email failure shouldn't break comment posting
+        // Log error for debugging but don't show to user
+        console.error('Email notification failed:', error);
       });
   }
 

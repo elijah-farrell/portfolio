@@ -72,14 +72,14 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
         }}
         className="cursor-pointer"
       >
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-neutral-600 h-[500px] flex flex-col justify-between">
+                <div className="bg-white dark:bg-black rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-neutral-600 h-[500px] flex flex-col justify-between">
           {/* Project Image */}
           <div className="relative w-full h-56 mb-3 rounded-xl overflow-hidden bg-gray-100 dark:bg-neutral-700 flex-shrink-0 border-2 border-gray-200 dark:border-neutral-600">
             {image === '3d-laptop-preview' ? (
               <img 
                 src={laptopPreview} 
                 alt={`${title} preview`}
-                className="w-full h-full object-contain bg-white dark:bg-neutral-800"
+                className="w-full h-full object-contain bg-gray-100 dark:bg-neutral-700"
                 onError={(e) => {
                   console.error('Image failed to load:', image);
                   (e.currentTarget as HTMLElement).style.display = 'none';
@@ -90,7 +90,7 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
               <img 
                 src={getPortfolioImage()}
                 alt={`${title} preview`}
-                className="w-full h-full object-contain bg-white dark:bg-neutral-800"
+                className="w-full h-full object-contain bg-gray-100 dark:bg-neutral-700"
                 onError={(e) => {
                   console.error('Portfolio image failed to load');
                   (e.currentTarget as HTMLElement).style.display = 'none';
@@ -98,8 +98,8 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
                 }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-700">
-                <div className="text-gray-500 dark:text-gray-400 text-center">
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800">
+                <div className="text-gray-600 dark:text-gray-300 text-center">
                   <div className="text-4xl mb-2">📱</div>
                   <div className="text-sm font-medium">Project Preview</div>
                 </div>
@@ -206,7 +206,7 @@ const Projects: React.FC = () => {
   const { currentColor } = useSettings();
   
   return (
-    <section className="py-20 px-4 sm:px-6 bg-gray-50 dark:bg-neutral-900">
+    <section className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <div className="mb-16 text-center">

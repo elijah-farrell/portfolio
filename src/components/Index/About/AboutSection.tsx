@@ -2,7 +2,7 @@ import ProfileCard from "./ProfileCard";
 import { FadeInOnScroll, HoverCard } from "@/components/ScrollReveal";
 import BounceCards from "@/components/BounceCards";
  
-import headshotImg from "@/assets/about/headshot.png";
+import headshotImg from "@/assets/about/headshot.jpeg";
 import doodleImg from "@/assets/about/bounce/doodle.jpeg";
 import me2Img from "@/assets/about/bounce/me2.jpeg";
 import watertown from "@/assets/about/bounce/watertown.jpg";
@@ -19,18 +19,10 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
       
       <div className="max-w-6xl mx-auto">
         <FadeInOnScroll direction="up" duration={800} delay={200} elementId="about-header">
-          <div className="mb-8">
-            <div
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 text-3xl sm:text-4xl font-extrabold tracking-wide uppercase"
-              style={{ color: currentColor, borderColor: currentColor }}
-            >
-              <span
-                className="inline-block w-4 h-4 rounded-full"
-                style={{ backgroundColor: currentColor }}
-              />
+          <div className="mb-8 text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
               About Me
-            </div>
-            <h2 className="sr-only">About Me</h2>
+            </h2>
           </div>
         </FadeInOnScroll>
         
@@ -77,11 +69,11 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
                              <BounceCards
                  className="custom-bounceCards"
                  images={[
-                   "/src/assets/about/bounce/IMG_5468.JPG",
-                   "/src/assets/about/bounce/IMG_5451.JPG",
-                   doodleImg,
+                   watertown,
                    me2Img,
-                   watertown
+                   doodleImg,
+                   "/src/assets/about/bounce/IMG_5451.JPG",
+                   "/src/assets/about/bounce/IMG_5468.JPG"
                  ]}
                 containerWidth={500}
                 containerHeight={250}

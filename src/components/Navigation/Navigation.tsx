@@ -1,20 +1,54 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useSettings } from "@/contexts/SettingsContext";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSettings } from '@/contexts/SettingsContext';
+
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ReactNode | null;
+}
 
 export default function Navigation() {
   const { darkMode, currentColor, setDarkMode, setCurrentColor } = useSettings();
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [lastScrollTime, setLastScrollTime] = useState(Date.now());
   
   const colors = ['#F59E0B', '#EF4444', '#3B82F6', '#8B5CF6'];
 
-  // Check if we're on the home page
-  const isHomePage = location.pathname === '/';
+  // Home page navigation items for dropdown
+  const homePageItems: NavItem[] = [
+    { href: '#about', label: 'About', icon: null },
+    { href: '#education', label: 'Education', icon: null },
+    { href: '#work', label: 'Work', icon: null },
+    { href: '#projects', label: 'Projects', icon: null },
+    { href: '#skills', label: 'Skills', icon: null }
+  ];
+
+  // Main navigation items
+  const navItems: NavItem[] = [
+    { href: '/', label: 'Home', icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+      </svg>
+    ) },
+    { href: '/services', label: 'Services', icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+    ) },
+    { href: '/contact', label: 'Contact', icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+      </svg>
+    ) }
+  ];
 
   // Handle scroll events to hide/show navbar and detect top position
   useEffect(() => {
@@ -39,6 +73,21 @@ export default function Navigation() {
         return;
       }
       
+      // Keep navbar visible when navigating to specific sections (hash changes)
+      if (location.hash) {
+        setIsNavbarVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+      
+      // Keep navbar visible for a short time after scrolling to allow for section navigation
+      const timeSinceLastScroll = Date.now() - lastScrollTime;
+      if (timeSinceLastScroll < 2000) { // 2 seconds
+        setIsNavbarVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+      
       // Hide navbar when scrolling down, show when scrolling up
       if (currentScrollY > lastScrollY && isNavbarVisible) {
         setIsNavbarVisible(false);
@@ -47,6 +96,7 @@ export default function Navigation() {
       }
       
       setLastScrollY(currentScrollY);
+      setLastScrollTime(Date.now());
     };
 
     // Check initial scroll position when component mounts or location changes
@@ -74,15 +124,8 @@ export default function Navigation() {
     setColorPickerOpen(false);
   };
 
-  const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/work', label: 'Work' },
-    { href: '/services', label: 'Services' },
-    { href: '/contact', label: 'Contact' }
-  ];
-
   // Only make navbar transparent on home page when at top
-  const shouldBeTransparent = isAtTop && isHomePage;
+  const shouldBeTransparent = isAtTop && location.pathname === '/';
 
   // Handle mouse events for FaultyTerminal when navbar is transparent
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -147,23 +190,117 @@ export default function Navigation() {
           
           {/* Desktop Navigation - Centered */}
           <div className="hidden lg:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
-            {navItems.map((item) => {
+                        {navItems.map((item) => {
               const isActive = (item.href === '/' && location.pathname === '/') || 
-                              (item.href === '/work' && location.pathname === '/work') ||
                               (item.href === '/services' && location.pathname === '/services') ||
-                              (item.href === '/contact' && location.pathname === '/contact');
+                              (item.href === '/contact' && location.pathname === '/contact') ||
+                              (item.href.startsWith('#') && location.pathname === '/');
               
+              // Handle anchor links for home page sections
+              const handleClick = (e: React.MouseEvent, href: string) => {
+                if (href.startsWith('#')) {
+                  e.preventDefault();
+                  const element = document.querySelector(href) as HTMLElement;
+                  if (element) {
+                    const navbarHeight = 80; // Approximate navbar height
+                    const elementTop = element.offsetTop - navbarHeight; // Align with navbar bottom
+                    window.scrollTo({
+                      top: elementTop,
+                      behavior: 'smooth'
+                    });
+                  }
+                }
+              };
+              
+              // Special handling for Home item with dropdown
+              if (item.href === '/') {
+                return (
+                  <div className="relative inline-block text-left group" key={item.href}>
+                    <div className={`relative font-medium transition-all duration-300 ${
+                      isActive 
+                        ? (shouldBeTransparent ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white')
+                        : (shouldBeTransparent ? 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-900')
+                    }`}>
+                      <Link to="/" className="relative z-10 px-2 py-1 rounded-md transition-all duration-300 flex items-center gap-2">
+                        {item.icon && item.icon}
+                        {item.label}
+                      </Link>
+                      {/* Active indicator */}
+                      {isActive && (
+                        <span 
+                          className="absolute -bottom-1 left-0 w-full h-0.5 rounded-full transition-all duration-300"
+                          style={{ backgroundColor: currentColor }}
+                        />
+                      )}
+                      {/* Hover effect */}
+                      <span className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-x-0 group-hover:scale-x-100 origin-left rounded-md ${
+                        shouldBeTransparent ? 'bg-white/20' : 'bg-gradient-to-r from-transparent via-gray-200 dark:via-neutral-700 to-transparent'
+                      }`}></span>
+                      {/* Hover underline */}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 dark:bg-gray-500 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </div>
+                    
+                    {/* Hover dropdown */}
+                    <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-600 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto z-50">
+                      {homePageItems.map((dropdownItem) => (
+                        <button
+                          key={dropdownItem.href}
+                          onClick={() => {
+                            if (location.pathname === '/') {
+                              // On home page, scroll to section with navbar offset
+                              const element = document.querySelector(dropdownItem.href) as HTMLElement;
+                              if (element) {
+                                const navbarHeight = 80; // Approximate navbar height
+                                const elementTop = element.offsetTop - navbarHeight; // Align with navbar bottom
+                                window.scrollTo({
+                                  top: elementTop,
+                                  behavior: 'smooth'
+                                });
+                              }
+                            } else {
+                              // On other pages, navigate to home page first
+                              navigate('/');
+                              // Wait for navigation then scroll with navbar offset
+                              setTimeout(() => {
+                                const element = document.querySelector(dropdownItem.href) as HTMLElement;
+                                if (element) {
+                                  const navbarHeight = 80; // Approximate navbar height
+                                  const elementTop = element.offsetTop - navbarHeight; // Align with navbar bottom
+                                  window.scrollTo({
+                                    top: elementTop,
+                                    behavior: 'smooth'
+                                  });
+                                }
+                              }, 100);
+                            }
+                          }}
+                          className="w-full px-3 py-2 text-left text-sm font-medium transition-all duration-200 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300"
+                        >
+                          {dropdownItem.label}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Extended hover area that covers the entire dropdown region */}
+                    <div className="absolute top-0 left-0 w-full h-32 bg-transparent pointer-events-none group-hover:pointer-events-auto"></div>
+                  </div>
+                );
+              }
+              
+              // Regular navigation items
               return (
                 <Link 
                   key={item.href}
                   to={item.href}
+                  onClick={(e) => handleClick(e, item.href)}
                   className={`relative font-medium group transition-all duration-300 ${
                     isActive 
                       ? (shouldBeTransparent ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white')
-                      : (shouldBeTransparent ? 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white')
+                      : (shouldBeTransparent ? 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-900')
                   }`}
                 >
-                  <span className="relative z-10 px-2 py-1 rounded-md transition-all duration-300">
+                  <span className="relative z-10 px-2 py-1 rounded-md transition-all duration-300 flex items-center gap-2">
+                    {item.icon && item.icon}
                     {item.label}
                   </span>
                   {/* Active indicator */}
@@ -300,26 +437,84 @@ export default function Navigation() {
             <div className="px-4 py-4 space-y-3">
               {navItems.map((item) => {
                 const isActive = (item.href === '/' && location.pathname === '/') || 
-                                (item.href === '/work' && location.pathname === '/work') ||
                                 (item.href === '/services' && location.pathname === '/services') ||
-                                (item.href === '/contact' && location.pathname === '/contact');
+                                (item.href === '/contact' && location.pathname === '/contact') ||
+                                (item.href.startsWith('#') && location.pathname === '/');
+                
+                // Handle anchor links for home page sections
+                const handleMobileClick = (e: React.MouseEvent, href: string) => {
+                  if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const element = document.querySelector(href) as HTMLElement;
+                    if (element) {
+                      const navbarHeight = 80; // Approximate navbar height
+                      const elementTop = element.offsetTop - navbarHeight - 20; // Extra 20px buffer
+                      window.scrollTo({
+                        top: elementTop,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }
+                  setMobileMenuOpen(false);
+                };
                 
                 return (
                   <Link 
                     key={item.href}
                     to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block w-full text-left font-medium py-2 pl-3 border-l-4 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 ${
+                    onClick={(e) => handleMobileClick(e, item.href)}
+                    className={`block w-full text-left font-medium py-2 pl-3 border-l-4 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-2 ${
                       isActive 
                         ? (shouldBeTransparent ? 'text-gray-900 dark:text-white border-white dark:border-white' : 'text-gray-900 dark:text-white border-l-4') 
                         : (shouldBeTransparent ? 'text-gray-700 dark:text-gray-200 border-transparent hover:border-gray-400 dark:hover:border-white/50' : 'text-gray-600 dark:text-gray-300 border-l-4 border-transparent hover:border-gray-300 dark:hover:border-gray-600')
                     }`}
                     style={isActive ? { borderLeftColor: currentColor } : {}}
                   >
+                    {item.icon && item.icon}
                     {item.label}
                   </Link>
                 );
               })}
+              
+              {/* Home page items for mobile - only show on home page */}
+                                {homePageItems.map((item) => (
+                    <button
+                      key={item.href}
+                      onClick={() => {
+                        if (location.pathname === '/') {
+                          // On home page, scroll to section with navbar offset
+                          const element = document.querySelector(item.href) as HTMLElement;
+                          if (element) {
+                            const navbarHeight = 80; // Approximate navbar height
+                            const elementTop = element.offsetTop - navbarHeight; // Align with navbar bottom
+                            window.scrollTo({
+                              top: elementTop,
+                              behavior: 'smooth'
+                            });
+                          }
+                        } else {
+                          // On other pages, navigate to home page first
+                          navigate('/');
+                          // Wait for navigation then scroll with navbar offset
+                          setTimeout(() => {
+                            const element = document.querySelector(item.href) as HTMLElement;
+                            if (element) {
+                              const navbarHeight = 80; // Approximate navbar height
+                              const elementTop = element.offsetTop - navbarHeight - 20; // Extra 20px buffer
+                              window.scrollTo({
+                                top: elementTop,
+                                behavior: 'smooth'
+                              });
+                            }
+                          }, 100);
+                        }
+                        setMobileMenuOpen(false);
+                      }}
+                      className="block w-full text-left font-medium py-2 pl-3 border-l-4 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
             </div>
           </div>
         )}

@@ -17,11 +17,11 @@ export default function HeroSection({ darkMode, currentColor, windowWidth }: Her
   };
 
   const handleExploreWork = () => {
-    navigate('/work');
-    // Scroll to top after navigation
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+    // Scroll to work experience section since it's now on the home page
+    const workSection = document.getElementById('work');
+    if (workSection) {
+      workSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleGetInTouch = () => {
@@ -33,7 +33,7 @@ export default function HeroSection({ darkMode, currentColor, windowWidth }: Her
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative overflow-hidden bg-white dark:bg-black">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative overflow-hidden bg-white dark:bg-black border-b border-gray-200 dark:border-neutral-800">
       <div className="absolute inset-0 z-0">
         <FaultyTerminal
           scale={windowWidth < 768 ? 1.5 : windowWidth < 1024 ? 2.0 : 2.2}

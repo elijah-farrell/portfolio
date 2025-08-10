@@ -25,12 +25,11 @@ const experiences: TExperience[] = [
     iconBg: '#383E56',
     date: 'Feb 2025 – May 2025',
     points: [
-      'Led development of a distributed multi-agent AI system across 30+ NVIDIA Orin Nano lab machines for real-time conversational AI research.',
-      'Architected and deployed a GTK-based interface enabling real-time LLM personality customization and Discord-style conversation management.',
-      'Managed a team of four students in implementing C++/GTK applications for structured AI dialogues using local Ollama endpoints.',
-      'Designed memory architecture and message-routing pipelines for persistent, context-aware AI conversations across distributed systems.',
-      'Enhanced AI prompt engineering and system integration, achieving significant improvements in response quality and system performance.',
-      'Technologies: C++, GTK, Ollama, Linux, Git, NVIDIA Orin Nano'
+      'Led development of a distributed multi-agent AI system on 30+ NVIDIA Orin Nano devices for real-time conversational research.',
+      'Designed and deployed a GTK interface for LLM personality customization and Discord-style chat management.',
+      'Managed a team of four to build a C++/GTK app for structured AI dialogues via local Ollama endpoints.',
+      'Architected memory and message-routing pipelines for persistent, context-aware conversations across distributed nodes.',
+      'Optimized prompt engineering and integration, significantly boosting response quality and system performance.',
     ],
   },
   {
@@ -56,19 +55,19 @@ const ExperienceCard: React.FC<TExperience & { index: number }> = ({ date, iconB
     <VerticalTimelineElement
       contentStyle={{ 
         background: `linear-gradient(135deg, ${currentColor}30 0%, ${currentColor}10 100%)`, 
-        color: '#fff',
+        color: 'inherit',
         border: `1px solid ${currentColor}40`
       }}
       contentArrowStyle={{ borderRight: `7px solid ${currentColor}` }}
       date={date}
       dateStyle={{ 
-        color: '#000000',
+        color: 'inherit',
         fontWeight: '600',
         fontSize: '14px',
         textShadow: 'none'
       }}
       iconStyle={{ 
-        background: '#E6DEDD',
+        background: 'rgba(255, 255, 255, 0.9)',
         borderRadius: '12px',
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
       }}
@@ -108,7 +107,7 @@ const WorkExperience: React.FC = () => {
   const { currentColor } = useSettings();
   
   return (
-    <section id="work" className="py-20 px-4 sm:px-6 bg-white dark:bg-black">
+    <section id="work" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
         <div className="mb-16">

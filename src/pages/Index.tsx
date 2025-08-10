@@ -5,6 +5,8 @@ import HeroSection from "@/components/Index/Hero/HeroSection";
 import AboutSection from "@/components/Index/About/AboutSection";
 import EducationSection from "@/components/Index/Education/EducationSection";
 import SkillsSection from "@/components/Index/Skills/SkillsSection";
+import WorkExperience from "@/components/Work/WorkExperience";
+import Projects from "@/components/Work/Projects";
 import Footer from "@/components/Footer/Footer";
 
 export default function Index() {
@@ -39,11 +41,25 @@ export default function Index() {
           windowWidth={windowWidth}
         />
         
-        <AboutSection currentColor={currentColor} />
+        <div id="about">
+          <AboutSection currentColor={currentColor} />
+        </div>
         
-        <EducationSection currentColor={currentColor} />
+        <div id="education">
+          <EducationSection currentColor={currentColor} />
+        </div>
         
-        <SkillsSection currentColor={currentColor} />
+        <div id="work">
+          <WorkExperience />
+        </div>
+        
+        <div id="projects">
+          <Projects />
+        </div>
+        
+        <div id="skills">
+          <SkillsSection currentColor={currentColor} />
+        </div>
       </main>
 
       <Footer currentColor={currentColor} />

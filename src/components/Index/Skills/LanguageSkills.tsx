@@ -7,7 +7,7 @@ import cLogo from '@/assets/technologies/c.png';
 import typescriptLogo from '@/assets/technologies/typescript.png';
 import htmlLogo from '@/assets/technologies/html.png';
 import cssLogo from '@/assets/technologies/css.svg';
-import tinyChefsImg from "@/assets/Tiny Chefs, Tech Kitchen.png";
+import tinyChefsImg from "@/assets/technologies/pixar_chefs.png";
 
 interface LanguageSkillsProps {
   currentColor: string;

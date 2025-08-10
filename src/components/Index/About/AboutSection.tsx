@@ -2,7 +2,10 @@ import ProfileCard from "./ProfileCard";
 import { FadeInOnScroll, HoverCard } from "@/components/ScrollReveal";
 import BounceCards from "@/components/BounceCards";
  
-import headshotImg from "@/assets/headshot.png";
+import headshotImg from "@/assets/about/headshot.png";
+import doodleImg from "@/assets/about/bounce/doodle.jpeg";
+import me2Img from "@/assets/about/bounce/me2.jpeg";
+import watertown from "@/assets/about/bounce/watertown.jpg";
 
 interface AboutSectionProps {
   currentColor: string;
@@ -70,19 +73,16 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
         {/* BounceCards Section */}
         <FadeInOnScroll direction="up" duration={800} delay={800} elementId="about-bounce-cards">
           <div className="mt-20 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-              My Journey in Tech
-            </h3>
             <div className="flex justify-center">
-              <BounceCards
-                className="custom-bounceCards"
-                images={[
-                  "https://picsum.photos/400/400?grayscale",
-                  "https://picsum.photos/500/500?grayscale",
-                  "https://picsum.photos/600/600?grayscale",
-                  "https://picsum.photos/700/700?grayscale",
-                  "https://picsum.photos/300/300?grayscale"
-                ]}
+                             <BounceCards
+                 className="custom-bounceCards"
+                 images={[
+                   "/src/assets/about/bounce/IMG_5468.JPG",
+                   "/src/assets/about/bounce/IMG_5451.JPG",
+                   doodleImg,
+                   me2Img,
+                   watertown
+                 ]}
                 containerWidth={500}
                 containerHeight={250}
                 animationDelay={1}
@@ -95,7 +95,7 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
                   "rotate(5deg) translate(70px)",
                   "rotate(-5deg) translate(150px)"
                 ]}
-                enableHover={false}
+                enableHover={true}
               />
             </div>
           </div>

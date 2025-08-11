@@ -4,8 +4,8 @@ import BounceCards from "@/components/BounceCards";
  
 import headshotImg from "@/assets/about/headshot.jpeg";
 import doodleImg from "@/assets/about/bounce/doodle.jpeg";
-import me2Img from "@/assets/about/bounce/me2.jpeg";
-import watertown from "@/assets/about/bounce/watertown.jpg";
+import me from "@/assets/about/bounce/me.jpeg";
+import cozy from "@/assets/about/bounce/cozy.jpeg";
 
 interface AboutSectionProps {
   currentColor: string;
@@ -69,8 +69,8 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
                              <BounceCards
                  className="custom-bounceCards"
                  images={[
-                   watertown,
-                   me2Img,
+                   cozy,
+                   me,
                    doodleImg,
                    "/src/assets/about/bounce/IMG_5451.JPG",
                    "/src/assets/about/bounce/IMG_5468.JPG"

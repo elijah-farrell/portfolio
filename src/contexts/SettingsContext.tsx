@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface SettingsContextType {
   // Theme settings
@@ -24,9 +24,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const [darkMode, setDarkModeState] = useState(true);
   const [currentColor, setCurrentColorState] = useState('#EF4444');
   
-  // Simple animation cache using Set
+  // Session-based animation cache using Set (clears on refresh and page navigation)
   const [animationCache, setAnimationCache] = useState<Set<string>>(new Set());
-  const [cacheTimestamp, setCacheTimestamp] = useState<number>(Date.now());
+  const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
   
   // Load settings from localStorage on mount
   useEffect(() => {
@@ -44,22 +44,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
           setCurrentColorState(settings.currentColor);
         }
         
-        // Load animation cache with timestamp check
-        if (settings.animationCache && Array.isArray(settings.animationCache)) {
-          const savedTimestamp = settings.cacheTimestamp || 0;
-          const now = Date.now();
-          const fifteenMinutes = 15 * 60 * 1000; // 15 minutes in milliseconds
-          
-          // If cache is older than 15 minutes, don't load it
-          if (now - savedTimestamp < fifteenMinutes) {
-            setAnimationCache(new Set(settings.animationCache));
-            setCacheTimestamp(savedTimestamp);
-          } else {
-            // Cache is expired, start fresh
-            setAnimationCache(new Set());
-            setCacheTimestamp(now);
-          }
-        }
+        // Animation cache is session-based only (not persisted)
+        // It will start fresh on each page refresh
       }
     } catch (error) {
       console.error('Failed to load settings:', error);
@@ -74,6 +60,32 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  // Clear animation cache when page changes
+  useEffect(() => {
+    const handlePageChange = () => {
+      const newPage = window.location.pathname;
+      if (newPage !== currentPage) {
+        setCurrentPage(newPage);
+        setAnimationCache(new Set()); // Clear cache on page change
+      }
+    };
+
+    // Listen for popstate (back/forward navigation)
+    window.addEventListener('popstate', handlePageChange);
+    
+    // Listen for pushstate (programmatic navigation)
+    const originalPushState = history.pushState;
+    history.pushState = function(...args) {
+      originalPushState.apply(history, args);
+      handlePageChange();
+    };
+
+    return () => {
+      window.removeEventListener('popstate', handlePageChange);
+      history.pushState = originalPushState;
+    };
+  }, [currentPage]);
   
   // Save settings whenever they change
   useEffect(() => {
@@ -81,14 +93,13 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       const settings = {
         darkMode,
         currentColor,
-        animationCache: Array.from(animationCache),
-        cacheTimestamp
+        animationCache: Array.from(animationCache)
       };
       localStorage.setItem('portfolioSettings', JSON.stringify(settings));
     } catch (error) {
       console.error('Failed to save settings:', error);
     }
-  }, [darkMode, currentColor, animationCache, cacheTimestamp]);
+  }, [darkMode, currentColor, animationCache]);
   
   const setDarkMode = (newDarkMode: boolean) => {
     setDarkModeState(newDarkMode);
@@ -101,7 +112,6 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const addToAnimationCache = (elementId: string) => {
     if (!elementId) return;
     setAnimationCache(prev => new Set([...prev, elementId]));
-    setCacheTimestamp(Date.now());
   };
   
   const isInAnimationCache = (elementId: string): boolean => {
@@ -111,7 +121,6 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   
   const clearAnimationCache = () => {
     setAnimationCache(new Set());
-    setCacheTimestamp(Date.now());
   };
   
   const value: SettingsContextType = {

@@ -32,7 +32,7 @@ export default function Footer({ currentColor }: FooterProps) {
           {/* Middle Column - Connect */}
           <div className="flex flex-col">
             <h4 className="text-lg font-semibold mb-6">Connect</h4>
-            <div className="flex flex-wrap gap-4 flex-1 items-center">
+            <div className="flex flex-wrap gap-4 flex-1 items-start -mt-2">
               <a 
                 href="https://github.com/elijah-farrell" 
                 target="_blank" 

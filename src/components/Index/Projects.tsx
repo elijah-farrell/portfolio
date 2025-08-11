@@ -4,9 +4,9 @@ import { Tilt } from 'react-tilt';
 import { useSettings } from '@/contexts/SettingsContext';
 import { FadeInOnScroll } from '@/components/ScrollReveal';
 
-import efRedLogo from '@/assets/work/ef-red.png';
-import laptopPreview from '@/assets/work/3d-laptop-preview.png';
-import nexuschatImage from '@/assets/work/nexuschat.png';
+import efRedLogo from '@/assets/projects/ef-red.png';
+import laptopPreview from '@/assets/projects/3d-laptop-preview.png';
+import nexuschatImage from '@/assets/projects/nexuschat.png';
 
 // Helper function to get portfolio image
 const getPortfolioImage = (): string => {
@@ -27,25 +27,25 @@ interface TProject {
 const projects: TProject[] = [
   {
     title: 'Portfolio Website',
-    description: 'A modern, responsive portfolio website built with React, TypeScript, and Three.js. Features 3D models, smooth animations, and a contact form with EmailJS integration.',
+    description: 'A modern, responsive portfolio website built with React 18, TypeScript, and Three.js. Features 3D models, smooth animations, and a contact form with EmailJS integration. Built with Vite for fast development and deployment.',
     image: 'portfolio', // Special identifier for dynamic image
-    technologies: ['React', 'TypeScript', 'Three.js', 'Tailwind CSS', 'Framer Motion', 'EmailJS'],
+    technologies: [],
     githubUrl: 'https://github.com/elijah-farrell/portfolio',
     liveUrl: 'https://elijahfarrell.com'
   },
   {
     title: 'NexusChat',
-    description: 'Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT auth, and WebSocket communication. Built with React, Node.js, PostgreSQL, and Socket.IO.',
+    description: 'Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT authentication, and WebSocket communication. Built with React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, and Three.js. Deployed with Vite for optimal performance.',
     image: 'nexuschat',
-    technologies: ['React 18', 'Node.js', 'Express.js', 'PostgreSQL', 'Socket.IO', 'Material-UI', 'JWT', 'WebSockets', 'Three.js', 'Vite'],
+    technologies: [],
     githubUrl: 'https://github.com/elijah-farrell/nexuschat',
     liveUrl: 'https://nexxuschat.vercel.app'
   },
   {
     title: '3D Floating Laptop',
-    description: 'Interactive 3D application featuring a floating laptop with a fully functional website interface rendered directly on the 3D screen.',
+    description: 'Interactive 3D application featuring a floating laptop with a fully functional website interface rendered directly on the 3D screen. Built with React 18, Three.js, React Three Fiber, and Vite for fast 3D rendering and development.',
     image: '3d-laptop-preview',
-    technologies: ['React', 'Three.js', '@react-three/fiber', '@react-three/drei', 'Vite', 'Tailwind CSS'],
+    technologies: [],
     githubUrl: 'https://github.com/elijah-farrell/3d-floating-laptop',
     liveUrl: 'https://3d-floating-laptop.vercel.app/'
   },
@@ -53,14 +53,14 @@ const projects: TProject[] = [
     title: 'Project 4',
     description: 'Coming Soon - The final project in this series is being carefully crafted to demonstrate advanced techniques and innovative solutions.',
     image: '/project4-preview.jpg',
-    technologies: ['Coming Soon', 'Advanced Tech', 'Innovation'],
+    technologies: [],
     githubUrl: undefined,
     liveUrl: undefined
   }
 ];
 
 // Project Card Component
-const ProjectCard: React.FC<TProject & { index: number }> = ({ title, description, image, technologies, githubUrl, liveUrl, index }) => {
+const ProjectCard: React.FC<TProject & { index: number }> = ({ title, description, image, githubUrl, liveUrl, index }) => {
   const { currentColor } = useSettings();
   
   return (
@@ -120,35 +120,18 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
           </div>
           
           {/* Project Info */}
-          <div className="space-y-2 flex flex-col flex-1">
+          <div className="space-y-1 flex flex-col flex-1">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm flex-1 min-h-[60px]">{description}</p>
-            
-            {/* Technologies */}
-            <div className="flex flex-wrap gap-1.5 mt-1 flex-shrink-0 min-h-[32px]">
-              {technologies.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className="px-2.5 py-1 text-xs font-medium rounded-md"
-                  style={{ 
-                    backgroundColor: `${currentColor}15`,
-                    color: currentColor,
-                    border: `1px solid ${currentColor}30`
-                  }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm flex-1">{description}</p>
             
             {/* Links */}
-            <div className="flex gap-3 pt-2 mt-auto flex-shrink-0">
+            <div className="flex flex-wrap gap-2 mt-auto flex-shrink-0">
               {githubUrl ? (
                 <a
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex-shrink-0"
                   style={{ 
                     backgroundColor: `${currentColor}20`,
                     color: currentColor,
@@ -179,7 +162,7 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex-shrink-0"
                   style={{ 
                     backgroundColor: `${currentColor}20`,
                     color: currentColor,
@@ -241,4 +224,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects; 
+export default Projects;

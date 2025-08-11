@@ -148,7 +148,7 @@ export default function Navigation() {
               className={`fixed top-0 w-full z-[60] transition-all duration-300 ${
         isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
       } ${
-        shouldBeTransparent 
+        (shouldBeTransparent && !mobileMenuOpen) 
           ? 'bg-transparent backdrop-blur-none' 
           : 'bg-white dark:bg-black'
       }`}
@@ -429,7 +429,7 @@ export default function Navigation() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className={`lg:hidden overflow-hidden transition-all duration-300 border-t ${
-            shouldBeTransparent 
+            (shouldBeTransparent && !mobileMenuOpen) 
               ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md border-white/20 dark:border-white/20' 
               : 'bg-white dark:bg-black border-gray-200 dark:border-gray-800'
           }`}>
@@ -446,74 +446,80 @@ export default function Navigation() {
                     e.preventDefault();
                     const element = document.querySelector(href) as HTMLElement;
                     if (element) {
-                      const navbarHeight = 80; // Approximate navbar height
-                      const elementTop = element.offsetTop - navbarHeight - 20; // Extra 20px buffer
-                      window.scrollTo({
-                        top: elementTop,
-                        behavior: 'smooth'
-                      });
+                      // Close mobile menu first, then scroll with updated navbar height
+                      setMobileMenuOpen(false);
+                      setTimeout(() => {
+                        const navbar = document.querySelector('nav');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 96;
+                        const elementTop = element.offsetTop - navbarHeight - 5; // Smaller buffer for main nav
+                        window.scrollTo({
+                          top: elementTop,
+                          behavior: 'smooth'
+                        });
+                      }, 100); // Wait for mobile menu to close
                     }
                   }
-                  setMobileMenuOpen(false);
                 };
                 
                 return (
-                  <Link 
-                    key={item.href}
-                    to={item.href}
-                    onClick={(e) => handleMobileClick(e, item.href)}
-                    className={`block w-full text-left font-medium py-2 pl-3 border-l-4 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-2 ${
-                      isActive 
-                        ? (shouldBeTransparent ? 'text-gray-900 dark:text-white border-white dark:border-white' : 'text-gray-900 dark:text-white border-l-4') 
-                        : (shouldBeTransparent ? 'text-gray-700 dark:text-gray-200 border-transparent hover:border-gray-400 dark:hover:border-white/50' : 'text-gray-600 dark:text-gray-300 border-l-4 border-transparent hover:border-gray-300 dark:hover:border-gray-600')
-                    }`}
-                    style={isActive ? { borderLeftColor: currentColor } : {}}
-                  >
-                    {item.icon && item.icon}
-                    {item.label}
-                  </Link>
+                  <React.Fragment key={item.href}>
+                    <Link 
+                      to={item.href}
+                      onClick={(e) => handleMobileClick(e, item.href)}
+                      className={`block w-full text-left font-medium py-2 pl-3 border-l-4 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-2 ${
+                        isActive 
+                          ? (shouldBeTransparent ? 'text-gray-900 dark:text-white border-white dark:border-white' : 'text-gray-900 dark:text-white border-l-4') 
+                          : (shouldBeTransparent ? 'text-gray-700 dark:text-gray-200 border-transparent hover:border-gray-400 dark:hover:border-white/50' : 'text-gray-600 dark:text-gray-300 border-l-4 border-transparent hover:border-gray-300 dark:hover:border-gray-600')
+                      }`}
+                      style={isActive ? { borderLeftColor: currentColor } : {}}
+                    >
+                      {item.icon && item.icon}
+                      {item.label}
+                    </Link>
+                    
+                    {/* Insert home page sections after Home */}
+                    {item.href === '/' && location.pathname === '/' && (
+                      <>
+                        {homePageItems.map((sectionItem) => {
+                          const isSectionActive = location.hash === sectionItem.href;
+                          return (
+                            <Link 
+                              key={sectionItem.href}
+                              to={sectionItem.href}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const element = document.querySelector(sectionItem.href) as HTMLElement;
+                                if (element) {
+                                  // Close mobile menu first, then scroll with updated navbar height
+                                  setMobileMenuOpen(false);
+                                                        setTimeout(() => {
+                        const navbar = document.querySelector('nav');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 96;
+                        const elementTop = element.offsetTop - navbarHeight + 1; // Minimal buffer for secondary links
+                        window.scrollTo({
+                          top: elementTop,
+                          behavior: 'smooth'
+                        });
+                      }, 100); // Wait for mobile menu to close
+                                }
+                              }}
+                              className={`block w-full text-left font-medium py-2 pl-8 border-l-2 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-3 ${
+                                isSectionActive 
+                                  ? (shouldBeTransparent ? 'text-gray-900 dark:text-white border-white dark:border-white' : 'text-gray-900 dark:text-white border-l-2') 
+                                  : (shouldBeTransparent ? 'text-gray-700 dark:text-gray-200 border-transparent hover:border-gray-400 dark:hover:border-white/50' : 'text-gray-600 dark:text-gray-300 border-l-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600')
+                              }`}
+                              style={isSectionActive ? { borderLeftColor: currentColor } : {}}
+                            >
+                              <span className="text-gray-400 dark:text-gray-500 text-sm">•</span>
+                              <span className="text-sm">{sectionItem.label}</span>
+                            </Link>
+                          );
+                        })}
+                      </>
+                    )}
+                  </React.Fragment>
                 );
               })}
-              
-              {/* Home page items for mobile - only show on home page */}
-                                {homePageItems.map((item) => (
-                    <button
-                      key={item.href}
-                      onClick={() => {
-                        if (location.pathname === '/') {
-                          // On home page, scroll to section with navbar offset
-                          const element = document.querySelector(item.href) as HTMLElement;
-                          if (element) {
-                            const navbarHeight = 80; // Approximate navbar height
-                            const elementTop = element.offsetTop - navbarHeight; // Align with navbar bottom
-                            window.scrollTo({
-                              top: elementTop,
-                              behavior: 'smooth'
-                            });
-                          }
-                        } else {
-                          // On other pages, navigate to home page first
-                          navigate('/');
-                          // Wait for navigation then scroll with navbar offset
-                          setTimeout(() => {
-                            const element = document.querySelector(item.href) as HTMLElement;
-                            if (element) {
-                              const navbarHeight = 80; // Approximate navbar height
-                              const elementTop = element.offsetTop - navbarHeight - 20; // Extra 20px buffer
-                              window.scrollTo({
-                                top: elementTop,
-                                behavior: 'smooth'
-                              });
-                            }
-                          }, 100);
-                        }
-                        setMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left font-medium py-2 pl-3 border-l-4 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
             </div>
           </div>
         )}

@@ -60,9 +60,9 @@ export default function LanguageSkills({ currentColor }: LanguageSkillsProps) {
         </p>
       </div>
 
-      {/* Languages Grid - Full Width */}
+      {/* Languages Grid - Responsive & Symmetrical */}
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-8 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6 justify-items-center">
           {languages.map((skill, index) => (
             <HoverCard 
               key={skill.name} 
@@ -70,13 +70,13 @@ export default function LanguageSkills({ currentColor }: LanguageSkillsProps) {
               shadowIntensity={12} 
               className="group relative"
             >
-              <div className="bg-white dark:bg-black rounded-xl p-4 shadow-md border border-gray-200 dark:border-neutral-700 transition-all duration-300 hover:shadow-lg">
-                <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-lg flex items-center justify-center overflow-hidden bg-white shadow-sm">
+              <div className="bg-white dark:bg-black rounded-xl p-3 sm:p-4 shadow-md border border-gray-200 dark:border-neutral-700 transition-all duration-300 hover:shadow-lg w-20 h-20 sm:w-24 sm:h-24">
+                <div className="text-center h-full flex flex-col items-center justify-center">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 rounded-lg flex items-center justify-center overflow-hidden bg-white shadow-sm">
                     <img 
                       src={skill.image} 
                       alt={skill.name}
-                      className="w-10 h-10 object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-8 h-8 sm:w-10 sm:h-10 object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                   <h4 className="font-semibold text-sm text-gray-900 dark:text-white">

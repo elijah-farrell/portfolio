@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { collection, addDoc, orderBy, query, onSnapshot, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../../firebase/config';
+import { db } from '../../firebase/config';
 import emailjs from '@emailjs/browser';
 import { FadeInOnScroll, HoverCard } from "@/components/ScrollReveal";
 

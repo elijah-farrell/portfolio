@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSettings } from "@/contexts/SettingsContext";
 import Navigation from "@/components/Navigation/Navigation";
-import ContactHeader from "@/components/Index/Contact/ContactHeader";
-import ContactSection from "@/components/Index/Contact/ContactSection";
+import ContactHeader from "@/components/Contact/ContactHeader";
+import ContactSection from "@/components/Contact/ContactSection";
 import Footer from "@/components/Footer/Footer";
 
 export default function Contact() {

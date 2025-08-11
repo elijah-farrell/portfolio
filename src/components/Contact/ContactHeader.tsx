@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FadeInOnScroll } from '@/components/ScrollReveal';
-import { PhoneBoothCanvas } from '@/components/canvas';
+import PhoneBoothCanvas from '@/components/Contact/PhoneBooth/PhoneBoothCanvas';
 
 interface ContactHeaderProps {
   currentColor: string;

@@ -3,10 +3,10 @@ import { useSettings } from "@/contexts/SettingsContext";
 import Navigation from "@/components/Navigation/Navigation";
 import HeroSection from "@/components/Index/Hero/HeroSection";
 import AboutSection from "@/components/Index/About/AboutSection";
-import EducationSection from "@/components/Index/Education/EducationSection";
+import EducationSection from "@/components/Index/EducationSection";
 import SkillsSection from "@/components/Index/Skills/SkillsSection";
-import WorkExperience from "@/components/Work/WorkExperience";
-import Projects from "@/components/Work/Projects";
+import WorkExperience from "@/components/Index/WorkExperience";
+import Projects from "@/components/Index/Projects";
 import Footer from "@/components/Footer/Footer";
 
 export default function Index() {

@@ -41,8 +41,7 @@ const experiences: TExperience[] = [
     points: [
       'Performed general duties including facility support and janitorial tasks.',
       'Occasionally assisted with basic device troubleshooting and user setup when assigned.',
-      'Gained initial exposure to technical support environments and team coordination.',
-      'Technologies: Technical Support, Troubleshooting, User Software, Facility Support'
+      'Gained initial exposure to technical support environments and team coordination.'
     ],
   },
 ];
@@ -133,4 +132,4 @@ const WorkExperience: React.FC = () => {
   );
 };
 
-export default WorkExperience; 
+export default WorkExperience;

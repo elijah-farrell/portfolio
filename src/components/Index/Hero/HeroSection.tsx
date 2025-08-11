@@ -36,21 +36,21 @@ export default function HeroSection({ darkMode, currentColor, windowWidth }: Her
     <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative overflow-hidden bg-white dark:bg-black border-b border-gray-200 dark:border-neutral-800">
       <div className="absolute inset-0 z-0">
         <FaultyTerminal
-          scale={windowWidth < 768 ? 1.5 : windowWidth < 1024 ? 2.0 : 2.2}
+          scale={windowWidth < 1024 ? 2.0 : 2.2}
           gridMul={[2, 1]}
-          digitSize={windowWidth < 768 ? 0.8 : 1.2}
+          digitSize={1.2}
           timeScale={0.5}
           pause={false}
           scanlineIntensity={0.5}
-          glitchAmount={windowWidth < 768 ? 0.5 : 1}
-          flickerAmount={windowWidth < 768 ? 0.5 : 1}
-          noiseAmp={windowWidth < 768 ? 0.5 : 1}
+          glitchAmount={1}
+          flickerAmount={1}
+          noiseAmp={1}
           chromaticAberration={0}
           dither={0}
-          curvature={windowWidth < 768 ? 0.02 : 0.05}
+          curvature={0.05}
           tint={currentColor}
           mouseReact={true}
-          mouseStrength={windowWidth < 768 ? 0.1 : windowWidth < 1024 ? 0.2 : 0.3}
+          mouseStrength={windowWidth < 1024 ? 0.2 : 0.3}
           pageLoadAnimation={true}
           brightness={0.6}
           isDarkMode={darkMode}

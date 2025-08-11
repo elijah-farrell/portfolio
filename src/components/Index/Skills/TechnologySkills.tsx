@@ -11,17 +11,28 @@ export default function TechnologySkills({ currentColor }: TechnologySkillsProps
       technologies: [
         { name: 'Git' },
         { name: 'Vite' },
-        { name: 'React' },
-        { name: 'Node.js' }
+        { name: 'Node.js' },
+        { name: 'Render' },
+        { name: 'Vercel' },
+        { name: 'Supabase' },
+        { name: 'GCC' },
+        { name: 'Vim' }
       ]
     },
     {
       title: "Frameworks",
       technologies: [
+        { name: 'React' },
+        { name: 'Flask' },
         { name: 'Pandas' },
         { name: 'NumPy' },
         { name: 'PyTorch' },
-        { name: 'HuggingFace' }
+        { name: 'OpenCV' },
+        { name: 'HuggingFace' },
+        { name: 'Tailwind CSS' },
+        { name: 'EmailJS' },
+        { name: 'Three.js' },
+        { name: 'Material-UI' }
       ]
     },
     {
@@ -29,7 +40,8 @@ export default function TechnologySkills({ currentColor }: TechnologySkillsProps
       technologies: [
         { name: 'MySQL' },
         { name: 'SQLite' },
-        { name: 'Firebase' }
+        { name: 'Firebase' },
+        { name: 'PostgreSQL' }
       ]
     }
   ];
@@ -40,27 +52,20 @@ export default function TechnologySkills({ currentColor }: TechnologySkillsProps
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
           Technologies & Frameworks
         </h3>
-        <p className="text-gray-600 dark:text-gray-300">Tools and platforms I use to build solutions</p>
+        <p className="text-gray-600 dark:text-gray-300">Tools and platforms I have used to build solutions</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="space-y-6">
         {technologyCategories.map((category) => (
-          <div key={category.title} className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-4">
+          <div key={category.title} className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white min-w-[120px]">
               {category.title}
             </h4>
-            <div className="grid grid-cols-2 gap-3">
-              {category.technologies.map((tech) => (
-                <HoverCard 
-                  key={tech.name} 
-                  scale={1.05} 
-                  shadowIntensity={10} 
-                  className="group bg-white dark:bg-black rounded-lg p-3 shadow-sm border border-gray-100 dark:border-neutral-600"
-                >
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech.name}</span>
-                  </div>
-                </HoverCard>
+            <div className="flex flex-wrap gap-3 text-gray-700 dark:text-gray-300">
+              {category.technologies.map((tech, index) => (
+                <span key={tech.name}>
+                  {tech.name}{index < category.technologies.length - 1 ? ' •' : ''}
+                </span>
               ))}
             </div>
           </div>

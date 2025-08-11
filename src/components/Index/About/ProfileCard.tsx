@@ -398,34 +398,16 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           <div className="pc-shine" />
           <div className="pc-glare" />
           <div className="pc-content pc-avatar-content">
-            {avatarUrl && (
-              <img
-                className="avatar"
-                src={avatarUrl}
-                alt={`${name || "User"} avatar`}
-                loading="lazy"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                }}
-              />
-            )}
+            <div className="avatar flex items-center justify-center text-center bg-gray-100 dark:bg-neutral-700 rounded-full w-full h-full text-gray-600 dark:text-gray-300 font-medium text-lg">
+              Photo Coming Soon
+            </div>
             {showUserInfo && (
               <div className="pc-user-info">
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
-                    {(miniAvatarUrl || avatarUrl) && (
-                      <img
-                        src={miniAvatarUrl || avatarUrl}
-                        alt={`${name || "User"} mini avatar`}
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.opacity = "0.5";
-                          target.src = avatarUrl;
-                        }}
-                      />
-                    )}
+                    <div className="w-full h-full flex items-center justify-center text-center bg-gray-100 dark:bg-neutral-700 rounded-full text-gray-600 dark:text-gray-300 font-medium text-xs">
+                      CS
+                    </div>
                   </div>
                   <div className="pc-user-text">
                     <div className="pc-handle">@{handle}</div>

@@ -44,11 +44,31 @@ body {
 
 /* Vertical Timeline Line Colors */
 .vertical-timeline::before {
-  background: #E6DEDD !important;
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%) !important;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.8) !important;
 }
 
 .dark .vertical-timeline::before {
-  background: #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Timeline Icon Background Colors */
+:root {
+  --icon-bg: #000000;
+}
+
+.dark {
+  --icon-bg: #ffffff;
+}
+
+/* Work Card Bottom Border */
+.vertical-timeline-element-content {
+  border-bottom: 2px solid #000000 !important;
+}
+
+.dark .vertical-timeline-element-content {
+  border-bottom: 2px solid #374151 !important;
 }
 
 

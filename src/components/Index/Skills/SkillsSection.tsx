@@ -18,7 +18,7 @@ export default function SkillsSection({ currentColor }: SkillsSectionProps) {
   }, []);
 
   return (
-    <section id="skills" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
+    <section id="skills" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-700">
       <div className="max-w-6xl mx-auto">
         <FadeInOnScroll direction="up" duration={800} delay={200} elementId="skills-header">
           <div className="mb-8 text-center">

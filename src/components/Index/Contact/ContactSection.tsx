@@ -201,14 +201,14 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <FadeInOnScroll direction="right" duration={800} delay={400} elementId="contact-info">
-            <div className="bg-white dark:bg-neutral-700 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-neutral-600 flex flex-col h-full">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-neutral-700 flex flex-col h-full">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Contact Information
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
               <a href="https://maps.google.com/?q=Watertown,NY" target="_blank" rel="noopener noreferrer" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -228,7 +228,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
               </a>
 
               <a href="tel:3158040601" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -247,7 +247,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
               </a>
 
               <a href="mailto:elijah5003@gmail.com" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -266,7 +266,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
               </a>
 
               <a href="https://github.com/elijah-farrell" target="_blank" rel="noopener noreferrer" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -285,7 +285,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
               </a>
 
               <a href="https://discord.com/users/zarnx" target="_blank" rel="noopener noreferrer" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -304,7 +304,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
               </a>
 
               <a href="https://www.linkedin.com/in/elijah-farrell-915047349" target="_blank" rel="noopener noreferrer" className="block">
-                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-700 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-neutral-600 h-full flex items-center">
+                <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
@@ -327,7 +327,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
 
           {/* Comment Section */}
           <FadeInOnScroll direction="left" duration={800} delay={600} elementId="contact-comments">
-            <div className="bg-white dark:bg-neutral-700 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-neutral-600">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-neutral-700">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Leave a Comment
             </h3>
@@ -343,7 +343,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
                 </p>
               ) : (
                 comments.map((comment) => (
-                  <div key={comment.id} className="bg-white dark:bg-neutral-700 rounded-lg p-4 shadow-sm">
+                  <div key={comment.id} className="bg-white dark:bg-neutral-800 rounded-lg p-4 shadow-sm">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <div 
@@ -397,7 +397,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
       {/* Preview Modal */}
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-neutral-700 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Preview Your Comment
             </h3>

@@ -35,7 +35,7 @@ export default function EducationSection({ currentColor }: EducationSectionProps
   ];
 
   return (
-    <section id="education" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
+    <section id="education" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-700">
       
       <div className="max-w-6xl mx-auto">
         <FadeInOnScroll direction="up" duration={800} delay={200} elementId="education-header">
@@ -108,7 +108,7 @@ export default function EducationSection({ currentColor }: EducationSectionProps
                 Relevant Coursework
               </h3>
 
-              <div className="bg-gray-50 dark:bg-neutral-800 rounded-xl p-3 text-center flex items-center justify-center min-h-[80px] overflow-hidden">
+                             <div className="bg-[#f2f4f6] dark:bg-neutral-700 rounded-xl p-3 text-center flex items-center justify-center min-h-[80px] overflow-hidden">
                 <RotatingText
                   texts={allCourses}
                   mainClassName="text-base font-medium text-gray-800 dark:text-gray-200 text-center"

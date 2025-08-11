@@ -67,13 +67,15 @@ const ExperienceCard: React.FC<TExperience & { index: number }> = ({ date, iconB
         textShadow: 'none'
       }}
       iconStyle={{ 
-        background: 'rgba(255, 255, 255, 0.9)',
+        background: 'var(--icon-bg, #000000)',
         borderRadius: '12px',
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
       }}
       icon={
         <div className="h-full w-full flex justify-center items-center">
-          <img src={icon} alt={companyName} className="w-[60%] h-[60%] object-contain" />
+          <div className="w-[80%] h-[80%] bg-white rounded-full flex justify-center items-center">
+            <img src={icon} alt={companyName} className="w-[70%] h-[70%] object-contain" />
+          </div>
         </div>
       }
     >
@@ -107,7 +109,7 @@ const WorkExperience: React.FC = () => {
   const { currentColor } = useSettings();
   
   return (
-    <section id="work" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
+    <section id="work" className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-700">
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
         <div className="mb-16">

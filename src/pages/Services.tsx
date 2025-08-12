@@ -46,7 +46,7 @@ export default function Services() {
       <Navigation />
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900">
+        <section className="min-h-[60vh] flex items-center justify-center px-4 sm:px-6 bg-white dark:bg-black">
           <div className="max-w-4xl mx-auto text-center">
             <FadeInOnScroll direction="up" duration={1000} delay={200} initialOpacity={0} elementId="services-hero">
               <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
@@ -60,18 +60,9 @@ export default function Services() {
         </section>
 
         {/* Services Section */}
-        <section className="py-20 px-4 sm:px-6 bg-white dark:bg-black">
+        <section className="py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900">
           <div className="max-w-6xl mx-auto">
-            <FadeInOnScroll direction="up" duration={1000} delay={400} initialOpacity={0} elementId="services-intro">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  What I Do
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                End-to-end web development services creating robust, scalable applications. From responsive frontends to powerful backend systems.
-                </p>
-              </div>
-            </FadeInOnScroll>
+
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
@@ -191,12 +182,12 @@ export default function Services() {
             {/* Additional Services */}
             <FadeInOnScroll direction="up" duration={1000} delay={1200} initialOpacity={0} elementId="additional-services">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-                {[
-                  {
-                    title: "Technical Consulting",
-                    description: "Get expert advice on architecture, code reviews, and technical decisions.",
-                    icon: "🔧"
-                  },
+                                 {[
+                   {
+                     title: "Technical Consulting",
+                     description: "Get expert advice on architecture, code reviews, and technical decisions.",
+                     icon: "👨‍💻"
+                   },
                   {
                     title: "Performance & Optimization",
                     description: "Speed up slow applications, improve user experience, and optimize for better performance.",
@@ -208,28 +199,28 @@ export default function Services() {
                     icon: "🛠️"
                   }
                 ].map((service, index) => (
-                  <div 
-                    key={service.title}
-                    className="p-6 rounded-xl border border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800 hover:shadow-lg transition-all duration-300"
-                  >
+                                     <div 
+                     key={service.title}
+                     className="p-6 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-black hover:shadow-lg transition-all duration-300"
+                   >
                                          <div className="text-3xl mb-4">
                          <div className="relative w-16 h-16">
-                           {/* 3D Sphere for Technical Consulting */}
-                           {service.title === "Technical Consulting" && (
-                             <>
-                               <div 
-                                 className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 dark:from-purple-500 dark:to-purple-700"
-                                 style={{
-                                   transform: 'perspective(1000px) rotateY(15deg) rotateX(5deg)',
-                                   boxShadow: '0 15px 30px rgba(147, 51, 234, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)',
-                                   filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.3))'
-                                 }}
-                               />
-                               <svg className="absolute inset-0 w-8 h-8 m-auto text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
-                                 <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
-                               </svg>
-                             </>
-                           )}
+                                                       {/* 3D Sphere for Technical Consulting */}
+                            {service.title === "Technical Consulting" && (
+                              <>
+                                <div 
+                                  className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 dark:from-purple-500 dark:to-purple-700"
+                                  style={{
+                                    transform: 'perspective(1000px) rotateY(15deg) rotateX(5deg)',
+                                    boxShadow: '0 15px 30px rgba(147, 51, 234, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)',
+                                    filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.3))'
+                                  }}
+                                />
+                                <svg className="absolute inset-0 w-8 h-8 m-auto text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                              </>
+                            )}
                            
                            {/* 3D Sphere for Performance & Optimization */}
                            {service.title === "Performance & Optimization" && (
@@ -280,15 +271,20 @@ export default function Services() {
             {/* Schedule a Call Button */}
             <FadeInOnScroll direction="up" duration={1000} delay={1400} initialOpacity={0} elementId="schedule-call">
               <div className="text-center">
-                                 <button
-                   onClick={() => setShowForm(true)}
-                   className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl text-lg"
-                   style={{ backgroundColor: currentColor, '--tw-ring-color': currentColor } as React.CSSProperties}
-                 >
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                  Ready to start your next project?
+                </h3>
+                <a
+                  href="https://cal.com/elijahfarrell"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl text-lg"
+                  style={{ backgroundColor: currentColor, '--tw-ring-color': currentColor } as React.CSSProperties}
+                >
                   Schedule a Call →
-                </button>
+                </a>
                 <p className="text-gray-600 dark:text-gray-400 mt-4">
-                  Let's discuss your project and find the perfect solution together
+                  Book a free consultation or paid service meeting directly
                 </p>
               </div>
             </FadeInOnScroll>

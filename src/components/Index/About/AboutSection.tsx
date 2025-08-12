@@ -68,13 +68,13 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
             <div className="flex justify-center">
                              <BounceCards
                  className="custom-bounceCards"
-                 images={[
-                   cozy,
-                   me,
-                   doodleImg,
-                   "/src/assets/about/bounce/IMG_5451.JPG",
-                   "/src/assets/about/bounce/IMG_5468.JPG"
-                 ]}
+                                 images={[
+                  cozy,
+                  me,
+                  doodleImg,
+                  "/src/assets/about/bounce/IMG_5468.JPG",
+                  "/src/assets/about/bounce/IMG_5451.JPG"
+                ]}
                 containerWidth={500}
                 containerHeight={250}
                 animationDelay={1}

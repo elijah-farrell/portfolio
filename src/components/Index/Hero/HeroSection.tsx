@@ -115,7 +115,7 @@ export default function HeroSection({ darkMode, currentColor, windowWidth }: Her
                 className="w-full px-8 sm:px-12 md:px-16 py-4 border-2 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-neutral-600 hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm sm:text-base"
                 style={{ borderColor: currentColor }}
               >
-                Get In Touch
+                Hire Me
               </button>
             </HoverCard>
           </div>

@@ -227,7 +227,7 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
                 </HoverCard>
               </a>
 
-              <a href="tel:3158040601" className="block">
+              <a href="https://cal.com/elijahfarrell" target="_blank" rel="noopener noreferrer" className="block">
                 <HoverCard scale={1.02} shadowIntensity={15} className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 h-full flex items-center">
                   <div className="flex items-center gap-4 w-full">
                     <div 
@@ -239,8 +239,8 @@ export default function ContactSection({ currentColor }: ContactSectionProps) {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Phone</h4>
-                      <p className="text-gray-600 dark:text-gray-300">(315) 804‑0601</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Meeting</h4>
+                      <p className="text-gray-600 dark:text-gray-300">Book a call</p>
                     </div>
                   </div>
                 </HoverCard>

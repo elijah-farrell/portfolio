@@ -49,6 +49,11 @@ export default function Navigation() {
     ) }
   ];
 
+  // Services page items for dropdown
+  const servicesPageItems: NavItem[] = [
+    { href: 'https://cal.com/elijahfarrell', label: 'Book Call', icon: null }
+  ];
+
   // Handle scroll events to hide/show navbar and detect top position
   useEffect(() => {
     const handleScroll = () => {
@@ -220,10 +225,19 @@ export default function Navigation() {
                         ? (shouldBeTransparent ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white')
                         : (shouldBeTransparent ? 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-900')
                     }`}>
-                      <Link to="/" className="relative z-10 px-2 py-1 rounded-md transition-all duration-300 flex items-center gap-2">
+                      <button 
+                        onClick={() => {
+                          if (isActive) {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          } else {
+                            navigate('/');
+                          }
+                        }}
+                        className="relative z-10 px-2 py-1 rounded-md transition-all duration-300 flex items-center gap-2"
+                      >
                         {item.icon && item.icon}
                         {item.label}
-                      </Link>
+                      </button>
                       {/* Active indicator */}
                       {isActive && (
                         <span 
@@ -285,13 +299,83 @@ export default function Navigation() {
                   </div>
                 );
               }
+
+              // Special handling for Services item with dropdown
+              if (item.href === '/services') {
+                return (
+                  <div className="relative inline-block text-left group" key={item.href}>
+                    <div className={`relative font-medium transition-all duration-300 ${
+                      isActive 
+                        ? (shouldBeTransparent ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white')
+                        : (shouldBeTransparent ? 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-900')
+                    }`}>
+                      <button 
+                        onClick={() => {
+                          if (isActive) {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          } else {
+                            navigate('/services');
+                          }
+                        }}
+                        className="relative z-10 px-2 py-1 rounded-md transition-all duration-300 flex items-center gap-2"
+                      >
+                        {item.icon && item.icon}
+                        {item.label}
+                      </button>
+                      {/* Active indicator */}
+                      {isActive && (
+                        <span 
+                          className="absolute -bottom-1 left-0 w-full h-0.5 rounded-full transition-all duration-300"
+                          style={{ backgroundColor: currentColor }}
+                        />
+                      )}
+                      {/* Hover effect */}
+                      <span className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-x-0 group-hover:scale-x-100 origin-left rounded-md ${
+                        shouldBeTransparent ? 'bg-white/20' : 'bg-gradient-to-r from-transparent via-gray-200 dark:via-neutral-700 to-transparent'
+                      }`}></span>
+                      {/* Hover underline */}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 dark:bg-gray-500 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </div>
+                    
+                    {/* Hover dropdown */}
+                    <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto z-50">
+                      {servicesPageItems.map((dropdownItem) => (
+                        <a
+                          key={dropdownItem.href}
+                          href={dropdownItem.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full px-3 py-2 text-left text-sm font-medium transition-all duration-200 hover:bg-gray-50 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 flex items-center gap-2 whitespace-nowrap"
+                        >
+                          <span>{dropdownItem.label}</span>
+                          <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                    
+                    {/* Extended hover area that covers the entire dropdown region */}
+                    <div className="absolute top-0 left-0 w-full h-32 bg-transparent pointer-events-none group-hover:pointer-events-auto"></div>
+                  </div>
+                );
+              }
               
               // Regular navigation items
               return (
                 <Link 
                   key={item.href}
                   to={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
+                  onClick={(e) => {
+                    // If already on the active page, scroll to top
+                    if (isActive) {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                      // Handle anchor links
+                      handleClick(e, item.href);
+                    }
+                  }}
                   className={`relative font-medium group transition-all duration-300 ${
                     isActive 
                       ? (shouldBeTransparent ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white')
@@ -463,9 +547,18 @@ export default function Navigation() {
                 
                 return (
                   <React.Fragment key={item.href}>
-                    <Link 
-                      to={item.href}
-                      onClick={(e) => handleMobileClick(e, item.href)}
+                    <button 
+                      onClick={() => {
+                        // If already on the active page, scroll to top
+                        if (isActive) {
+                          setMobileMenuOpen(false);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else {
+                          // Navigate to the page
+                          navigate(item.href);
+                          setMobileMenuOpen(false);
+                        }
+                      }}
                       className={`block w-full text-left font-medium py-2 pl-3 border-l-4 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-2 ${
                         isActive 
                           ? (shouldBeTransparent ? 'text-gray-900 dark:text-white border-white dark:border-white' : 'text-gray-900 dark:text-white border-l-4') 
@@ -475,7 +568,7 @@ export default function Navigation() {
                     >
                       {item.icon && item.icon}
                       {item.label}
-                    </Link>
+                    </button>
                     
                     {/* Insert home page sections after Home */}
                     {item.href === '/' && location.pathname === '/' && (
@@ -483,24 +576,22 @@ export default function Navigation() {
                         {homePageItems.map((sectionItem) => {
                           const isSectionActive = location.hash === sectionItem.href;
                           return (
-                            <Link 
+                            <button 
                               key={sectionItem.href}
-                              to={sectionItem.href}
-                              onClick={(e) => {
-                                e.preventDefault();
+                              onClick={() => {
                                 const element = document.querySelector(sectionItem.href) as HTMLElement;
                                 if (element) {
                                   // Close mobile menu first, then scroll with updated navbar height
                                   setMobileMenuOpen(false);
-                                                        setTimeout(() => {
-                        const navbar = document.querySelector('nav');
-                        const navbarHeight = navbar ? navbar.offsetHeight : 96;
-                        const elementTop = element.offsetTop - navbarHeight + 1; // Minimal buffer for secondary links
-                        window.scrollTo({
-                          top: elementTop,
-                          behavior: 'smooth'
-                        });
-                      }, 100); // Wait for mobile menu to close
+                                  setTimeout(() => {
+                                    const navbar = document.querySelector('nav');
+                                    const navbarHeight = navbar ? navbar.offsetHeight : 96;
+                                    const elementTop = element.offsetTop - navbarHeight + 1; // Minimal buffer for secondary links
+                                    window.scrollTo({
+                                      top: elementTop,
+                                      behavior: 'smooth'
+                                    });
+                                  }, 100); // Wait for mobile menu to close
                                 }
                               }}
                               className={`block w-full text-left font-medium py-2 pl-8 border-l-2 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-3 ${
@@ -512,9 +603,31 @@ export default function Navigation() {
                             >
                               <span className="text-gray-400 dark:text-gray-500 text-sm">•</span>
                               <span className="text-sm">{sectionItem.label}</span>
-                            </Link>
+                            </button>
                           );
                         })}
+                      </>
+                    )}
+
+                    {/* Insert services dropdown items after Services */}
+                    {item.href === '/services' && (
+                      <>
+                        {servicesPageItems.map((serviceItem) => (
+                          <a 
+                            key={serviceItem.href}
+                            href={serviceItem.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block w-full text-left font-medium py-2 pl-8 border-l-2 transition-all duration-300 rounded-r-md hover:bg-gray-50 dark:hover:bg-neutral-800 flex items-center gap-2 text-gray-600 dark:text-gray-300 border-l-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 whitespace-nowrap"
+                          >
+                            <span className="text-gray-400 dark:text-gray-500 text-sm">•</span>
+                            <span className="text-sm">{serviceItem.label}</span>
+                            <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                          </a>
+                        ))}
                       </>
                     )}
                   </React.Fragment>

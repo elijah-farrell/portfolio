@@ -6,6 +6,8 @@ import headshotImg from "@/assets/about/headshot.jpeg";
 import doodleImg from "@/assets/about/bounce/doodle.jpeg";
 import me from "@/assets/about/bounce/me.jpeg";
 import cozy from "@/assets/about/bounce/cozy.jpeg";
+import img5468 from "@/assets/about/bounce/IMG_5468.JPG";
+import img5451 from "@/assets/about/bounce/IMG_5451.JPG";
 
 interface AboutSectionProps {
   currentColor: string;
@@ -72,8 +74,8 @@ export default function AboutSection({ currentColor }: AboutSectionProps) {
                   cozy,
                   me,
                   doodleImg,
-                  "/src/assets/about/bounce/IMG_5468.JPG",
-                  "/src/assets/about/bounce/IMG_5451.JPG"
+                  img5468,
+                  img5451
                 ]}
                 containerWidth={500}
                 containerHeight={250}

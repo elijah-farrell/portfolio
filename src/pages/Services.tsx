@@ -3,6 +3,7 @@ import { useSettings } from "@/contexts/SettingsContext";
 import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 import { FadeInOnScroll } from "@/components/ScrollReveal";
+import Threads from "@/components/Threads";
 
 export default function Services() {
   const { darkMode, currentColor } = useSettings();
@@ -45,9 +46,10 @@ export default function Services() {
     <div className="min-h-screen w-full font-['Inter'] transition-colors duration-300 bg-white dark:bg-black">
       <Navigation />
       <main className="pt-16">
-        {/* Hero Section */}
-        <section className="min-h-[60vh] flex items-center justify-center px-4 sm:px-6 bg-white dark:bg-black">
-          <div className="max-w-4xl mx-auto text-center">
+                {/* Hero Section */}
+        <section className="min-h-[60vh] bg-white dark:bg-black relative overflow-hidden">
+          {/* Content */}
+          <div className="max-w-4xl mx-auto text-center pt-32 pb-0">
             <FadeInOnScroll direction="up" duration={1000} delay={200} initialOpacity={0} elementId="services-hero">
               <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                 Services
@@ -56,6 +58,16 @@ export default function Services() {
                 Full-stack development and technical consulting to bring your ideas to life
               </p>
             </FadeInOnScroll>
+          </div>s
+          
+                    {/* Threads Below Text */}
+          <div style={{ width: '100vw', height: '600px', position: 'absolute', left: '0', right: '0', top: '100px' }}>
+            <Threads
+              color={darkMode ? [1, 1, 1] : [0.9, 0.9, 0.9]}
+              amplitude={1.5}
+              distance={0}
+              enableMouseInteraction={false}
+            />
           </div>
         </section>
 

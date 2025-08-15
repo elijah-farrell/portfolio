@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
 import { useSettings } from '@/contexts/SettingsContext';
 import { FadeInOnScroll } from '@/components/ScrollReveal';
@@ -7,6 +6,7 @@ import { FadeInOnScroll } from '@/components/ScrollReveal';
 import efRedLogo from '@/assets/projects/ef-red.png';
 import laptopPreview from '@/assets/projects/3d-laptop-preview.png';
 import nexuschatImage from '@/assets/projects/nexuschat.png';
+import portfolioTemplate01 from '@/assets/projects/portfolio-template01.png';
 
 // Helper function to get portfolio image
 const getPortfolioImage = (): string => {
@@ -50,17 +50,17 @@ const projects: TProject[] = [
     liveUrl: 'https://3d-floating-laptop.vercel.app/'
   },
   {
-    title: 'Project 4',
-    description: 'Coming Soon - The final project in this series is being carefully crafted to demonstrate advanced techniques and innovative solutions.',
-    image: '/project4-preview.jpg',
+    title: 'Portfolio Template',
+    description: 'A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.',
+    image: 'portfolioTemplate01',
     technologies: [],
-    githubUrl: undefined,
-    liveUrl: undefined
+    githubUrl: 'https://github.com/elijah-farrell/portfolio-template',
+    liveUrl: 'https://ef-portfolio01.vercel.app/'
   }
 ];
 
 // Project Card Component
-const ProjectCard: React.FC<TProject & { index: number }> = ({ title, description, image, githubUrl, liveUrl, index }) => {
+const ProjectCard: React.FC<TProject & { index: number }> = ({ title, description, image, technologies, githubUrl, liveUrl, index }) => {
   const { currentColor } = useSettings();
   
   return (
@@ -98,18 +98,29 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
                   ((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement).style.display = 'flex';
                 }}
               />
-            ) : image === 'nexuschat' ? (
-              <img 
-                src={nexuschatImage}
-                alt={`${title} preview`}
-                className="w-full h-full object-contain bg-[#f2f4f6] dark:bg-neutral-700"
-                onError={(e) => {
-                  console.error('NexusChat image failed to load');
-                  (e.currentTarget as HTMLElement).style.display = 'none';
-                  ((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement).style.display = 'flex';
-                }}
-              />
-            ) : (
+                         ) : image === 'nexuschat' ? (
+               <img 
+                 src={nexuschatImage}
+                 alt={`${title} preview`}
+                 className="w-full h-full object-contain bg-[#f2f4f6] dark:bg-neutral-700"
+                 onError={(e) => {
+                   console.error('NexusChat image failed to load');
+                   (e.currentTarget as HTMLElement).style.display = 'none';
+                   ((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement).style.display = 'flex';
+                 }}
+               />
+             ) : image === 'portfolioTemplate01' ? (
+               <img 
+                 src={portfolioTemplate01}
+                 alt={`${title} preview`}
+                 className="w-full h-full object-contain bg-[#f2f4f6] dark:bg-neutral-700"
+                 onError={(e) => {
+                   console.error('Portfolio Template image failed to load');
+                   (e.currentTarget as HTMLElement).style.display = 'none';
+                   ((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement).style.display = 'flex';
+                 }}
+               />
+             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#f2f4f6] to-gray-100 dark:from-neutral-700 dark:to-neutral-700">
                 <div className="text-gray-600 dark:text-gray-300 text-center">
                   <div className="text-4xl mb-2">📱</div>
@@ -123,6 +134,20 @@ const ProjectCard: React.FC<TProject & { index: number }> = ({ title, descriptio
           <div className="space-y-1 flex flex-col flex-1">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm flex-1">{description}</p>
+            
+            {/* Technologies */}
+            {technologies.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-2">
+                {technologies.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="px-2 py-1 text-xs font-medium rounded-md bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
             
             {/* Links */}
             <div className="flex flex-wrap gap-2 mt-auto flex-shrink-0">

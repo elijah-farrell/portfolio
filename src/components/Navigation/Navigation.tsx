@@ -279,8 +279,6 @@ export default function Navigation() {
                               (item.href === '/contact' && location.pathname === '/contact') ||
                               (item.href.startsWith('#') && location.pathname === '/');
               
-              console.log('Item:', item.href, 'Pathname:', location.pathname, 'isActive:', isActive);
-              
               // Handle anchor links for home page sections
               const handleClick = (e: React.MouseEvent, href: string) => {
                 if (href.startsWith('#')) {
@@ -669,8 +667,6 @@ export default function Navigation() {
                                   (item.href === '/contact' && location.pathname === '/contact') ||
                                   (item.href.startsWith('#') && location.pathname === '/');
                   
-                  console.log('Item:', item.href, 'Pathname:', location.pathname, 'isActive:', isActive);
-                  
                   return (
                     <React.Fragment key={item.href}>
                       {/* Main navigation item */}
@@ -678,10 +674,8 @@ export default function Navigation() {
                         <div className="relative">
                           <button 
                             onClick={() => {
-                              console.log('Button clicked:', item.href, 'isActive:', isActive, 'current path:', location.pathname);
                               // If already on the active page, scroll to top
                               if (isActive) {
-                                console.log('Scrolling to top for active page:', item.href);
                                 setMobileMenuOpen(false);
                                 // Force scroll to top with a small delay to ensure menu closes first
                                 setTimeout(() => {
@@ -691,7 +685,6 @@ export default function Navigation() {
                                   });
                                 }, 100);
                               } else {
-                                console.log('Navigating to new page:', item.href);
                                 // Navigate to the page
                                 navigate(item.href);
                                 setMobileMenuOpen(false);

@@ -48,31 +48,38 @@ export default function Services() {
       <main className="pt-16">
                 {/* Hero Section */}
         <section className="min-h-[60vh] bg-white dark:bg-black relative overflow-hidden">
-          {/* Content */}
-          <div className="max-w-4xl mx-auto text-center pt-32 pb-0">
-            <FadeInOnScroll direction="up" duration={1000} delay={200} initialOpacity={0} elementId="services-hero">
-              <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                Services
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                Full-stack development and technical consulting to bring your ideas to life
-              </p>
-            </FadeInOnScroll>
-          </div>s
+          <div className="relative z-10">
+            {/* Content */}
+            <div className="max-w-4xl mx-auto text-center pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
+              <FadeInOnScroll direction="up" duration={1000} delay={200} initialOpacity={0} elementId="services-hero">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+                  Services
+                </h1>
+                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
+                  Full-stack development and technical consulting to bring your ideas to life
+                </p>
+              </FadeInOnScroll>
+            </div>
+          </div>
           
-                    {/* Threads Below Text */}
-          <div style={{ width: '100vw', height: '600px', position: 'absolute', left: '0', right: '0', top: '100px' }}>
-            <Threads
-              color={darkMode ? [1, 1, 1] : [0.9, 0.9, 0.9]}
-              amplitude={1.5}
-              distance={0}
-              enableMouseInteraction={false}
-            />
+          {/* Threads Below Text - Responsive positioning and sizing */}
+          <div className="absolute inset-0 top-0 left-0 w-full h-full pointer-events-none">
+            <div className="relative w-full h-full">
+              <Threads
+                color={darkMode ? [1, 1, 1] : [0.9, 0.9, 0.9]}
+                amplitude={1.5}
+                distance={0}
+                enableMouseInteraction={false}
+              />
+            </div>
           </div>
         </section>
 
+        {/* Buffer div to ensure proper spacing */}
+        <div className="h-4 sm:h-6 md:h-8 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900"></div>
+
         {/* Services Section */}
-        <section className="py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900">
+        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900 relative z-10">
           <div className="max-w-6xl mx-auto">
 
 

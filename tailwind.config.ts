@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      screens: {
+        '3xs': '335px',
+        '2xs': '352px',
+        'xs': '400px',
+      },
       colors: {
         neutral: {
           50: '#fafafa',

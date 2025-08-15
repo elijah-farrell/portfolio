@@ -1,5 +1,7 @@
 # Elijah Farrell's Portfolio
 
+[![Elijah Farrell Portfolio](src/assets/projects/ef-red.png)](https://elijahfarrell.com)
+
 A modern, responsive portfolio built with React and TypeScript featuring dynamic theming (light/dark mode and color picker), smooth animations, and a live comment section powered by Firebase Firestore. Built with Vite for fast development and optimized performance.
 
 ## Features

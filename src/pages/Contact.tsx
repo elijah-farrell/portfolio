@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSettings } from "@/contexts/SettingsContext";
 import Navigation from "@/components/Navigation/Navigation";
-import ContactHeader from "@/components/Contact/ContactHeader";
+import RobotHeroSection from "@/components/Contact/RobotHeroSection";
 import ContactSection from "@/components/Contact/ContactSection";
 import Footer from "@/components/Footer/Footer";
 
@@ -31,7 +31,7 @@ export default function Contact() {
       <Navigation />
 
       <main>
-        <ContactHeader currentColor={currentColor} />
+        <RobotHeroSection currentColor={currentColor} />
         <ContactSection currentColor={currentColor} />
       </main>
 

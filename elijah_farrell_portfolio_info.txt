@@ -1,0 +1,263 @@
+ELIJAH FARRELL - PORTFOLIO INFORMATION
+==========================================
+
+EXECUTIVE SUMMARY
+-----------------
+Elijah Farrell is a Computer Science graduate with a strong foundation in full-stack development, AI/ML engineering, and distributed systems. With a 3.88 GPA and Magna Cum Laude honors from SUNY Polytechnic Institute, he brings expertise in React, TypeScript, Python, C++, and modern web technologies. His research experience includes developing distributed AI systems and his portfolio showcases innovative projects in 3D graphics, real-time applications, and full-stack development. Available for opportunities in software development, IT roles, and AI/ML engineering.
+
+PERSONAL INFORMATION
+-------------------
+Name: Elijah Farrell
+Title: CS Graduate
+Handle: elijahfarrell
+Status: Available for Opportunities
+Location: Watertown, NY
+Email: farrellelijah@outlook.com
+GitHub: elijah-farrell
+LinkedIn: elijah-farrell
+Discord: zarnx
+Portfolio Website: https://elijahfarrell.com
+Appointment Booking: https://cal.com/elijahfarrell
+
+EDUCATION
+---------
+SUNY Polytechnic Institute
+- Degree: B.S. in Computer Science
+- Graduation: May 2025
+- GPA: 3.88
+- Honors: Magna Cum Laude
+
+Jefferson Community College
+- Degree: A.S. in Computer Science
+- Graduation: 2023
+- Honors: Phi Theta Kappa Honor Society
+
+Relevant Coursework:
+- CS 108 – Computing Fundamentals
+- CS 240 – Data Structures & Algorithms
+- CS 220 – Computer Organization
+- CS 330 – Operating Systems & Networking
+- CS 249 – Object-Oriented Programming
+- CS 370 – Software Engineering
+- CS 431 – Principles of Programming Languages
+- CS 350 – Information & Knowledge Management
+- IS 320 – Systems Analysis & Design
+- CS 324 – Internet Tools (Web Programming)
+- CS 377 – Introduction to Theory of Computing
+- CS 470 – Computer Vision and Image Processing
+- CS 477 – Algorithms
+- CS 498 – Capstone Project
+- MAT 151 – Calculus I
+- MAT 152 – Calculus II
+- MAT 115 – Finite Math for CS
+- PHY 101 – General Physics I
+- CHE 110T/L – Chemistry Lecture & Lab
+
+WORK EXPERIENCE
+---------------
+Research Assistant
+- Company: SUNY Polytechnic Institute - CESSAIR
+- Duration: Feb 2025 – May 2025
+- Key Achievements:
+  * Led development of a distributed multi-agent AI system on 30+ NVIDIA Orin Nano devices for real-time conversational research
+  * Designed and deployed a GTK interface for LLM personality customization and Discord-style chat management
+  * Managed a team of four to build a C++/GTK app for structured AI dialogues via local Ollama endpoints
+  * Architected memory and message-routing pipelines for persistent, context-aware conversations across distributed nodes
+  * Optimized prompt engineering and integration, significantly boosting response quality and system performance
+
+Work Study Assistant
+- Company: The Workplace
+- Duration: Aug 2021 – Dec 2021
+- Responsibilities:
+  * Performed general duties including facility support and janitorial tasks
+  * Occasionally assisted with basic device troubleshooting and user setup when assigned
+  * Gained initial exposure to technical support environments and team coordination
+
+TECHNICAL SKILLS
+----------------
+Programming Languages:
+- Python
+- Java
+- C
+- C++
+- JavaScript
+- TypeScript
+- HTML
+- CSS
+
+Frameworks & Libraries:
+- React
+- Flask
+- Pandas
+- NumPy
+- PyTorch
+- OpenCV
+- HuggingFace
+- Tailwind CSS
+- EmailJS
+- Three.js
+- Material-UI
+
+Tools & Platforms:
+- Git
+- Vite
+- Node.js
+- Render
+- Vercel
+- Supabase
+- GCC
+- Vim
+
+Databases:
+- MySQL
+- SQLite
+- Firebase
+- PostgreSQL
+
+PROFESSIONAL SKILLS
+-------------------
+- Problem Solving: Critical thinking and analytical approach
+- Team Collaboration: Working effectively in diverse teams
+- Communication: Clear and effective communication
+- Adaptability: Quick learning and flexibility
+- Project Management: Organized and efficient delivery
+
+SERVICES OFFERED
+----------------
+Web Development Services:
+- Full-Stack Web Applications
+- Responsive Website Design
+- Progressive Web Apps (PWAs)
+- E-commerce Solutions
+- Custom Web APIs
+- Performance Optimization
+
+3D & Graphics Development:
+- Interactive 3D Web Applications
+- WebGL Implementations
+- Three.js Development
+- 3D Model Integration
+- Real-time 3D Rendering
+- 3D User Interfaces
+
+AI/ML Development:
+- Machine Learning Model Integration
+- AI-Powered Web Applications
+- Natural Language Processing
+- Computer Vision Applications
+- AI Chatbot Development
+- Distributed AI Systems
+
+Mobile & Cross-Platform:
+- React Native Applications
+- Progressive Web Apps
+- Cross-Platform Solutions
+- Mobile-First Design
+- Touch Interface Optimization
+
+Database & Backend:
+- Database Design & Optimization
+- RESTful API Development
+- Real-time Data Applications
+- Database Migration
+- Performance Tuning
+- Security Implementation
+
+DevOps & Deployment:
+- CI/CD Pipeline Setup
+- Cloud Deployment (Vercel, Render, AWS)
+- Performance Monitoring
+- Security Auditing
+- Scalability Optimization
+
+Consulting Services:
+- Technical Architecture Review
+- Code Quality Assessment
+- Performance Optimization
+- Security Best Practices
+- Technology Stack Recommendations
+- Development Process Improvement
+
+FEATURED PROJECTS
+-----------------
+1. Portfolio Website
+   - Description: A modern, responsive portfolio website built with React 18, TypeScript, and Three.js. Features 3D models, smooth animations, and a contact form with EmailJS integration. Built with Vite for fast development and deployment.
+   - Technologies: React 18, TypeScript, Three.js, Vite, EmailJS
+   - GitHub: https://github.com/elijah-farrell/portfolio
+   - Live Site: https://elijahfarrell.com
+
+2. NexusChat
+   - Description: Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT authentication, and WebSocket communication. Built with React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, and Three.js. Deployed with Vite for optimal performance.
+   - Technologies: React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, Three.js, Vite
+   - GitHub: https://github.com/elijah-farrell/nexuschat
+   - Live Site: https://nexxuschat.vercel.app
+
+3. 3D Floating Laptop
+   - Description: Interactive 3D application featuring a floating laptop with a fully functional website interface rendered directly on the 3D screen. Built with React 18, Three.js, React Three Fiber, and Vite for fast 3D rendering and development.
+   - Technologies: React 18, Three.js, React Three Fiber, Vite
+   - GitHub: https://github.com/elijah-farrell/3d-floating-laptop
+   - Live Site: https://3d-floating-laptop.vercel.app/
+
+4. Portfolio Template
+   - Description: A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.
+   - Technologies: React 19, TypeScript, Vite
+   - GitHub: https://github.com/elijah-farrell/portfolio-template
+   - Live Site: https://ef-portfolio01.vercel.app/
+
+TECHNICAL EXPERTISE AREAS
+-------------------------
+- Full-Stack Web Development
+- 3D Graphics & WebGL
+- AI/ML Development
+- Distributed Systems
+- Real-time Applications
+- Database Design
+- API Development
+- Performance Optimization
+- Responsive Design
+- Accessibility
+- Mobile Development
+- Cloud Deployment
+- DevOps Practices
+- Security Implementation
+
+CAREER OBJECTIVES
+-----------------
+- Seeking opportunities in software development, AI/ML engineering, or full-stack development eventually, but currently looking to tackle IT roles
+- Interested in roles that leverage both technical skills and problem-solving abilities
+- Open to remote and on-site positions
+- Looking to contribute to innovative projects and continue learning
+- Interested in entry-level positions that provide growth opportunities
+
+ADDITIONAL INFORMATION
+---------------------
+- Available for freelance work and consultations
+- Strong foundation in computer science fundamentals
+- Experience with modern development workflows and tools
+- Passion for creating user-friendly, performant applications
+- Commitment to writing clean, maintainable code
+- Interest in emerging technologies and frameworks
+- Experience with both Windows and Linux environments
+- Familiar with various development methodologies
+- Strong debugging and troubleshooting skills
+- Experience with version control and collaborative development
+
+CONTACT PREFERENCES
+------------------
+- Primary: Email (farrellelijah@outlook.com)
+- Professional networking: LinkedIn
+- Code collaboration: GitHub
+- Quick communication: Discord
+- Scheduling meetings: Cal.com
+- Portfolio: https://elijahfarrell.com
+
+AVAILABILITY
+------------
+- Available for full-time positions
+- Open to contract and freelance work
+- Flexible with start dates
+- Willing to relocate for the right opportunity
+- Available for remote work
+- Can start immediately
+
+This information is current as of 2025 and represents Elijah Farrell's professional background, skills, experience, and services as documented in his portfolio website.

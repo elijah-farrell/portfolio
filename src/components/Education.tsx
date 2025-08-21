@@ -5,45 +5,47 @@ export default function Education() {
     <>
       {/* Education Section */}
       <div id="education" className="mt-12">
-        <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-          EDUCATION
-        </h2>
-        <div className="space-y-6">
-          <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <img
-              src="/src/assets/logos/suny-poly-logo.jpg"
-              alt="SUNY Polytechnic Institute"
-              className="w-24 h-24 object-cover rounded-lg"
-            />
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                SUNY Polytechnic Institute
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                B.S. in Computer Science • May 2025
-              </p>
-              <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                GPA: 3.88 • Magna Cum Laude
-              </p>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+            EDUCATION
+          </h2>
+          <div className="space-y-6">
+            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+              <img
+                src="/src/assets/logos/suny-poly-logo.jpg"
+                alt="SUNY Polytechnic Institute"
+                className="w-24 h-24 object-cover rounded-lg"
+              />
+              <div className="flex-1">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  SUNY Polytechnic Institute
+                </h4>
+                <p className="text-gray-600 dark:text-gray-400">
+                  B.S. in Computer Science • May 2025
+                </p>
+                <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                  GPA: 3.88 • Magna Cum Laude
+                </p>
+              </div>
             </div>
-          </div>
-          
-          <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <img
-              src="/src/assets/logos/jcc-logo.png"
-              alt="Jefferson Community College"
-              className="w-24 h-24 object-cover rounded-lg"
-            />
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Jefferson Community College
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                A.S. in Computer Science • 2023
-              </p>
-              <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                Phi Theta Kappa Honor Society
-              </p>
+            
+            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+              <img
+                src="/src/assets/logos/jcc-logo.png"
+                alt="Jefferson Community College"
+                className="w-24 h-24 object-cover rounded-lg"
+              />
+              <div className="flex-1">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Jefferson Community College
+                </h4>
+                <p className="text-gray-600 dark:text-gray-400">
+                  A.S. in Computer Science • 2023
+                </p>
+                <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                  Phi Theta Kappa Honor Society
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -51,7 +53,7 @@ export default function Education() {
 
       {/* Coursework Section */}
       <div className="mt-4">
-        <div className="max-w-4xl mx-auto p-6 md:p-12">
+        <div className="max-w-4xl mx-auto">
           <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
             Relevant Coursework
           </h4>

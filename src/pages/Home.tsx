@@ -4,7 +4,7 @@ import AboutMe from "@/components/AboutMe";
 import ProjectsSection from "@/components/ProjectSection";
 import { TextReveal } from "@/components/magicui/text-reveal";
 import ExperienceSection from "@/components/Experience";
-import Contact from "./Contact";
+import Contact from "@/components/Contact";
 
 import HeroSection from "@/components/HeroSection";
 import CodeQuote from "@/components/CodeQuote";

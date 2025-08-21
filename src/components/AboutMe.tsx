@@ -1,33 +1,10 @@
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
-import { useMemo } from "react";
 import { settings } from "@/config/settings";
-import { FiMapPin, FiMail, FiCalendar, FiAward } from "react-icons/fi";
+import { FiMapPin, FiAward } from "react-icons/fi";
 
 export default function AboutMe() {
-  // Calculate experience dynamically
-  const experience = useMemo(() => {
-    const start = new Date("2021-08-01");
-    const now = new Date();
-    let months =
-      (now.getFullYear() - start.getFullYear()) * 12 +
-      (now.getMonth() - start.getMonth());
-    if (now.getDate() < start.getDate()) months--;
-    const years = Math.floor(months / 12);
-    const remMonths = months % 12;
-    if (years > 0 && remMonths > 0) {
-      return `${years} year${years > 1 ? "s" : ""} ${remMonths} month${
-        remMonths > 1 ? "s" : ""
-      }`;
-    } else if (years > 0) {
-      return `${years} year${years > 1 ? "s" : ""}`;
-    } else {
-      return `${remMonths} month${remMonths > 1 ? "s" : ""}`;
-    }
-  }, []);
-
   // Quick stats for visual appeal
   const quickStats = [
-    { icon: <FiCalendar size={16} />, label: "Experience", value: experience },
     {
       icon: <FiMapPin size={16} />,
       label: "Location",
@@ -38,7 +15,7 @@ export default function AboutMe() {
 
   return (
     <>
-      <div className="pt-10 mb-10" id="about">
+      <div className="pt-8 mb-10" id="about">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">ABOUT ME</h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
@@ -48,7 +25,7 @@ export default function AboutMe() {
 
           {/* Quick Stats */}
           {settings.about.showStats && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {quickStats.map((stat, index) => (
                 <div
                   key={index}

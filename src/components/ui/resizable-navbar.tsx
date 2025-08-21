@@ -318,10 +318,16 @@ export const MobileNavToggle = ({
 };
 
 export const NavbarLogo = () => {
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <a
-      href="/"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
+      href="#"
+      onClick={handleLogoClick}
+      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black cursor-pointer"
     >
     <span className="text-xl text-emerald-500">Elijah</span>
     <span className="text-xl text-gray-900 dark:text-white hidden md:block"> Farrell</span>

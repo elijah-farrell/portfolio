@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { SEO } from "@/components/SEO";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -136,28 +136,19 @@ const processSteps = [
 export default function ServicesPage() {
   return (
     <>
-      <Helmet>
-        <title>
-          Web Development Services by Elijah Farrell – Affordable Custom Websites & Apps
-        </title>
-        <meta
-          name="description"
-          content="Professional web development services including custom websites, e-commerce solutions, and technical consulting. Affordable pricing starting at $25."
-        />
-        <meta
-          name="keywords"
-          content="web development, custom websites, e-commerce, technical consulting, affordable web design, React, TypeScript"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://elijahfarrell.com/services" />
-      </Helmet>
+      <SEO
+        title="Web Development Services by Elijah Farrell – Affordable Custom Websites & Apps"
+        description="Professional web development services including custom websites, e-commerce solutions, and technical consulting. Affordable pricing starting at $25."
+        keywords="web development, custom websites, e-commerce, technical consulting, affordable web design, React, TypeScript"
+        url="https://elijahfarrell.com/services"
+      />
 
       <main className="mt-14">
         <div id="services">
           {/* Hero Section */}
-          <section className="py-12 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+          <section className="py-12 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-neutral-950 dark:to-neutral-900">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
                 Affordable, Custom Websites & Apps for Businesses & Individuals
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
@@ -194,18 +185,18 @@ export default function ServicesPage() {
           </section>
 
           {/* Plans & Pricing */}
-          <section id="pricing" className="py-12 px-6 bg-white dark:bg-gray-900">
+          <section id="pricing" className="py-12 px-6 bg-white dark:bg-neutral-950">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Plans & Pricing</h2>
+                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Plans & Pricing</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   Simple, transparent pricing with no hidden fees. Choose the plan that fits your needs.
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 {plans.map((plan, index) => (
-                  <Card key={index} className={`relative ${plan.popular ? 'ring-2 ring-emerald-500 shadow-lg' : ''}`}>
+                  <Card key={index} className={`relative bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700 ${plan.popular ? 'ring-2 ring-emerald-500 shadow-lg' : ''}`}>
                     {plan.popular && (
                       <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white">
                         Most Popular
@@ -215,17 +206,17 @@ export default function ServicesPage() {
                       <div className="flex justify-center mb-4">
                         {plan.icon}
                       </div>
-                      <CardTitle className="text-xl">{plan.name}</CardTitle>
+                      <CardTitle className="text-xl text-gray-900 dark:text-white">{plan.name}</CardTitle>
                       <div className="text-3xl font-bold text-emerald-600">{plan.price}</div>
                       <p className="text-gray-600 dark:text-gray-400">{plan.description}</p>
-                      <p className="text-sm text-gray-500">Ideal for: {plan.idealFor}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Ideal for: {plan.idealFor}</p>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2 mb-6">
                         {plan.features.map((feature, featureIndex) => (
                           <li key={featureIndex} className="flex items-center gap-2">
                             <FiCheck className="text-emerald-500 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
+                            <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -245,14 +236,36 @@ export default function ServicesPage() {
                   </Card>
                 ))}
               </div>
+
+              {/* Additional Services - Now a subsection */}
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Additional Services</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="p-6 bg-gray-50 dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-700">
+                    <FiGlobe className="text-3xl text-emerald-600 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Domain & Hosting Guidance</h4>
+                    <p className="text-gray-600 dark:text-gray-400">Help you choose the right domain and hosting for your needs</p>
+                  </div>
+                  <div className="p-6 bg-gray-50 dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-700">
+                    <FiZap className="text-3xl text-emerald-600 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Maintenance & Updates</h4>
+                    <p className="text-gray-600 dark:text-gray-400">Keep your site secure and up-to-date with ongoing support</p>
+                  </div>
+                  <div className="p-6 bg-gray-50 dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-700">
+                    <FiCode className="text-3xl text-emerald-600 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Technical Consulting</h4>
+                    <p className="text-gray-600 dark:text-gray-400">Get expert advice on your tech strategy and implementation</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* Why Work With Me */}
-          <section className="py-12 px-6 bg-gray-50 dark:bg-gray-800">
+          <section className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Why Work With Me</h2>
+                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why Work With Me</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   I provide a different approach to web development - personal, affordable, and focused on your success.
                 </p>
@@ -260,11 +273,11 @@ export default function ServicesPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {valueProps.map((prop, index) => (
-                  <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow">
+                  <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
                     <div className="flex justify-center mb-4">
                       {prop.icon}
                     </div>
-                    <h3 className="text-xl font-semibold mb-3">{prop.title}</h3>
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{prop.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">{prop.description}</p>
                   </Card>
                 ))}
@@ -273,10 +286,10 @@ export default function ServicesPage() {
           </section>
 
           {/* How It Works */}
-          <section className="py-12 px-6 bg-white dark:bg-gray-900">
+          <section className="py-12 px-6 bg-white dark:bg-neutral-950">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">How It Works</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   Simple, straightforward process from concept to launch.
                 </p>
@@ -288,34 +301,10 @@ export default function ServicesPage() {
                     <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl font-bold text-emerald-600">{step.step}</span>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{step.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
                   </div>
                 ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Additional Services */}
-          <section className="py-12 px-6 bg-gray-50 dark:bg-gray-800">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-8">Additional Services</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
-                  <FiGlobe className="text-3xl text-emerald-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Domain & Hosting Guidance</h3>
-                  <p className="text-gray-600 dark:text-gray-400">Help you choose the right domain and hosting for your needs</p>
-                </div>
-                <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
-                  <FiZap className="text-3xl text-emerald-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Maintenance & Updates</h3>
-                  <p className="text-gray-600 dark:text-gray-400">Keep your site secure and up-to-date with ongoing support</p>
-                </div>
-                <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
-                  <FiCode className="text-3xl text-emerald-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Technical Consulting</h3>
-                  <p className="text-gray-600 dark:text-gray-400">Get expert advice on your tech strategy and implementation</p>
-                </div>
               </div>
             </div>
           </section>

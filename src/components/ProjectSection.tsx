@@ -4,18 +4,18 @@ const projects = [
   {
     title: "Portfolio Website",
     description:
-      "A modern, responsive portfolio website built with React 18, TypeScript, and Three.js. Features 3D models, smooth animations, and a contact form with EmailJS integration. Built with Vite for fast development and deployment.",
+      "A modern, responsive portfolio website built with React 18, TypeScript, and Vite. Features smooth animations, 3D card effects, interactive UI components, and a beautiful design system. Includes custom animations, responsive layouts, and modern web technologies for optimal performance.",
     techStack: [
       "React 18",
       "TypeScript",
-      "Three.js",
       "Vite",
-      "EmailJS",
       "Tailwind CSS",
-      "3D Models",
+      "Framer Motion",
+      "Radix UI",
+      "Three.js Effects",
       "Responsive Design",
     ],
-    imageUrl: "/src/assets/projects/ef-red.png",
+    imageUrl: "/src/assets/projects/portfolio-thumb.png",
     github: "https://github.com/elijah-farrell/portfolio",
     liveUrl: "https://elijahfarrell.com",
     live: true,

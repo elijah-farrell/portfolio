@@ -182,7 +182,7 @@ SUNY Polytechnic Institute | Feb 2025 – May 2025
 
 // Main Timeline component
 const ExperienceSection: React.FC = () => (
-  <div className="pt-5" id="experience">
+  <div className="pt-8" id="experience">
     <h1 className="text-3xl font-bold mb-2">EXPERIENCE</h1>
     <p className="text-gray-600 dark:text-gray-400 mb-6">
       What I have done so far

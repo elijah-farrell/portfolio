@@ -5,6 +5,36 @@
 /* Add smooth scrolling behavior */
 html {
   scroll-behavior: smooth;
+  /* Account for fixed navbar height on both mobile and desktop */
+  scroll-padding-top: 30px; /* Desktop navbar height - very tight */
+}
+
+/* Mobile scroll padding adjustment */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 30px; /* Mobile navbar height - very tight */
+  }
+}
+
+/* Ensure content sections have proper spacing from navbar */
+[id] {
+  scroll-margin-top: 30px; /* Desktop - very tight */
+}
+
+@media (max-width: 768px) {
+  [id] {
+    scroll-margin-top: 30px; /* Mobile - very tight */
+  }
+}
+
+/* Additional spacing for main content areas */
+.pt-10 {
+  padding-top: 3rem; /* 48px - ensures content isn't hidden behind navbar */
+}
+
+/* Smooth scroll behavior for all anchor links */
+a[href^="#"] {
+  scroll-behavior: smooth;
 }
 
 @layer base {

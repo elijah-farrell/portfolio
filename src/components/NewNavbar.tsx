@@ -175,14 +175,24 @@ export function NewNavbar() {
             {mainNavItems.map((item, idx) => (
               <div key={`mobile-nav-${idx}`} className="w-full">
                 <div className="flex items-center justify-between">
-                  <a
-                    href={item.link}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="relative text-neutral-600 dark:text-neutral-300 flex items-center"
+                  <button
+                    onClick={() => {
+                      if (item.name === "Services") {
+                        window.location.href = item.link;
+                      } else {
+                        window.location.href = item.link;
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`relative flex items-center text-left w-full transition-colors duration-200 ${
+                      item.isActive 
+                        ? "text-emerald-600 dark:text-emerald-400 font-medium" 
+                        : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                    }`}
                   >
                     {item.icon && item.icon}
                     <span className="block">{item.name}</span>
-                  </a>
+                  </button>
                   {item.isDropdown && (
                     <button
                       onClick={() => {
@@ -202,14 +212,25 @@ export function NewNavbar() {
                 {item.isDropdown && (
                   <div id={`mobile-dropdown-${idx}`} className="hidden ml-4 mt-2 space-y-2">
                     {item.sections?.map((section, sectionIdx) => (
-                      <a
+                      <button
                         key={`mobile-${item.name}-${sectionIdx}`}
-                        href={section.link}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="relative text-neutral-600 dark:text-neutral-300 text-sm block hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
+                        onClick={() => {
+                          if (item.name === "Services") {
+                            scrollToServicesSection(section.sectionId);
+                          } else {
+                            scrollToSection(section.sectionId);
+                          }
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={`relative text-sm block transition-colors text-left w-full ${
+                          (item.name === "Home" && isActiveSection(section.sectionId)) ||
+                          (item.name === "Services" && location.pathname === "/services" && location.hash === `#${section.sectionId}`)
+                            ? "text-emerald-600 dark:text-emerald-400 font-medium"
+                            : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                        }`}
                       >
                         <span className="block">{section.name}</span>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 )}

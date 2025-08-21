@@ -10,7 +10,7 @@ export default function Education() {
             EDUCATION
           </h2>
           <div className="space-y-6">
-            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
               <img
                 src="/src/assets/logos/suny-poly-logo.jpg"
                 alt="SUNY Polytechnic Institute"
@@ -29,7 +29,7 @@ export default function Education() {
               </div>
             </div>
             
-            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
               <img
                 src="/src/assets/logos/jcc-logo.png"
                 alt="Jefferson Community College"
@@ -52,8 +52,8 @@ export default function Education() {
       </div>
 
       {/* Coursework Section */}
-      <div className="mt-4">
-        <div className="max-w-4xl mx-auto">
+      <div>
+        <section className="p-6 md:p-12 max-w-4xl mx-auto">
           <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
             Relevant Coursework
           </h4>
@@ -62,7 +62,7 @@ export default function Education() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-gray-800">
+            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Computer Science Core</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>CS 108 – Computing Fundamentals</li>
@@ -76,7 +76,7 @@ export default function Education() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-gray-800">
+            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Advanced Topics</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>IS 320 – Systems Analysis & Design</li>
@@ -88,7 +88,7 @@ export default function Education() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-gray-800">
+            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Mathematics & Sciences</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>MAT 151 – Calculus I</li>
@@ -99,7 +99,7 @@ export default function Education() {
               </ul>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   );

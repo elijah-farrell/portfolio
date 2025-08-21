@@ -5,6 +5,7 @@ import ProjectsSection from "@/components/ProjectSection";
 import { TextReveal } from "@/components/magicui/text-reveal";
 import ExperienceSection from "@/components/Experience";
 import Contact from "@/components/Contact";
+import { SEO } from "@/components/SEO";
 
 import HeroSection from "@/components/HeroSection";
 import CodeQuote from "@/components/CodeQuote";
@@ -15,6 +16,7 @@ import { GiBreakingChain, GiGroundbreaker } from "react-icons/gi";
 export default function Home(): JSX.Element {
   return (
     <div>
+      <SEO />
       <HeroSection />
       <TracingBeam className="px-6">
         <AboutMe />

@@ -2,17 +2,12 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { createWriteStream } from 'fs';
 import path from 'path';
 
-const domain = 'https://akyabhishek.vercel.app';
+const domain = 'https://elijahfarrell.com';
 
 const staticRoutes = [
   '/',
-  '/stats',
-  '/contact',
-  '/resume',
-  '/java-interview-question-answers',
-  '/base64-tool',
-  '/bitwise-visualizer',
-  '/hash-generator',
+  '/services',
+  // Add more routes as you create them
 ];
 
 const sitemap = new SitemapStream({ hostname: domain });

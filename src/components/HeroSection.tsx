@@ -13,17 +13,20 @@ import {
   FiTool,
   FiCode,
   FiAward,
+  FiCalendar,
+  FiPhone,
 } from "react-icons/fi";
+import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
 import { useState, useEffect } from "react";
 import FloatingImage from "@/components/MyImage";
 import mainImage from "@/assets/about/EF-headshot.jpeg";
-import altMainImage from "@/assets/about/EF-headshot.jpeg";
+import altMainImage from "@/assets/about/animated.png";
 import { settings } from "@/config/settings";
 import ResumeButton from "./DownloadResumeBtn";
 
 export default function HeroSection(): JSX.Element {
   const [animatedStats, setAnimatedStats] = useState({
-    experience: 0,
+    languages: 0,
     projects: 0,
     skills: 0,
     education: 0,
@@ -54,8 +57,8 @@ export default function HeroSection(): JSX.Element {
         animate();
       };
 
-      animateValue(0, 3, 1500, (val) =>
-        setAnimatedStats((prev) => ({ ...prev, experience: val }))
+      animateValue(0, 5, 1500, (val) =>
+        setAnimatedStats((prev) => ({ ...prev, languages: val }))
       );
       animateValue(0, 4, 2000, (val) =>
         setAnimatedStats((prev) => ({ ...prev, projects: val }))
@@ -73,19 +76,19 @@ export default function HeroSection(): JSX.Element {
 
   const stats = [
     {
-      value: animatedStats.experience,
+      value: animatedStats.languages,
       suffix: "+",
-      label: "Years Experience",
-      icon: <FiBriefcase size={20} />,
+      label: "Programming Languages",
+      icon: <FiCode size={20} />,
       color: "text-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-900/20",
-      href: "#experience",
+      href: "#skills",
     },
     {
       value: animatedStats.projects,
       suffix: "",
       label: "Projects Built",
-      icon: <FiCode size={20} />,
+      icon: <FiBriefcase size={20} />,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
       href: "#projects",
@@ -116,11 +119,14 @@ export default function HeroSection(): JSX.Element {
     "Hey there,",
     "Greetings,",
     "Welcome,",
-    "Good day,",
     "Hi there,",
     "Hello there,",
-    "Greetings,",
-    "Welcome,",
+    "Hey,",
+    "Hello friend,",
+    "Greetings traveler,",
+    "Welcome aboard,",
+    "How are you,",
+    "What's up,",
   ];
 
   return (
@@ -140,7 +146,17 @@ export default function HeroSection(): JSX.Element {
           <br />
           <span className="text-base">I am Elijah Farrell. I am a </span>
           <FlipWords
-            words={["<Developer/>", "Learner", "<Coder/>", "Programmer", "CS Graduate"]}
+            words={[
+              "<Developer/>", 
+              "Learner", 
+              "<Coder/>", 
+              "Programmer", 
+              "CS Graduate",
+              "Tech Enthusiast",
+              "Problem Solver",
+              "Tech Lover",
+              "PC Builder"
+            ]}
             duration={15000}
             className="dark:text-emerald-500 text-emerald-600 text-base"
           />
@@ -149,22 +165,67 @@ export default function HeroSection(): JSX.Element {
             className="text-base"
           />
 
-          {/* Call-to-Action Buttons */}
-          <div className="flex flex-wrap gap-2 mt-8">
-            <ResumeButton />
-            <Button
-              variant="link"
-              className="flex items-center gap-2 rounded-2xl"
-              onClick={() => {
-                const element = document.getElementById("contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-              }}
+          {/* Call-to-Action Buttons & Social Links */}
+          <div className="flex flex-wrap items-center gap-4 mt-8">
+            {/* Main CTA Buttons - Left Side */}
+            <div className="flex gap-2">
+              <ResumeButton />
+              <Button
+                variant="link"
+                className="flex items-center gap-2 rounded-2xl"
+                onClick={() => {
+                  const element = document.getElementById("contact");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+              >
+                <FiChevronDown size={16} />
+                Get in Touch
+              </Button>
+            </div>
+
+            {/* Social Links - Right Side */}
+            <div className="flex gap-2">
+              <a
+              href="mailto:farrellelijah@outlook.com"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
             >
               <FiMail size={16} />
-              Get In Touch
-            </Button>
+            </a>
+            <a
+              href="https://github.com/elijah-farrell"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+            >
+              <SiGithub size={16} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/elijah-farrell-915047349/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+            >
+              <SiLinkedin size={16} />
+            </a>
+            <a
+              href="https://discord.com/users/zarnx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+            >
+              <SiDiscord size={16} />
+            </a>
+            <a
+              href="https://cal.com/elijahfarrell"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+            >
+              <FiPhone size={16} />
+            </a>
+            </div>
           </div>
 
           {/* Interactive Stats */}

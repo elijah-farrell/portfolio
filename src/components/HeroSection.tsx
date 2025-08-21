@@ -16,18 +16,17 @@ import {
 } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import FloatingImage from "@/components/MyImage";
-import mainImage from "@/assets/abhishekkumaryadav-ghibli.png";
-import altMainImage from "@/assets/abhishekkumaryadav.png";
-import { SiLeetcode } from "react-icons/si";
-import ResumeButton from "./DownloadResumeBtn";
+import mainImage from "@/assets/about/EF-headshot.jpeg";
+import altMainImage from "@/assets/about/EF-headshot.jpeg";
 import { settings } from "@/config/settings";
+import ResumeButton from "./DownloadResumeBtn";
 
 export default function HeroSection(): JSX.Element {
   const [animatedStats, setAnimatedStats] = useState({
     experience: 0,
-    followers: 0,
-    tools: 0,
-    leetcode: 0,
+    projects: 0,
+    skills: 0,
+    education: 0,
   });
   const [isStatsVisible, setIsStatsVisible] = useState(false);
 
@@ -55,17 +54,17 @@ export default function HeroSection(): JSX.Element {
         animate();
       };
 
-      animateValue(0, 2, 1500, (val) =>
+      animateValue(0, 3, 1500, (val) =>
         setAnimatedStats((prev) => ({ ...prev, experience: val }))
       );
-      animateValue(0, 6000, 2000, (val) =>
-        setAnimatedStats((prev) => ({ ...prev, followers: val }))
+      animateValue(0, 4, 2000, (val) =>
+        setAnimatedStats((prev) => ({ ...prev, projects: val }))
       );
-      animateValue(0, 30, 1200, (val) =>
-        setAnimatedStats((prev) => ({ ...prev, tools: val }))
+      animateValue(0, 25, 1200, (val) =>
+        setAnimatedStats((prev) => ({ ...prev, skills: val }))
       );
-      animateValue(0, 200, 1800, (val) =>
-        setAnimatedStats((prev) => ({ ...prev, leetcode: val }))
+      animateValue(0, 2, 1800, (val) =>
+        setAnimatedStats((prev) => ({ ...prev, education: val }))
       );
     }, 1000);
 
@@ -75,7 +74,7 @@ export default function HeroSection(): JSX.Element {
   const stats = [
     {
       value: animatedStats.experience,
-      suffix: "",
+      suffix: "+",
       label: "Years Experience",
       icon: <FiBriefcase size={20} />,
       color: "text-blue-600",
@@ -83,62 +82,45 @@ export default function HeroSection(): JSX.Element {
       href: "#experience",
     },
     {
-      value: animatedStats.tools,
-      suffix: "+",
-      label: "Certifications",
-      icon: <FiAward size={20} />,
+      value: animatedStats.projects,
+      suffix: "",
+      label: "Projects Built",
+      icon: <FiCode size={20} />,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
-      href: "https://linkedin.com/in/abhishekkumaryadav/details/certifications",
-      external: true,
+      href: "#projects",
     },
-
     {
-      value: animatedStats.leetcode,
+      value: animatedStats.skills,
       suffix: "+",
-      label: "DSA Problems Solved",
-      icon: <FiCode size={20} />,
+      label: "Technical Skills",
+      icon: <FiTool size={20} />,
       color: "text-orange-600",
       bgColor: "bg-orange-50 dark:bg-orange-900/20",
-      href: "https://leetcode.com/mrabk121",
-      external: true,
+      href: "#skills",
     },
     {
-      value: animatedStats.followers,
-      suffix: "+",
-      label: "LinkedIn Connections",
-      icon: <FiUsers size={20} />,
+      value: animatedStats.education,
+      suffix: "",
+      label: "Degrees Earned",
+      icon: <FiAward size={20} />,
       color: "text-purple-600",
       bgColor: "bg-purple-50 dark:bg-purple-900/20",
-      href: "https://linkedin.com/in/abhishekkumaryadav",
-      external: true,
+      href: "#education",
     },
   ];
 
   const greetings: string[] = [
     "Hi,",
     "Hello,",
-    "Namaste,",
-    "Sat Sri Akal,",
-    "Namaskar,",
-    "Ram Ram,",
-    "Kem Cho,",
-    "Vaṇakkam,",
-    "Namaskara,",
-    "Vandanam,",
-    "Pranam,",
-    "Khurumjari,",
-    "Salaam,",
-    "Jai Shri Krishna,",
-    "Khamma Ghani,",
-    "Radhe Radhe,",
-    "Ram Ram,",
-    "Nômoshkar,",
-    "Salaam Alaikum,",
-    "Julley,",
-    "Dhaal Karu,",
-    "Namaskāra,",
-    "Narmada Har,",
+    "Hey there,",
+    "Greetings,",
+    "Welcome,",
+    "Good day,",
+    "Hi there,",
+    "Hello there,",
+    "Greetings,",
+    "Welcome,",
   ];
 
   return (
@@ -156,14 +138,14 @@ export default function HeroSection(): JSX.Element {
 
           <FlipWords words={greetings} duration={3000} />
           <br />
-          <span className="text-base">I am Abhishek. I am a </span>
+          <span className="text-base">I am Elijah Farrell. I am a </span>
           <FlipWords
-            words={["<Developer/>", "Learner", "<Coder/>", "Programmer"]}
+            words={["<Developer/>", "Learner", "<Coder/>", "Programmer", "CS Graduate"]}
             duration={15000}
             className="dark:text-emerald-500 text-emerald-600 text-base"
           />
           <TextGenerateEffect
-            words={"Welcome to my over-engineered portfolio site."}
+            words={"Computer Science graduate passionate about technology and problem-solving"}
             className="text-base"
           />
 
@@ -191,8 +173,6 @@ export default function HeroSection(): JSX.Element {
               <a
                 key={index}
                 href={stat.href}
-                target={stat.external ? "_blank" : "_self"}
-                rel={stat.external ? "noopener noreferrer" : undefined}
                 className={`${stat.bgColor} p-4 rounded-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-md group border border-transparent hover:border-opacity-20 block no-underline`}
               >
                 <div

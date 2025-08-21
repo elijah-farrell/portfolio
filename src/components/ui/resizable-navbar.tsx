@@ -236,8 +236,8 @@ export const NavbarLogo = () => {
       href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-    <span className="text-xl text-emerald-500">Abhishek</span>
-    <span className="text-xl text-gray-900 dark:text-white hidden md:block"> Kr. Yadav</span>
+    <span className="text-xl text-emerald-500">Elijah</span>
+    <span className="text-xl text-gray-900 dark:text-white hidden md:block"> Farrell</span>
     </a>
   );
 };

@@ -3,7 +3,6 @@
 export const settings = {
   // Set this to false to hide the "Available for opportunities" badge
   showAvailableForOpportunities: true,
-  quoteSection: false,
 
   // Experience section settings
   experience: {
@@ -17,11 +16,5 @@ export const settings = {
     showHighlights: false,
     showStats: true,
     compactMode: false,
-  },
-
-  // Dev Tools section settings
-  devTools: {
-    showDescriptions: true,
-    enableSearch: true,
   },
 };

@@ -25,12 +25,16 @@ export function NewNavbar() {
   };
   const navItems = [
     {
-      name: "DevTools",
-      link: "/devtools",
+      name: "Services",
+      link: "/#services",
     },
     {
       name: "About",
       link: "/#about",
+    },
+    {
+      name: "Education",
+      link: "/#education",
     },
     {
       name: "Skills",

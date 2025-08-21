@@ -5,7 +5,7 @@ import ProjectsSection from "@/components/ProjectSection";
 import { TextReveal } from "@/components/magicui/text-reveal";
 import ExperienceSection from "@/components/Experience";
 import Contact from "./Contact";
-import ToolsForDev from "@/components/ToolsForDev";
+import ServicesSection from "@/components/ToolsForDev";
 import HeroSection from "@/components/HeroSection";
 import CodeQuote from "@/components/CodeQuote";
 import { SiFuturelearn } from "react-icons/si";
@@ -28,7 +28,7 @@ export default function Home(): JSX.Element {
           <SiFuturelearn /> fast—mostly because I break
           <GiGroundbreaker /> things faster.
         </TextReveal>
-        <ToolsForDev />
+        <ServicesSection />
         <Contact />
       </TracingBeam>
     </div>

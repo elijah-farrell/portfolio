@@ -1,230 +1,302 @@
-import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { FiCode, FiSearch, FiStar } from "react-icons/fi";
-import { GiLogicGateXor } from "react-icons/gi";
-import { PiHashStraightFill } from "react-icons/pi";
-import { LuFileJson } from "react-icons/lu";
-import { SiJsonwebtokens } from "react-icons/si";
-import { MdQrCode, MdQrCodeScanner } from "react-icons/md";
-import { CometCard } from "./ui/comet-card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Input } from "./ui/input";
-import { useState } from "react";
-import { settings } from "@/config/settings";
-const tools = [
+import { 
+  FiGlobe, 
+  FiShoppingCart, 
+  FiCode, 
+  FiDollarSign, 
+  FiCheck,
+  FiArrowRight,
+  FiUsers,
+  FiZap,
+  FiShield,
+  FiTrendingUp
+} from "react-icons/fi";
+
+const plans = [
   {
-    name: "JSON Formatter & Viewer",
-    description: "Format, validate and view JSON data",
-    link: "/json-formatter",
-    icon: <LuFileJson className="inline-block text-3xl text-emerald-600" />,
-    category: "Data Processing",
-    tags: ["json", "format", "validate"],
+    name: "Starter Plan",
+    price: "$25",
+    description: "Simple 1-page website",
+    idealFor: "Small businesses, portfolios",
+    features: [
+      "Responsive design",
+      "Contact form",
+      "1 revision",
+      "Basic SEO setup",
+      "Mobile optimized"
+    ],
+    popular: false,
+    icon: <FiGlobe className="text-2xl text-emerald-600" />
+  },
+  {
+    name: "Business Plan",
+    price: "$75",
+    description: "Multi-page site + contact form",
+    idealFor: "Growing businesses",
+    features: [
+      "Up to 5 pages",
+      "Contact form",
+      "2 revisions",
+      "Social media integration",
+      "Advanced SEO",
+      "Analytics setup"
+    ],
     popular: true,
+    icon: <FiTrendingUp className="text-2xl text-emerald-600" />
   },
   {
-    name: "Base64 Encoder/Decoder",
-    description: "Encode and decode Base64 strings",
-    link: "/base64-tool",
-    icon: <FiCode className="inline-block text-3xl text-emerald-600" />,
-    category: "Encoding",
-    tags: ["base64", "encode", "decode"],
-    popular: true,
-  },
-  {
-    name: "JWT Decoder",
-    description: "Decode and analyze JWT tokens",
-    link: "/jwt-decoder",
-    icon: (
-      <SiJsonwebtokens className="inline-block text-3xl text-emerald-600" />
-    ),
-    category: "Security",
-    tags: ["jwt", "token", "security"],
+    name: "Booking/Shop Plan",
+    price: "$150",
+    description: "Basic booking or e-commerce",
+    idealFor: "Service providers or small shops",
+    features: [
+      "Up to 8 pages",
+      "Booking system",
+      "Payment integration",
+      "Inventory management",
+      "3 revisions",
+      "Customer portal"
+    ],
     popular: false,
+    icon: <FiShoppingCart className="text-2xl text-emerald-600" />
   },
   {
-    name: "Bitwise Visualizer",
-    description: "Visualize bitwise operations",
-    link: "/bitwise-visualizer",
-    icon: <GiLogicGateXor className="inline-block text-3xl text-emerald-600" />,
-    category: "Programming",
-    tags: ["bitwise", "binary", "operations"],
+    name: "Custom Plan",
+    price: "Quote",
+    description: "Full-stack app or advanced features",
+    idealFor: "Tailored web apps",
+    features: [
+      "Custom functionality",
+      "Database design",
+      "API integration",
+      "Advanced features",
+      "Unlimited revisions",
+      "Priority support"
+    ],
     popular: false,
-  },
-  {
-    name: "Hash Generator",
-    description: "Generate MD5, SHA1, SHA256 hashes",
-    link: "/hash-generator",
-    icon: (
-      <PiHashStraightFill className="inline-block text-3xl text-emerald-600" />
-    ),
-    category: "Security",
-    tags: ["hash", "md5", "sha256"],
-    popular: false,
-  },
-  {
-    name: "QR Code Generator",
-    description: "Generate QR codes for text, URLs, and more",
-    link: "/qr-generator",
-    icon: <MdQrCode className="inline-block text-3xl text-emerald-600" />,
-    category: "Utilities",
-    tags: ["qr", "code", "generator"],
-    popular: true,
-  },
-  {
-    name: "QR Code Scanner",
-    description: "Scan QR codes using camera or image upload",
-    link: "/qr-scanner",
-    icon: (
-      <MdQrCodeScanner className="inline-block text-3xl text-emerald-600" />
-    ),
-    category: "Utilities",
-    tags: ["qr", "scanner", "camera"],
-    popular: false,
-  },
+    icon: <FiCode className="text-2xl text-emerald-600" />
+  }
 ];
-export default function ToolsForDev() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Filter tools based on search query and selected category
-  const filteredTools = tools.filter((tool) => {
-    const matchesSearch =
-      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tool.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+const valueProps = [
+  {
+    icon: <FiUsers className="text-2xl text-emerald-600" />,
+    title: "Personal Attention",
+    description: "Work directly with the developer building your site"
+  },
+  {
+    icon: <FiDollarSign className="text-2xl text-emerald-600" />,
+    title: "Affordable, One-Time Fee",
+    description: "$25–$150 for websites, no monthly payments"
+  },
+  {
+    icon: <FiCode className="text-2xl text-emerald-600" />,
+    title: "Full-Stack Capability",
+    description: "Frontend, backend, and databases handled by one expert"
+  },
+  {
+    icon: <FiTrendingUp className="text-2xl text-emerald-600" />,
+    title: "Future-Proof",
+    description: "Websites built to scale, with optional maintenance"
+  },
+  {
+    icon: <FiShield className="text-2xl text-emerald-600" />,
+    title: "No Watermarks / CMS Limitations",
+    description: "Full ownership, no branding restrictions"
+  }
+];
 
-    const matchesCategory =
-      selectedCategory === "All" || tool.category === selectedCategory;
+const processSteps = [
+  {
+    step: "1",
+    title: "Pick a Plan",
+    description: "Choose the plan that fits your needs"
+  },
+  {
+    step: "2",
+    title: "Consultation",
+    description: "Quick call or message to discuss your goals"
+  },
+  {
+    step: "3",
+    title: "Development",
+    description: "I build your site or app"
+  },
+  {
+    step: "4",
+    title: "Launch & Support",
+    description: "Your site goes live, with optional ongoing support"
+  }
+];
 
-    return matchesSearch && matchesCategory;
-  });
-
-  // Get unique categories
-  const categories = ["All", ...new Set(tools.map((tool) => tool.category))];
-
+export default function ServicesSection() {
   return (
-    <div id="devtools">
-      <section className="p-4 md:p-8 bg-gradient-to-b max-w-6xl mx-auto transition-colors duration-300">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">DEV TOOLS</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            A collection of essential tools to enhance your development workflow
-            and boost productivity.
+    <div id="services">
+      {/* Hero Section */}
+      <section className="py-16 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+            Affordable, Custom Websites & Apps for Businesses & Individuals
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            I help small businesses and individuals get online fast with responsive websites, e-commerce solutions, and technical consulting.
           </p>
-
-          {/* Search Bar */}
-          {settings.devTools.enableSearch && (
-            <div className="relative mb-6">
-              <FiSearch
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <Input
-                type="text"
-                placeholder="Search tools... (e.g., json, encode, qr)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-full max-w-md"
-              />
-            </div>
-          )}
-
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            <Badge variant="outline" className="text-sm">
-              {filteredTools.length}{" "}
-              {filteredTools.length === 1 ? "tool" : "tools"} available
-            </Badge>
-            {categories.map((category) => {
-              const count =
-                category === "All"
-                  ? tools.length
-                  : tools.filter((tool) => tool.category === category).length;
-              const isSelected = selectedCategory === category;
-
-              return (
-                <Badge
-                  key={category}
-                  variant={isSelected ? "default" : "secondary"}
-                  className={`text-xs cursor-pointer transition-colors hover:bg-emerald-100 hover:text-emerald-800 dark:hover:bg-emerald-900 dark:hover:text-emerald-100 ${
-                    isSelected ? "bg-emerald-600 text-white" : ""
-                  }`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}: {count}
-                </Badge>
-              );
-            })}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-3"
+              onClick={() => {
+                const element = document.getElementById("contact");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
+            >
+              Get Started <FiArrowRight className="ml-2" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-lg px-8 py-3"
+              onClick={() => {
+                const element = document.getElementById("pricing");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
+            >
+              See Plans
+            </Button>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-6 border-l-2 border-dotted border-emerald-300 pl-6 py-3 rounded-2xl">
-          {filteredTools.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">
-                No tools found
-              </p>
-              <p className="text-gray-400 dark:text-gray-500 text-sm">
-                Try adjusting your search query
-              </p>
+      {/* Plans & Pricing */}
+      <section id="pricing" className="py-16 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Plans & Pricing</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Simple, transparent pricing with no hidden fees. Choose the plan that fits your needs.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {plans.map((plan, index) => (
+              <Card key={index} className={`relative ${plan.popular ? 'ring-2 ring-emerald-500 shadow-lg' : ''}`}>
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white">
+                    Most Popular
+                  </Badge>
+                )}
+                <CardHeader className="text-center">
+                  <div className="flex justify-center mb-4">
+                    {plan.icon}
+                  </div>
+                  <CardTitle className="text-xl">{plan.name}</CardTitle>
+                  <div className="text-3xl font-bold text-emerald-600">{plan.price}</div>
+                  <p className="text-gray-600 dark:text-gray-400">{plan.description}</p>
+                  <p className="text-sm text-gray-500">Ideal for: {plan.idealFor}</p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center gap-2">
+                        <FiCheck className="text-emerald-500 flex-shrink-0" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className="w-full" 
+                    variant={plan.popular ? "default" : "outline"}
+                    onClick={() => {
+                      const element = document.getElementById("contact");
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Work With Me */}
+      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Why Work With Me</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              I provide a different approach to web development - personal, affordable, and focused on your success.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {valueProps.map((prop, index) => (
+              <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-center mb-4">
+                  {prop.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{prop.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{prop.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Simple, straightforward process from concept to launch.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-emerald-600">{step.step}</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Services */}
+      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Additional Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
+              <FiGlobe className="text-3xl text-emerald-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Domain & Hosting Guidance</h3>
+              <p className="text-gray-600 dark:text-gray-400">Help you choose the right domain and hosting for your needs</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredTools.map((tool) => (
-                <Link
-                  key={tool.name}
-                  to={tool.link}
-                  className="block text-center mt-1"
-                  title={`${tool.name} - ${tool.description}`}
-                  rel="noopener noreferrer"
-                >
-                  <CometCard className="h-full">
-                    <Card className="shadow-sm hover:text-emerald-600 transition-all duration-300 border-neutral-200 dark:border-neutral-800 h-full group relative flex flex-col min-h-[200px]">
-                      {/* Popular Badge */}
-                      {tool.popular && (
-                        <Badge
-                          title="Popular"
-                          className="absolute top-2 right-2 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 hover:bg-emerald-200 dark:text-emerald-100 text-xs"
-                        >
-                          <FiStar size={12} />
-                        </Badge>
-                      )}
-
-                      <CardHeader className="font-semibold text-md flex flex-col items-center justify-center gap-2 p-6 flex-shrink-0">
-                        <div className="flex flex-col items-center justify-center gap-2">
-                          <div className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                            {tool.icon}
-                          </div>
-                          <span className="text-center text-md font-semibold leading-tight">
-                            {tool.name}
-                          </span>
-                        </div>
-                      </CardHeader>
-
-                      {/* Description and Category */}
-                      {settings.devTools.showDescriptions && (
-                        <CardContent className="px-6 pb-4 flex-grow flex flex-col justify-between">
-                          <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-2 flex-grow">
-                            {tool.description}
-                          </p>
-                          <div className="flex justify-center mt-auto">
-                            <Badge
-                              variant="secondary"
-                              className="text-xs muted"
-                            >
-                              {tool.category}
-                            </Badge>
-                          </div>
-                        </CardContent>
-                      )}
-                    </Card>
-                  </CometCard>
-                </Link>
-              ))}
+            <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
+              <FiZap className="text-3xl text-emerald-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Maintenance & Updates</h3>
+              <p className="text-gray-600 dark:text-gray-400">Keep your site secure and up-to-date with ongoing support</p>
             </div>
-          )}
+            <div className="p-6 bg-white dark:bg-gray-900 rounded-lg">
+              <FiCode className="text-3xl text-emerald-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Technical Consulting</h3>
+              <p className="text-gray-600 dark:text-gray-400">Get expert advice on your tech strategy and implementation</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

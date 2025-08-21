@@ -6,103 +6,87 @@ import { Card } from "@/components/ui/card";
 import { CardBody } from "@/components/ui/3d-card";
 import { Link } from "react-router-dom";
 import {
-  SiFacebook,
-  SiGeeksforgeeks,
   SiGithub,
-  SiInstagram,
-  SiLeetcode,
   SiLinkedin,
-  SiSnapchat,
-  SiX,
-  SiYoutube,
+  SiDiscord,
 } from "react-icons/si";
+import { FiMapPin, FiMail, FiCalendar } from "react-icons/fi";
 
 export default function Contact(): JSX.Element {
   const links = [
     {
       title: "LinkedIn",
-      url: "https://www.linkedin.com/in/abhishekkumaryadav/",
+      url: "https://www.linkedin.com/in/elijah-farrell-915047349/",
       icon: <SiLinkedin />,
     },
     {
       title: "GitHub",
-      url: "https://github.com/akyabhishek",
+      url: "https://github.com/elijah-farrell",
       icon: <SiGithub />,
     },
     {
-      title: "LeetCode",
-      url: "https://leetcode.com/mrabk121/",
-      icon: <SiLeetcode />,
+      title: "Discord",
+      url: "https://discord.com/users/zarnx",
+      icon: <SiDiscord />,
+    },
+  ];
+
+  const contactInfo = [
+    {
+      icon: <FiMapPin />,
+      title: "Location",
+      value: "Watertown, NY",
+      link: "https://maps.google.com/?q=Watertown,NY",
+      external: true
     },
     {
-      title: "GeeksforGeeks",
-      url: "https://www.geeksforgeeks.org/user/akyabhishek/",
-      icon: <SiGeeksforgeeks />,
+      icon: <FiMail />,
+      title: "Email",
+      value: "farrellelijah@outlook.com",
+      link: "mailto:farrellelijah@outlook.com"
     },
     {
-      title: "Instagram",
-      url: "https://instagram.com/abhishekkumaryadav.aky",
-      icon: <SiInstagram />,
-    },
-    {
-      title: "YouTube",
-      url: "https://www.youtube.com/@abhishekaky",
-      icon: <SiYoutube />,
-    },
-    { title: "Twitter", url: "https://x.com/akyabhishek", icon: <SiX /> },
-    {
-      title: "Facebook",
-      url: "https://www.facebook.com/abhishekkumaryadav.aky",
-      icon: <SiFacebook />,
-    },
-    {
-      title: "Snapchat",
-      url: "https://www.snapchat.com/add/mrabk121",
-      icon: <SiSnapchat />,
-    },
+      icon: <FiCalendar />,
+      title: "Meeting",
+      value: "Book a call via Cal.com",
+      link: "https://cal.com/elijahfarrell",
+      external: true
+    }
   ];
 
   return (
     <div id="contact">
-      <h1 className="text-3xl my-5">CONTACT</h1>
+      <h1 className="text-3xl my-5">GET IN TOUCH</h1>
       <BackgroundBeamsWithCollision className="w-full h-auto z-10 translate-y-7">
         <Card className="border-none py-28">
           <CardBody className="w-full h-auto  z-20 ">
-            <p className="leading-9 text-center">
-              Feel free to get in touch at:{" "}
-              <Link
-                to="mailto:aky.abhishekkumaryadav@gmail.com"
-                className="font-medium underline underline-offset-4 transition-colors hover:text-emerald-500"
-              >
-                aky.abhishekkumaryadav@gmail.com
-              </Link>
-              <br />
-              <FlipWords
-                words={[
-                  "Still thinking? Take your time!",
-                  "I'll wait... but not forever!",
-                  "Okay, maybe forever.",
-                  "Don’t be shy—I'm super friendly!",
-                  "Unless you ask for free coffee ☕.",
-                  "Need help? I’ve got you!",
-                  "Typing already? I’m excited!",
-                  "Wait... are you really emailing?",
-                  "Kidding. You totally should!",
-                  "Pssst... I’m still here",
-                  "Your keyboard misses you!",
-                  "The suspense is killing me!",
-                  "Fun fact: I debug faster than I reply",
-                  "You write, I reply—teamwork!",
-                  "Free smiles with every message",
-                  "If you don't email, I'll start singing",
-                  "I promise my code is cleaner than my jokes",
-                  "Your move...",
-                ]}
-                duration={2000}
-              />
+            <p className="leading-9 text-center mb-12">
+              Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 py-20">
+            {/* Contact Information Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+              {contactInfo.map((info, index) => (
+                <Card key={index} className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <div className="flex justify-center mb-4">
+                    <div className="text-3xl text-emerald-600">
+                      {info.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{info.title}</h3>
+                  <a
+                    href={info.link}
+                    target={info.external ? "_blank" : "_self"}
+                    rel={info.external ? "noopener noreferrer" : undefined}
+                    className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                  >
+                    {info.value}
+                  </a>
+                </Card>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 py-8">
               {links.map(
                 (element, index) =>
                   element && (
@@ -117,8 +101,9 @@ export default function Contact(): JSX.Element {
                   )
               )}
             </div>
+
             <div className="text-center text-xs text-muted-foreground pt-10">
-              Built (because why reinvent the wheel?) with{" "}
+              Built with{" "}
               <a
                 href="https://ui.shadcn.com/"
                 className="text-xs font-medium underline underline-offset-4 text-muted-foreground transition-colors hover:text-emerald-500"

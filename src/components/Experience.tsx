@@ -62,9 +62,20 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         <div className="relative flex flex-1 flex-col justify-between gap-3">
           <div>
             <div className="flex items-center justify-between">
-              <p className="text-xl text-gray-700 dark:text-gray-400 mb-1">
-                {company}
-              </p>
+              <div className="flex items-center gap-3">
+                <h4 className="font-bold text-emerald-600">
+                  {settings.experience.showAnimations ? (
+                    <TextAnimate animation="blurInUp" by="character" once>
+                      {title}
+                    </TextAnimate>
+                  ) : (
+                    title
+                  )}
+                </h4>
+                <p className="text-sm text-gray-500">
+                  {company}
+                </p>
+              </div>
               {settings.experience.showCompanyLogos && logoPath && (
                 <img
                   src={logoPath}
@@ -73,21 +84,20 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                 />
               )}
             </div>
-            <h4 className="font-bold text-emerald-600">
-              {settings.experience.showAnimations ? (
-                <TextAnimate animation="blurInUp" by="character" once>
-                  {title}
-                </TextAnimate>
-              ) : (
-                title
-              )}
-            </h4>
             <p className="mt-1 max-w-screen-sm text-sm text-gray-500">
-              {description}
+              {description.split('\n').map((line, index) => {
+                if (line.trim() === '') return <br key={index} />;
+                if (line.startsWith('•')) {
+                  return (
+                    <div key={index} className="flex items-start gap-2 mb-2">
+                      <span className="text-emerald-500 mt-0.5">•</span>
+                      <span>{line.substring(1).trim()}</span>
+                    </div>
+                  );
+                }
+                return <div key={index} className="mb-2">{line}</div>;
+              })}
             </p>
-            <span className="mt-1 block text-sm text-gray-400">
-              {from} — {to} · {calculateDuration(from, to)}
-            </span>
 
             {/* Technologies used */}
             {technologies && technologies.length > 0 && (
@@ -142,58 +152,31 @@ interface TimelineData {
 // Static data for the timeline
 const timelineData: TimelineData[] = [
   {
-    title: "Programmer Analyst - GN",
-    company: "Cognizant Technology Solutions",
+    title: "Research Assistant",
+    company: "Center for Safe and Secure AI Robotics (CESSAIR)",
+    description: `High Performance Computing & Distributed Systems Division
+SUNY Polytechnic Institute | Feb 2025 – May 2025
 
-    logoPath: "/assets/CTSH.png",
-    description:
-      "Developed and enhanced the ECS backend application for American Airlines, enabling communication between client applications and pilots",
-    from: "09/2023",
-    to: "Present",
-    technologies: [
-      "Java",
-      "Spring Boot",
-      "Spring Data",
-      "Spring Framework",
-      "REST APIs",
-      "Microservices",
-      "SQL Server",
-      "JWT",
-      "TypeScript",
-      "JavaScript",
-      "Git",
-      "GitHub",
-      "GitHub Actions",
-      "CI/CD",
-      "Playwright",
-      "GitHub Copilot",
-      "Cursor",
-      "Gen AI",
-    ],
-    achievements: [],
+• Developed "BORGChat," a distributed multi-agent AI suite running on the CESSAIR Brain Operating Research Grid (BORG), leveraging 30+ NVIDIA Orin Nano devices to simulate and orchestrate real-time conversations between large language models.
+• Designed and deployed a custom GTK4 desktop interface enabling dynamic LLM personality customization, session management, and visualization of agent-to-agent interactions.
+• Optimized prompt engineering and conversational memory systems to improve response accuracy, reduce latency, and enhance the overall research quality of multi-agent experiments.
+• Contributed to open-source HPC research software development, using C++ and CMake for build management, and collaborating with a small research team to design reproducible, cross-platform deployment instructions.`,
+    from: "Feb 2025",
+    to: "May 2025",
+    logoPath: "/src/assets/logos/suny-poly-logo.jpg",
+    technologies: ["C++", "CMake", "GTK4", "Ollama", "NVIDIA Orin Nano"],
   },
   {
-    title: "Intern",
-    company: "Cognizant Technology Solutions",
-    description:
-      "Developed RESTful APIs using Java and Spring Boot, integrating MySQL for backend data management.",
-    from: "03/2023",
-    to: "08/2023",
-    logoPath: "/assets/CTSH.png",
-    technologies: [
-      "Java",
-      "Spring Boot",
-      "MySQL",
-      "REST APIs",
-      "Git",
-      "ReactJS",
-      "TypeScript",
-    ],
-    achievements: [
-      "Successfully completed 3 major Projects",
-      "Learned enterprise-level development practices",
-      "Contributed to team codebase with 95% code review approval",
-    ],
+    title: "Work Study Assistant",
+    company: "The Workplace",
+    description: `Watertown, NY 13601 | August 2021 - December 2021
+
+• Performed general duties including facility support and janitorial tasks.
+• Assisted with basic device troubleshooting and user setup when assigned.
+• Gained initial exposure to technical support environments and team coordination.`,
+    from: "Aug 2021",
+    to: "Dec 2021",
+    logoPath: "/src/assets/logos/workplace.jpeg",
   },
 ];
 
@@ -202,7 +185,7 @@ const ExperienceSection: React.FC = () => (
   <div className="pt-5" id="experience">
     <h1 className="text-3xl font-bold mb-2">EXPERIENCE</h1>
     <p className="text-gray-600 dark:text-gray-400 mb-6">
-      My professional journey and key accomplishments
+      What I have done so far
     </p>
     <section className="p-3 md:p-6 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
       <div className="space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-6 py-3 rounded-2xl">

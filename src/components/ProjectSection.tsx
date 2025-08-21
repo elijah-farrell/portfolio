@@ -2,124 +2,90 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "edorbit webapp",
+    title: "Portfolio Website",
     description:
-      "An educational platform that transforms complex concepts into clear, interactive 3D visual",
+      "A modern, responsive portfolio website built with React 18, TypeScript, and Three.js. Features 3D models, smooth animations, and a contact form with EmailJS integration. Built with Vite for fast development and deployment.",
     techStack: [
-      "Java",
-      "Spring Boot",
-      "Spring Security",
-      "Maven",
-      "GCP",
-      "Google App Engine",
-      "Lombok",
+      "React 18",
       "TypeScript",
-      "React.Js",
-      "ThreeJS",
-      "Axios",
-      "HeroUI",
-      "TailwindCSS",
-      "JWT",
-      "MySQL",
-      "GitHub Actions",
+      "Three.js",
+      "Vite",
+      "EmailJS",
+      "Tailwind CSS",
+      "3D Models",
+      "Responsive Design",
     ],
-    imageUrl: "/assets/edorbit-thumb.png",
-    liveUrl: "https://app.edorbit.com/",
+    imageUrl: "/src/assets/projects/ef-red.png",
+    github: "https://github.com/elijah-farrell/portfolio",
+    liveUrl: "https://elijahfarrell.com",
     live: true,
   },
   {
-    title: "Bhraman",
+    title: "NexusChat",
     description:
-      "An immersive AR app showcasing Indian heritage through real-time interactive 3D models.",
+      "Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT authentication, and WebSocket communication. Built with React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, and Three.js. Deployed with Vite for optimal performance.",
     techStack: [
-      "Java",
-      "XML",
-      "TensorFlow",
-      "Python",
-      "Firebase",
-      "Android Studio",
-      "CNN",
-      "Machine Learning",
-      "Mobile App Development",
-      "Firebase Authentication",
-      "Firebase Realtime Database",
-    ],
-    imageUrl: "/assets/bhraman-thumb.png",
-    github: "https://github.com/akyabhishek/Bhraman",
-    liveUrl:
-      "https://github.com/akyabhishek/Bhraman/raw/refs/heads/main/bhraman.apk",
-  },
-  {
-    title: "edorbit mobile app",
-    description:
-      "An interactive 3D and AR-powered app that helps visualize complex theoretical diagrams.",
-    techStack: [
-      "Java",
-      "Android Studio",
-      "Fireabse",
-      "Scene Viewer",
-      "Firebase Authentication",
-      "Firebase Realtime Database",
-    ],
-    imageUrl: "/assets/edorbit-m-preview.png",
-    live: true,
-    liveUrl: "https://edorbit.com/",
-    playstore:
-      "https://play.google.com/store/apps/details?id=com.nbytech.edorbit",
-  },
-  {
-    title: "BS Visualizer",
-    description:
-      "An interactive tool I built to make learning binary search simple and intuitive through real-time visuals.",
-    techStack: [
-      "React.js",
+      "React 18",
       "Node.js",
-      "Tailwind CSS",
-      "Vercel",
-      "Problem Solving",
-      "Git",
-      "GitHub",
+      "Express.js",
+      "PostgreSQL",
+      "Socket.IO",
+      "Material-UI",
+      "Three.js",
+      "JWT Authentication",
+      "WebSockets",
+      "Real-time Chat",
     ],
-    imageUrl: "/assets/bsvpreview.png",
-    github: "https://github.com/akyabhishek/BinarySearchVisualizer",
+    imageUrl: "/src/assets/projects/nexuschat.png",
+    github: "https://github.com/elijah-farrell/nexuschat",
+    liveUrl: "https://nexxuschat.vercel.app",
     live: true,
-    liveUrl: "https://binary-search-visualizer-mauve.vercel.app/",
   },
   {
-    title: "Personal Portfolio",
-    description: "A personal portfolio site portfolio site",
-    techStack: [
-      "React.js",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "TypeScript",
-      "Acernity",
-      "Vercel",
-    ],
-    imageUrl: "/assets/portfolio-thumb.png",
-    github: "https://github.com/akyabhishek/react-portfolio-template",
-    live: true,
-    liveUrl: "https://akyabhishek.vercel.app/",
-  },
-  {
-    title: "Stylish Analog Clock",
+    title: "3D Floating Laptop",
     description:
-      "A sleek neumorphic analog clock with dark and light modes, built using HTML, CSS, and JavaScript.",
-    techStack: ["HTML", "CSS", "JavaScript"],
-    imageUrl: "/assets/clock-thumb.png",
-    github: "https://github.com/akyabhishek/react-portfolio-template",
+      "Interactive 3D application featuring a floating laptop with a fully functional website interface rendered directly on the 3D screen. Built with React 18, Three.js, React Three Fiber, and Vite for fast 3D rendering and development.",
+    techStack: [
+      "React 18",
+      "Three.js",
+      "React Three Fiber",
+      "Vite",
+      "3D Rendering",
+      "Interactive 3D",
+      "WebGL",
+    ],
+    imageUrl: "/src/assets/projects/3d-laptop-preview.png",
+    github: "https://github.com/elijah-farrell/3d-floating-laptop",
+    liveUrl: "https://3d-floating-laptop.vercel.app/",
     live: true,
-    liveUrl: "https://akyabhishek.github.io/Stylish-Clock-Dark-Light-Mode-/",
+  },
+  {
+    title: "Portfolio Template",
+    description:
+      "A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.",
+    techStack: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Responsive Design",
+      "Smooth Animations",
+      "Accessibility",
+      "Customizable",
+      "Performance Optimized",
+    ],
+    imageUrl: "/src/assets/projects/portfolio-template01.png",
+    github: "https://github.com/elijah-farrell/portfolio-template",
+    liveUrl: "https://ef-portfolio01.vercel.app/",
+    live: true,
   },
 ];
 
 export default function ProjectsSection() {
   return (
     <div className="pt-5" id="projects">
-      <h1 className="text-3xl font-bold mb-2">PROJECTS</h1>
+      <h1 className="text-3xl font-bold mb-2">FEATURED PROJECTS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-2">
-        A showcase of my work, highlighting the technologies I've used and the
-        problems I've solved.
+        My Work.
       </p>
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

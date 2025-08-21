@@ -1,8 +1,11 @@
 {
-  "name": "react-portfolio-template",
+  "name": "elijah-farrell-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Elijah Farrell's personal portfolio website - Computer Science graduate with expertise in full-stack development, AI/ML engineering, and distributed systems",
+  "author": "Elijah Farrell",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

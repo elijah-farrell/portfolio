@@ -12,7 +12,7 @@ export default function Education() {
           <div className="space-y-6">
             <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
               <img
-                src="/src/assets/logos/suny-poly-logo.jpg"
+                src="/assets/logos/suny-poly-logo.jpg"
                 alt="SUNY Polytechnic Institute"
                 className="w-24 h-24 object-cover rounded-lg"
               />
@@ -31,7 +31,7 @@ export default function Education() {
             
             <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
               <img
-                src="/src/assets/logos/jcc-logo.png"
+                src="/assets/logos/jcc-logo.png"
                 alt="Jefferson Community College"
                 className="w-24 h-24 object-cover rounded-lg"
               />

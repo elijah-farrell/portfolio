@@ -163,7 +163,7 @@ SUNY Polytechnic Institute | Feb 2025 – May 2025
 • Contributed to open-source HPC research software development, using C++ and CMake for build management, and collaborating with a small research team to design reproducible, cross-platform deployment instructions.`,
     from: "Feb 2025",
     to: "May 2025",
-    logoPath: "/src/assets/logos/suny-poly-logo.jpg",
+            logoPath: "/assets/logos/suny-poly-logo.jpg",
     technologies: ["C++", "CMake", "GTK4", "Ollama", "NVIDIA Orin Nano"],
   },
   {
@@ -176,7 +176,7 @@ SUNY Polytechnic Institute | Feb 2025 – May 2025
 • Gained initial exposure to technical support environments and team coordination.`,
     from: "Aug 2021",
     to: "Dec 2021",
-    logoPath: "/src/assets/logos/workplace.jpeg",
+            logoPath: "/assets/logos/workplace.jpeg",
   },
 ];
 

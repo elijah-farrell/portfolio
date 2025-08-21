@@ -49,10 +49,6 @@ export function NewNavbar() {
       link: "/services",
     },
     {
-      name: "Stats",
-      link: "/stats",
-    },
-    {
       name: "Contact",
       link: "/#contact",
     },

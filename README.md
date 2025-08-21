@@ -6,7 +6,7 @@ A modern, responsive portfolio website built with React 18, TypeScript, and Thre
 
 ## Live Demo
 
-Check out the live demo of the portfolio at [https://akyabhishek.vercel.app/](https://akyabhishek.vercel.app/).
+Check out the live demo of the portfolio at [https://elijahfarrell.com](https://elijahfarrell.com).
 
 ## Technologies and Libraries Used
 
@@ -16,40 +16,27 @@ This portfolio is built using modern web technologies and libraries to provide a
 - **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
 - **Vite**: A fast build tool and development server for modern web projects.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-- **NextUI**: A React UI library for building modern web applications.
-- **React Router**: A library for routing in React applications.
-- **Recharts**: A charting library for React.
 - **Three.js**: A JavaScript library for creating 3D graphics in the browser.
-- **Three Globe**: A library for creating interactive globes with Three.js.
-- **Axios**: A promise-based HTTP client for making API requests.
+- **React Three Fiber**: React renderer for Three.js.
 - **Framer Motion**: A library for animations in React.
-- **Lucide React**: A library of icons for React.
-- **ESLint**: A tool for identifying and fixing problems in JavaScript code.
-- **Prettier**: A code formatter for maintaining consistent code style.
+- **React Router**: A library for routing in React applications.
 
 ## Getting Started
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run this portfolio locally:
 
-Currently, two official plugins are available:
+```bash
+# Install dependencies
+npm install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Start development server
+npm run dev
 
-## Expanding the ESLint Configuration
+# Build for production
+npm run build
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+# Preview production build
+npm run preview
 ```
+
+The development server will start at `http://localhost:5173`

@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with React 18, TypeScript, and Three.js.
 
-![Portfolio Preview](src/assets/portfolio-thumb.png)
+![Portfolio Preview](src/assets/projects/portfolio-thumb.png)
 
 ## Live Demo
 

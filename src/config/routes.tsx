@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "@/pages/Home";
-import Resume from "@/pages/Resume";
 import { NewNavbar } from "@/components/NewNavbar";
 import ServicesPage from "@/pages/Services";
 
@@ -19,10 +18,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/resume",
-        element: <Resume />,
       },
       {
         path: "/services",

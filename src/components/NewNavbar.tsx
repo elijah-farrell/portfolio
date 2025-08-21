@@ -25,10 +25,6 @@ export function NewNavbar() {
   };
   const navItems = [
     {
-      name: "Services",
-      link: "/#services",
-    },
-    {
       name: "About",
       link: "/#about",
     },
@@ -43,6 +39,10 @@ export function NewNavbar() {
     {
       name: "Projects",
       link: "/#projects",
+    },
+    {
+      name: "Services",
+      link: "/services",
     },
     {
       name: "Stats",

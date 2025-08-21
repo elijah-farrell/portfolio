@@ -5,14 +5,7 @@ import Contact from "@/pages/Contact";
 import Resume from "@/pages/Resume";
 import { NewNavbar } from "@/components/NewNavbar";
 import JavaQA from "@/pages/JavaQA";
-import Base64Page from "@/pages/devtools/Base64page";
-import BitwiseVisualizerPage from "@/pages/devtools/BitwiseVisualizerPage";
-import HashGeneratorPage from "@/pages/devtools/HashGeneratorPage";
-import DevToolsPage from "@/pages/DevToolsPage";
-import JSONFormatterPage from "@/pages/devtools/JSONFormmaterPage";
-import JWTDecoderPage from "@/pages/devtools/JWTDecoderPage";
-import QRCodeGeneratorPage from "@/pages/devtools/QRCodeGeneratorPage";
-import QRScannerPage from "@/pages/devtools/QRScannerPage";
+import ServicesPage from "@/pages/ServicesPage";
 
 const router = createBrowserRouter([
   {
@@ -47,42 +40,13 @@ const router = createBrowserRouter([
         element: <JavaQA />,
       },
       {
-        path: "/base64-tool",
-        element: <Base64Page />,
-      },
-      {
-        path: "/bitwise-visualizer",
-        element: <BitwiseVisualizerPage />,
-      },
-      {
-        path: "/hash-generator",
-        element: <HashGeneratorPage />,
-      },
-      {
-        path: "/devtools",
-        element: <DevToolsPage />,
-      },
-      {
-        path: "/json-formatter",
-        element: <JSONFormatterPage />,
-      },
-      {
-        path: "/jwt-decoder",
-        element: <JWTDecoderPage />,
-      },
-      {
-        path: "/qr-generator",
-        element: <QRCodeGeneratorPage />,
-      },
-      {
-        path: "/qr-scanner",
-        element: <QRScannerPage />,
+        path: "/services",
+        element: <ServicesPage />,
       },
     ],
   },
 ], {
   future: {
-    v7_startTransition: true,
     v7_relativeSplatPath: true,
     v7_fetcherPersist: true,
     v7_normalizeFormMethod: true,
@@ -91,8 +55,18 @@ const router = createBrowserRouter([
   },
 });
 
-function NotFoundPage(): JSX.Element {
-  return <h1>404 - Page Not Found</h1>;
+function NotFoundPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4">404</h1>
+        <p className="text-xl mb-4">Page not found</p>
+        <a href="/" className="text-emerald-600 hover:text-emerald-700">
+          Go back home
+        </a>
+      </div>
+    </div>
+  );
 }
 
 export default router;

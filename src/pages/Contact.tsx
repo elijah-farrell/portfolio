@@ -103,34 +103,7 @@ export default function Contact(): JSX.Element {
             </div>
 
             <div className="text-center text-xs text-muted-foreground pt-10">
-              Built with{" "}
-              <a
-                href="https://ui.shadcn.com/"
-                className="text-xs font-medium underline underline-offset-4 text-muted-foreground transition-colors hover:text-emerald-500"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                shadcn/ui
-              </a>
-              ,{" "}
-              <a
-                href="https://magicui.design/"
-                className="text-xs font-medium underline underline-offset-4 text-muted-foreground transition-colors hover:text-emerald-500"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                magicui
-              </a>
-              , and{" "}
-              <a
-                href="https://ui.aceternity.com/"
-                className="text-xs font-medium underline underline-offset-4 text-muted-foreground transition-colors hover:text-emerald-500"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                acernity.dev
-              </a>
-              .
+              © Developed by Me
             </div>
           </CardBody>
         </Card>

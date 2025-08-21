@@ -1,6 +1,6 @@
 import React from "react";
 import BitwiseVisualizer from "@/components/devtools/BitwiseVisualizer";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function BitwiseVisualizerPage() {
   return (

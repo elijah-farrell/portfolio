@@ -2,7 +2,7 @@
 
 import {cn} from "@/lib/utils";
 import {motion, MotionProps, useScroll} from "motion/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface ScrollProgressProps
   extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {}
@@ -11,7 +11,22 @@ export const ScrollProgress = React.forwardRef<
   HTMLDivElement,
   ScrollProgressProps
 >(({ className, ...props }, ref) => {
-  const { scrollYProgress } = useScroll();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  const { scrollYProgress } = useScroll({
+    layoutEffect: false, // Prevent hydration issues
+  });
+
+  useEffect(() => {
+    // Only show scroll progress when page is scrolled
+    const checkScroll = () => {
+      setIsVisible(window.scrollY > 100);
+    };
+    
+    checkScroll();
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    return () => window.removeEventListener('scroll', checkScroll);
+  }, []);
 
   return (
     <motion.div
@@ -21,7 +36,7 @@ export const ScrollProgress = React.forwardRef<
         className,
       )}
       style={{
-        scaleX: scrollYProgress,
+        scaleX: isVisible ? scrollYProgress : 0,
       }}
       {...props}
     />

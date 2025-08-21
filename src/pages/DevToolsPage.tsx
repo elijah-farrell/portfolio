@@ -1,6 +1,6 @@
 import React from "react";
 import ToolsForDev from "@/components/ToolsForDev";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function DevToolsPage() {
   return (

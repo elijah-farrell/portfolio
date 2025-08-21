@@ -16,8 +16,8 @@ import {
 } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import FloatingImage from "@/components/MyImage";
-import mainImage from "../../public/assets/abhishekkumaryadav-ghibli.png";
-import altMainImage from "../../public/assets/abhishekkumaryadav.png";
+import mainImage from "@/assets/abhishekkumaryadav-ghibli.png";
+import altMainImage from "@/assets/abhishekkumaryadav.png";
 import { SiLeetcode } from "react-icons/si";
 import ResumeButton from "./DownloadResumeBtn";
 import { settings } from "@/config/settings";
@@ -173,11 +173,12 @@ export default function HeroSection(): JSX.Element {
             <Button
               variant="link"
               className="flex items-center gap-2 rounded-2xl"
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => {
+                const element = document.getElementById("contact");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
             >
               <FiMail size={16} />
               Get In Touch

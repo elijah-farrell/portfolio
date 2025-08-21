@@ -1,6 +1,6 @@
 import React from "react";
 import JWTDecoder from "@/components/devtools/JWTDecoder";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function JWTDecoderPage() {
   return (

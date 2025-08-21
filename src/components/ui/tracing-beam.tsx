@@ -11,19 +11,42 @@ export const TracingBeam = ({
   className?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
+    layoutEffect: false, // Prevent hydration issues
   });
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
+    // Check if component is visible in viewport
+    const checkVisibility = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        setIsVisible(isInView);
+      }
+    };
+
+    // Initial check
+    checkVisibility();
+    
+    // Check on scroll
+    const handleScroll = () => checkVisibility();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (contentRef.current && isVisible) {
       setSvgHeight(contentRef.current.offsetHeight);
     }
-  }, []);
+  }, [isVisible]);
 
   const y1 = useSpring(
     useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]),
@@ -44,6 +67,7 @@ export const TracingBeam = ({
     <motion.div
       ref={ref}
       className={cn("relative w-full max-w-4xl mx-auto h-full", className)}
+      style={{ position: 'relative' }} // Explicit positioning
     >
       <div className="absolute -left-4 md:-left-20 top-3">
         <motion.div
@@ -66,9 +90,9 @@ export const TracingBeam = ({
             }}
             animate={{
               backgroundColor:
-                scrollYProgress.get() > 0 ? "white" : "var(--emerald-500)",
+                scrollYProgress.get() > 0 ? "white" : "#10b981",
               borderColor:
-                scrollYProgress.get() > 0 ? "white" : "var(--emerald-600)",
+                scrollYProgress.get() > 0 ? "white" : "#059669",
             }}
             className="h-2 w-2  rounded-full border border-neutral-300 bg-white"
           />

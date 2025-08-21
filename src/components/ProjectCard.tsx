@@ -102,11 +102,5 @@ export default function ProjectCard(props: ProjectCardProps) {
     </CardContainer>
   );
 
-  return liveUrl ? (
-    <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-      {cardContent}
-    </a>
-  ) : (
-    cardContent
-  );
+  return cardContent;
 }

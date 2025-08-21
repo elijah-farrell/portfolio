@@ -1,6 +1,6 @@
 import React from "react";
 import QRScanner from "@/components/devtools/QRScanner";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function QRScannerPage() {
   return (

@@ -1,8 +1,8 @@
-# Abhishek Kumar Yadav (AKY) - Portfolio
+# Portfolio Website
 
-Welcome to the personal portfolio of Abhishek Kumar Yadav (AKY). This website showcases my projects, skills, and experience in software development. You can explore my work and learn more about my professional background.
+A modern, responsive portfolio website built with React 18, TypeScript, and Three.js.
 
-![Portfolio Preview](public/assets/portfolio-thumb.png)
+![Portfolio Preview](src/assets/portfolio-thumb.png)
 
 ## Live Demo
 

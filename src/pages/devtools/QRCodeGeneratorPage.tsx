@@ -1,6 +1,6 @@
 import React from "react";
 import QRCodeGenerator from "@/components/devtools/QRCodeGenerator";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function QRCodeGeneratorPage() {
   return (

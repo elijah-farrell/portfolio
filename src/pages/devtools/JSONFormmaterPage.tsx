@@ -1,6 +1,6 @@
 import React from "react";
 import JSONFormatter from "@/components/devtools/JSONFormatter";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function JSONFormatterPage() {
   return (

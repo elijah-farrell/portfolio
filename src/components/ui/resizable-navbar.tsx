@@ -49,6 +49,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
+    layoutEffect: false, // Prevent hydration issues
   });
   const [visible, setVisible] = useState<boolean>(false);
 

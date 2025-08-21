@@ -35,9 +35,14 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
   // Handle scroll-based parallax effect
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      // Only update if component is still mounted and visible
+      if (imageRef.current && imageRef.current.offsetParent !== null) {
+        setScrollY(window.scrollY);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    
+    // Use passive listener for better performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -66,22 +71,25 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
     <div
       ref={imageRef}
       className="relative rounded-2xl md:rounded-3xl duration-700 h-auto w-auto transition-all shadow-2xl hover:shadow-3xl group perspective-1000"
+      style={{ position: 'relative' }} // Explicit positioning to fix scroll warnings
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        transform: `
-                    translateY(${scrollY * 0.1}px) 
-                    rotateX(${-mousePosition.y * 0.5}deg) 
-                    rotateY(${mousePosition.x * 0.5}deg)
-                    scale(${
-                      mousePosition.x !== 0 || mousePosition.y !== 0 ? 1.05 : 1
-                    })
-                `,
-        transformStyle: "preserve-3d",
-        transition: "transform 0.3s ease-out",
-      }}
     >
-      <div className="relative h-full rounded-2xl border-3 md:rounded-3xl overflow-hidden">
+      <div 
+        className="relative h-full rounded-2xl border-3 md:rounded-3xl overflow-hidden"
+        style={{
+          transform: `
+                      translateY(${scrollY * 0.1}px) 
+                      rotateX(${-mousePosition.y * 0.5}deg) 
+                      rotateY(${mousePosition.x * 0.5}deg)
+                      scale(${
+                        mousePosition.x !== 0 || mousePosition.y !== 0 ? 1.05 : 1
+                      })
+                  `,
+          transformStyle: "preserve-3d",
+          transition: "transform 0.3s ease-out",
+        }}
+      >
         <GlowingEffect
           borderWidth={3}
           spread={50}

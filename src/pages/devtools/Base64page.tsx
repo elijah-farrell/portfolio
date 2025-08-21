@@ -1,6 +1,6 @@
 import React from "react";
 import Base64Tool from "@/components/devtools/Base64Tool";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function Base64Page() {
   return (

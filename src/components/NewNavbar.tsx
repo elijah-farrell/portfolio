@@ -54,9 +54,10 @@ export function NewNavbar() {
       const id = location.hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
+        // Reduced timeout for better performance
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100); // small delay after route loads
+        }, 50); // reduced from 100ms to 50ms
       }
     }
   }, [location]);

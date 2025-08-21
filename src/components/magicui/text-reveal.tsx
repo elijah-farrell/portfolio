@@ -13,6 +13,7 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    layoutEffect: false, // Prevent hydration issues
   });
 
   // Function to extract text content and preserve structure

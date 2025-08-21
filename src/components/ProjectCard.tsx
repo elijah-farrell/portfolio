@@ -37,9 +37,9 @@ export default function ProjectCard(props: ProjectCardProps) {
     duration,
   } = props;
   const cardContent = (
-    <CardContainer className="inter-var">
-      <Card className="max-w-sm w-full shadow-md hover:shadow-lg transition-shadow duration-300  relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1]">
-        <CardHeader>
+    <CardContainer className="inter-var h-full">
+      <Card className="max-w-sm w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col">
+        <CardHeader className="flex-shrink-0">
           <img
             src={imageUrl}
             alt={title}
@@ -55,7 +55,7 @@ export default function ProjectCard(props: ProjectCardProps) {
           </CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-shrink-0">
           <div className="flex flex-wrap gap-2">
             {techStack.map((tech, index) => (
               <Badge
@@ -68,7 +68,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             ))}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-between mt-auto">
           {github && (
             <Button variant="ghost" size="sm" asChild>
               <a href={github} target="_blank" rel="noopener noreferrer">

@@ -4,7 +4,8 @@ import {AnimatePresence, motion, useMotionValueEvent, useScroll,} from "motion/r
 
 import React, {useRef, useState} from "react";
 import {ScrollProgress} from "../magicui/scroll-progress";
-
+import { ChevronDown } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -21,9 +22,15 @@ interface NavItemsProps {
   items: {
     name: string;
     link: string;
+    isDropdown?: boolean;
+    sections?: Array<{ name: string; sectionId: string }>;
+    icon?: React.ReactNode;
+    isActive?: boolean;
   }[];
   className?: string;
   onItemClick?: () => void;
+  scrollToSection?: (sectionId: string) => void;
+  scrollToServicesSection?: (sectionId: string) => void;
 }
 
 interface MobileNavProps {
@@ -90,7 +97,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
           : "none",
         width: visible ? "90%" : "100%",
         paddingTop:visible?"15px":"10px",
-        paddingBottom:visible?"15px":"10px",
+        paddingBottom:visible?"10px":"10px",
         paddingRight: visible ? "40px" : "0px",
         paddingLeft: visible ? "40px" : "0px",
         y: visible ? 0 : 0,
@@ -100,47 +107,127 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         stiffness: 200,
         damping: 50,
       }}
-      style={{
-        minWidth: "800px",
-      }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full px-4 py-2 lg:flex  bg-white/80 dark:bg-neutral-950/80",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 dark:bg-neutral-950/80 rounded-full",
         visible && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
-    ><ScrollProgress className={visible?`top-[72.8px] mx-9`:'top-[59.6px] mx-9'} />
+    >
+      <ScrollProgress className={visible ? `top-[52px] mx-9` : 'top-[39.6px] mx-9'} />
       {children}
     </motion.div>
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({ items, className, onItemClick, scrollToSection, scrollToServicesSection }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [clickedDropdown, setClickedDropdown] = useState<number | null>(null);
+  const { scrollY } = useScroll();
+  const location = useLocation();
 
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
+        "absolute inset-0 flex flex-row items-center justify-center space-x-6 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <a
-          onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-all duration-500 ease-in-out"
-          key={`link-${idx}`}
-          href={item.link}
-        >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800 "
-            />
+        <div key={`nav-item-${idx}`} className={`relative ${item.name === 'Home' ? 'ml-3' : ''}`}>
+          {item.isDropdown ? (
+            <div
+              onMouseEnter={() => setHovered(idx)}
+              onMouseLeave={() => setHovered(null)}
+              className="relative"
+            >
+              <div className="flex items-center">
+                <a 
+                  href={item.link}
+                  className={`relative px-4 py-2 transition-all duration-500 ease-in-out flex items-center ${
+                    item.isActive 
+                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+                  }`}
+                >
+                  {hovered === idx && (
+                    <motion.div
+                      layoutId="hovered"
+                      className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+                    />
+                  )}
+                  {item.icon && <span className="relative z-20">{item.icon}</span>}
+                  <span className="relative z-20">{item.name}</span>
+                </a>
+                <button 
+                  onClick={() => setClickedDropdown(clickedDropdown === idx ? null : idx)}
+                  className={`px-1 py-2 transition-all duration-500 ease-in-out ${
+                    item.isActive 
+                      ? 'text-emerald-500 dark:text-emerald-400' 
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+                  }`}
+                >
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${(hovered === idx || clickedDropdown === idx) ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
+              
+              {/* Smooth dropdown - shows on hover OR click with dynamic positioning */}
+              <AnimatePresence>
+                {(hovered === idx || clickedDropdown === idx) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-2 z-[9999]"
+                  >
+                    {item.sections?.map((section, sectionIdx) => (
+                      <button
+                        key={sectionIdx}
+                        onClick={() => {
+                          if (item.name === 'Home' && scrollToSection) {
+                            scrollToSection(section.sectionId);
+                          } else if (item.name === 'Services' && scrollToServicesSection) {
+                            scrollToServicesSection(section.sectionId);
+                          }
+                          setClickedDropdown(null);
+                        }}
+                        className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-150 ${
+                          (item.name === 'Home' && location.pathname === '/' && location.hash === `#${section.sectionId}`) ||
+                          (item.name === 'Services' && location.pathname === '/services' && location.hash === `#${section.sectionId}`)
+                            ? 'text-emerald-500 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 font-medium'
+                            : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-50 dark:hover:bg-neutral-800'
+                        }`}
+                      >
+                        {section.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <a
+              onMouseEnter={() => setHovered(idx)}
+              onClick={onItemClick}
+              className={`relative px-4 py-2 transition-all duration-500 ease-in-out flex items-center ${
+                item.isActive 
+                  ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
+                  : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+              }`}
+              href={item.link}
+            >
+              {hovered === idx && (
+                <motion.div
+                  layoutId="hovered"
+                  className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+                />
+              )}
+              {item.icon && <span className="relative z-20">{item.icon}</span>}
+              <span className="relative z-20">{item.name}</span>
+            </a>
           )}
-          <span className="relative z-20 ">{item.name}</span>
-        </a>
+        </div>
       ))}
     </motion.div>
   );

@@ -88,7 +88,7 @@ export default function ProjectsSection() {
         My Work.
       </p>
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
           {projects.map((project, index) => (
             <ProjectCard
               key={index}
@@ -98,7 +98,6 @@ export default function ProjectsSection() {
               imageUrl={project.imageUrl}
               github={project.github}
               liveUrl={project.liveUrl}
-              playstore={project.playstore}
               live={project.live}
             />
           ))}

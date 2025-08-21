@@ -155,7 +155,7 @@ export default function ServicesPage() {
       <main className="mt-14">
         <div id="services">
           {/* Hero Section */}
-          <section className="py-16 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+          <section className="py-12 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                 Affordable, Custom Websites & Apps for Businesses & Individuals
@@ -194,9 +194,9 @@ export default function ServicesPage() {
           </section>
 
           {/* Plans & Pricing */}
-          <section id="pricing" className="py-16 px-6 bg-white dark:bg-gray-900">
+          <section id="pricing" className="py-12 px-6 bg-white dark:bg-gray-900">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4">Plans & Pricing</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   Simple, transparent pricing with no hidden fees. Choose the plan that fits your needs.
@@ -249,9 +249,9 @@ export default function ServicesPage() {
           </section>
 
           {/* Why Work With Me */}
-          <section className="py-16 px-6 bg-gray-50 dark:bg-gray-800">
+          <section className="py-12 px-6 bg-gray-50 dark:bg-gray-800">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4">Why Work With Me</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   I provide a different approach to web development - personal, affordable, and focused on your success.
@@ -273,9 +273,9 @@ export default function ServicesPage() {
           </section>
 
           {/* How It Works */}
-          <section className="py-16 px-6 bg-white dark:bg-gray-900">
+          <section className="py-12 px-6 bg-white dark:bg-gray-900">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4">How It Works</h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
                   Simple, straightforward process from concept to launch.
@@ -297,7 +297,7 @@ export default function ServicesPage() {
           </section>
 
           {/* Additional Services */}
-          <section className="py-16 px-6 bg-gray-50 dark:bg-gray-800">
+          <section className="py-12 px-6 bg-gray-50 dark:bg-gray-800">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-bold mb-8">Additional Services</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

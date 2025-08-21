@@ -33,12 +33,16 @@ export function NewNavbar() {
       link: "/#education",
     },
     {
-      name: "Skills",
-      link: "/#skills",
+      name: "Experience",
+      link: "/#experience",
     },
     {
       name: "Projects",
       link: "/#projects",
+    },
+    {
+      name: "Skills",
+      link: "/#skills",
     },
     {
       name: "Services",

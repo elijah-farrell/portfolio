@@ -16,21 +16,19 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <HeroSection />
-      <TracingBeam className="px-6">
-        <AboutMe />
-        <ExperienceSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <Education />
-
-        <CodeQuote />
-
+      <TracingBeam>
         <TextReveal>
           I learn
           <SiFuturelearn /> fast—mostly because I break
           <GiGroundbreaker /> things faster.
         </TextReveal>
+        <AboutMe />
+        <Education />
+        <ExperienceSection />
+        <ProjectsSection />
+        <SkillsSection />
         <ServicesSection />
+        <CodeQuote />
         <Contact />
       </TracingBeam>
     </div>

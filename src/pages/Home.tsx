@@ -16,21 +16,21 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <HeroSection />
-      <TracingBeam>
-        <TextReveal>
-          I learn
-          <SiFuturelearn /> fast—mostly because I break
-          <GiGroundbreaker /> things faster.
-        </TextReveal>
-        <AboutMe />
-        <Education />
-        <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ServicesSection />
-        <CodeQuote />
-        <Contact />
-      </TracingBeam>
+              <TracingBeam>
+          <AboutMe />
+          <Education />
+          <ExperienceSection />
+          <ProjectsSection />
+          <SkillsSection />
+          <TextReveal>
+            I learn
+            <SiFuturelearn /> fast—mostly because I break
+            <GiGroundbreaker /> things faster.
+          </TextReveal>
+          <ServicesSection />
+          <CodeQuote />
+          <Contact />
+        </TracingBeam>
     </div>
   );
 }

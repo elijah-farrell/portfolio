@@ -41,17 +41,29 @@ export function NewNavbar() {
 
   // Scroll to contact section without changing URL
   const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (location.pathname !== '/') {
+      // If not on home page, navigate to home page first, then scroll to contact
+      window.location.href = '/#contact';
+    } else {
+      // Already on home page, just scroll to contact
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
   // Scroll to section without changing URL
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (location.pathname !== '/') {
+      // If not on home page, navigate to home page first, then scroll to section
+      window.location.href = `/#${sectionId}`;
+    } else {
+      // Already on home page, just scroll to section
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
@@ -218,6 +230,7 @@ export function NewNavbar() {
                           if (item.name === "Services") {
                             scrollToServicesSection(section.sectionId);
                           } else {
+                            // For Home sections, use scrollToSection which handles navigation
                             scrollToSection(section.sectionId);
                           }
                           setIsMobileMenuOpen(false);

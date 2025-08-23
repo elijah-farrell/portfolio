@@ -33,7 +33,7 @@ std::future<Success> cultivateGrowth(T& person) {
     });
 }`;
   return (
-    <div className="pt-10 mb-10">
+    <div className="pt-10 mb-10 hidden md:block">
       <h1 className="text-3xl my-5 font-bold">
         Developer's Journey Algorithm
       </h1>

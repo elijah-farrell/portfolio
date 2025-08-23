@@ -159,10 +159,8 @@ export default function ServicesPage() {
                   size="lg" 
                   className="text-lg px-8 py-3"
                   onClick={() => {
-                    const element = document.getElementById("contact");
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
+                    // Navigate to home page contact section
+                    window.location.href = '/#contact';
                   }}
                 >
                   Get Started <FiArrowRight className="ml-2" />
@@ -224,10 +222,8 @@ export default function ServicesPage() {
                         className="w-full" 
                         variant={plan.popular ? "default" : "outline"}
                         onClick={() => {
-                          const element = document.getElementById("contact");
-                          if (element) {
-                            element.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }
+                          // Navigate to home page contact section
+                          window.location.href = '/#contact';
                         }}
                       >
                         Get Started
@@ -262,7 +258,7 @@ export default function ServicesPage() {
           </section>
 
           {/* Why Work With Me */}
-          <section className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
+          <section id="why-me" className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why Work With Me</h2>
@@ -286,7 +282,7 @@ export default function ServicesPage() {
           </section>
 
           {/* How It Works */}
-          <section className="py-12 px-6 bg-white dark:bg-neutral-950">
+          <section id="how-it-works" className="py-12 px-6 bg-white dark:bg-neutral-950">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">How It Works</h2>
@@ -305,6 +301,41 @@ export default function ServicesPage() {
                     <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Get Started / Contact Section */}
+          <section id="contact" className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Let's discuss your project and get your website or app built. No pressure, just a friendly conversation about your goals.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="text-lg px-8 py-3"
+                  onClick={() => {
+                    // Navigate to home page contact section for full contact form
+                    window.location.href = '/#contact';
+                  }}
+                >
+                  Contact Me <FiArrowRight className="ml-2" />
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="text-lg px-8 py-3"
+                  onClick={() => {
+                    const element = document.getElementById("pricing");
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }}
+                >
+                  View Plans Again
+                </Button>
               </div>
             </div>
           </section>

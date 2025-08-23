@@ -152,18 +152,13 @@ export default function HeroSection(): JSX.Element {
               "<Coder/>", 
               "Programmer", 
               "CS Graduate",
-              "Tech Enthusiast",
-              "Problem Solver",
-              "Tech Lover",
-              "PC Builder"
+              "PC Builder",
+              "Tech Nerd"
             ]}
-            duration={15000}
+            duration={10000}
             className="dark:text-emerald-500 text-emerald-600 text-base"
           />
-          <TextGenerateEffect
-            words={"Computer Science graduate passionate about technology and problem-solving"}
-            className="text-base"
-          />
+          <span className="text-base">interested in Software Development, IT Systems, and Data Management. Passionate about solving problems and applying technology to real-world challenges.</span>
 
           {/* Call-to-Action Buttons & Social Links */}
           <div className="flex flex-wrap items-center gap-4 mt-8">

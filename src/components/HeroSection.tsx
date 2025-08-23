@@ -144,7 +144,9 @@ export default function HeroSection(): JSX.Element {
 
           <FlipWords words={greetings} duration={3000} />
           <br />
-          <span className="text-base">I am Elijah Farrell. I am a </span>
+          <span className="text-base">I am Elijah Farrell.</span>
+          <br />
+          <span className="text-base">I am a </span>
           <FlipWords
             words={[
               "<Developer/>", 

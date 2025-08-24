@@ -282,8 +282,9 @@ export const MobileNavMenu = ({
 export const NavbarLogo = () => {
   return (
     <div className="flex items-center">
-      <a href="/" className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
-        Portfolio
+      <a href="/" className="text-lg md:text-xl font-bold whitespace-nowrap">
+        <span className="text-emerald-600 dark:text-emerald-500">Elijah</span>
+        <span className="hidden md:inline text-gray-900 dark:text-white"> Farrell</span>
       </a>
     </div>
   );
@@ -303,10 +304,13 @@ export const MobileNavToggle = ({
     >
       <div className="w-5 h-5 flex flex-col justify-center items-center">
         <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
-          isOpen ? 'rotate-45 translate-y-1' : ''
+          isOpen ? 'rotate-45 translate-y-1.5' : ''
         }`} />
         <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-1 ${
-          isOpen ? '-rotate-45 -translate-y-1' : ''
+          isOpen ? 'opacity-0' : ''
+        }`} />
+        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-1 ${
+          isOpen ? '-rotate-45 -translate-y-1.5' : ''
         }`} />
       </div>
     </button>

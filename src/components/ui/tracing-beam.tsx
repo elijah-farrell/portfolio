@@ -12,6 +12,7 @@ export const TracingBeam = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [textRevealInView, setTextRevealInView] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -32,11 +33,74 @@ export const TracingBeam = ({
       }
     };
 
+    // Check for TextReveal component (I learn fast animation)
+    const checkTextReveal = () => {
+      const textRevealElement = document.querySelector('[data-text-reveal-content]');
+      if (textRevealElement) {
+        // Verify this is actually the TextReveal component by checking its content
+        const hasTextRevealContent = textRevealElement.textContent?.includes('learn') || 
+                                   textRevealElement.textContent?.includes('fast') ||
+                                   textRevealElement.textContent?.includes('break');
+        
+        if (!hasTextRevealContent) {
+          setTextRevealInView(false);
+          return;
+        }
+        
+        // Additional check: ensure this is not the Skills section
+        const isSkillsSection = textRevealElement.closest('#skills') || 
+                              textRevealElement.textContent?.includes('Skills') ||
+                              textRevealElement.textContent?.includes('technologies');
+        
+        if (isSkillsSection) {
+          setTextRevealInView(false);
+          return;
+        }
+        
+        const rect = textRevealElement.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const isMobile = window.innerWidth < 768;
+        
+        let isInView;
+        
+        if (isMobile) {
+          // On mobile, CodeQuote is hidden, so TextReveal appears earlier
+          // Use a more conservative threshold for mobile
+          isInView = rect.top < viewportHeight * 0.4 && rect.bottom > viewportHeight * 0.1;
+        } else {
+          // On desktop, use center-based detection
+          const viewportCenter = viewportHeight / 2;
+          const elementCenter = rect.top + rect.height / 2;
+          const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
+          const threshold = viewportHeight * 0.3;
+          isInView = distanceFromCenter < threshold;
+        }
+        
+        // Debug logging
+        console.log('TextReveal check:', {
+          isMobile,
+          elementTop: rect.top,
+          elementBottom: rect.bottom,
+          viewportHeight,
+          isInView,
+          hasTextRevealContent,
+          isSkillsSection,
+          detectionMethod: isMobile ? 'Mobile: viewport threshold' : 'Desktop: center-based'
+        });
+        
+        setTextRevealInView(isInView);
+      }
+    };
+
     // Initial check
     checkVisibility();
+    checkTextReveal();
     
     // Check on scroll
-    const handleScroll = () => checkVisibility();
+    const handleScroll = () => {
+      checkVisibility();
+      checkTextReveal();
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => window.removeEventListener('scroll', handleScroll);
@@ -44,7 +108,16 @@ export const TracingBeam = ({
 
   useEffect(() => {
     if (contentRef.current && isVisible) {
-      setSvgHeight(contentRef.current.offsetHeight);
+      // Calculate height excluding Contact section
+      const contactSection = contentRef.current.querySelector('#contact');
+      if (contactSection) {
+        const contactRect = contactSection.getBoundingClientRect();
+        const contentRect = contentRef.current.getBoundingClientRect();
+        const heightBeforeContact = contactRect.top - contentRect.top;
+        setSvgHeight(heightBeforeContact);
+      } else {
+        setSvgHeight(contentRef.current.offsetHeight);
+      }
     }
   }, [isVisible]);
 
@@ -63,13 +136,25 @@ export const TracingBeam = ({
     }
   );
 
+  // Left shift during TextReveal animation
+  const leftShift = useSpring(
+    textRevealInView ? -20 : 0,
+    {
+      stiffness: 200, // Softer on mobile
+      damping: 20, // Less damping on mobile
+    }
+  );
+
   return (
     <motion.div
       ref={ref}
       className={cn("relative w-full max-w-4xl mx-auto h-full", className)}
       style={{ position: 'relative' }} // Explicit positioning
     >
-      <div className="absolute -left-4 md:-left-20 top-3">
+      <motion.div 
+        className="absolute -left-4 md:-left-20 top-3"
+        style={{ x: leftShift }}
+      >
         <motion.div
           transition={{
             duration: 0.2,
@@ -139,7 +224,7 @@ export const TracingBeam = ({
             </motion.linearGradient>
           </defs>
         </svg>
-      </div>
+      </motion.div>
       <div ref={contentRef}>{children}</div>
     </motion.div>
   );

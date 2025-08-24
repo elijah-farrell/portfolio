@@ -54,7 +54,7 @@ export default function Contact(): JSX.Element {
 
   return (
     <div id="contact">
-      <h1 className="text-3xl my-5">GET IN TOUCH</h1>
+      <h1 className="text-3xl my-5">CONTACT</h1>
       <BackgroundBeamsWithCollision className="w-full h-auto z-10 translate-y-7">
         <Card className="border-none py-28">
           <CardBody className="w-full h-auto  z-20 ">

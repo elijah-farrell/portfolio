@@ -47,9 +47,9 @@ export default function AboutMe() {
             </div>
           )}
 
-          <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify text-gray-800 dark:text-gray-200 leading-loose">
+          <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify text-gray-800 dark:text-gray-200 leading-loose hyphens-auto break-words">
             <p className="mb-4">
-              I'm passionate about working with all sorts of technology whether it's <Highlight>building software</Highlight>, managing data, solving system issues, or learning new tools. I'm excited by the variety of paths within tech and open to opportunities in <Highlight>software development, data, IT, and other technical roles</Highlight>.
+              I'm passionate about working with all sorts of <Highlight>technology</Highlight> whether it's building software, managing data, solving system issues, or learning new tools. I'm excited by the variety of paths within tech and open to opportunities in <Highlight>software development, data, IT, and other technical roles</Highlight>.
             </p>
             <p className="mb-4">
               At my core, I love <Highlight>solving problems and figuring out how things work</Highlight>. I enjoy diving into complex systems, simplifying workflows, and contributing to projects that make a real impact.

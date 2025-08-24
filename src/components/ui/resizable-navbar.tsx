@@ -280,12 +280,20 @@ export const MobileNavMenu = ({
 };
 
 export const NavbarLogo = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="flex items-center">
-      <a href="/" className="text-lg md:text-xl font-bold whitespace-nowrap">
+      <button 
+        onClick={scrollToTop}
+        className="text-lg md:text-xl font-bold whitespace-nowrap hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded px-1 py-1"
+        aria-label="Scroll to top"
+      >
         <span className="text-emerald-600 dark:text-emerald-500">Elijah</span>
         <span className="hidden md:inline text-gray-900 dark:text-white"> Farrell</span>
-      </a>
+      </button>
     </div>
   );
 };

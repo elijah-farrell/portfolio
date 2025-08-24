@@ -76,17 +76,6 @@ export const TracingBeam = ({
           isInView = distanceFromCenter < threshold;
         }
         
-        // Debug logging
-        console.log('TextReveal check:', {
-          isMobile,
-          elementTop: rect.top,
-          elementBottom: rect.bottom,
-          viewportHeight,
-          isInView,
-          hasTextRevealContent,
-          isSkillsSection,
-          detectionMethod: isMobile ? 'Mobile: viewport threshold' : 'Desktop: center-based'
-        });
         
         setTextRevealInView(isInView);
       }

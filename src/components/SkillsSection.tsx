@@ -87,64 +87,6 @@ const Tooltip = ({ children, content }: TooltipProps) => {
   );
 };
 
-// Proficiency utility functions
-const getProficiencyLevel = (level: Skill["level"]): number => {
-  switch (level) {
-    case "Expert":
-      return 4;
-    case "Advanced":
-      return 3;
-    case "Intermediate":
-      return 2;
-    case "Beginner":
-      return 1;
-    default:
-      return 1;
-  }
-};
-
-const getProficiencyWidth = (level: Skill["level"]): string => {
-  const levelNum = getProficiencyLevel(level);
-  return `${(levelNum / 4) * 100}%`;
-};
-
-// Circular Proficiency Indicator Component
-const CircularIndicator = ({ level }: { level: Skill["level"] }) => {
-  const quarters = getProficiencyLevel(level);
-
-  return (
-    <div className="w-4 h-4 relative">
-      <svg className="w-4 h-4 transform -rotate-90" viewBox="0 0 16 16">
-        {/* Background circle */}
-        <circle
-          cx="8"
-          cy="8"
-          r="6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="text-gray-300 dark:text-gray-600"
-        />
-        {/* Progress quarters */}
-        {Array.from({ length: quarters }, (_, i) => (
-          <circle
-            key={i}
-            cx="8"
-            cy="8"
-            r="6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeDasharray="9.42 37.68"
-            strokeDashoffset={-i * 9.42}
-            className="text-emerald-500 transition-all duration-300"
-          />
-        ))}
-      </svg>
-    </div>
-  );
-};
-
 const iconMap: Record<string, JSX.Element> = {
   Python: <SiPython />,
   Java: <FaJava />,
@@ -189,11 +131,12 @@ const iconMap: Record<string, JSX.Element> = {
 // Category icon map
 const categoryIconMap: Record<string, JSX.Element> = {
   "Programming Languages": <FaCode />,
-  "Frameworks & Libraries": <SiReact />,
-  "AI & Machine Learning": <FaRobot />,
+  "IT Support": <FaCogs />,
+  "Web Development": <SiReact />,
+  "Frameworks & Libraries": <FaPalette />,
   "Tools & Platforms": <FaTools />,
   Databases: <FaDatabase />,
-  "Systems & Architecture": <FaCogs />,
+  "Soft Skills": <FaUsers />,
 };
 
 export default function SkillsSection() {
@@ -205,28 +148,6 @@ export default function SkillsSection() {
       </p>
 
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
-        {/* Proficiency Level Legend */}
-        <div className="max-w-4xl mx-auto mb-4">
-          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-            Proficiency Levels:
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {(["Beginner", "Intermediate", "Advanced", "Expert"] as const).map(
-              (level) => (
-                <div
-                  key={level}
-                  className="flex items-center gap-3 px-3 py-2 bg-gray-100 dark:bg-neutral-800 rounded-2xl"
-                >
-                  <CircularIndicator level={level} />
-                  <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-                    {level}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {skillsData.map((skill, idx) => (
             <CardSpotlight
@@ -250,12 +171,6 @@ export default function SkillsSection() {
                           <div className="font-semibold text-white">
                             {item.name}
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-300">
-                              {item.level}
-                            </span>
-                            <CircularIndicator level={item.level} />
-                          </div>
                           {item.experience && (
                             <div className="text-xs text-gray-400">
                               Experience: {item.experience}
@@ -276,7 +191,6 @@ export default function SkillsSection() {
                           <span className="text-lg">{iconMap[item.name]}</span>
                         )}
                         <span>{item.name}</span>
-                        <CircularIndicator level={item.level} />
                       </span>
                     </Tooltip>
                   </li>

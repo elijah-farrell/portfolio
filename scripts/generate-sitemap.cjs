@@ -25,7 +25,7 @@ async function generate() {
     sitemap.write({
       url: route,
       changefreq: 'monthly',
-      priority: route === '/' ? 1.0 : 0.8,
+      priority: route === '/' ? 1.0 : 0.5,
       lastmod: new Date().toISOString(),
     });
   }

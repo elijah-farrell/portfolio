@@ -2,7 +2,7 @@ import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { FiDownload } from "react-icons/fi";
 
 export default function ResumeButton() {
-  const pdfUrl = "/resume.html";
+  const pdfUrl = "/ElijahFarrell.pdf";
   return (
     <a href={pdfUrl} target="_blank" rel="noopener noreferrer" title="Elijah Farrell - Resume">
       {/* <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-emerald-900 focus:ring-offset-2 focus:ring-offset-slate-50">

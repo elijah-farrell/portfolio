@@ -9,7 +9,7 @@ import {
   NavItems,
 } from "@/components/ui/resizable-navbar";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ResumeButton from "./DownloadResumeBtn";
 import { Switch } from "./ui/switch";
 import { useTheme } from "./theme-provider";
@@ -18,6 +18,7 @@ import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 export function NewNavbar() {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isDark = theme === "dark";
 
@@ -42,7 +43,13 @@ export function NewNavbar() {
   const scrollToContact = () => {
     if (location.pathname !== '/') {
       // If not on home page, navigate to home page first, then scroll to contact
-      window.location.href = '/#contact';
+      navigate('/');
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     } else {
       // Already on home page, just scroll to contact
       const contactSection = document.getElementById('contact');
@@ -56,7 +63,13 @@ export function NewNavbar() {
   const scrollToSection = (sectionId: string) => {
     if (location.pathname !== '/') {
       // If not on home page, navigate to home page first, then scroll to section
-      window.location.href = `/#${sectionId}`;
+      navigate('/');
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     } else {
       // Already on home page, just scroll to section
       const section = document.getElementById(sectionId);
@@ -70,7 +83,13 @@ export function NewNavbar() {
   const scrollToServicesSection = (sectionId: string) => {
     if (location.pathname !== '/services') {
       // Navigate to services page first, then scroll
-      window.location.href = `/services#${sectionId}`;
+      navigate('/services');
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     } else {
       // Already on services page, just scroll
       const section = document.getElementById(sectionId);
@@ -93,7 +112,7 @@ export function NewNavbar() {
     { name: "Plans & Pricing", sectionId: "pricing" },
     { name: "Why Work With Me", sectionId: "why-me" },
     { name: "How It Works", sectionId: "how-it-works" },
-    { name: "Get Started", sectionId: "contact" },
+    { name: "Get Started", sectionId: "project-form" },
   ];
 
   const mainNavItems = [
@@ -103,7 +122,7 @@ export function NewNavbar() {
       isDropdown: true,
       sections: homeSections,
       icon: <Home className="w-4 h-4 mr-2" />,
-      isActive: isActivePage("/") || (location.pathname === "/" && location.hash.startsWith("#")),
+      isActive: isActivePage("/"),
     },
     {
       name: "Services",
@@ -115,18 +134,6 @@ export function NewNavbar() {
     },
   ];
 
-  useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace("#", "");
-      const element = document.getElementById(id);
-      if (element) {
-        // Reduced timeout for better performance
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 50); // reduced from 100ms to 50ms
-      }
-    }
-  }, [location]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
 

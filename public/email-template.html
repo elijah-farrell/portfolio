@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+            color: #e5e7eb; 
+            background: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: #111111;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .header { 
+            background: #000000; 
+            color: white; 
+            padding: 24px; 
+            text-align: center; 
+            border-bottom: 1px solid #333333;
+        }
+        .header h2 { 
+            margin: 0; 
+            font-size: 24px; 
+            font-weight: 700;
+        }
+        .content { 
+            background: #1a1a1a; 
+            padding: 24px; 
+        }
+        .section { 
+            margin-bottom: 24px; 
+        }
+        .section-title { 
+            font-weight: 600; 
+            color: #ffffff; 
+            font-size: 16px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .info-item { 
+            background: #262626; 
+            padding: 16px; 
+            border-radius: 8px;
+        }
+        .info-label { 
+            font-weight: 600; 
+            color: #9ca3af; 
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .info-value { 
+            color: #f3f4f6; 
+            font-size: 14px;
+        }
+        .description-box { 
+            background: #262626; 
+            padding: 20px; 
+            border-radius: 8px;
+            color: #f3f4f6;
+            border-left: 4px solid #ffffff;
+        }
+        .consultation-badge {
+            background: #fbbf24;
+            color: #92400e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .footer { 
+            text-align: center; 
+            margin-top: 24px; 
+            color: #9ca3af; 
+            font-size: 14px;
+            padding: 20px;
+            background: #000000;
+            border-top: 1px solid #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Project Inquiry</h2>
+        </div>
+        <div class="content">
+            <div class="section">
+                <div class="section-title">Contact Information</div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Name</div>
+                        <div class="info-value">{{from_name}}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Email</div>
+                        <div class="info-value">{{from_email}}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Phone</div>
+                        <div class="info-value">{{phone}}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="section-title">Project Type</div>
+                        <div class="info-value">{{project_type}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Project Details</div>
+                <div class="description-box">
+                    {{description}}
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Timeline & Budget</div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Timeline</div>
+                        <div class="info-value">{{timeline}}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Budget Range</div>
+                        <div class="info-value">{{budget}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+              <div class="section-title">Consultation</div>
+              <div class="info-item">
+                  <div class="info-label">Free Consultation Requested</div>
+                  <div class="info-value">{{consultation}}</div>
+              </div>
+          </div>
+        </div>
+        <div class="footer">
+            <p>This is a new project inquiry from your Services page.</p>
+            <p>Please respond within 24 hours to maintain professional service.</p>
+        </div>
+    </div>
+</body>
+</html>

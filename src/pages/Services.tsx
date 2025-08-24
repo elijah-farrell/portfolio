@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { SEO } from "@/components/SEO";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ContactForm from "@/components/ContactForm";
+import { Boxes } from "@/components/ui/background-boxes";
 import { 
   FiGlobe, 
   FiShoppingCart, 
@@ -18,49 +20,47 @@ import {
 
 const plans = [
   {
-    name: "Starter Plan",
-    price: "$25",
-    description: "Simple 1-page website",
-    idealFor: "Small businesses, portfolios",
-    features: [
-      "Responsive design",
-      "Contact form",
-      "1 revision",
-      "Basic SEO setup",
-      "Mobile optimized"
-    ],
+         name: "Starter Plan",
+     price: "$25",
+     description: "Simple 1-page website",
+     idealFor: "Small businesses, portfolios",
+          features: [
+        "Responsive design",
+        "Contact form",
+        "3 revisions",
+        "Mobile optimized"
+      ],
     popular: false,
     icon: <FiGlobe className="text-2xl text-emerald-600" />
   },
+     {
+           name: "Business Plan",
+      price: "$75",
+      description: "Multi-page site + contact form",
+      idealFor: "Growing businesses",
+           features: [
+         "Up to 5 pages",
+         "Contact form",
+         "5 revisions",
+         "Social media integration",
+         "Analytics setup"
+       ],
+     popular: false,
+     icon: <FiTrendingUp className="text-2xl text-emerald-600" />
+   },
   {
-    name: "Business Plan",
-    price: "$75",
-    description: "Multi-page site + contact form",
-    idealFor: "Growing businesses",
-    features: [
-      "Up to 5 pages",
-      "Contact form",
-      "2 revisions",
-      "Social media integration",
-      "Advanced SEO",
-      "Analytics setup"
-    ],
-    popular: true,
-    icon: <FiTrendingUp className="text-2xl text-emerald-600" />
-  },
-  {
-    name: "Booking/Shop Plan",
-    price: "$150",
-    description: "Basic booking or e-commerce",
-    idealFor: "Service providers or small shops",
-    features: [
-      "Up to 8 pages",
-      "Booking system",
-      "Payment integration",
-      "Inventory management",
-      "3 revisions",
-      "Customer portal"
-    ],
+         name: "Booking/Shop Plan",
+     price: "$150",
+     description: "Basic booking or e-commerce",
+     idealFor: "Service providers or small shops",
+     features: [
+       "Up to 8 pages",
+       "Booking system",
+       "Payment integration",
+       "Inventory management",
+       "Unlimited revisions",
+       "Customer portal"
+     ],
     popular: false,
     icon: <FiShoppingCart className="text-2xl text-emerald-600" />
   },
@@ -84,14 +84,19 @@ const plans = [
 
 const valueProps = [
   {
-    icon: <FiUsers className="text-2xl text-emerald-600" />,
-    title: "Personal Attention",
-    description: "Work directly with the developer building your site"
-  },
-  {
     icon: <FiDollarSign className="text-2xl text-emerald-600" />,
     title: "Affordable, One-Time Fee",
-    description: "$25–$150 for websites, no monthly payments"
+    description: "Professional websites starting at $25 - that's less than a coffee per day for a week, with no hidden fees or monthly charges"
+  },
+  {
+    icon: <FiShield className="text-2xl text-emerald-600" />,
+    title: "Custom Development, No Page Builders",
+    description: "Professional development using modern tools and libraries, no WordPress limitations or drag-and-drop restrictions"
+  },
+  {
+    icon: <FiCode className="text-2xl text-emerald-600" />,
+    title: "No Watermarks, Full Code Ownership",
+    description: "Own your entire codebase for life - no monthly fees, no platform lock-in, complete freedom to modify or move anywhere"
   },
   {
     icon: <FiCode className="text-2xl text-emerald-600" />,
@@ -104,9 +109,9 @@ const valueProps = [
     description: "Websites built to scale, with optional maintenance"
   },
   {
-    icon: <FiShield className="text-2xl text-emerald-600" />,
-    title: "No Watermarks / CMS Limitations",
-    description: "Full ownership, no branding restrictions"
+    icon: <FiUsers className="text-2xl text-emerald-600" />,
+    title: "Personal Attention",
+    description: "Work directly with the developer building your site"
   }
 ];
 
@@ -146,21 +151,29 @@ export default function ServicesPage() {
       <main className="mt-14">
         <div id="services">
           {/* Hero Section */}
-          <section className="py-12 px-6 text-center bg-gradient-to-b from-gray-50 to-white dark:from-neutral-950 dark:to-neutral-900">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+          <section className="py-12 px-6 text-center relative overflow-hidden bg-white dark:bg-black">
+            {/* Background Boxes */}
+            <div className="absolute inset-0 w-full h-full">
+              <Boxes />
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+            </div>
+            
+            <div className="max-w-4xl mx-auto relative z-20">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
                 Affordable, Custom Websites & Apps for Businesses & Individuals
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-                I help small businesses and individuals get online fast with responsive websites, e-commerce solutions, and technical consulting.
+              <p className="text-xl text-gray-700 dark:text-emerald-100 mb-8 max-w-3xl mx-auto">
+                I help small businesses and individuals get online fast with custom-developed websites, e-commerce solutions, and technical consulting. No page builders or WordPress limitations.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="text-lg px-8 py-3"
+                  className="text-lg px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600"
                   onClick={() => {
-                    // Navigate to home page contact section
-                    window.location.href = '/#contact';
+                    const formElement = document.getElementById("project-form");
+                    if (formElement) {
+                      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
                   }}
                 >
                   Get Started <FiArrowRight className="ml-2" />
@@ -168,7 +181,7 @@ export default function ServicesPage() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="text-lg px-8 py-3"
+                  className="text-lg px-8 py-3 border-emerald-600 text-emerald-700 dark:text-emerald-100 dark:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-800/20 hover:border-emerald-700 dark:hover:border-emerald-200"
                   onClick={() => {
                     const element = document.getElementById("pricing");
                     if (element) {
@@ -194,7 +207,7 @@ export default function ServicesPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 {plans.map((plan, index) => (
-                  <Card key={index} className={`relative bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700 ${plan.popular ? 'ring-2 ring-emerald-500 shadow-lg' : ''}`}>
+                  <Card key={index} className={`relative bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700 flex flex-col h-full ${plan.popular ? 'ring-2 ring-emerald-500 shadow-lg' : ''}`}>
                     {plan.popular && (
                       <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white">
                         Most Popular
@@ -209,26 +222,28 @@ export default function ServicesPage() {
                       <p className="text-gray-600 dark:text-gray-400">{plan.description}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Ideal for: {plan.idealFor}</p>
                     </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2 mb-6">
-                        {plan.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center gap-2">
-                            <FiCheck className="text-emerald-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button 
-                        className="w-full" 
-                        variant={plan.popular ? "default" : "outline"}
-                        onClick={() => {
-                          // Navigate to home page contact section
-                          window.location.href = '/#contact';
-                        }}
-                      >
-                        Get Started
-                      </Button>
-                    </CardContent>
+                                         <CardContent className="flex flex-col h-full">
+                       <ul className="space-y-2 mb-6 flex-grow">
+                         {plan.features.map((feature, featureIndex) => (
+                           <li key={featureIndex} className="flex items-center gap-2">
+                             <FiCheck className="text-emerald-500 flex-shrink-0" />
+                             <span className="text-sm text-gray-700 dark:text-gray-400">{feature}</span>
+                           </li>
+                         ))}
+                       </ul>
+                       <Button 
+                         className="w-full mt-auto" 
+                         variant={plan.popular ? "default" : "outline"}
+                         onClick={() => {
+                           const formElement = document.getElementById("project-form");
+                           if (formElement) {
+                             formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                           }
+                         }}
+                       >
+                         Get Started
+                       </Button>
+                     </CardContent>
                   </Card>
                 ))}
               </div>
@@ -297,7 +312,7 @@ export default function ServicesPage() {
                     <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl font-bold text-emerald-600">{step.step}</span>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{step.title}</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{step.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
                   </div>
                 ))}
@@ -305,38 +320,17 @@ export default function ServicesPage() {
             </div>
           </section>
 
-          {/* Get Started / Contact Section */}
-          <section id="contact" className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Let's discuss your project and get your website or app built. No pressure, just a friendly conversation about your goals.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="text-lg px-8 py-3"
-                  onClick={() => {
-                    // Navigate to home page contact section for full contact form
-                    window.location.href = '/#contact';
-                  }}
-                >
-                  Contact Me <FiArrowRight className="ml-2" />
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="text-lg px-8 py-3"
-                  onClick={() => {
-                    const element = document.getElementById("pricing");
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                  }}
-                >
-                  View Plans Again
-                </Button>
+          {/* Project Inquiry Form */}
+          <section id="project-form" className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300">
+                  Let's discuss your project and get your website or app built. No pressure, just a friendly conversation about your goals.
+                </p>
               </div>
+              
+              <ContactForm />
             </div>
           </section>
         </div>

@@ -58,56 +58,76 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
           inactiveZone={0.01}
         />
       )}
-      <div className="border-0.75 relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-6  transition-shadow duration-300">
+      <div className="border-0.75 relative flex h-full flex-col justify-between gap-4 md:gap-6 overflow-hidden rounded-xl p-4 md:p-6 transition-shadow duration-300">
         <div className="relative flex flex-1 flex-col justify-between gap-3">
           <div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h4 className="font-bold text-emerald-600">
-                  {settings.experience.showAnimations ? (
-                    <TextAnimate animation="blurInUp" by="character" once>
-                      {title}
-                    </TextAnimate>
-                  ) : (
-                    title
-                  )}
-                </h4>
-                <p className="text-sm text-gray-500">
-                  {company}
-                </p>
+            {/* Responsive header section */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+              {/* Title and company info - responsive layout */}
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col gap-2 mb-2">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
+                      {settings.experience.showAnimations ? (
+                        <TextAnimate animation="blurInUp" by="character" once>
+                          {title}
+                        </TextAnimate>
+                      ) : (
+                        title
+                      )}
+                    </h4>
+                    
+                    {/* Logo - positioned to the right of the title */}
+                    {settings.experience.showCompanyLogos && logoPath && (
+                      <div className="flex-shrink-0">
+                        <img
+                          src={logoPath}
+                          alt={`${company} logo`}
+                          className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  
+                  <p className="text-sm text-gray-500 break-words">
+                    {company}
+                  </p>
+                </div>
+                
+                {/* Duration and dates - responsive layout */}
+                <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-3 text-xs text-gray-600 dark:text-gray-400">
+                  <span className="text-emerald-600 font-medium">
+                    {calculateDuration(from, to)}
+                  </span>
+                </div>
               </div>
-              {settings.experience.showCompanyLogos && logoPath && (
-                <img
-                  src={logoPath}
-                  alt={`${company} logo`}
-                  className="h-8 w-8 rounded object-contain"
-                />
-              )}
             </div>
-            <p className="mt-1 max-w-screen-sm text-sm text-gray-500">
+
+            {/* Description - responsive text sizing */}
+            <div className="mt-3 max-w-none text-sm text-gray-500 leading-relaxed">
               {description.split('\n').map((line, index) => {
                 if (line.trim() === '') return <br key={index} />;
                 if (line.startsWith('•')) {
                   return (
                     <div key={index} className="flex items-start gap-2 mb-2">
-                      <span className="text-emerald-500 mt-0.5">•</span>
-                      <span>{line.substring(1).trim()}</span>
+                      <span className="text-emerald-500 mt-0.5 flex-shrink-0">•</span>
+                      <span className="break-words">{line.substring(1).trim()}</span>
                     </div>
                   );
                 }
-                return <div key={index} className="mb-2">{line}</div>;
+                return <div key={index} className="mb-2 break-words">{line}</div>;
               })}
-            </p>
+            </div>
 
-            {/* Technologies used */}
+            {/* Technologies used - responsive layout */}
             {technologies && technologies.length > 0 && (
-              <div className="mt-3">
-                <p className="text-xs text-gray-500 mb-1">Technologies:</p>
-                <div className="flex flex-wrap gap-1">
+              <div className="mt-4">
+                <p className="text-xs text-gray-500 mb-2">Technologies:</p>
+                <div className="flex flex-wrap gap-1.5">
                   {technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs rounded-2xl"
+                      className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs rounded-2xl break-words"
                     >
                       {tech}
                     </span>
@@ -116,15 +136,15 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               </div>
             )}
 
-            {/* Key achievements */}
+            {/* Key achievements - responsive layout */}
             {achievements && achievements.length > 0 && (
-              <div className="mt-3">
-                <p className="text-xs text-gray-500 mb-1">Key Achievements:</p>
-                <ul className="text-xs text-gray-600 dark:text-gray-400">
+              <div className="mt-4">
+                <p className="text-xs text-gray-500 mb-2">Key Achievements:</p>
+                <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
                   {achievements.map((achievement, index) => (
-                    <li key={index} className="flex items-center gap-1">
-                      <span className="text-emerald-500">•</span>
-                      <span>{achievement}</span>
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-emerald-500 flex-shrink-0 mt-0.5">•</span>
+                      <span className="break-words">{achievement}</span>
                     </li>
                   ))}
                 </ul>
@@ -183,12 +203,12 @@ SUNY Polytechnic Institute | Feb 2025 – May 2025
 // Main Timeline component
 const ExperienceSection: React.FC = () => (
   <div className="pt-8" id="experience">
-    <h1 className="text-3xl font-bold mb-2">EXPERIENCE</h1>
-    <p className="text-gray-600 dark:text-gray-400 mb-6">
+    <h1 className="text-2xl sm:text-3xl font-bold mb-2 px-4 sm:px-0">EXPERIENCE</h1>
+    <p className="text-gray-600 dark:text-gray-400 mb-6 px-4 sm:px-0">
       What I have done so far
     </p>
-    <section className="p-3 md:p-6 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
-      <div className="space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-6 py-3 rounded-2xl">
+    <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
+      <div className="space-y-4 sm:space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 py-3 rounded-2xl">
         {timelineData.map((item, index) => (
           <TimelineItem key={index} {...item} />
         ))}

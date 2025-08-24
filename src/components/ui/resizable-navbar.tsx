@@ -1,9 +1,8 @@
-import {cn} from "@/lib/utils";
-import {IconMenu2, IconX} from "@tabler/icons-react";
-import {AnimatePresence, motion, useMotionValueEvent, useScroll,} from "motion/react";
-
-import React, {useRef, useState} from "react";
-import {ScrollProgress} from "../magicui/scroll-progress";
+"use client";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { ScrollProgress } from "../magicui/scroll-progress";
 import { ChevronDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
@@ -56,7 +55,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
-    layoutEffect: false, // Prevent hydration issues
+    layoutEffect: false,
   });
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -71,8 +70,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-      className={cn("fixed inset-x-0 z-40 w-full ", className)}
+      className={cn("fixed inset-x-0 z-40 w-full", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -82,7 +80,6 @@ export const Navbar = ({ children, className }: NavbarProps) => {
             )
           : child,
       )}
-      
     </motion.div>
   );
 };
@@ -96,8 +93,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
         width: visible ? "90%" : "100%",
-        paddingTop:visible?"15px":"10px",
-        paddingBottom:visible?"10px":"10px",
+        paddingTop: visible ? "15px" : "10px",
+        paddingBottom: visible ? "10px" : "10px",
         paddingRight: visible ? "40px" : "0px",
         paddingLeft: visible ? "40px" : "0px",
         y: visible ? 0 : 0,
@@ -120,14 +117,11 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 };
 
 export const NavItems = ({ items, className, onItemClick, scrollToSection, scrollToServicesSection }: NavItemsProps) => {
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [clickedDropdown, setClickedDropdown] = useState<number | null>(null);
-  const { scrollY } = useScroll();
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const location = useLocation();
 
   return (
     <motion.div
-      onMouseLeave={() => setHovered(null)}
       className={cn(
         "absolute inset-0 flex flex-row items-center justify-center space-x-6 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
         className,
@@ -136,44 +130,32 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
       {items.map((item, idx) => (
         <div key={`nav-item-${idx}`} className={`relative ${item.name === 'Home' ? 'ml-3' : ''}`}>
           {item.isDropdown ? (
-            <div
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-              className="relative"
-            >
+            <div className="relative">
               <div className="flex items-center">
                 <a 
                   href={item.link}
-                  className={`relative px-4 py-2 transition-all duration-500 ease-in-out flex items-center ${
+                  className={`relative px-4 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg ${
                     item.isActive 
-                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold hover:bg-gray-100 dark:hover:bg-neutral-800' 
+                      : 'text-neutral-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
                   }`}
                 >
-                  {hovered === idx && (
-                    <motion.div
-                      layoutId="hovered"
-                      className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
-                    />
-                  )}
-                  {item.icon && <span className="relative z-20">{item.icon}</span>}
+                  {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
                   <span className="relative z-20">{item.name}</span>
                 </a>
                 <button 
-                  onClick={() => setClickedDropdown(clickedDropdown === idx ? null : idx)}
-                  className={`px-1 py-2 transition-all duration-500 ease-in-out ${
-                    item.isActive 
-                      ? 'text-emerald-500 dark:text-emerald-400' 
-                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
-                  }`}
+                  onClick={() => setOpenDropdown(openDropdown === idx ? null : idx)}
+                  className="px-2 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
                 >
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${(hovered === idx || clickedDropdown === idx) ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                    openDropdown === idx ? 'rotate-180' : ''
+                  }`} />
                 </button>
               </div>
               
-              {/* Smooth dropdown - shows on hover OR click with dynamic positioning */}
+              {/* Dropdown */}
               <AnimatePresence>
-                {(hovered === idx || clickedDropdown === idx) && (
+                {openDropdown === idx && (
                   <motion.div
                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -190,7 +172,7 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
                           } else if (item.name === 'Services' && scrollToServicesSection) {
                             scrollToServicesSection(section.sectionId);
                           }
-                          setClickedDropdown(null);
+                          setOpenDropdown(null);
                         }}
                         className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-150 ${
                           (item.name === 'Home' && location.pathname === '/' && location.hash === `#${section.sectionId}`) ||
@@ -208,22 +190,15 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
             </div>
           ) : (
             <a
-              onMouseEnter={() => setHovered(idx)}
               onClick={onItemClick}
-              className={`relative px-4 py-2 transition-all duration-500 ease-in-out flex items-center ${
+              className={`relative px-4 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg ${
                 item.isActive 
                   ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                  : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+                  : 'text-neutral-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
               }`}
               href={item.link}
             >
-              {hovered === idx && (
-                <motion.div
-                  layoutId="hovered"
-                  className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
-                />
-              )}
-              {item.icon && <span className="relative z-20">{item.icon}</span>}
+              {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
               <span className="relative z-20">{item.name}</span>
             </a>
           )}
@@ -256,7 +231,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         visible && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
-    ><ScrollProgress className={'top-[52px]'} />
+    >
+      <ScrollProgress className={'top-[52px]'} />
       {children}
     </motion.div>
   );
@@ -303,6 +279,16 @@ export const MobileNavMenu = ({
   );
 };
 
+export const NavbarLogo = () => {
+  return (
+    <div className="flex items-center">
+      <a href="/" className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+        Portfolio
+      </a>
+    </div>
+  );
+};
+
 export const MobileNavToggle = ({
   isOpen,
   onClick,
@@ -310,67 +296,19 @@ export const MobileNavToggle = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
-  return isOpen ? (
-    <IconX className="text-black dark:text-white" onClick={onClick} />
-  ) : (
-    <IconMenu2 className="text-black dark:text-white" onClick={onClick} />
-  );
-};
-
-export const NavbarLogo = () => {
-  const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <a
-      href="#"
-      onClick={handleLogoClick}
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black cursor-pointer"
+    <button
+      onClick={onClick}
+      className="p-2 rounded-lg bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
     >
-    <span className="text-xl text-emerald-500">Elijah</span>
-    <span className="text-xl text-gray-900 dark:text-white hidden md:block"> Farrell</span>
-    </a>
-  );
-};
-
-export const NavbarButton = ({
-  href,
-  as: Tag = "a",
-  children,
-  className,
-  variant = "primary",
-  ...props
-}: {
-  href?: string;
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  variant?: "primary" | "secondary" | "dark" | "gradient";
-} & (
-  | React.ComponentPropsWithoutRef<"a">
-  | React.ComponentPropsWithoutRef<"button">
-)) => {
-  const baseStyles =
-    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
-
-  const variantStyles = {
-    primary:
-      "shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    secondary: "bg-transparent shadow-none dark:text-white",
-    dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    gradient:
-      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
-  };
-
-  return (
-    <Tag
-      href={href || undefined}
-      className={cn(baseStyles, variantStyles[variant], className)}
-      {...props}
-    >
-      {children}
-    </Tag>
+      <div className="w-5 h-5 flex flex-col justify-center items-center">
+        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
+          isOpen ? 'rotate-45 translate-y-1' : ''
+        }`} />
+        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-1 ${
+          isOpen ? '-rotate-45 -translate-y-1' : ''
+        }`} />
+      </div>
+    </button>
   );
 };

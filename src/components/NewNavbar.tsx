@@ -4,7 +4,6 @@ import {
   MobileNavMenu,
   MobileNavToggle,
   Navbar,
-  NavbarButton,
   NavbarLogo,
   NavBody,
   NavItems,
@@ -129,6 +128,15 @@ export function NewNavbar() {
     }
   }, [location]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
+
+  const toggleDropdown = (idx: number) => {
+    setOpenDropdowns(prev => 
+      prev.includes(idx) 
+        ? prev.filter(i => i !== idx)
+        : [...prev, idx]
+    );
+  };
 
   return (
     <div className="relative w-full">
@@ -196,33 +204,32 @@ export function NewNavbar() {
                       }
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`relative flex items-center text-left w-full transition-colors duration-200 ${
+                    className={`relative flex items-center text-left w-full py-3 px-4 rounded-lg transition-all duration-200 ${
                       item.isActive 
-                        ? "text-emerald-600 dark:text-emerald-400 font-medium" 
-                        : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20" 
+                        : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50"
                     }`}
                   >
                     {item.icon && item.icon}
-                    <span className="block">{item.name}</span>
+                    <span className="block font-medium">{item.name}</span>
                   </button>
                   {item.isDropdown && (
                     <button
-                      onClick={() => {
-                        const dropdown = document.getElementById(`mobile-dropdown-${idx}`);
-                        if (dropdown) {
-                          dropdown.classList.toggle('hidden');
-                        }
-                      }}
-                      className="text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
+                      onClick={() => toggleDropdown(idx)}
+                      className="ml-2 p-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800/50"
                     >
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                        openDropdowns.includes(idx) ? 'rotate-180' : ''
+                      }`} />
                     </button>
                   )}
                 </div>
                 
                 {/* Dropdown sections */}
                 {item.isDropdown && (
-                  <div id={`mobile-dropdown-${idx}`} className="hidden ml-4 mt-2 space-y-2">
+                  <div className={`ml-4 mt-2 space-y-2 transition-all duration-200 ${
+                    openDropdowns.includes(idx) ? 'block opacity-100' : 'hidden opacity-0'
+                  }`}>
                     {item.sections?.map((section, sectionIdx) => (
                       <button
                         key={`mobile-${item.name}-${sectionIdx}`}
@@ -235,11 +242,11 @@ export function NewNavbar() {
                           }
                           setIsMobileMenuOpen(false);
                         }}
-                        className={`relative text-sm block transition-colors text-left w-full ${
+                        className={`relative text-sm block transition-colors text-left w-full py-2 px-4 rounded-md ${
                           (item.name === "Home" && isActiveSection(section.sectionId)) ||
                           (item.name === "Services" && location.pathname === "/services" && location.hash === `#${section.sectionId}`)
-                            ? "text-emerald-600 dark:text-emerald-400 font-medium"
-                            : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                            ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20"
+                            : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50"
                         }`}
                       >
                         <span className="block">{section.name}</span>

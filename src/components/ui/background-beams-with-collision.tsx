@@ -12,59 +12,141 @@ export const BackgroundBeamsWithCollision = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const beams = [
-    {
-      initialX: 10,
-      translateX: 10,
-      duration: 7,
-      repeatDelay: 3,
-      delay: 2,
-    },
-    {
-      initialX: 600,
-      translateX: 600,
-      duration: 3,
-      repeatDelay: 3,
-      delay: 4,
-    },
-    {
-      initialX: 100,
-      translateX: 100,
-      duration: 7,
-      repeatDelay: 7,
-      className: "h-6",
-    },
-    {
-      initialX: 400,
-      translateX: 400,
-      duration: 5,
-      repeatDelay: 14,
-      delay: 4,
-    },
-    {
-      initialX: 800,
-      translateX: 800,
-      duration: 11,
-      repeatDelay: 2,
-      className: "h-20",
-    },
-    {
-      initialX: 1000,
-      translateX: 1000,
-      duration: 4,
-      repeatDelay: 2,
-      className: "h-12",
-    },
-    {
-      initialX: 1200,
-      translateX: 1200,
-      duration: 6,
-      repeatDelay: 4,
-      delay: 2,
-      className: "h-6",
-    },
-  ];
+  // Detect screen size on mount and resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Responsive beam configuration
+  const getBeams = () => {
+    if (isMobile) {
+      // Fewer beams for mobile with percentage-based positioning
+      return [
+        {
+          initialX: "5%",
+          translateX: "5%",
+          duration: 7,
+          repeatDelay: 3,
+          delay: 2,
+        },
+        {
+          initialX: "25%",
+          translateX: "25%",
+          duration: 5,
+          repeatDelay: 7,
+          className: "h-6",
+        },
+        {
+          initialX: "45%",
+          translateX: "45%",
+          duration: 6,
+          repeatDelay: 4,
+          delay: 3,
+          className: "h-12",
+        },
+        {
+          initialX: "65%",
+          translateX: "65%",
+          duration: 8,
+          repeatDelay: 2,
+          className: "h-8",
+        },
+        {
+          initialX: "85%",
+          translateX: "85%",
+          duration: 4,
+          repeatDelay: 5,
+          delay: 1,
+        },
+      ];
+    } else {
+      // More beams for desktop with percentage-based positioning
+      return [
+        {
+          initialX: "5%",
+          translateX: "5%",
+          duration: 7,
+          repeatDelay: 3,
+          delay: 2,
+        },
+        {
+          initialX: "15%",
+          translateX: "15%",
+          duration: 3,
+          repeatDelay: 3,
+          delay: 4,
+        },
+        {
+          initialX: "25%",
+          translateX: "25%",
+          duration: 7,
+          repeatDelay: 7,
+          className: "h-6",
+        },
+        {
+          initialX: "35%",
+          translateX: "35%",
+          duration: 5,
+          repeatDelay: 14,
+          delay: 4,
+        },
+        {
+          initialX: "45%",
+          translateX: "45%",
+          duration: 11,
+          repeatDelay: 2,
+          className: "h-20",
+        },
+        {
+          initialX: "55%",
+          translateX: "55%",
+          duration: 4,
+          repeatDelay: 2,
+          className: "h-12",
+        },
+        {
+          initialX: "65%",
+          translateX: "65%",
+          duration: 6,
+          repeatDelay: 4,
+          delay: 2,
+          className: "h-6",
+        },
+        {
+          initialX: "75%",
+          translateX: "75%",
+          duration: 8,
+          repeatDelay: 3,
+          delay: 1,
+        },
+        {
+          initialX: "85%",
+          translateX: "85%",
+          duration: 5,
+          repeatDelay: 6,
+          className: "h-10",
+        },
+        {
+          initialX: "95%",
+          translateX: "95%",
+          duration: 7,
+          repeatDelay: 2,
+          delay: 3,
+        },
+      ];
+    }
+  };
+
+  const beams = getBeams();
 
   return (
     <div
@@ -75,9 +157,9 @@ export const BackgroundBeamsWithCollision = ({
         className
       )}
     >
-      {beams.map((beam) => (
+      {beams.map((beam, index) => (
         <CollisionMechanism
-          key={beam.initialX + "beam-idx"}
+          key={`${beam.initialX}-${index}`}
           beamOptions={beam}
           containerRef={containerRef}
           parentRef={parentRef}
@@ -103,8 +185,8 @@ const CollisionMechanism = React.forwardRef<
     containerRef: React.RefObject<HTMLDivElement>;
     parentRef: React.RefObject<HTMLDivElement>;
     beamOptions?: {
-      initialX?: number;
-      translateX?: number;
+      initialX?: string | number;
+      translateX?: string | number;
       initialY?: number;
       translateY?: number;
       rotate?: number;
@@ -181,13 +263,13 @@ const CollisionMechanism = React.forwardRef<
         animate="animate"
         initial={{
           translateY: beamOptions.initialY || "-200px",
-          translateX: beamOptions.initialX || "0px",
+          left: beamOptions.initialX || "0%",
           rotate: beamOptions.rotate || 0,
         }}
         variants={{
           animate: {
             translateY: beamOptions.translateY || "1800px",
-            translateX: beamOptions.translateX || "0px",
+            left: beamOptions.translateX || "0%",
             rotate: beamOptions.rotate || 0,
           },
         }}
@@ -200,7 +282,7 @@ const CollisionMechanism = React.forwardRef<
           repeatDelay: beamOptions.repeatDelay || 0,
         }}
         className={cn(
-          "absolute left-0 top-20 m-auto h-14 w-px rounded-lg bg-gradient-to-t from-green-500 via-emerald-500 to-transparent",
+          "absolute top-20 m-auto h-14 w-px rounded-lg bg-gradient-to-t from-green-500 via-emerald-500 to-transparent",
           beamOptions.className
         )}
       />

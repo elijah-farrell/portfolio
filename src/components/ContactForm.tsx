@@ -12,7 +12,6 @@ interface FormData {
   from_name: string;
   from_email: string;
   phone: string;
-  project_type: string;
   description: string;
   timeline: string;
   budget: string;
@@ -24,7 +23,6 @@ export default function ContactForm() {
     from_name: "",
     from_email: "",
     phone: "",
-    project_type: "",
     description: "",
     timeline: "",
     budget: "",
@@ -76,7 +74,6 @@ export default function ContactForm() {
           from_name: "",
           from_email: "",
           phone: "",
-          project_type: "",
           description: "",
           timeline: "",
           budget: "",
@@ -118,9 +115,9 @@ export default function ContactForm() {
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Get Started with Your Project</CardTitle>
+        <CardTitle className="text-2xl text-center">Tell Me About Your Project</CardTitle>
         <p className="text-center text-gray-600 dark:text-gray-400">
-          Tell me about your project and I'll get back to you within 24 hours.
+          Describe what you need help with and I'll get back to you within 24 hours.
         </p>
       </CardHeader>
       <CardContent>
@@ -150,36 +147,15 @@ export default function ContactForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => handleInputChange("phone", e.target.value)}
-                placeholder="(555) 123-4567"
-              />
-            </div>
-            <div>
-              <Label htmlFor="project_type">Plan Selection *</Label>
-              <Select
-                value={formData.project_type}
-                onValueChange={(value) => handleInputChange("project_type", value)}
-                required
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your plan" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Starter Plan - $25">Starter Plan - $25</SelectItem>
-                  <SelectItem value="Business Plan - $75">Business Plan - $75</SelectItem>
-                  <SelectItem value="Booking/Shop Plan - $150">Booking/Shop Plan - $150</SelectItem>
-                  <SelectItem value="Custom Plan - Quote">Custom Plan - Quote</SelectItem>
-                  <SelectItem value="Other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          <div>
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              id="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => handleInputChange("phone", e.target.value)}
+              placeholder="(555) 123-4567"
+            />
           </div>
 
           {/* Project Details */}
@@ -225,11 +201,10 @@ export default function ContactForm() {
                   <SelectValue placeholder="Select budget range" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="$25-50">$25-50</SelectItem>
-                  <SelectItem value="$50-100">$50-100</SelectItem>
-                  <SelectItem value="$100-250">$100-250</SelectItem>
-                  <SelectItem value="$250-500">$250-500</SelectItem>
-                  <SelectItem value="$500+">$500+</SelectItem>
+                  <SelectItem value="Under $100">Under $100</SelectItem>
+                  <SelectItem value="$100-500">$100-500</SelectItem>
+                  <SelectItem value="$500-1000">$500-1000</SelectItem>
+                  <SelectItem value="$1000+">$1000+</SelectItem>
                   <SelectItem value="To be discussed">To be discussed</SelectItem>
                 </SelectContent>
               </Select>

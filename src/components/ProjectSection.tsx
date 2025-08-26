@@ -38,7 +38,7 @@ const projects = [
     ],
     imageUrl: "/assets/projects/downgit.png",
     github: "https://github.com/elijah-farrell/downgit",
-    liveUrl: "https://downgit.vercel.app", // Update with actual URL when deployed
+                liveUrl: "https://ef-downgit.vercel.app", // Update with actual URL when deployed
     live: true,
   },
   {

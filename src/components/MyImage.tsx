@@ -114,7 +114,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
         {/* Main image */}
         <img
           src={currentSrc}
-          alt="Abhishek Kumar Yadav - Software Developer"
+          alt="Elijah Farrell - Software Developer"
           width={384}
           height={384}
           loading="lazy"

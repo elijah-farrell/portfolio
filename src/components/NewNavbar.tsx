@@ -15,7 +15,7 @@ import { Switch } from "./ui/switch";
 import { useTheme } from "./theme-provider";
 import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 
-export function NewNavbar() {
+export function MainNavbar() {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -64,12 +64,8 @@ export function NewNavbar() {
     if (location.pathname !== '/') {
       // If not on home page, navigate to home page first, then scroll to section
       navigate('/');
-      setTimeout(() => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      // Store the section to scroll to after navigation
+      sessionStorage.setItem('scrollToSection', sectionId);
     } else {
       // Already on home page, just scroll to section
       const section = document.getElementById(sectionId);
@@ -84,14 +80,10 @@ export function NewNavbar() {
     if (location.pathname !== '/services') {
       // Navigate to services page first, then scroll
       navigate('/services');
-      setTimeout(() => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      // Store the section to scroll to after navigation
+      sessionStorage.setItem('scrollToServicesSection', sectionId);
     } else {
-      // Already on services page, just scroll
+      // Already on services page, just scroll without storing
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -109,10 +101,8 @@ export function NewNavbar() {
   ];
 
   const servicesSections = [
-    { name: "Plans & Pricing", sectionId: "pricing" },
-    { name: "Why Work With Me", sectionId: "why-me" },
-    { name: "How It Works", sectionId: "how-it-works" },
-    { name: "Get Started", sectionId: "project-form" },
+    { name: "What I Do", sectionId: "what-i-do" },
+    { name: "Get Started", sectionId: "contact-form" },
   ];
 
   const mainNavItems = [
@@ -134,8 +124,46 @@ export function NewNavbar() {
     },
   ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
+
+  // Clear any leftover sessionStorage data on component mount
+  useEffect(() => {
+    // Clear any leftover section data when component mounts
+    sessionStorage.removeItem('scrollToSection');
+    sessionStorage.removeItem('scrollToServicesSection');
+  }, []);
+
+  // Handle automatic scrolling after navigation
+  useEffect(() => {
+    // Check if we need to scroll to a section after navigation
+    const scrollToSection = sessionStorage.getItem('scrollToSection');
+    const scrollToServicesSection = sessionStorage.getItem('scrollToServicesSection');
+    
+    if (scrollToSection && location.pathname === '/') {
+      // Clear the stored section
+      sessionStorage.removeItem('scrollToSection');
+      // Scroll to the section
+      setTimeout(() => {
+        const section = document.getElementById(scrollToSection);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+    
+    if (scrollToServicesSection && location.pathname === '/services') {
+      // Clear the stored section
+      sessionStorage.removeItem('scrollToServicesSection');
+      // Scroll to the section
+      setTimeout(() => {
+        const section = document.getElementById(scrollToServicesSection);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location.pathname]);
 
   const toggleDropdown = (idx: number) => {
     setOpenDropdowns(prev => 
@@ -170,7 +198,6 @@ export function NewNavbar() {
             <button
               onClick={() => {
                 const newTheme = isDark ? "light" : "dark";
-                console.log('Theme toggle clicked, switching from', theme, 'to', newTheme);
                 setTheme(newTheme);
               }}
               className="px-4 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer relative z-50"
@@ -280,7 +307,6 @@ export function NewNavbar() {
               <button
                 onClick={() => {
                   const newTheme = isDark ? "light" : "dark";
-                  console.log('Mobile theme toggle clicked, switching from', theme, 'to', newTheme);
                   setTheme(newTheme);
                 }}
                 className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"

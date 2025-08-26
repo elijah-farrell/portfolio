@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "@/pages/Home";
-import { NewNavbar } from "@/components/NewNavbar";
+import { MainNavbar } from "@/components/NewNavbar";
 import ServicesPage from "@/pages/Services";
 
 const router = createBrowserRouter([
   {
     element: (
       <>
-        <NewNavbar />
+        <MainNavbar />
       </>
     ),
     children: [

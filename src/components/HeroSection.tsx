@@ -19,8 +19,8 @@ import {
 import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
 import { useState, useEffect } from "react";
 import FloatingImage from "@/components/MyImage";
-import mainImage from "@/assets/pfp.jpeg";
-import altMainImage from "@/assets/animated.png";
+const mainImage = "/assets/pfp.jpeg";
+const altMainImage = "/assets/animated.png";
 import { settings } from "@/config/settings";
 import ResumeButton from "./DownloadResumeBtn";
 

@@ -21,6 +21,27 @@ const projects = [
     live: true,
   },
   {
+    title: "DownGit",
+    description:
+      "A modern web application for downloading GitHub files and folders as ZIP archives. Built with Next.js, React, and Three.js for an immersive user experience. Features GitHub integration, real-time progress tracking, shareable links, and interactive 3D background using Three.js and React Three Fiber.",
+    techStack: [
+      "Next.js 14",
+      "React 18",
+      "TypeScript",
+      "Three.js",
+      "React Three Fiber",
+      "Tailwind CSS",
+      "Radix UI",
+      "GitHub API",
+      "ZIP Generation",
+      "3D Graphics",
+    ],
+    imageUrl: "/assets/projects/downgit.png",
+    github: "https://github.com/elijah-farrell/downgit",
+    liveUrl: "https://downgit.vercel.app", // Update with actual URL when deployed
+    live: true,
+  },
+  {
     title: "NexusChat",
     description:
       "Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT authentication, and WebSocket communication. Built with React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, and Three.js. Deployed with Vite for optimal performance.",
@@ -59,25 +80,26 @@ const projects = [
     liveUrl: "https://3d-floating-laptop.vercel.app/",
     live: true,
   },
-  {
-    title: "Portfolio Template",
-    description:
-      "A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.",
-    techStack: [
-      "React 19",
-      "TypeScript",
-      "Vite",
-      "Responsive Design",
-      "Smooth Animations",
-      "Accessibility",
-      "Customizable",
-      "Performance Optimized",
-    ],
-            imageUrl: "/assets/projects/portfolio-template01.png",
-    github: "https://github.com/elijah-farrell/portfolio-template",
-    liveUrl: "https://ef-portfolio01.vercel.app/",
-    live: true,
-  },
+  // Temporarily removed Portfolio Template project
+  // {
+  //   title: "Portfolio Template",
+  //   description:
+  //     "A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.",
+  //   techStack: [
+  //     "React 19",
+  //     "TypeScript",
+  //     "Vite",
+  //     "Responsive Design",
+  //     "Smooth Animations",
+  //     "Accessibility",
+  //     "Customizable",
+  //     "Performance Optimized",
+  //   ],
+  //   imageUrl: "/assets/projects/portfolio-template01.png",
+  //   github: "https://github.com/elijah-farrell/portfolio-template",
+  //   liveUrl: "https://ef-portfolio01.vercel.app/",
+  //   live: true,
+  // },
 ];
 
 export default function ProjectsSection() {

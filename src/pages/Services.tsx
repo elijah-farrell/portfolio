@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { SEO } from "@/components/SEO";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,9 @@ import {
   FiArrowRight,
   FiCheck
 } from "react-icons/fi";
+
+// Lazy load the background boxes for better performance
+const LazyBoxes = lazy(() => import("@/components/ui/background-boxes").then(module => ({ default: module.Boxes })));
 
 const services = [
   {
@@ -80,7 +83,11 @@ export default function ServicesPage() {
           {/* Hero Section */}
           <section className="py-12 px-6 text-center relative overflow-hidden bg-white dark:bg-black">
             <div className="absolute inset-0 w-full h-full">
-              <Boxes />
+              <Suspense fallback={
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-emerald-950 dark:to-blue-950 animate-pulse" />
+              }>
+                <LazyBoxes />
+              </Suspense>
               <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
             </div>
             

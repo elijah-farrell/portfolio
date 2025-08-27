@@ -6,6 +6,7 @@ interface Link {
   title: string;
   url: string;
   icon?: React.ReactNode;
+  customText?: string;
 }
 
 const LinkCard: React.FC<Link> = (ele) => {
@@ -21,6 +22,7 @@ const LinkCard: React.FC<Link> = (ele) => {
         <div>
           {/* Icon and accessible text for SEO */}
           {ele.icon && <span aria-hidden="true">{ele.icon}</span>}
+          {ele.customText && <span className="ml-2 text-sm">{ele.customText}</span>}
           <span className="sr-only">{ele.title}</span>
         </div>
       </Button>

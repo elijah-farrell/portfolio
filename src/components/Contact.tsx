@@ -24,7 +24,7 @@ export default function Contact(): JSX.Element {
     },
     {
       title: "Discord",
-      url: "https://discord.com/users/zarnx",
+      url: "https://discord.gg/h9QSQZzn",
       icon: <SiDiscord />,
     },
   ];
@@ -97,6 +97,7 @@ export default function Contact(): JSX.Element {
                         title={element.title}
                         url={element.url}
                         icon={element.icon}
+                        customText={element.customText}
                       />
                     </div>
                   )

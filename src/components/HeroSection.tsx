@@ -207,7 +207,7 @@ export default function HeroSection(): JSX.Element {
               <SiLinkedin size={16} />
             </a>
             <a
-              href="https://discord.com/users/zarnx"
+                              href="https://discord.gg/h9QSQZzn"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"

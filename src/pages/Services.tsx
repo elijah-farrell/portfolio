@@ -84,7 +84,7 @@ export default function ServicesPage() {
           <section className="py-12 px-6 text-center relative overflow-hidden bg-white dark:bg-black">
             <div className="absolute inset-0 w-full h-full">
               <Suspense fallback={
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-emerald-950 dark:to-blue-950 animate-pulse" />
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 animate-pulse" />
               }>
                 <LazyBoxes />
               </Suspense>

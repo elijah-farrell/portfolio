@@ -67,7 +67,7 @@ export function MainNavbar() {
       // Store the section to scroll to after navigation
       sessionStorage.setItem('scrollToSection', sectionId);
     } else {
-      // Already on home page, just scroll to section
+      // Already on home page, just scroll directly to section
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -83,7 +83,7 @@ export function MainNavbar() {
       // Store the section to scroll to after navigation
       sessionStorage.setItem('scrollToServicesSection', sectionId);
     } else {
-      // Already on services page, just scroll without storing
+      // Already on services page, just scroll directly to section
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -143,25 +143,27 @@ export function MainNavbar() {
     if (scrollToSection && location.pathname === '/') {
       // Clear the stored section
       sessionStorage.removeItem('scrollToSection');
-      // Scroll to the section
+      // First scroll to top, then to the section
+      window.scrollTo({ top: 0, behavior: 'instant' });
       setTimeout(() => {
         const section = document.getElementById(scrollToSection);
         if (section) {
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 50);
     }
     
     if (scrollToServicesSection && location.pathname === '/services') {
       // Clear the stored section
       sessionStorage.removeItem('scrollToServicesSection');
-      // Scroll to the section
+      // First scroll to top, then to the section
+      window.scrollTo({ top: 0, behavior: 'instant' });
       setTimeout(() => {
         const section = document.getElementById(scrollToServicesSection);
         if (section) {
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 50);
     }
   }, [location.pathname]);
 
@@ -232,9 +234,9 @@ export function MainNavbar() {
                   <button
                     onClick={() => {
                       if (item.name === "Services") {
-                        window.location.href = item.link;
+                        navigate(item.link);
                       } else {
-                        window.location.href = item.link;
+                        navigate(item.link);
                       }
                       setIsMobileMenuOpen(false);
                     }}

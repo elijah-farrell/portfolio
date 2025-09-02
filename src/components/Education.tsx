@@ -1,4 +1,5 @@
 import React from "react";
+import { WobbleCard } from "@/components/ui/wobble-card";
 
 export default function Education() {
   return (
@@ -62,7 +63,10 @@ export default function Education() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
+            <WobbleCard 
+              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
+              className="p-3"
+            >
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Computer Science Core</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>CS 108 – Computing Fundamentals</li>
@@ -74,9 +78,12 @@ export default function Education() {
                 <li>CS 431 – Principles of Programming Languages</li>
                 <li>CS 350 – Information & Knowledge Management</li>
               </ul>
-            </div>
+            </WobbleCard>
             
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
+            <WobbleCard 
+              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
+              className="p-3"
+            >
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Advanced Topics</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>IS 320 – Systems Analysis & Design</li>
@@ -86,9 +93,12 @@ export default function Education() {
                 <li>CS 477 – Algorithms</li>
                 <li>CS 498 – Capstone Project</li>
               </ul>
-            </div>
+            </WobbleCard>
             
-            <div className="bg-white dark:bg-black p-3 rounded-lg border border-gray-200 dark:border-neutral-700">
+            <WobbleCard 
+              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
+              className="p-3"
+            >
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Mathematics & Sciences</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>MAT 151 – Calculus I</li>
@@ -97,7 +107,7 @@ export default function Education() {
                 <li>PHY 101 – General Physics I</li>
                 <li>CHE 110T/L – Chemistry Lecture & Lab</li>
               </ul>
-            </div>
+            </WobbleCard>
           </div>
         </section>
       </div>

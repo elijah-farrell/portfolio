@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import { SEO } from "@/components/SEO";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ContactForm from "@/components/ContactForm";
 import { Boxes } from "@/components/ui/background-boxes";
+import { WobbleCard } from "@/components/ui/wobble-card";
 import { 
   FiCode, 
   FiGlobe, 
@@ -127,29 +127,29 @@ export default function ServicesPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {services.map((service, index) => (
-                  <Card key={index} className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700 hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-4">
-                        {service.icon}
-                        <CardTitle className="text-xl text-gray-900 dark:text-white">{service.name}</CardTitle>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400">{service.description}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-4">
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Examples:</h4>
-                        <ul className="space-y-1">
-                          {service.examples.map((example, idx) => (
-                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                              <FiCheck className="text-emerald-500 flex-shrink-0" />
-                              {example}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                    </CardContent>
-                  </Card>
+                  <WobbleCard 
+                    key={index} 
+                    containerClassName="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-lg"
+                    className="text-gray-900 dark:text-white py-8"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      {service.icon}
+                      <h3 className="text-xl font-semibold">{service.name}</h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
+                    
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2">Examples:</h4>
+                      <ul className="space-y-1">
+                        {service.examples.map((example, idx) => (
+                          <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                            <FiCheck className="text-emerald-500 flex-shrink-0" />
+                            {example}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </WobbleCard>
                 ))}
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { WobbleCard } from "@/components/ui/wobble-card";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 export default function Education() {
   return (
@@ -11,43 +12,47 @@ export default function Education() {
             EDUCATION
           </h2>
           <div className="space-y-6">
-            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
-              <img
-                src="/assets/logos/suny-poly-logo.jpg"
-                alt="SUNY Polytechnic Institute"
-                className="w-24 h-24 object-cover rounded-lg"
-              />
-              <div className="flex-1">
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  SUNY Polytechnic Institute
-                </h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  B.S. in Computer Science • May 2025
-                </p>
-                <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                  GPA: 3.88 • Magna Cum Laude
-                </p>
+            <CardSpotlight className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm">
+              <div className="flex items-start space-x-4">
+                <img
+                  src="/assets/logos/suny-poly-logo.jpg"
+                  alt="SUNY Polytechnic Institute"
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    SUNY Polytechnic Institute
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    B.S. in Computer Science • May 2025
+                  </p>
+                  <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                    GPA: 3.88 • Magna Cum Laude
+                  </p>
+                </div>
               </div>
-            </div>
+            </CardSpotlight>
             
-            <div className="flex items-start space-x-4 p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700">
-              <img
-                src="/assets/logos/jcc-logo.png"
-                alt="Jefferson Community College"
-                className="w-24 h-24 object-cover rounded-lg"
-              />
-              <div className="flex-1">
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Jefferson Community College
-                </h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  A.S. in Computer Science • 2023
-                </p>
-                <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                  Phi Theta Kappa Honor Society
-                </p>
+            <CardSpotlight className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm">
+              <div className="flex items-start space-x-4">
+                <img
+                  src="/assets/logos/jcc-logo.png"
+                  alt="Jefferson Community College"
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Jefferson Community College
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    A.S. in Computer Science • 2023
+                  </p>
+                  <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                    Phi Theta Kappa Honor Society
+                  </p>
+                </div>
               </div>
-            </div>
+            </CardSpotlight>
           </div>
         </div>
       </div>

@@ -129,7 +129,7 @@ export default function ServicesPage() {
                 {services.map((service, index) => (
                   <WobbleCard 
                     key={index} 
-                    containerClassName="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-lg"
+                    containerClassName="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-700 shadow-lg dark:shadow-white/10 dark:shadow-xl"
                     className="text-gray-900 dark:text-white py-8"
                   >
                     <div className="flex items-center gap-3 mb-4">

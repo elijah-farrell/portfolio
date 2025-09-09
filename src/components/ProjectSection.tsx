@@ -4,7 +4,7 @@ const projects = [
   {
     title: "Portfolio Website",
     description:
-      "A modern, responsive portfolio website built with React 18, TypeScript, and Vite. Features smooth animations, 3D card effects, interactive UI components, and a beautiful design system. Includes custom animations, responsive layouts, and modern web technologies for optimal performance.",
+      "My personal portfolio showcasing my projects, experience, and skills with an interactive design.",
     techStack: [
       "React 18",
       "TypeScript",
@@ -23,7 +23,7 @@ const projects = [
   {
     title: "DownGit",
     description:
-      "A modern web application for downloading GitHub files and folders as ZIP archives. Built with Next.js, React, and Three.js for an immersive user experience. Features GitHub integration, real-time progress tracking, shareable links, and interactive 3D background using Three.js and React Three Fiber.",
+      "Download any GitHub repository or folder as a ZIP file with a simple link. No need to clone repos or use Git commands - just paste a GitHub URL and get your files instantly.",
     techStack: [
       "Next.js 14",
       "React 18",
@@ -33,7 +33,6 @@ const projects = [
       "Tailwind CSS",
       "Radix UI",
       "GitHub API",
-      "ZIP Generation",
       "3D Graphics",
     ],
     imageUrl: "/assets/projects/downgit.png",
@@ -44,7 +43,7 @@ const projects = [
   {
     title: "NexusChat",
     description:
-      "Full-stack real-time chat app with 3D landing page. Features instant messaging, friend management, JWT authentication, and WebSocket communication. Built with React 18, Node.js, Express.js, PostgreSQL, Socket.IO, Material-UI, and Three.js. Deployed with Vite for optimal performance.",
+      "A real-time chat application where users can send instant messages, manage friends, and communicate seamlessly. Features secure authentication and live messaging with a modern 3D interface.",
     techStack: [
       "React 18",
       "Node.js",
@@ -55,7 +54,6 @@ const projects = [
       "Three.js",
       "JWT Authentication",
       "WebSockets",
-      "Real-time Chat",
     ],
             imageUrl: "/assets/projects/nexuschat.png",
     github: "https://github.com/elijah-farrell/nexuschat",
@@ -65,14 +63,12 @@ const projects = [
   {
     title: "3D Floating Laptop",
     description:
-      "Interactive 3D application featuring a floating laptop with a fully functional website interface rendered directly on the 3D screen. Built with React 18, Three.js, React Three Fiber, and Vite for fast 3D rendering and development.",
+      "A 3D floating laptop that displays a fully functional website on its screen. Users can interact with the website directly through the 3D interface, creating an immersive browsing experience.",
     techStack: [
       "React 18",
       "Three.js",
       "React Three Fiber",
       "Vite",
-      "3D Rendering",
-      "Interactive 3D",
       "WebGL",
     ],
             imageUrl: "/assets/projects/3d-laptop-preview.png",
@@ -110,7 +106,7 @@ export default function ProjectsSection() {
         My Work.
       </p>
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr justify-items-center">
           {projects.map((project, index) => (
             <ProjectCard
               key={index}

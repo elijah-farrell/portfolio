@@ -38,7 +38,7 @@ export default function ProjectCard(props: ProjectCardProps) {
   } = props;
   const cardContent = (
     <CardContainer className="inter-var h-full">
-      <Card className="max-w-sm w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col">
+      <Card className="max-w-sm md:max-w-sm w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto">
         <CardHeader className="flex-shrink-0">
           <img
             src={imageUrl}

@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A modern, responsive portfolio website built with React 18, TypeScript, and Three.js.
+My personal portfolio showcasing my projects, experience, and skills.
 
 ![Portfolio Preview](public/assets/projects/portfolio-thumb.png)
 

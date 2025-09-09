@@ -1,6 +1,5 @@
 import React from "react";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
-import {atomDark} from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {IconCheck, IconCopy} from "@tabler/icons-react";
 
 type CodeBlockProps = {
@@ -53,7 +52,61 @@ export const CodeBlock = ({
     : highlightLines;
 
   return (
-    <div className="relative w-full rounded-lg bg-slate-900 p-4 font-mono text-sm">
+    <div className="code-block-container relative w-full rounded-lg border border-black dark:border-neutral-700 hover:border-emerald-200 dark:hover:border-emerald-700 transition-colors duration-300 p-4 font-mono text-sm">
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          /* IntelliJ IDEA Darcula Theme */
+          .code-block-container {
+            background-color: #2B2B2B !important;
+            color: #A9B7C6 !important;
+          }
+          .code-block-container .token.comment {
+            color: #808080 !important;
+          }
+          .code-block-container .token.keyword {
+            color: #CC7832 !important;
+          }
+          .code-block-container .token.string {
+            color: #6A8759 !important;
+          }
+          .code-block-container .token.class-name {
+            color: #A9B7C6 !important;
+          }
+          .code-block-container .token.function {
+            color: #FFC66D !important;
+          }
+          .code-block-container .token.number {
+            color: #6897BB !important;
+          }
+          .code-block-container .token.boolean {
+            color: #6897BB !important;
+          }
+          .code-block-container .token.operator {
+            color: #A9B7C6 !important;
+          }
+          .code-block-container .token.punctuation {
+            color: #A9B7C6 !important;
+          }
+          .code-block-container .token.variable {
+            color: #9876AA !important;
+          }
+          .code-block-container .token.constant {
+            color: #9876AA !important;
+          }
+          .code-block-container .token.annotation {
+            color: #BBB529 !important;
+          }
+          .line-numbers-rows {
+            color: #808080 !important;
+          }
+          .dark .line-numbers-rows {
+            color: #808080 !important;
+          }
+          .dark .code-block-container {
+            color: #A9B7C6 !important;
+          }
+        `
+      }} />
       <div className="flex flex-col gap-2">
         {tabsExist && (
           <div className="flex  overflow-x-auto">
@@ -86,15 +139,19 @@ export const CodeBlock = ({
       </div>
       <SyntaxHighlighter
         language={activeLanguage}
-        style={atomDark}
+        style={{}}
         customStyle={{
           margin: 0,
           padding: 0,
           background: "transparent",
           fontSize: "0.875rem", // text-sm equivalent
+          color: "#A9B7C6", // IntelliJ Darcula text color
         }}
         wrapLines={true}
         showLineNumbers={true}
+        lineNumberStyle={{
+          color: "#808080", // IntelliJ Darcula line number color
+        }}
         lineProps={(lineNumber) => ({
           style: {
             backgroundColor: activeHighlightLines.includes(lineNumber)

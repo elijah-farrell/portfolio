@@ -65,36 +65,43 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
               {/* Title and company info - responsive layout */}
               <div className="flex-1 min-w-0">
-                <div className="flex flex-col gap-2 mb-2">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
-                      {settings.experience.showAnimations ? (
-                        <TextAnimate animation="blurInUp" by="character" once>
-                          {title}
-                        </TextAnimate>
-                      ) : (
-                        title
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
+                        {settings.experience.showAnimations ? (
+                          <TextAnimate animation="blurInUp" by="character" once>
+                            {title}
+                          </TextAnimate>
+                        ) : (
+                          title
+                        )}
+                      </h4>
+                      
+                      {/* Logo - positioned to the right of the title */}
+                      {settings.experience.showCompanyLogos && logoPath && (
+                        <div className="flex-shrink-0">
+                          <img
+                            src={logoPath}
+                            alt={`${company} logo`}
+                            className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain"
+                          />
+                        </div>
                       )}
-                    </h4>
+                    </div>
                     
-                    {/* Logo - positioned to the right of the title */}
-                    {settings.experience.showCompanyLogos && logoPath && (
-                      <div className="flex-shrink-0">
-                        <img
-                          src={logoPath}
-                          alt={`${company} logo`}
-                          className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain"
-                        />
-                      </div>
-                    )}
+                    <p className="text-sm text-gray-500 break-words">
+                      {company}
+                    </p>
                   </div>
                   
-                  <p className="text-sm text-gray-500 break-words">
-                    {company}
-                  </p>
+                  {/* Date in top right */}
+                  <span className="text-sm text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 self-center sm:self-auto">
+                    {from} – {to}
+                  </span>
                 </div>
                 
-                {/* Duration and dates - responsive layout */}
+                {/* Duration - responsive layout */}
                 <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-3 text-xs text-gray-600 dark:text-gray-400">
                   <span className="text-emerald-600 font-medium">
                     {calculateDuration(from, to)}
@@ -173,25 +180,18 @@ interface TimelineData {
 const timelineData: TimelineData[] = [
   {
     title: "Research Assistant",
-    company: "Center for Safe and Secure AI Robotics (CESSAIR)",
-    description: `High Performance Computing & Distributed Systems Division
-SUNY Polytechnic Institute | Feb 2025 – May 2025
-
-• Developed "BORGChat," a distributed multi-agent AI suite running on the CESSAIR Brain Operating Research Grid (BORG), leveraging 30+ NVIDIA Orin Nano devices to simulate and orchestrate real-time conversations between large language models.
-• Designed and deployed a custom GTK4 desktop interface enabling dynamic LLM personality customization, session management, and visualization of agent-to-agent interactions.
-• Optimized prompt engineering and conversational memory systems to improve response accuracy, reduce latency, and enhance the overall research quality of multi-agent experiments.
-• Contributed to open-source HPC research software development, using C++ and CMake for build management, and collaborating with a small research team to design reproducible, cross-platform deployment instructions.`,
+    company: "SUNY Polytechnic Institute (CESSAIR)",
+    description: `• Led a small research team of 5 students to develop BORGChat, an AI chat application in C++ on schedule
+• Collaborated effectively with team members to solve problems and support project goals
+• Coordinated tasks and adapted quickly to new challenges to ensure smooth progress`,
     from: "Feb 2025",
     to: "May 2025",
             logoPath: "/assets/logos/suny-poly-logo.jpg",
-    technologies: ["C++", "CMake", "GTK4", "Ollama", "NVIDIA Orin Nano"],
   },
   {
     title: "Work Study Assistant",
     company: "The Workplace",
-    description: `Watertown, NY 13601 | August 2021 - December 2021
-
-• Performed general duties including facility support and janitorial tasks.
+    description: `• Performed general duties including facility support and janitorial tasks.
 • Assisted with basic device troubleshooting and user setup when assigned.
 • Gained initial exposure to technical support environments and team coordination.`,
     from: "Aug 2021",

@@ -2,35 +2,28 @@ import React from "react";
 import { CodeBlock } from "./ui/code-block";
 
 export default function CodeQuote() {
-  const code = `// The Journey of a Developer
-template<typename T>
-std::future<Success> cultivateGrowth(T& person) {
-    return std::async(std::launch::async, [&person]() -> Success {
-        while (person.isLearning) {
-            auto& challenges = person.facing.obstacles;
-            
-            if (!challenges.empty()) {
-                for (const auto& challenge : challenges) {
-                    auto solution = person.solve(challenge);
-                    person.wisdom += solution.learnings;
-                }
-                
-                person.skills.enhance();
-                person.perspective.broaden();
-            }
-            
-            // Even small progress compounds over time
-            person.growth = person.consistency * person.persistence;
+  const code = `class Person {
+    void grow(String challenge) {
+        System.out.println("Learned from " + challenge);
+    }
+
+    void reflect() {
+        System.out.println("Success isn't arriving somewhere—");
+        System.out.println("it's becoming someone along the way.");
+    }
+}
+
+public class Journey {
+    public static void main(String[] args) {
+        Person traveler = new Person();
+        String[] challenges = { "failure", "uncertainty", "change" };
+
+        for (String c : challenges) {
+            traveler.grow(c);
         }
-        
-        // True success isn't measured by the destination, 
-        // but by who you become on the journey
-        return Success{
-            person.accomplishments,
-            person.growth,
-            person.contributions.toWorld
-        };
-    });
+
+        traveler.reflect();
+    }
 }`;
   return (
     <div className="pt-10 mb-10 hidden md:block">
@@ -44,8 +37,8 @@ std::future<Success> cultivateGrowth(T& person) {
 
       <div>
         <CodeBlock
-          language="cpp"
-          filename="DevJourneyAlgo.cpp"
+          language="java"
+          filename="Journey.java"
           code={code}
         />
       </div>

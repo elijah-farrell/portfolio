@@ -128,7 +128,7 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
   return (
     <motion.div
       className={cn(
-        "absolute inset-0 flex flex-row items-center justify-center space-x-6 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
+        "absolute inset-0 flex flex-row items-center justify-center space-x-4 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
         className,
       )}
     >
@@ -139,18 +139,26 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
               <div className="flex items-center">
                 <a 
                   href={item.link}
-                  className={`relative px-4 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Force a full page reload to the new URL
+                    window.location.assign(item.link);
+                  }}
+                  className={`relative px-3 py-2 transition-all duration-300 ease-in-out flex items-center ${
                     item.isActive 
-                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold hover:bg-gray-100 dark:hover:bg-neutral-800' 
-                      : 'text-neutral-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
+                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
                   }`}
                 >
-                  {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
+                  {item.icon && <span className="relative z-20 mr-1.5">{item.icon}</span>}
                   <span className="relative z-20">{item.name}</span>
                 </a>
                 <button 
-                  onClick={() => setOpenDropdown(openDropdown === idx ? null : idx)}
-                  className="px-2 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                  onClick={() => {
+                    // Close other dropdowns and toggle current one
+                    setOpenDropdown(openDropdown === idx ? null : idx);
+                  }}
+                  className="px-2 py-2 transition-all duration-200 ease-in-out text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
                 >
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                     openDropdown === idx ? 'rotate-180' : ''
@@ -182,8 +190,8 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
                         className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-150 ${
                           (item.name === 'Home' && location.pathname === '/' && location.hash === `#${section.sectionId}`) ||
                           (item.name === 'Services' && location.pathname === '/services' && location.hash === `#${section.sectionId}`)
-                            ? 'text-emerald-500 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 font-medium'
-                            : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-50 dark:hover:bg-neutral-800'
+                            ? 'text-emerald-500 dark:text-emerald-400 font-medium'
+                            : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
                         }`}
                       >
                         {section.name}

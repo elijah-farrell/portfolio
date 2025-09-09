@@ -205,7 +205,7 @@ export function MainNavbar() {
             {/* Contact Button */}
             <button
               onClick={scrollToContact}
-              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 cursor-pointer relative z-50"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer relative z-50 shadow-sm hover:shadow-md"
             >
               <Mail className="w-4 h-4" />
               Contact
@@ -245,29 +245,33 @@ export function MainNavbar() {
             {/* Main nav items with dropdowns */}
             {mainNavItems.map((item, idx) => (
               <div key={`mobile-nav-${idx}`} className="w-full">
-                <div className="flex items-center justify-between">
-                  <button
-                    onClick={() => {
-                      if (item.name === "Services") {
-                        navigate(item.link);
-                      } else {
-                        navigate(item.link);
-                      }
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`relative flex items-center text-left w-full py-3 px-4 rounded-lg transition-all duration-200 ${
+                <div className="flex items-center rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700">
+                    <button
+                      onClick={() => {
+                        // Force a full page reload to the new URL
+                        window.location.assign(item.link);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    className={`relative flex items-center text-left flex-1 py-3 px-4 transition-all duration-200 ${
                       item.isActive 
                         ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
-                        : "text-neutral-700 dark:text-neutral-200 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-neutral-800/30"
+                        : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-neutral-800/40"
                     }`}
                   >
                     {item.icon && item.icon}
-                    <span className="block font-medium">{item.name}</span>
+                    <span className="block font-medium ml-2">{item.name}</span>
                   </button>
                   {item.isDropdown && (
                     <button
-                      onClick={() => toggleDropdown(idx)}
-                      className="ml-2 p-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-800/30"
+                      onClick={() => {
+                        // Close other dropdowns and toggle current one
+                        if (openDropdowns.includes(idx)) {
+                          setOpenDropdowns([]);
+                        } else {
+                          setOpenDropdowns([idx]);
+                        }
+                      }}
+                      className="px-3 py-3 transition-colors border-l border-gray-200 dark:border-neutral-700 h-full bg-gray-50 dark:bg-neutral-800/30 text-neutral-600 dark:text-neutral-300"
                     >
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                         openDropdowns.includes(idx) ? 'rotate-180' : ''
@@ -278,30 +282,32 @@ export function MainNavbar() {
                 
                 {/* Dropdown sections */}
                 {item.isDropdown && (
-                  <div className={`ml-4 mt-2 space-y-2 transition-all duration-200 ${
+                  <div className={`ml-4 mt-2 space-y-1.5 transition-all duration-200 ${
                     openDropdowns.includes(idx) ? 'block opacity-100' : 'hidden opacity-0'
                   }`}>
                     {item.sections?.map((section, sectionIdx) => (
-                      <button
-                        key={`mobile-${item.name}-${sectionIdx}`}
-                        onClick={() => {
-                          if (item.name === "Services") {
-                            scrollToServicesSection(section.sectionId);
-                          } else {
-                            // For Home sections, use scrollToSection which handles navigation
-                            scrollToSection(section.sectionId);
-                          }
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className={`relative text-sm block transition-colors text-left w-full py-2 px-4 rounded-md ${
-                          (item.name === "Home" && isActiveSection(section.sectionId)) ||
-                          (item.name === "Services" && location.pathname === "/services" && location.hash === `#${section.sectionId}`)
-                            ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20"
-                            : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50"
-                        }`}
-                      >
-                        <span className="block">{section.name}</span>
-                      </button>
+                      <div key={`mobile-${item.name}-${sectionIdx}`} className="flex items-center">
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500 ml-1 mr-3 flex-shrink-0"></span>
+                        <button
+                          onClick={() => {
+                            if (item.name === "Services") {
+                              scrollToServicesSection(section.sectionId);
+                            } else {
+                              // For Home sections, use scrollToSection which handles navigation
+                              scrollToSection(section.sectionId);
+                            }
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className={`flex-1 text-sm transition-colors text-left py-2.5 px-3 rounded-md ${
+                            (item.name === "Home" && isActiveSection(section.sectionId)) ||
+                            (item.name === "Services" && location.pathname === "/services" && location.hash === `#${section.sectionId}`)
+                              ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800"
+                              : "text-neutral-600 dark:text-neutral-300 bg-gray-50/30 dark:bg-neutral-800/10 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
+                          }`}
+                        >
+                          {section.name}
+                        </button>
+                      </div>
                     ))}
                   </div>
                 )}

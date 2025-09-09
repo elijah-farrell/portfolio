@@ -28,11 +28,10 @@ public class Journey {
   return (
     <div className="pt-10 mb-10 hidden md:block">
       <h1 className="text-3xl my-5 font-bold">
-        Developer's Journey Algorithm
+        Personal Growth Algorithm
       </h1>
       <p className="text-gray-600 dark:text-gray-400 mb-6">
-        A deep dive into the algorithm that maps out the growth of a
-        developer.
+        A deep dive into the algorithm that maps out the growth and development of a person.
       </p>
 
       <div>

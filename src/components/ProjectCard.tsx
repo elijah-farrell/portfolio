@@ -43,7 +43,7 @@ export default function ProjectCard(props: ProjectCardProps) {
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-auto object-cover rounded-2xl mb-4"
+            className="w-full h-48 object-contain rounded-2xl mb-4"
           />
           <br />
           <div className="text-xs text-muted-foreground">{duration}</div>

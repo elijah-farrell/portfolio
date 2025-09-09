@@ -187,28 +187,28 @@ export function MainNavbar() {
             scrollToServicesSection={scrollToServicesSection}
           />
           <div className="flex items-center gap-3 relative z-50">
-            {/* Contact Button */}
-            <button
-              onClick={scrollToContact}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer relative z-50"
-            >
-              <Mail className="w-4 h-4" />
-              Contact
-            </button>
-            
             {/* Theme Toggle Button */}
             <button
               onClick={() => {
                 const newTheme = isDark ? "light" : "dark";
                 setTheme(newTheme);
               }}
-              className="px-4 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer relative z-50"
+              className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
             >
               {isDark ? (
                 <Sun className="w-4 h-4" />
               ) : (
                 <Moon className="w-4 h-4" />
               )}
+            </button>
+            
+            {/* Contact Button */}
+            <button
+              onClick={scrollToContact}
+              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 cursor-pointer relative z-50"
+            >
+              <Mail className="w-4 h-4" />
+              Contact
             </button>
           </div>
         </NavBody>
@@ -297,27 +297,27 @@ export function MainNavbar() {
             <div className="flex gap-3 -ml-2">
               <button
                 onClick={() => {
-                  scrollToContact();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-2"
-              >
-                <Mail className="w-4 h-4" />
-                Contact
-              </button>
-              
-              <button
-                onClick={() => {
                   const newTheme = isDark ? "light" : "dark";
                   setTheme(newTheme);
                 }}
-                className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="p-2 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 {isDark ? (
                   <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
                 ) : (
                   <Moon className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
                 )}
+              </button>
+              
+              <button
+                onClick={() => {
+                  scrollToContact();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-1.5"
+              >
+                <Mail className="w-4 h-4" />
+                Contact
               </button>
             </div>
           </MobileNavMenu>

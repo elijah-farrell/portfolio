@@ -18,7 +18,7 @@ const LinkCard: React.FC<Link> = (ele) => {
       aria-label={ele.title}
       title={ele.title}
     >
-      <Button variant="outline" className="rounded-2xl " asChild>
+      <Button variant="outline" className="rounded-2xl bg-white dark:bg-[hsl(0_0%_3.9%)] border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-[hsl(0_0%_14.9%)] hover:border-emerald-200 dark:hover:border-emerald-700 transition-colors duration-300" asChild>
         <div>
           {/* Icon and accessible text for SEO */}
           {ele.icon && <span aria-hidden="true">{ele.icon}</span>}

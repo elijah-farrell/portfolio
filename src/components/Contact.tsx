@@ -40,7 +40,7 @@ export default function Contact(): JSX.Element {
     {
       icon: <FiMail />,
       title: "Email",
-      value: "farrellelijah@outlook.com",
+      value: "farrellelijah\n@outlook.com",
       link: "mailto:farrellelijah@outlook.com"
     },
     {
@@ -79,7 +79,7 @@ export default function Contact(): JSX.Element {
                       </div>
                     </div>
                     <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">{info.title}</h3>
-                    <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors break-words text-sm md:text-base px-2">
+                    <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors break-words text-sm md:text-base px-2 whitespace-pre-line">
                       {info.value}
                     </div>
                   </Card>

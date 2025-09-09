@@ -36,11 +36,13 @@ interface MobileNavProps {
   children: React.ReactNode;
   className?: string;
   visible?: boolean;
+  isMenuOpen?: boolean;
 }
 
 interface MobileNavHeaderProps {
   children: React.ReactNode;
   className?: string;
+  isMenuOpen?: boolean;
 }
 
 interface MobileNavMenuProps {
@@ -109,8 +111,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 dark:bg-neutral-950/80 rounded-full",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
@@ -212,7 +213,7 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
   );
 };
 
-export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
+export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
   return (
     <motion.div
       animate={{
@@ -231,8 +232,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-between px-0 py-2 lg:hidden bg-white/80 dark:bg-neutral-950/80",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-between px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90",
+        isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
     >
@@ -245,11 +246,13 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 export const MobileNavHeader = ({
   children,
   className,
+  isMenuOpen,
 }: MobileNavHeaderProps) => {
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between",
+        "flex w-full flex-row items-center justify-between px-4 py-3",
+        isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
     >
@@ -268,11 +271,12 @@ export const MobileNavMenu = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
+            "absolute inset-x-0 top-full z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-4 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700",
             className,
           )}
         >
@@ -312,17 +316,17 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-2 rounded-lg bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
+      className="p-2.5 rounded-lg bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
     >
-      <div className="w-5 h-5 flex flex-col justify-center items-center">
-        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
-          isOpen ? 'rotate-45 translate-y-1.5' : ''
+      <div className="w-4 h-4 flex flex-col justify-center items-center">
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
+          isOpen ? 'rotate-45 translate-y-1' : ''
         }`} />
-        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-1 ${
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-0.5 ${
           isOpen ? 'opacity-0' : ''
         }`} />
-        <span className={`block w-4 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-1 ${
-          isOpen ? '-rotate-45 -translate-y-1.5' : ''
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-0.5 ${
+          isOpen ? '-rotate-45 -translate-y-1' : ''
         }`} />
       </div>
     </button>

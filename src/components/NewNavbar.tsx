@@ -214,13 +214,28 @@ export function MainNavbar() {
         </NavBody>
 
         {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
+        <MobileNav isMenuOpen={isMobileMenuOpen}>
+          <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
             <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const newTheme = isDark ? "light" : "dark";
+                  setTheme(newTheme);
+                }}
+                className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                {isDark ? (
+                  <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
+                ) : (
+                  <Moon className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
+                )}
+              </button>
+              <MobileNavToggle
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </div>
           </MobileNavHeader>
 
           <MobileNavMenu
@@ -242,8 +257,8 @@ export function MainNavbar() {
                     }}
                     className={`relative flex items-center text-left w-full py-3 px-4 rounded-lg transition-all duration-200 ${
                       item.isActive 
-                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20" 
-                        : "text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50"
+                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
+                        : "text-neutral-700 dark:text-neutral-200 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-neutral-800/30"
                     }`}
                   >
                     {item.icon && item.icon}
@@ -252,7 +267,7 @@ export function MainNavbar() {
                   {item.isDropdown && (
                     <button
                       onClick={() => toggleDropdown(idx)}
-                      className="ml-2 p-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800/50"
+                      className="ml-2 p-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-800/30"
                     >
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                         openDropdowns.includes(idx) ? 'rotate-180' : ''
@@ -294,30 +309,16 @@ export function MainNavbar() {
             ))}
             
             {/* Contact Button in Mobile */}
-            <div className="flex gap-3 -ml-2">
-              <button
-                onClick={() => {
-                  const newTheme = isDark ? "light" : "dark";
-                  setTheme(newTheme);
-                }}
-                className="p-2 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
-              >
-                {isDark ? (
-                  <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
-                ) : (
-                  <Moon className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
-                )}
-              </button>
-              
+            <div className="w-full">
               <button
                 onClick={() => {
                   scrollToContact();
                   setIsMobileMenuOpen(false);
                 }}
-                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-1.5"
+                className="relative flex items-center justify-center w-full py-3 px-4 rounded-lg transition-all duration-200 text-white font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
               >
-                <Mail className="w-4 h-4" />
-                Contact
+                <Mail className="w-4 h-4 mr-2" />
+                <span className="block font-semibold">Get In Touch</span>
               </button>
             </div>
           </MobileNavMenu>

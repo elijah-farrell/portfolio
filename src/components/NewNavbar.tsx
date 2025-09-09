@@ -193,7 +193,7 @@ export function MainNavbar() {
                 const newTheme = isDark ? "light" : "dark";
                 setTheme(newTheme);
               }}
-              className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
+              className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
             >
               {isDark ? (
                 <Sun className="w-4 h-4" />
@@ -223,7 +223,7 @@ export function MainNavbar() {
                   const newTheme = isDark ? "light" : "dark";
                   setTheme(newTheme);
                 }}
-                className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 {isDark ? (
                   <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />

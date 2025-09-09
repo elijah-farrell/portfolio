@@ -316,7 +316,7 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-2.5 rounded-lg bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md"
+      className="p-2.5 rounded-lg bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
     >
       <div className="w-4 h-4 flex flex-col justify-center items-center">
         <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${

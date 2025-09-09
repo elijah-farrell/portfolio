@@ -52,6 +52,7 @@ interface MobileNavMenuProps {
 
 export const Navbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const location = useLocation();
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -60,7 +61,10 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
+    // Use smaller threshold (50px) for services page, 100px for other pages
+    const threshold = location.pathname === '/services' ? 50 : 100;
+    
+    if (latest > threshold) {
       setVisible(true);
     } else {
       setVisible(false);

@@ -42,12 +42,11 @@ export const WobbleCard = ({
       )}
     >
       <div
-        className="relative h-full sm:mx-0 sm:rounded-2xl overflow-hidden"
+        className="relative h-full sm:mx-0 sm:rounded-2xl overflow-hidden dark:shadow-2xl dark:shadow-white/5"
         style={{
           boxShadow:
             "0 10px 32px rgba(34, 42, 53, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 4px 6px rgba(34, 42, 53, 0.08), 0 24px 108px rgba(47, 48, 55, 0.10)",
         }}
-        className="relative h-full sm:mx-0 sm:rounded-2xl overflow-hidden dark:shadow-2xl dark:shadow-white/5"
       >
         <motion.div
           style={{

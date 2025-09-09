@@ -186,7 +186,7 @@ export function MainNavbar() {
             scrollToSection={scrollToSection}
             scrollToServicesSection={scrollToServicesSection}
           />
-          <div className="flex items-center gap-3 relative z-50">
+          <div className="flex items-center gap-3 relative z-50 mr-2">
             {/* Theme Toggle Button */}
             <button
               onClick={() => {

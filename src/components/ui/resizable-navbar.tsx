@@ -111,7 +111,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 lg:px-6 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
@@ -293,7 +293,7 @@ export const NavbarLogo = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center ml-2">
       <button 
         onClick={scrollToTop}
         className="text-lg md:text-xl font-bold whitespace-nowrap hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded px-1 py-1"

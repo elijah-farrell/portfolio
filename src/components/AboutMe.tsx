@@ -29,7 +29,7 @@ export default function AboutMe() {
               {quickStats.map((stat, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-emerald-200 dark:hover:border-emerald-700 transition-colors duration-300"
+                  className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-700 hover:border-emerald-200 dark:hover:border-emerald-700 transition-colors duration-300"
                 >
                   <div className="text-emerald-600 dark:text-emerald-400">
                     {stat.icon}

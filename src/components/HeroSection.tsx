@@ -186,7 +186,7 @@ export default function HeroSection(): JSX.Element {
             <div className="flex gap-2">
               <a
               href="mailto:farrellelijah@outlook.com"
-              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <FiMail size={16} />
             </a>
@@ -194,7 +194,7 @@ export default function HeroSection(): JSX.Element {
               href="https://github.com/elijah-farrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiGithub size={16} />
             </a>
@@ -202,7 +202,7 @@ export default function HeroSection(): JSX.Element {
               href="https://www.linkedin.com/in/elijah-farrell-915047349/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiLinkedin size={16} />
             </a>
@@ -210,7 +210,7 @@ export default function HeroSection(): JSX.Element {
                               href="https://discord.gg/h9QSQZzn"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiDiscord size={16} />
             </a>
@@ -218,7 +218,7 @@ export default function HeroSection(): JSX.Element {
               href="https://cal.com/elijahfarrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <FiPhone size={16} />
             </a>

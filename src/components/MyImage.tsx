@@ -15,7 +15,22 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
   const [showAlt, setShowAlt] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+
+  // Handle image loading
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      setIsImageLoaded(true);
+    };
+    img.src = mainImage;
+    
+    if (altImage) {
+      const altImg = new Image();
+      altImg.src = altImage;
+    }
+  }, [mainImage, altImage]);
 
   // Handle image transitions
   useEffect(() => {
@@ -111,6 +126,13 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
           }}
         />
 
+        {/* Loading placeholder */}
+        {!isImageLoaded && (
+          <div className="relative z-10 w-96 h-96 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800 rounded-2xl md:rounded-3xl flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+          </div>
+        )}
+
         {/* Main image */}
         <img
           src={currentSrc}
@@ -123,6 +145,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
                         transition-all duration-500 
                         ${fade ? "blur-md grayscale" : "blur-0 grayscale-0"}
                         group-hover:brightness-110 group-hover:contrast-105
+                        ${!isImageLoaded ? "opacity-0" : "opacity-100"}
                     `}
           style={{
             transform: `

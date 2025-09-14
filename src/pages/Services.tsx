@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,9 +15,6 @@ import {
   FiArrowRight,
   FiCheck
 } from "react-icons/fi";
-
-// Lazy load the background boxes for better performance
-const LazyBoxes = lazy(() => import("@/components/ui/background-boxes").then(module => ({ default: module.Boxes })));
 
 const services = [
   {
@@ -83,12 +80,8 @@ export default function ServicesPage() {
           {/* Hero Section */}
           <section className="h-[40vh] flex flex-col justify-center text-center relative overflow-hidden bg-white dark:bg-black">
             <div className="absolute inset-0 w-full h-full">
-              <Suspense fallback={
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 animate-pulse" />
-              }>
-                <LazyBoxes />
-              </Suspense>
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,white)] dark:[mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,black)] pointer-events-none" />
+              <Boxes />
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,white)] dark:[mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,black)] pointer-events-none" />
             </div>
             
              <div className="max-w-7xl mx-auto relative z-20 px-4 lg:px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gradient-to-br hover:from-emerald-100/30 hover:to-emerald-200/30 dark:hover:from-emerald-950/20 dark:hover:to-emerald-900/20">

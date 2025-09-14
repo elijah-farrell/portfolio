@@ -78,49 +78,35 @@ export default function ServicesPage() {
         url="https://elijahfarrell.com/services"
       />
 
-      <main className="mt-14">
+      <main className="mt-10">
         <div id="services">
           {/* Hero Section */}
-          <section className="py-12 px-6 text-center relative overflow-hidden bg-white dark:bg-black">
+          <section className="h-[40vh] flex flex-col justify-center text-center relative overflow-hidden bg-white dark:bg-black">
             <div className="absolute inset-0 w-full h-full">
               <Suspense fallback={
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 animate-pulse" />
               }>
                 <LazyBoxes />
               </Suspense>
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,white)] dark:[mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,black)] pointer-events-none" />
             </div>
             
-            <div className="max-w-4xl mx-auto relative z-20">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                Need Help with a <span className="text-emerald-600">Tech Project</span>?
+             <div className="max-w-7xl mx-auto relative z-20 px-4 lg:px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gradient-to-br hover:from-emerald-100/30 hover:to-emerald-200/30 dark:hover:from-emerald-950/20 dark:hover:to-emerald-900/20">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+                Need Help with a <span className="text-emerald-600 whitespace-nowrap">Tech Project</span>?
               </h1>
-              <p className="text-xl text-gray-700 dark:text-emerald-100 mb-8 max-w-3xl mx-auto">
-                I'm a CS professional who builds things. Websites, apps, scripts, whatever. If you have an idea or need help with something technical, let's talk about it.
-              </p>
-              <div className="flex justify-center">
-                <Button 
-                  size="lg" 
-                  className="text-lg px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600"
-                  onClick={() => {
-                    const formElement = document.getElementById("contact-form");
-                    if (formElement) {
-                      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                  }}
-                >
-                  Let's Talk <FiArrowRight className="ml-2" />
-                </Button>
-              </div>
+               <p className="text-xl text-gray-700 dark:text-emerald-100 max-w-3xl mx-auto">
+                 I'm a CS professional who builds things. Websites, apps, scripts, whatever. If you have an idea or need help with something technical, let's talk about it.
+               </p>
             </div>
           </section>
 
           {/* What I Can Help With */}
-          <section id="what-i-do" className="py-12 px-6 bg-white dark:bg-neutral-950">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">What I Can Help With</h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300">
+          <section id="what-i-do" className="py-12 bg-white dark:bg-neutral-950">
+            <div className="max-w-7xl mx-auto px-4 lg:px-6">
+              <div className="text-center md:text-center text-left mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">What I Can Help With</h2>
+                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
                   Based on my background in CS and experience building things. Here's what I'm comfortable tackling:
                 </p>
               </div>
@@ -158,12 +144,15 @@ export default function ServicesPage() {
 
 
           {/* Contact Form */}
-          <section id="contact-form" className="py-12 px-6 bg-gray-50 dark:bg-neutral-900">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300">
+          <section id="contact-form" className="py-12 bg-gray-50 dark:bg-neutral-900">
+            <div className="max-w-7xl mx-auto px-4 lg:px-6">
+              <div className="text-center md:text-center text-left mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
+                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-4">
                   Tell me about your project. No pressure, just a conversation about what you need.
+                </p>
+                <p className="text-base text-gray-500 dark:text-gray-400">
+                  Fill out the form below and I'll get back to you within 24 hours to discuss your project, answer questions, and see how I can help.
                 </p>
               </div>
               

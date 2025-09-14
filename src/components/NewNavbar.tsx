@@ -23,7 +23,57 @@ export function MainNavbar() {
   const isDark = theme === "dark";
 
   const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark");
+    // Add polygon animation
+    const styleId = `theme-transition-${Date.now()}`;
+    const style = document.createElement('style');
+    style.id = styleId;
+    
+    const css = `
+      @supports (view-transition-name: root) {
+        ::view-transition-old(root) {
+          animation: none;
+        }
+        ::view-transition-new(root) {
+          animation: ${isDark ? 'wipe-in-light' : 'wipe-in-dark'} 0.4s ease-out;
+        }
+        @keyframes wipe-in-dark {
+          from {
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+          }
+          to {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+        }
+        @keyframes wipe-in-light {
+          from {
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+          }
+          to {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+        }
+      }
+    `;
+    
+    style.textContent = css;
+    document.head.appendChild(style);
+    
+    // Clean up animation styles after transition
+    setTimeout(() => {
+      const styleEl = document.getElementById(styleId);
+      if (styleEl) {
+        styleEl.remove();
+      }
+    }, 3000);
+    
+    // Start the transition
+    if ('startViewTransition' in document) {
+      (document as any).startViewTransition(() => {
+        setTheme(isDark ? "light" : "dark");
+      });
+    } else {
+      setTheme(isDark ? "light" : "dark");
+    }
   };
 
   // Check if current page is active
@@ -189,11 +239,8 @@ export function MainNavbar() {
           <div className="flex items-center gap-3 relative z-50 mr-2">
             {/* Theme Toggle Button */}
             <button
-              onClick={() => {
-                const newTheme = isDark ? "light" : "dark";
-                setTheme(newTheme);
-              }}
-              className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
+              onClick={toggleTheme}
+              className="p-2 bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
             >
               {isDark ? (
                 <Sun className="w-4 h-4" />
@@ -205,10 +252,12 @@ export function MainNavbar() {
             {/* Contact Button */}
             <button
               onClick={scrollToContact}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer relative z-50 shadow-sm hover:shadow-md"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5 cursor-pointer relative z-50 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
             >
-              <Mail className="w-4 h-4" />
-              Contact
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
+              <Mail className="w-4 h-4 relative z-10" />
+              <span className="relative z-10">Let's Talk</span>
             </button>
           </div>
         </NavBody>
@@ -219,11 +268,8 @@ export function MainNavbar() {
             <NavbarLogo />
             <div className="flex items-center gap-2">
               <button
-                onClick={() => {
-                  const newTheme = isDark ? "light" : "dark";
-                  setTheme(newTheme);
-                }}
-                className="p-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
+                onClick={toggleTheme}
+                className="p-2.5 rounded-full bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 {isDark ? (
                   <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />

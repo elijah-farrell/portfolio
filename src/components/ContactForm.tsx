@@ -115,9 +115,8 @@ export default function ContactForm() {
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Tell Me About Your Project</CardTitle>
         <p className="text-center text-gray-600 dark:text-gray-400">
-          Describe what you need help with and I'll get back to you within 24 hours.
+          Describe what you need help with.
         </p>
       </CardHeader>
       <CardContent>

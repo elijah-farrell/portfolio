@@ -139,7 +139,9 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
           alt="Elijah Farrell - Software Developer"
           width={384}
           height={384}
-          loading="lazy"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className={`
                         relative z-10 w-96 h-96 object-cover rounded-2xl md:rounded-3xl 
                         transition-all duration-500 

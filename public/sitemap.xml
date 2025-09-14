@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://elijahfarrell.com/</loc>
-    <lastmod>2025-09-02T18:58:40.709Z</lastmod>
+    <lastmod>2025-09-14T04:35:10.798Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://elijahfarrell.com/services</loc>
-    <lastmod>2025-09-02T18:58:40.711Z</lastmod>
+    <lastmod>2025-09-14T04:35:10.800Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://elijahfarrell.com/ElijahFarrell.pdf</loc>
-    <lastmod>2025-09-02T18:58:40.711Z</lastmod>
+    <lastmod>2025-09-14T04:35:10.800Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

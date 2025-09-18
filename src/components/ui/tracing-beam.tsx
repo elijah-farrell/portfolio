@@ -13,6 +13,7 @@ export const TracingBeam = ({
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [textRevealInView, setTextRevealInView] = useState(false);
+  const [textRevealVerticalOffset, setTextRevealVerticalOffset] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -36,7 +37,9 @@ export const TracingBeam = ({
     // Check for TextReveal component (I learn fast animation)
     const checkTextReveal = () => {
       const textRevealElement = document.querySelector('[data-text-reveal-content]');
-      if (textRevealElement) {
+      const textRevealContainer = document.querySelector('[data-text-reveal]');
+      
+      if (textRevealElement && textRevealContainer) {
         // Verify this is actually the TextReveal component by checking its content
         const hasTextRevealContent = textRevealElement.textContent?.includes('learn') || 
                                    textRevealElement.textContent?.includes('fast') ||
@@ -58,24 +61,25 @@ export const TracingBeam = ({
         }
         
         const rect = textRevealElement.getBoundingClientRect();
+        const containerRect = textRevealContainer.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        
+        // Simple mobile adjustment - add fixed offset for TextReveal positioning
         const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          setTextRevealVerticalOffset(viewportHeight * 0.4); // Fixed mobile offset
+        } else {
+          setTextRevealVerticalOffset(12); // Default desktop position
+        }
         
         let isInView;
         
-        if (isMobile) {
-          // On mobile, CodeQuote is hidden, so TextReveal appears earlier
-          // Use a more conservative threshold for mobile
-          isInView = rect.top < viewportHeight * 0.4 && rect.bottom > viewportHeight * 0.1;
-        } else {
-          // On desktop, use center-based detection
-          const viewportCenter = viewportHeight / 2;
-          const elementCenter = rect.top + rect.height / 2;
-          const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
-          const threshold = viewportHeight * 0.3;
-          isInView = distanceFromCenter < threshold;
-        }
-        
+        // Use same detection logic for both mobile and desktop
+        const viewportCenter = viewportHeight / 2;
+        const elementCenter = rect.top + rect.height / 2;
+        const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
+        const threshold = viewportHeight * 0.3;
+        isInView = distanceFromCenter < threshold;
         
         setTextRevealInView(isInView);
       }
@@ -134,6 +138,15 @@ export const TracingBeam = ({
     }
   );
 
+  // Simple positioning - fixed values to prevent drift
+  const dynamicTop = useSpring(
+    textRevealInView ? textRevealVerticalOffset : 12,
+    {
+      stiffness: 200,
+      damping: 50,
+    }
+  );
+
   return (
     <motion.div
       ref={ref}
@@ -141,8 +154,8 @@ export const TracingBeam = ({
       style={{ position: 'relative' }} // Explicit positioning
     >
       <motion.div 
-        className="absolute -left-4 md:-left-20 top-3"
-        style={{ x: leftShift }}
+        className="absolute -left-4 md:-left-20"
+        style={{ x: leftShift, top: textRevealInView ? dynamicTop : 12 }}
       >
         <motion.div
           transition={{

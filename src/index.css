@@ -107,137 +107,218 @@ a[href^="#"] {
     @apply bg-background text-foreground;
   }
   
-  /* Theme-based overscroll area */
+  /* Allow normal overscroll behavior */
   html {
-    overscroll-behavior: contain;
+    overscroll-behavior: auto;
   }
   
   body {
-    overscroll-behavior: contain;
+    overscroll-behavior: auto;
   }
   
   /* Light theme overscroll */
   :root {
     overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
   /* Dark theme overscroll */
   .dark {
     overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
   }
   
-  /* Safari-specific overscroll area color */
+  /* Safari-specific overscroll area color - theme aware */
   html {
+    -webkit-overscroll-behavior-color: white;
+    overscroll-behavior-color: white;
+  }
+  
+  .dark html {
     -webkit-overscroll-behavior-color: #0a0a0a;
     overscroll-behavior-color: #0a0a0a;
   }
   
   body {
+    -webkit-overscroll-behavior-color: white;
+    overscroll-behavior-color: white;
+  }
+  
+  .dark body {
     -webkit-overscroll-behavior-color: #0a0a0a;
     overscroll-behavior-color: #0a0a0a;
   }
   
-  /* Additional Safari overscroll fixes */
+  /* Additional Safari overscroll fixes - theme aware */
   * {
+    -webkit-overscroll-behavior-color: white;
+  }
+  
+  .dark * {
     -webkit-overscroll-behavior-color: #0a0a0a;
   }
   
-  /* Force dark overscroll for all themes */
-  :root,
-  .dark,
-  .light {
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+  /* Theme-aware device-level overrides */
+  html {
+    background-color: white;
+    -webkit-background-color: white;
   }
   
-  /* Additional device-level overrides */
-  html {
-    background-color: #0a0a0a !important;
-    -webkit-background-color: #0a0a0a !important;
+  .dark html {
+    background-color: #0a0a0a;
+    -webkit-background-color: #0a0a0a;
   }
   
   body {
-    background-color: #0a0a0a !important;
-    -webkit-background-color: #0a0a0a !important;
+    background-color: white;
+    -webkit-background-color: white;
   }
   
-  /* Safari-specific viewport fixes */
+  .dark body {
+    background-color: #0a0a0a;
+    -webkit-background-color: #0a0a0a;
+  }
+  
+  /* Safari-specific viewport fixes - theme aware */
   @supports (-webkit-touch-callout: none) {
     html {
-      overscroll-behavior-color: #0a0a0a !important;
-      -webkit-overscroll-behavior-color: #0a0a0a !important;
-      background-color: #0a0a0a !important;
+      overscroll-behavior-color: white;
+      -webkit-overscroll-behavior-color: white;
+      background-color: white;
+    }
+    
+    .dark html {
+      overscroll-behavior-color: #0a0a0a;
+      -webkit-overscroll-behavior-color: #0a0a0a;
+      background-color: #0a0a0a;
     }
     
     body {
-      overscroll-behavior-color: #0a0a0a !important;
-      -webkit-overscroll-behavior-color: #0a0a0a !important;
-      background-color: #0a0a0a !important;
+      overscroll-behavior-color: white;
+      -webkit-overscroll-behavior-color: white;
+      background-color: white;
+    }
+    
+    .dark body {
+      overscroll-behavior-color: #0a0a0a;
+      -webkit-overscroll-behavior-color: #0a0a0a;
+      background-color: #0a0a0a;
     }
   }
   
-  /* Universal overscroll color fix */
+  /* Universal overscroll color fix - theme aware */
   html, body {
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
-    background-color: #0a0a0a !important;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
+    background-color: white;
   }
   
-  /* Override any potential green colors */
+  .dark html, .dark body {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+    background-color: #0a0a0a;
+  }
+  
+  /* Override any potential green colors - theme aware */
   * {
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
-  /* Specific overscroll area fixes for top and bottom */
+  .dark * {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+  }
+  
+  /* Allow normal overscroll behavior for top and bottom - theme aware */
   html {
-    overscroll-behavior-y: contain;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    overscroll-behavior-y: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
+  }
+  
+  .dark html {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
   }
   
   body {
-    overscroll-behavior-y: contain;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    overscroll-behavior-y: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
-  /* Force dark overscroll for all directions */
+  .dark body {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+  }
+  
+  /* Allow normal overscroll for all directions - theme aware */
   html, body {
-    overscroll-behavior: contain;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    overscroll-behavior: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
-  /* More aggressive overscroll fixes */
+  .dark html, .dark body {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+  }
+  
+  /* Allow normal overscroll behavior - theme aware */
   html {
-    background: #0a0a0a !important;
-    background-color: #0a0a0a !important;
-    overscroll-behavior: none !important;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    background: white;
+    background-color: white;
+    overscroll-behavior: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
+  }
+  
+  .dark html {
+    background: #0a0a0a;
+    background-color: #0a0a0a;
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
   }
   
   body {
-    background: #0a0a0a !important;
-    background-color: #0a0a0a !important;
-    overscroll-behavior: none !important;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    background: white;
+    background-color: white;
+    overscroll-behavior: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
-  /* Disable overscroll entirely and set background */
+  .dark body {
+    background: #0a0a0a;
+    background-color: #0a0a0a;
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+  }
+  
+  /* Allow normal overscroll behavior - theme aware */
   * {
-    overscroll-behavior: none !important;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    overscroll-behavior: auto;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
   }
   
-  /* Root element background */
+  .dark * {
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
+  }
+  
+  /* Root element background - theme aware */
   :root {
-    background-color: #0a0a0a !important;
-    overscroll-behavior-color: #0a0a0a !important;
-    -webkit-overscroll-behavior-color: #0a0a0a !important;
+    background-color: white;
+    overscroll-behavior-color: white;
+    -webkit-overscroll-behavior-color: white;
+  }
+  
+  .dark {
+    background-color: #0a0a0a;
+    overscroll-behavior-color: #0a0a0a;
+    -webkit-overscroll-behavior-color: #0a0a0a;
   }
   
   /* Performance optimizations */

@@ -2,22 +2,40 @@ import { useEffect } from 'react';
 
 export const useScrollPreservation = () => {
   useEffect(() => {
-    // Force overscroll color via JavaScript
-    const forceOverscrollColor = () => {
-      document.documentElement.style.setProperty('overscroll-behavior-color', '#0a0a0a', 'important');
-      document.documentElement.style.setProperty('-webkit-overscroll-behavior-color', '#0a0a0a', 'important');
-      document.body.style.setProperty('overscroll-behavior-color', '#0a0a0a', 'important');
-      document.body.style.setProperty('-webkit-overscroll-behavior-color', '#0a0a0a', 'important');
-      document.body.style.setProperty('background-color', '#0a0a0a', 'important');
-      document.documentElement.style.setProperty('background-color', '#0a0a0a', 'important');
+    // Set overscroll color via JavaScript (allow normal overscroll behavior, theme-aware)
+    const setOverscrollColor = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      const overscrollColor = isDark ? '#0a0a0a' : 'white';
+      const backgroundColor = isDark ? '#0a0a0a' : 'white';
+      
+      document.documentElement.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
+      document.documentElement.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
+      document.body.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
+      document.body.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
+      document.body.style.setProperty('background-color', backgroundColor, 'important');
+      document.documentElement.style.setProperty('background-color', backgroundColor, 'important');
+      // Allow normal overscroll behavior
+      document.documentElement.style.setProperty('overscroll-behavior', 'auto', 'important');
+      document.body.style.setProperty('overscroll-behavior', 'auto', 'important');
     };
 
     // Apply immediately
-    forceOverscrollColor();
+    setOverscrollColor();
     
     // Apply again after a short delay
-    setTimeout(forceOverscrollColor, 100);
-    setTimeout(forceOverscrollColor, 500);
+    setTimeout(setOverscrollColor, 100);
+    setTimeout(setOverscrollColor, 500);
+    
+    // Listen for theme changes
+    const observer = new MutationObserver(() => {
+      setOverscrollColor();
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
     // Restore scroll position on page load
     const savedScrollPosition = sessionStorage.getItem('scrollPosition');
     if (savedScrollPosition) {
@@ -63,6 +81,7 @@ export const useScrollPreservation = () => {
 
     // Cleanup
     return () => {
+      observer.disconnect();
       window.removeEventListener('beforeunload', handleBeforeUnload);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('visibilitychange', handleVisibilityChange);

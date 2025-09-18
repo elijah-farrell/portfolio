@@ -30,6 +30,7 @@ export default function ContactForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consultationRequested, setConsultationRequested] = useState(false);
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
@@ -45,7 +46,7 @@ export default function ContactForm() {
     try {
       // EmailJS configuration
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_KEY;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
       if (!serviceId || !templateId || !publicKey) {
@@ -64,10 +65,23 @@ export default function ContactForm() {
 
       if (result.status === 200) {
         setIsSubmitted(true);
-        toast({
-          title: "Message sent successfully!",
-          description: "I'll get back to you within 24 hours.",
-        });
+        setConsultationRequested(formData.consultation === "Yes");
+        
+        // Show different messages based on consultation preference
+        if (formData.consultation === "Yes") {
+          toast({
+            title: "Message sent successfully!",
+            description: "Cal.com opened in new tab - schedule your consultation!",
+          });
+          // Open Cal.com in new tab
+          window.open("https://cal.com/elijahfarrell/30min", "_blank");
+        } else {
+          toast({
+            title: "Message sent successfully!",
+            description: "I'll get back to you within 24 hours.",
+          });
+        }
+        
         // Reset form
         setFormData({
           from_name: "",
@@ -96,11 +110,25 @@ export default function ContactForm() {
       <div className="text-center py-8">
         <FiCheckCircle className="text-6xl text-emerald-500 mx-auto mb-4" />
         <h3 className="text-2xl font-bold mb-2">Thank you!</h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
-          Your message has been sent successfully. I'll get back to you within 24 hours.
-        </p>
+        {consultationRequested ? (
+          <div className="mb-6">
+            <p className="text-gray-600 dark:text-gray-400 mb-2">
+              Your message has been sent successfully!
+            </p>
+            <p className="text-emerald-600 dark:text-emerald-400 font-medium">
+              📅 Cal.com opened in new tab - please schedule your consultation there.
+            </p>
+          </div>
+        ) : (
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Your message has been sent successfully. I'll get back to you within 24 hours.
+          </p>
+        )}
         <Button 
-          onClick={() => setIsSubmitted(false)}
+          onClick={() => {
+            setIsSubmitted(false);
+            setConsultationRequested(false);
+          }}
           variant="outline"
         >
           Send Another Message
@@ -121,6 +149,8 @@ export default function ContactForm() {
               <Label htmlFor="from_name">Name *</Label>
               <Input
                 id="from_name"
+                name="from_name"
+                autoComplete="name"
                 value={formData.from_name}
                 onChange={(e) => handleInputChange("from_name", e.target.value)}
                 required
@@ -131,7 +161,9 @@ export default function ContactForm() {
               <Label htmlFor="from_email">Email *</Label>
               <Input
                 id="from_email"
+                name="from_email"
                 type="email"
+                autoComplete="email"
                 value={formData.from_email}
                 onChange={(e) => handleInputChange("from_email", e.target.value)}
                 required
@@ -144,7 +176,9 @@ export default function ContactForm() {
             <Label htmlFor="phone">Phone</Label>
             <Input
               id="phone"
+              name="phone"
               type="tel"
+              autoComplete="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
               placeholder="(555) 123-4567"
@@ -156,6 +190,8 @@ export default function ContactForm() {
             <Label htmlFor="description">Project Description *</Label>
             <Textarea
               id="description"
+              name="description"
+              autoComplete="off"
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
               required
@@ -169,10 +205,11 @@ export default function ContactForm() {
             <div>
               <Label htmlFor="timeline">Timeline</Label>
               <Select
+                name="timeline"
                 value={formData.timeline}
                 onValueChange={(value) => handleInputChange("timeline", value)}
               >
-                <SelectTrigger>
+                <SelectTrigger id="timeline">
                   <SelectValue placeholder="Select timeline" />
                 </SelectTrigger>
                 <SelectContent>
@@ -187,10 +224,11 @@ export default function ContactForm() {
             <div>
               <Label htmlFor="budget">Budget Range</Label>
               <Select
+                name="budget"
                 value={formData.budget}
                 onValueChange={(value) => handleInputChange("budget", value)}
               >
-                <SelectTrigger>
+                <SelectTrigger id="budget">
                   <SelectValue placeholder="Select budget range" />
                 </SelectTrigger>
                 <SelectContent>
@@ -208,10 +246,11 @@ export default function ContactForm() {
           <div>
             <Label htmlFor="consultation">Free Consultation</Label>
             <Select
+              name="consultation"
               value={formData.consultation}
               onValueChange={(value) => handleInputChange("consultation", value)}
             >
-              <SelectTrigger>
+              <SelectTrigger id="consultation">
                 <SelectValue placeholder="Would you like a free consultation?" />
               </SelectTrigger>
               <SelectContent>
@@ -221,28 +260,6 @@ export default function ContactForm() {
             </Select>
           </div>
 
-          {/* Cal.com Widget - Shows when consultation is selected */}
-          {formData.consultation === "Yes" && (
-            <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-200 dark:border-emerald-700">
-              <h4 className="text-lg font-semibold mb-3 text-emerald-800 dark:text-emerald-200">
-                Schedule Your Free Consultation
-              </h4>
-              <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-4">
-                Pick a time that works for you.
-              </p>
-              <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-white dark:bg-gray-800 rounded border overflow-hidden">
-                <iframe
-                  src="https://cal.com/elijahfarrell/30min"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  className="rounded"
-                  title="Schedule consultation"
-                  style={{ minHeight: '400px' }}
-                />
-              </div>
-            </div>
-          )}
 
           {/* Submit Button */}
           <Button

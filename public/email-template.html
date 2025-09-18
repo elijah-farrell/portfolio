@@ -5,156 +5,168 @@
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
             line-height: 1.6; 
-            color: #e5e7eb; 
-            background: #000000;
+            color: #fafafa; 
+            background: #0a0a0a;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
         .container { 
-            max-width: 600px; 
+            max-width: 700px; 
             margin: 0 auto; 
-            background: #111111;
+            background: #0a0a0a;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
         .header { 
-            background: #000000; 
-            color: white; 
-            padding: 24px; 
+            background: #10b981; 
+            color: #ffffff; 
+            padding: 30px; 
             text-align: center; 
-            border-bottom: 1px solid #333333;
         }
-        .header h2 { 
+        .header h1 { 
             margin: 0; 
-            font-size: 24px; 
+            font-size: 28px; 
             font-weight: 700;
         }
-        .content { 
-            background: #1a1a1a; 
-            padding: 24px; 
-        }
-        .section { 
-            margin-bottom: 24px; 
-        }
-        .section-title { 
-            font-weight: 600; 
-            color: #ffffff; 
+        .header p {
+            margin: 8px 0 0 0;
             font-size: 16px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            opacity: 0.9;
         }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
+        .content { 
+            background: #0a0a0a; 
+            padding: 30px; 
         }
-        .info-item { 
-            background: #262626; 
-            padding: 16px; 
+        .field {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #1a1a1a;
             border-radius: 8px;
+            border-left: 4px solid #10b981;
         }
-        .info-label { 
-            font-weight: 600; 
-            color: #9ca3af; 
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-        .info-value { 
-            color: #f3f4f6; 
-            font-size: 14px;
-        }
-        .description-box { 
-            background: #262626; 
-            padding: 20px; 
-            border-radius: 8px;
-            color: #f3f4f6;
-            border-left: 4px solid #ffffff;
-        }
-        .consultation-badge {
-            background: #fbbf24;
-            color: #92400e;
-            padding: 8px 16px;
-            border-radius: 20px;
+        .field-label {
             font-size: 12px;
             font-weight: 600;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .field-value {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fafafa;
+            line-height: 1.5;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+        .description-field {
+            background: #1a1a1a;
+            border-left: 4px solid #10b981;
+        }
+        .description-value {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #fafafa;
+            white-space: pre-wrap;
+        }
+        .consultation-field {
+            background: #1a1a1a;
+            border-left: 4px solid #10b981;
+        }
+        .consultation-field .field-value {
+            text-align: left !important;
+            display: block !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            float: none !important;
+            clear: both !important;
+        }
+        .consultation-yes {
+            background: #10b981;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
             display: inline-block;
-            margin-top: 8px;
+        }
+        .consultation-no {
+            background: #6b7280;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .empty-field {
+            color: #6b7280;
+            font-style: italic;
         }
         .footer { 
             text-align: center; 
-            margin-top: 24px; 
-            color: #9ca3af; 
+            margin-top: 30px; 
+            color: #a3a3a3; 
             font-size: 14px;
-            padding: 20px;
-            background: #000000;
-            border-top: 1px solid #333333;
+            padding: 25px;
+            background: #1a1a1a;
+            border-top: 1px solid #262626;
+        }
+        .footer p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2>New Project Inquiry</h2>
+            <h1>🚀 New Project Inquiry</h1>
+            <p>Someone wants to work with you!</p>
         </div>
         <div class="content">
-            <div class="section">
-                <div class="section-title">Contact Information</div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Name</div>
-                        <div class="info-value">{{from_name}}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Email</div>
-                        <div class="info-value">{{from_email}}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Phone</div>
-                        <div class="info-value">{{phone}}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="section-title">Project Type</div>
-                        <div class="info-value">{{project_type}}</div>
-                    </div>
-                </div>
+            <div class="field">
+                <span class="field-label">👤 Name</span>
+                <div class="field-value">{{from_name}}</div>
             </div>
             
-            <div class="section">
-                <div class="section-title">Project Details</div>
-                <div class="description-box">
-                    {{description}}
-                </div>
+            <div class="field">
+                <span class="field-label">📧 Email</span>
+                <div class="field-value">{{from_email}}</div>
             </div>
             
-            <div class="section">
-                <div class="section-title">Timeline & Budget</div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Timeline</div>
-                        <div class="info-value">{{timeline}}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Budget Range</div>
-                        <div class="info-value">{{budget}}</div>
-                    </div>
-                </div>
+            <div class="field">
+                <span class="field-label">📞 Phone</span>
+                <div class="field-value">{{phone}}</div>
             </div>
             
-            <div class="section">
-              <div class="section-title">Consultation</div>
-              <div class="info-item">
-                  <div class="info-label">Free Consultation Requested</div>
-                  <div class="info-value">{{consultation}}</div>
-              </div>
-          </div>
+            <div class="field description-field">
+                <span class="field-label">📝 Project Description</span>
+                <div class="field-value description-value">{{description}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">⏰ Timeline</span>
+                <div class="field-value">{{timeline}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">💰 Budget Range</span>
+                <div class="field-value">{{budget}}</div>
+            </div>
+            
+            <div class="field consultation-field">
+                <span class="field-label">🎯 Free Consultation</span>
+                <div class="field-value">
+                    {{consultation}}
+                </div>
+            </div>
         </div>
         <div class="footer">
-            <p>This is a new project inquiry from your Services page.</p>
+            <p><strong>📬 This inquiry came from your portfolio website</strong></p>
             <p>Please respond within 24 hours to maintain professional service.</p>
         </div>
     </div>

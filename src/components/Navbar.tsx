@@ -3,7 +3,7 @@ import {
   MobileNavHeader,
   MobileNavMenu,
   MobileNavToggle,
-  Navbar,
+  ResizableNavbar,
   NavbarLogo,
   NavBody,
   NavItems,
@@ -15,7 +15,7 @@ import { Switch } from "./ui/switch";
 import { useTheme } from "./theme-provider";
 import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 
-export function MainNavbar() {
+export function Navbar() {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -227,7 +227,7 @@ export function MainNavbar() {
 
   return (
     <div className="relative w-full">
-      <Navbar>
+      <ResizableNavbar>
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
@@ -375,7 +375,7 @@ export function MainNavbar() {
             </div>
           </MobileNavMenu>
         </MobileNav>
-      </Navbar>
+      </ResizableNavbar>
       <div className="min-h-screen pt-4 ">
         <Outlet />
       </div>

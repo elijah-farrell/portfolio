@@ -106,6 +106,20 @@ a[href^="#"] {
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Performance optimizations */
+  * {
+    will-change: auto;
+  }
+  
+  img {
+    content-visibility: auto;
+  }
+  
+  .motion-component {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 @font-face {

@@ -4,7 +4,6 @@ import { ThemeProvider } from "./components/theme-provider";
 import { HelmetProvider } from "react-helmet-async";
 import { Suspense } from "react";
 import router from "./config/routes";
-import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
             }}
           />
         </Suspense>
-        <Analytics />
         <Toaster />
       </ThemeProvider>
     </HelmetProvider>

@@ -5,8 +5,11 @@ import { HelmetProvider } from "react-helmet-async";
 import { Suspense } from "react";
 import router from "./config/routes";
 import { Toaster } from "./components/ui/toaster";
+import { useScrollPreservation } from "./hooks/use-scroll-preservation";
 
 function App() {
+  // Enable scroll position preservation
+  useScrollPreservation();
   return (
     <HelmetProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FiSend, FiCheckCircle } from "react-icons/fi";
 import { toast } from "@/hooks/use-toast";
 
@@ -94,35 +93,30 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="max-w-2xl mx-auto">
-        <CardContent className="text-center py-12">
-          <FiCheckCircle className="text-6xl text-emerald-500 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-2">Thank you!</h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Your message has been sent successfully. I'll get back to you within 24 hours.
-          </p>
-          <Button 
-            onClick={() => setIsSubmitted(false)}
-            variant="outline"
-          >
-            Send Another Message
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="text-center py-8">
+        <FiCheckCircle className="text-6xl text-emerald-500 mx-auto mb-4" />
+        <h3 className="text-2xl font-bold mb-2">Thank you!</h3>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          Your message has been sent successfully. I'll get back to you within 24 hours.
+        </p>
+        <Button 
+          onClick={() => setIsSubmitted(false)}
+          variant="outline"
+        >
+          Send Another Message
+        </Button>
+      </div>
     );
   }
 
   return (
-    <Card className="max-w-2xl mx-auto">
-      <CardHeader>
-        <p className="text-center text-gray-600 dark:text-gray-400">
-          Describe what you need help with.
-        </p>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="w-full">
+      <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
+        Describe what you need help with.
+      </p>
+      <form onSubmit={handleSubmit} className="space-y-6">
           {/* Contact Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="from_name">Name *</Label>
               <Input
@@ -171,7 +165,7 @@ export default function ContactForm() {
           </div>
 
           {/* Timeline & Budget */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="timeline">Timeline</Label>
               <Select
@@ -236,7 +230,7 @@ export default function ContactForm() {
               <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-4">
                 Pick a time that works for you.
               </p>
-              <div className="w-full h-[600px] bg-white dark:bg-gray-800 rounded border">
+              <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] bg-white dark:bg-gray-800 rounded border overflow-hidden">
                 <iframe
                   src="https://cal.com/elijahfarrell/30min"
                   width="100%"
@@ -244,6 +238,7 @@ export default function ContactForm() {
                   frameBorder="0"
                   className="rounded"
                   title="Schedule consultation"
+                  style={{ minHeight: '400px' }}
                 />
               </div>
             </div>
@@ -269,7 +264,6 @@ export default function ContactForm() {
             )}
           </Button>
         </form>
-      </CardContent>
-    </Card>
+    </div>
   );
 }

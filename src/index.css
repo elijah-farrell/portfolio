@@ -107,6 +107,25 @@ a[href^="#"] {
     @apply bg-background text-foreground;
   }
   
+  /* Theme-based overscroll area */
+  html {
+    overscroll-behavior: contain;
+  }
+  
+  body {
+    overscroll-behavior: contain;
+  }
+  
+  /* Light theme overscroll */
+  :root {
+    overscroll-behavior-color: white;
+  }
+  
+  /* Dark theme overscroll */
+  .dark {
+    overscroll-behavior-color: #0a0a0a;
+  }
+  
   /* Performance optimizations */
   * {
     will-change: auto;

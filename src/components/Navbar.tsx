@@ -8,9 +8,17 @@ import {
   NavBody,
   NavItems,
 } from "@/components/ui/resizable-navbar";
-import { useEffect, useState } from "react";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalTrigger,
+  useModal,
+} from "@/components/ui/shadcn-io/animated-modal";
+import { useEffect, useState, useRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ResumeButton from "./DownloadResumeBtn";
+import ContactForm from "./ContactForm";
 import { Switch } from "./ui/switch";
 import { useTheme } from "./theme-provider";
 import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
@@ -125,8 +133,14 @@ export function Navbar() {
     }
   };
 
-  // Scroll to services section
+  // Scroll to services section or open modal
   const scrollToServicesSection = (sectionId: string) => {
+    if (sectionId === 'modal') {
+      // Open modal for Get Started
+      setIsModalOpen(true);
+      return;
+    }
+    
     if (location.pathname !== '/services') {
       // Navigate to services page first, then scroll
       navigate('/services');
@@ -152,7 +166,7 @@ export function Navbar() {
 
   const servicesSections = [
     { name: "What I Do", sectionId: "what-i-do" },
-    { name: "Get Started", sectionId: "contact-form" },
+    { name: "Get Started", sectionId: "modal" },
   ];
 
   const mainNavItems = [
@@ -176,6 +190,7 @@ export function Navbar() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Clear any leftover sessionStorage data on component mount
   useEffect(() => {
@@ -216,6 +231,20 @@ export function Navbar() {
       }, 50);
     }
   }, [location.pathname]);
+
+  // Custom Modal Trigger Component
+  const CustomModalTrigger = () => {
+    const { setOpen } = useModal();
+    
+    useEffect(() => {
+      if (isModalOpen) {
+        setOpen(true);
+        setIsModalOpen(false);
+      }
+    }, [isModalOpen, setOpen]);
+    
+    return null;
+  };
 
   const toggleDropdown = (idx: number) => {
     setOpenDropdowns(prev => 
@@ -337,7 +366,14 @@ export function Navbar() {
                         <button
                           onClick={() => {
                             if (item.name === "Services") {
-                              scrollToServicesSection(section.sectionId);
+                              if (section.sectionId === "modal") {
+                                // Open modal for Get Started
+                                setIsMobileMenuOpen(false);
+                                setIsModalOpen(true);
+                                return;
+                              } else {
+                                scrollToServicesSection(section.sectionId);
+                              }
                             } else {
                               // For Home sections, use scrollToSection which handles navigation
                               scrollToSection(section.sectionId);
@@ -376,6 +412,23 @@ export function Navbar() {
           </MobileNavMenu>
         </MobileNav>
       </ResizableNavbar>
+      
+      {/* Modal for Get Started */}
+      <Modal>
+        <CustomModalTrigger />
+        <ModalBody>
+          <ModalContent>
+            <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-4">
+              Let's Talk About Your Project
+            </h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-center mb-6">
+              Tell me about what you need help with. I'll get back to you within 24 hours to discuss your project and see how I can help.
+            </p>
+            <ContactForm />
+          </ModalContent>
+        </ModalBody>
+      </Modal>
+      
       <div className="min-h-screen pt-4 ">
         <Outlet />
       </div>

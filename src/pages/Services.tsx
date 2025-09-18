@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ContactForm from "@/components/ContactForm";
 import { Boxes } from "@/components/ui/background-boxes";
 import { WobbleCard } from "@/components/ui/wobble-card";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalTrigger,
+  useModal,
+} from "@/components/ui/shadcn-io/animated-modal";
 import { 
   FiCode, 
   FiGlobe, 
@@ -66,6 +73,22 @@ const services = [
 
 
 export default function ServicesPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Custom Modal Trigger Component
+  const CustomModalTrigger = () => {
+    const { setOpen } = useModal();
+    
+    useEffect(() => {
+      if (isModalOpen) {
+        setOpen(true);
+        setIsModalOpen(false);
+      }
+    }, [isModalOpen, setOpen]);
+    
+    return null;
+  };
+
   return (
     <>
       <SEO
@@ -136,24 +159,44 @@ export default function ServicesPage() {
 
 
 
-          {/* Contact Form */}
-          <section id="contact-form" className="py-12 bg-gray-50 dark:bg-neutral-900">
+          {/* Contact Section */}
+          <section id="contact-form" className="py-12 bg-white dark:bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <div className="text-center md:text-center text-left mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Ready to Get Started?</h2>
-                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-4">
-                  Tell me about your project. No pressure, just a conversation about what you need.
-                </p>
-                <p className="text-base text-gray-500 dark:text-gray-400">
-                  Fill out the form below and I'll get back to you within 24 hours to discuss your project, answer questions, and see how I can help.
-                </p>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Let's Work Together</h2>
               </div>
               
-              <ContactForm />
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="relative px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-lg font-semibold transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
+                >
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
+                  <FiArrowRight className="text-xl relative z-10" />
+                  <span className="relative z-10">Get Started</span>
+                </button>
+              </div>
             </div>
           </section>
         </div>
       </main>
+      
+      {/* Modal for Get Started */}
+      <Modal>
+        <CustomModalTrigger />
+        <ModalBody>
+          <ModalContent>
+            <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-4">
+              Let's Talk About Your Project
+            </h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-center mb-6">
+              Tell me about what you need help with. I'll get back to you within 24 hours to discuss your project and see how I can help.
+            </p>
+            <ContactForm />
+          </ModalContent>
+        </ModalBody>
+      </Modal>
     </>
   );
 }

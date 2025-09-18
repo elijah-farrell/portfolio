@@ -17,7 +17,7 @@ export default function ResumeButton() {
         className="dark:bg-black bg-white text-black dark:text-white flex items-center"
       >
         <FiDownload size={16} className="mr-2" />
-        <span>View Resume</span>
+        <span>Resume</span>
       </HoverBorderGradient>
     </a>
   );

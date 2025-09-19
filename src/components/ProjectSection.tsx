@@ -75,42 +75,6 @@ const projects = [
                 liveUrl: "https://ef-downgit.vercel.app", // Update with actual URL when deployed
     live: true,
   },
-  {
-    title: "NexusChat",
-    description:
-      "A real-time chat application where users can send instant messages, manage friends, and communicate seamlessly. Features secure authentication and live messaging with a modern 3D interface.",
-    techStack: [
-      "React 18",
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "Socket.IO",
-      "Material-UI",
-      "Three.js",
-      "JWT Authentication",
-      "WebSockets",
-    ],
-            imageUrl: "/assets/projects/nexuschat.png",
-    github: "https://github.com/elijah-farrell/nexuschat",
-    liveUrl: "https://nexxuschat.vercel.app",
-    live: true,
-  },
-  {
-    title: "3D Floating Laptop",
-    description:
-      "A 3D floating laptop that displays a fully functional website on its screen. Users can interact with the website directly through the 3D interface, creating an immersive browsing experience.",
-    techStack: [
-      "React 18",
-      "Three.js",
-      "React Three Fiber",
-      "Vite",
-      "WebGL",
-    ],
-            imageUrl: "/assets/projects/3d-laptop-preview.png",
-    github: "https://github.com/elijah-farrell/3d-floating-laptop",
-    liveUrl: "https://3d-floating-laptop.vercel.app/",
-    live: true,
-  },
   // Temporarily removed Portfolio Template project
   // {
   //   title: "Portfolio Template",

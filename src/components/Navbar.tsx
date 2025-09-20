@@ -16,11 +16,9 @@ import {
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
 import { useEffect, useState, useRef } from "react";
-import ResumeButton from "./DownloadResumeBtn";
 import ContactForm from "./ContactForm";
-import { Switch } from "./ui/switch";
 import { useTheme } from "./theme-provider";
-import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
+import { Monitor, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -96,15 +94,6 @@ export function Navbar() {
     }
   };
 
-  const homeSections = [
-    { name: "About", sectionId: "about" },
-    { name: "Education", sectionId: "education" },
-    { name: "Experience", sectionId: "experience" },
-    { name: "Projects", sectionId: "projects" },
-    { name: "Skills", sectionId: "skills" },
-    { name: "Contact", sectionId: "contact" },
-  ];
-
   const servicesSections = [
     { name: "What I Do", sectionId: "what-i-do" },
     { name: "Get Started", sectionId: "modal" },
@@ -112,12 +101,34 @@ export function Navbar() {
 
   const mainNavItems = [
     {
-      name: "Home",
-      link: "/",
-      isDropdown: true,
-      sections: homeSections,
-      icon: <Home className="w-4 h-4 mr-2" />,
-      isActive: currentPath === "/",
+      name: "About",
+      link: "/#about",
+      isDropdown: false,
+      isActive: currentPath === "/" && window.location.hash === "#about",
+    },
+    {
+      name: "Education",
+      link: "/#education", 
+      isDropdown: false,
+      isActive: currentPath === "/" && window.location.hash === "#education",
+    },
+    {
+      name: "Experience",
+      link: "/#experience",
+      isDropdown: false,
+      isActive: currentPath === "/" && window.location.hash === "#experience",
+    },
+    {
+      name: "Projects",
+      link: "/#projects",
+      isDropdown: false,
+      isActive: currentPath === "/" && window.location.hash === "#projects",
+    },
+    {
+      name: "Skills",
+      link: "/#skills",
+      isDropdown: false,
+      isActive: currentPath === "/" && window.location.hash === "#skills",
     },
     {
       name: "Services", 
@@ -164,7 +175,7 @@ export function Navbar() {
               }
             }}
           />
-          <div className="flex items-center gap-3 relative z-50 mr-2">
+          <div className="flex items-center gap-3 relative z-50 mx-0">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -185,7 +196,7 @@ export function Navbar() {
               {/* Shimmer effect */}
               <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
               <Mail className="w-4 h-4 relative z-10" />
-              <span className="relative z-10">Let's Talk</span>
+              <span className="relative z-10">Contact</span>
             </button>
           </div>
         </NavBody>
@@ -216,10 +227,11 @@ export function Navbar() {
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
           >
-            {/* Main nav items with dropdowns */}
+            {/* Main nav items */}
             {mainNavItems.map((item, idx) => (
               <div key={`mobile-nav-${idx}`} className="w-full">
-                <div className="flex items-center rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700">
+                {item.isDropdown ? (
+                  <div className="flex items-center rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700">
                     <a
                       href={item.link}
                       onClick={(e) => {
@@ -231,11 +243,10 @@ export function Navbar() {
                           ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
                           : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20"
                       }`}
-                  >
-                    {item.icon && item.icon}
-                    <span className="block font-medium ml-2">{item.name}</span>
-                  </a>
-                  {item.isDropdown && (
+                    >
+                      {item.icon && item.icon}
+                      <span className="block font-medium ml-2">{item.name}</span>
+                    </a>
                     <button
                       onClick={() => {
                         // Close other dropdowns and toggle current one
@@ -251,10 +262,44 @@ export function Navbar() {
                         openDropdowns.includes(idx) ? 'rotate-180' : ''
                       }`} />
                     </button>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <a
+                    href={item.link}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      
+                      if (item.link.includes('#')) {
+                        // Section link - scroll to section
+                        const sectionId = item.link.split('#')[1];
+                        if (currentPath === '/') {
+                          // Same page - just scroll without changing URL
+                          const element = document.getElementById(sectionId);
+                          if (element) {
+                            element.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        } else {
+                          // Different page - store scroll target and navigate
+                          sessionStorage.setItem('scrollToSection', sectionId);
+                          window.location.href = '/';
+                        }
+                      } else {
+                        // Page link - navigate directly
+                        window.location.href = item.link;
+                      }
+                    }}
+                    className={`relative flex items-center text-left w-full py-3 px-4 transition-colors duration-200 rounded-lg hover:bg-accent hover:text-accent-foreground border border-gray-200 dark:border-neutral-700 ${
+                      item.isActive 
+                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
+                        : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20"
+                    }`}
+                  >
+                    <span className="block font-medium">{item.name}</span>
+                  </a>
+                )}
                 
-                {/* Dropdown sections */}
+                {/* Dropdown sections for Services */}
                 {item.isDropdown && (
                   <div className={`ml-4 mt-2 space-y-1.5 transition-all duration-200 ${
                     openDropdowns.includes(idx) ? 'block opacity-100' : 'hidden opacity-0'
@@ -305,7 +350,7 @@ export function Navbar() {
                 className="relative flex items-center justify-center w-full py-3 px-4 rounded-lg transition-all duration-200 text-white font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                <span className="block font-semibold">Get In Touch</span>
+                <span className="block font-semibold">Contact</span>
               </button>
             </div>
           </MobileNavMenu>

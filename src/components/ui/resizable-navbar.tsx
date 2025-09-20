@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ScrollProgress } from "../magicui/scroll-progress";
 import { ChevronDown } from "lucide-react";
 
@@ -114,52 +114,104 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       )}
     >
       <ScrollProgress className={visible ? `top-[52px] mx-9` : 'top-[39.6px] mx-9'} />
-      {children}
+      {React.Children.map(children, (child) =>
+        React.isValidElement(child)
+          ? React.cloneElement(
+              child as React.ReactElement<{ visible?: boolean }>,
+              { visible },
+            )
+          : child,
+      )}
     </motion.div>
   );
 };
 
 export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavItemsProps) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [clickedDropdowns, setClickedDropdowns] = useState<Set<number>>(new Set());
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+        setClickedDropdowns(new Set());
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <motion.div
+      ref={dropdownRef}
       className={cn(
-        "flex flex-row items-center justify-center space-x-4 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
+        "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 mx-0",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <div key={`nav-item-${idx}`} className={`relative ${item.name === 'Home' ? 'ml-3' : ''}`}>
+        <div key={`nav-item-${idx}`} className="relative">
           {item.isDropdown ? (
-            <div className="relative">
+            <div 
+              className="relative"
+              onMouseEnter={() => setOpenDropdown(idx)}
+              onMouseLeave={() => {
+                // Only close if not clicked (locked)
+                if (!clickedDropdowns.has(idx)) {
+                  setOpenDropdown(null);
+                }
+              }}
+            >
               <div className="flex items-center">
-                <a 
-                  href={item.link}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = item.link;
-                  }}
-                  className={`relative px-4 py-2 rounded-md transition-colors duration-200 flex items-center text-sm font-medium hover:bg-accent hover:text-accent-foreground ${
-                    item.isActive 
-                      ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                      : 'text-neutral-600 dark:text-neutral-300'
-                  }`}
-                >
-                  {item.icon && <span className="relative z-20 mr-1.5">{item.icon}</span>}
-                  <span className="relative z-20">{item.name}</span>
-                </a>
-                <button 
-                  onClick={() => {
-                    // Close other dropdowns and toggle current one
-                    setOpenDropdown(openDropdown === idx ? null : idx);
-                  }}
-                  className="px-2 py-2 rounded-md transition-colors duration-200 text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
-                >
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                    openDropdown === idx ? 'rotate-180' : ''
-                  }`} />
-                </button>
+                <div className="flex items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200 pr-1">
+                  <a 
+                    href={item.link}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = item.link;
+                    }}
+                    className={`relative px-2 py-2 flex items-center text-sm font-medium ${
+                      item.isActive 
+                        ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
+                        : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    {item.icon && <span className="relative z-20 -mr-1">{item.icon}</span>}
+                    <span className="relative z-20">{item.name}</span>
+                  </a>
+                  <button 
+                    onClick={() => {
+                      // Toggle dropdown and lock it when clicked
+                      const newOpenDropdown = openDropdown === idx ? null : idx;
+                      setOpenDropdown(newOpenDropdown);
+                      
+                      // Track clicked state
+                      if (newOpenDropdown === idx) {
+                        setClickedDropdowns(prev => new Set(prev).add(idx));
+                      } else {
+                        setClickedDropdowns(prev => {
+                          const newSet = new Set(prev);
+                          newSet.delete(idx);
+                          return newSet;
+                        });
+                      }
+                    }}
+                    className={`py-2 -ml-1 transition-all duration-200 ${
+                      clickedDropdowns.has(idx)
+                        ? 'text-emerald-500 dark:text-emerald-400' 
+                        : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    <ChevronDown className={`w-4 h-4 transition-all duration-200 ${
+                      openDropdown === idx ? 'rotate-180' : ''
+                    }`} />
+                  </button>
+                </div>
               </div>
               
               {/* Dropdown */}
@@ -171,6 +223,13 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                     className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-2 z-[9999]"
+                    onMouseEnter={() => setOpenDropdown(idx)}
+                    onMouseLeave={() => {
+                      // Only close if not clicked (locked)
+                      if (!clickedDropdowns.has(idx)) {
+                        setOpenDropdown(null);
+                      }
+                    }}
                   >
                     {item.sections?.map((section, sectionIdx) => (
                       <a
@@ -208,17 +267,41 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
               </AnimatePresence>
             </div>
           ) : (
-            <button
-              onClick={() => onItemClick?.(item.name)}
-              className={`relative px-4 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg ${
+            <a
+              href={item.link}
+              onClick={(e) => {
+                e.preventDefault();
+                
+                if (item.link.includes('#')) {
+                  // Section link - scroll to section
+                  const sectionId = item.link.split('#')[1];
+                  const currentPath = window.location.pathname;
+                  
+                  if (currentPath === '/') {
+                    // Same page - just scroll without changing URL
+                    const element = document.getElementById(sectionId);
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  } else {
+                    // Different page - store scroll target and navigate
+                    sessionStorage.setItem('scrollToSection', sectionId);
+                    window.location.href = '/';
+                  }
+                } else {
+                  // Page link - navigate directly
+                  window.location.href = item.link;
+                }
+              }}
+              className={`relative px-2 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg hover:bg-accent hover:text-accent-foreground ${
                 item.isActive 
                   ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                  : 'text-neutral-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
+                  : 'text-neutral-600 dark:text-neutral-300'
               }`}
             >
               {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
               <span className="relative z-20">{item.name}</span>
-            </button>
+            </a>
           )}
         </div>
       ))}
@@ -300,9 +383,9 @@ export const MobileNavMenu = ({
   );
 };
 
-export const NavbarLogo = () => {
+export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
   return (
-    <div className="flex items-center ml-2">
+    <div className={`flex items-center ${visible ? 'ml-0 mr-1' : 'ml-2 mr-2'}`}>
       <a 
         href="/"
         onClick={(e) => {
@@ -314,7 +397,7 @@ export const NavbarLogo = () => {
         {/* Shimmer effect */}
         <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
-        <span className="hidden md:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
+        <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>
     </div>
   );

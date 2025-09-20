@@ -175,7 +175,7 @@ export function Navbar() {
               }
             }}
           />
-          <div className="flex items-center gap-3 relative z-50 mx-0">
+          <div className="flex items-center gap-2 relative z-50 ml-0 mr-1">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -191,7 +191,7 @@ export function Navbar() {
             {/* Contact Button */}
             <button
               onClick={scrollToContact}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5 cursor-pointer relative z-50 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
+              className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-lg transition-all duration-300 flex items-center gap-1 cursor-pointer relative z-50 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
             >
               {/* Shimmer effect */}
               <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>

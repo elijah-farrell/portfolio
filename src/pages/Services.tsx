@@ -109,11 +109,8 @@ export default function ServicesPage() {
             
              <div className="max-w-7xl mx-auto relative z-20 px-4 lg:px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gradient-to-br hover:from-emerald-100/30 hover:to-emerald-200/30 dark:hover:from-emerald-950/20 dark:hover:to-emerald-900/20">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
-                Need Help with a <span className="text-emerald-600 whitespace-nowrap">Tech Project</span>?
+                My Services
               </h1>
-               <p className="text-xl text-gray-700 dark:text-emerald-100 max-w-3xl mx-auto">
-                 I'm a CS professional who builds things. Websites, apps, scripts, whatever. If you have an idea or need help with something technical, let's talk about it.
-               </p>
             </div>
           </section>
 

@@ -99,8 +99,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         width: visible ? "90%" : "100%",
         paddingTop: visible ? "15px" : "10px",
         paddingBottom: visible ? "10px" : "10px",
-        paddingRight: visible ? "40px" : "0px",
-        paddingLeft: visible ? "40px" : "0px",
+        paddingRight: visible ? "20px" : "0px",
+        paddingLeft: visible ? "20px" : "0px",
         y: visible ? 0 : 0,
       }}
       transition={{
@@ -109,7 +109,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 lg:px-6 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >

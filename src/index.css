@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add smooth scrolling behavior */
+/* Add smooth scrolling behavior only for hash navigation */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   /* Account for fixed navbar height on both mobile and desktop */
   scroll-padding-top: 30px; /* Desktop navbar height - very tight */
 }

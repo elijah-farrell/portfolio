@@ -16,7 +16,6 @@ import {
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
 import { useEffect, useState, useRef } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ResumeButton from "./DownloadResumeBtn";
 import ContactForm from "./ContactForm";
 import { Switch } from "./ui/switch";
@@ -25,8 +24,7 @@ import { Monitor, Home, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const currentPath = window.location.pathname;
 
   const isDark = theme === "dark";
 
@@ -84,73 +82,16 @@ export function Navbar() {
     }
   };
 
-  // Check if current page is active
-  const isActivePage = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/" && !location.hash;
-    }
-    return location.pathname === path;
-  };
-
-  // Check if current section is active (for home sections)
-  const isActiveSection = (hash: string) => {
-    return location.hash === hash;
-  };
-
-  // Scroll to contact section without changing URL
+  // Navigate to contact section
   const scrollToContact = () => {
-    if (location.pathname !== '/') {
-      // If not on home page, navigate to home page first, then scroll to contact
-      navigate('/');
-      setTimeout(() => {
-        const contactSection = document.getElementById('contact');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+    if (currentPath !== '/') {
+      // If not on home page, navigate to home with contact hash
+      window.location.href = '/#contact';
     } else {
       // Already on home page, just scroll to contact
       const contactSection = document.getElementById('contact');
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  };
-
-  // Scroll to section without changing URL
-  const scrollToSection = (sectionId: string) => {
-    if (location.pathname !== '/') {
-      // If not on home page, navigate to home page first, then scroll to section
-      navigate('/');
-      // Store the section to scroll to after navigation
-      sessionStorage.setItem('scrollToSection', sectionId);
-    } else {
-      // Already on home page, just scroll directly to section
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  };
-
-  // Scroll to services section or open modal
-  const scrollToServicesSection = (sectionId: string) => {
-    if (sectionId === 'modal') {
-      // Open modal for Get Started
-      setIsModalOpen(true);
-      return;
-    }
-    
-    if (location.pathname !== '/services') {
-      // Navigate to services page first, then scroll
-      navigate('/services');
-      // Store the section to scroll to after navigation
-      sessionStorage.setItem('scrollToServicesSection', sectionId);
-    } else {
-      // Already on services page, just scroll directly to section
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
@@ -176,61 +117,23 @@ export function Navbar() {
       isDropdown: true,
       sections: homeSections,
       icon: <Home className="w-4 h-4 mr-2" />,
-      isActive: isActivePage("/"),
+      isActive: currentPath === "/",
     },
     {
-      name: "Services",
+      name: "Services", 
       link: "/services",
       isDropdown: true,
       sections: servicesSections,
       icon: <Monitor className="w-4 h-4 mr-2" />,
-      isActive: isActivePage("/services"),
+      isActive: currentPath === "/services",
     },
   ];
 
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Clear any leftover sessionStorage data on component mount
-  useEffect(() => {
-    // Clear any leftover section data when component mounts
-    sessionStorage.removeItem('scrollToSection');
-    sessionStorage.removeItem('scrollToServicesSection');
-  }, []);
 
-  // Handle automatic scrolling after navigation
-  useEffect(() => {
-    // Check if we need to scroll to a section after navigation
-    const scrollToSection = sessionStorage.getItem('scrollToSection');
-    const scrollToServicesSection = sessionStorage.getItem('scrollToServicesSection');
-    
-    if (scrollToSection && location.pathname === '/') {
-      // Clear the stored section
-      sessionStorage.removeItem('scrollToSection');
-      // First scroll to top, then to the section
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      setTimeout(() => {
-        const section = document.getElementById(scrollToSection);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 50);
-    }
-    
-    if (scrollToServicesSection && location.pathname === '/services') {
-      // Clear the stored section
-      sessionStorage.removeItem('scrollToServicesSection');
-      // First scroll to top, then to the section
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      setTimeout(() => {
-        const section = document.getElementById(scrollToServicesSection);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 50);
-    }
-  }, [location.pathname]);
 
   // Custom Modal Trigger Component
   const CustomModalTrigger = () => {
@@ -246,13 +149,6 @@ export function Navbar() {
     return null;
   };
 
-  const toggleDropdown = (idx: number) => {
-    setOpenDropdowns(prev => 
-      prev.includes(idx) 
-        ? prev.filter(i => i !== idx)
-        : [...prev, idx]
-    );
-  };
 
   return (
     <div className="relative w-full">
@@ -261,9 +157,12 @@ export function Navbar() {
         <NavBody>
           <NavbarLogo />
           <NavItems 
-            items={mainNavItems} 
-            scrollToSection={scrollToSection}
-            scrollToServicesSection={scrollToServicesSection}
+            items={mainNavItems}
+            onSectionClick={(sectionId) => {
+              if (sectionId === "modal") {
+                setIsModalOpen(true);
+              }
+            }}
           />
           <div className="flex items-center gap-3 relative z-50 mr-2">
             {/* Theme Toggle Button */}
@@ -321,21 +220,21 @@ export function Navbar() {
             {mainNavItems.map((item, idx) => (
               <div key={`mobile-nav-${idx}`} className="w-full">
                 <div className="flex items-center rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700">
-                    <button
-                      onClick={() => {
-                        // Force a full page reload to the new URL
-                        window.location.assign(item.link);
-                        setIsMobileMenuOpen(false);
+                    <a
+                      href={item.link}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = item.link;
                       }}
-                    className={`relative flex items-center text-left flex-1 py-3 px-4 transition-all duration-200 ${
-                      item.isActive 
-                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
-                        : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-neutral-800/40"
-                    }`}
+                      className={`relative flex items-center text-left flex-1 py-3 px-4 transition-colors duration-200 rounded-l-lg hover:bg-accent hover:text-accent-foreground ${
+                        item.isActive 
+                          ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
+                          : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20"
+                      }`}
                   >
                     {item.icon && item.icon}
                     <span className="block font-medium ml-2">{item.name}</span>
-                  </button>
+                  </a>
                   {item.isDropdown && (
                     <button
                       onClick={() => {
@@ -346,7 +245,7 @@ export function Navbar() {
                           setOpenDropdowns([idx]);
                         }
                       }}
-                      className="px-3 py-3 transition-colors border-l border-gray-200 dark:border-neutral-700 h-full bg-gray-50 dark:bg-neutral-800/30 text-neutral-600 dark:text-neutral-300"
+                      className="px-3 py-3 transition-colors border-l border-gray-200 dark:border-neutral-700 h-full bg-gray-50 dark:bg-neutral-800/30 text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground rounded-r-lg"
                     >
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                         openDropdowns.includes(idx) ? 'rotate-180' : ''
@@ -363,32 +262,32 @@ export function Navbar() {
                     {item.sections?.map((section, sectionIdx) => (
                       <div key={`mobile-${item.name}-${sectionIdx}`} className="flex items-center">
                         <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500 ml-1 mr-3 flex-shrink-0"></span>
-                        <button
-                          onClick={() => {
-                            if (item.name === "Services") {
-                              if (section.sectionId === "modal") {
-                                // Open modal for Get Started
-                                setIsMobileMenuOpen(false);
-                                setIsModalOpen(true);
-                                return;
-                              } else {
-                                scrollToServicesSection(section.sectionId);
-                              }
-                            } else {
-                              // For Home sections, use scrollToSection which handles navigation
-                              scrollToSection(section.sectionId);
-                            }
+                        <a
+                          href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
+                          onClick={(e) => {
+                            e.preventDefault();
                             setIsMobileMenuOpen(false);
+                            
+                            if (section.sectionId === "modal") {
+                              setIsModalOpen(true);
+                            } else {
+                              if (currentPath === item.link) {
+                                // Same page - just scroll without changing URL
+                                const element = document.getElementById(section.sectionId);
+                                if (element) {
+                                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }
+                              } else {
+                                // Different page - store scroll target and navigate
+                                sessionStorage.setItem('scrollToSection', section.sectionId);
+                                window.location.href = item.link;
+                              }
+                            }
                           }}
-                          className={`flex-1 text-sm transition-colors text-left py-2.5 px-3 rounded-md ${
-                            (item.name === "Home" && isActiveSection(section.sectionId)) ||
-                            (item.name === "Services" && location.pathname === "/services" && location.hash === `#${section.sectionId}`)
-                              ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800"
-                              : "text-neutral-600 dark:text-neutral-300 bg-gray-50/30 dark:bg-neutral-800/10 hover:text-emerald-500 dark:hover:text-emerald-500 hover:bg-gray-100 dark:hover:bg-neutral-800/50 border border-gray-200 dark:border-neutral-700"
-                          }`}
+                          className="flex-1 text-sm transition-colors text-left py-2.5 px-3 rounded-md text-neutral-600 dark:text-neutral-300 bg-gray-50/30 dark:bg-neutral-800/10 hover:bg-accent hover:text-accent-foreground border border-gray-200 dark:border-neutral-700"
                         >
                           {section.name}
-                        </button>
+                        </a>
                       </div>
                     ))}
                   </div>
@@ -429,9 +328,6 @@ export function Navbar() {
         </ModalBody>
       </Modal>
       
-      <div className="min-h-screen pt-4 ">
-        <Outlet />
-      </div>
     </div>
   );
 }

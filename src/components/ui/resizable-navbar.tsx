@@ -4,7 +4,6 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import React, { useRef, useState } from "react";
 import { ScrollProgress } from "../magicui/scroll-progress";
 import { ChevronDown } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -27,9 +26,8 @@ interface NavItemsProps {
     isActive?: boolean;
   }[];
   className?: string;
-  onItemClick?: () => void;
-  scrollToSection?: (sectionId: string) => void;
-  scrollToServicesSection?: (sectionId: string) => void;
+  onItemClick?: (itemName: string) => void;
+  onSectionClick?: (sectionId: string) => void;
 }
 
 interface MobileNavProps {
@@ -54,7 +52,7 @@ interface MobileNavMenuProps {
 
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const location = useLocation();
+  const currentPath = window.location.pathname;
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -64,7 +62,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     // Use smaller threshold (50px) for services page, 100px for other pages
-    const threshold = location.pathname === '/services' ? 50 : 100;
+    const threshold = currentPath === '/services' ? 50 : 100;
     
     if (latest > threshold) {
       setVisible(true);
@@ -121,14 +119,13 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick, scrollToSection, scrollToServicesSection }: NavItemsProps) => {
+export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavItemsProps) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-  const location = useLocation();
 
   return (
     <motion.div
       className={cn(
-        "absolute inset-0 flex flex-row items-center justify-center space-x-4 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
+        "flex flex-row items-center justify-center space-x-4 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ml-6",
         className,
       )}
     >
@@ -141,13 +138,12 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
                   href={item.link}
                   onClick={(e) => {
                     e.preventDefault();
-                    // Force a full page reload to the new URL
-                    window.location.assign(item.link);
+                    window.location.href = item.link;
                   }}
-                  className={`relative px-3 py-2 transition-all duration-300 ease-in-out flex items-center ${
+                  className={`relative px-4 py-2 rounded-md transition-colors duration-200 flex items-center text-sm font-medium hover:bg-accent hover:text-accent-foreground ${
                     item.isActive 
                       ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
+                      : 'text-neutral-600 dark:text-neutral-300'
                   }`}
                 >
                   {item.icon && <span className="relative z-20 mr-1.5">{item.icon}</span>}
@@ -158,7 +154,7 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
                     // Close other dropdowns and toggle current one
                     setOpenDropdown(openDropdown === idx ? null : idx);
                   }}
-                  className="px-2 py-2 transition-all duration-200 ease-in-out text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500"
+                  className="px-2 py-2 rounded-md transition-colors duration-200 text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
                 >
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                     openDropdown === idx ? 'rotate-180' : ''
@@ -177,43 +173,52 @@ export const NavItems = ({ items, className, onItemClick, scrollToSection, scrol
                     className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-2 z-[9999]"
                   >
                     {item.sections?.map((section, sectionIdx) => (
-                      <button
+                      <a
                         key={sectionIdx}
-                        onClick={() => {
-                          if (item.name === 'Home' && scrollToSection) {
-                            scrollToSection(section.sectionId);
-                          } else if (item.name === 'Services' && scrollToServicesSection) {
-                            scrollToServicesSection(section.sectionId);
-                          }
+                        href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
+                        onClick={(e) => {
+                          e.preventDefault();
                           setOpenDropdown(null);
+                          
+                          if (section.sectionId === "modal") {
+                            onSectionClick?.(section.sectionId);
+                          } else {
+                            const currentPath = window.location.pathname;
+                            
+                            if (currentPath === item.link) {
+                              // Same page - just scroll without changing URL
+                              const element = document.getElementById(section.sectionId);
+                              if (element) {
+                                element.scrollIntoView({ behavior: "smooth", block: "start" });
+                              }
+                            } else {
+                              // Different page - store scroll target and navigate
+                              sessionStorage.setItem('scrollToSection', section.sectionId);
+                              window.location.href = item.link;
+                            }
+                          }
                         }}
-                        className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-150 ${
-                          (item.name === 'Home' && location.pathname === '/' && location.hash === `#${section.sectionId}`) ||
-                          (item.name === 'Services' && location.pathname === '/services' && location.hash === `#${section.sectionId}`)
-                            ? 'text-emerald-500 dark:text-emerald-400 font-medium'
-                            : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500'
-                        }`}
+                        className="block w-full text-left px-4 py-2 text-sm transition-colors duration-150 rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
                       >
                         {section.name}
-                      </button>
+                      </a>
                     ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           ) : (
-            <a
-              onClick={onItemClick}
+            <button
+              onClick={() => onItemClick?.(item.name)}
               className={`relative px-4 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg ${
                 item.isActive 
                   ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
                   : 'text-neutral-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
               }`}
-              href={item.link}
             >
               {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
               <span className="relative z-20">{item.name}</span>
-            </a>
+            </button>
           )}
         </div>
       ))}
@@ -296,22 +301,21 @@ export const MobileNavMenu = ({
 };
 
 export const NavbarLogo = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <div className="flex items-center ml-2">
-      <button 
-        onClick={scrollToTop}
-        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded px-2 py-1 hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
-        aria-label="Scroll to top"
+      <a 
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.href = '/';
+        }}
+        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded px-2 py-1 hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
       >
         {/* Shimmer effect */}
-        <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
+        <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
         <span className="hidden md:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
-      </button>
+      </a>
     </div>
   );
 };

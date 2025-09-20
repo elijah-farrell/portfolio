@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "@/pages/Home";
 import { Navbar } from "@/components/Navbar";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import ServicesPage from "@/pages/Services";
 
 const router = createBrowserRouter([
   {
     element: (
       <>
+        <ScrollToTop />
         <Navbar />
       </>
     ),
@@ -25,15 +27,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-], {
-  future: {
-    v7_relativeSplatPath: true,
-    v7_fetcherPersist: true,
-    v7_normalizeFormMethod: true,
-    v7_partialHydration: true,
-    v7_skipActionErrorRevalidation: true,
-  },
-});
+]);
 
 function NotFoundPage() {
   return (

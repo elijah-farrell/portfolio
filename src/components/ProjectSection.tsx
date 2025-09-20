@@ -39,7 +39,7 @@ const projects = [
   {
     title: "Portfolio Template",
     description:
-      "A modern, responsive portfolio website template built with Next.js and shadcn/ui components. Features clean minimal design, dark mode support, and optimized performance for all devices.",
+      "Minimal portfolio template focused on showcasing your work without distractions.",
     techStack: [
       "Next.js 15",
       "React 19",
@@ -50,7 +50,7 @@ const projects = [
       "Responsive Design",
       "Framer Motion",
     ],
-    imageUrl: "/assets/projects/thumbnail.png",
+    imageUrl: "/assets/projects/minimal.png",
     github: "https://github.com/elijah-farrell/portfolio-tempalte03",
     liveUrl: "https://ef-portfolio03.vercel.app",
     live: true,

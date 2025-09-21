@@ -372,7 +372,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "absolute inset-x-0 top-full z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700",
+            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
             className,
           )}
         >
@@ -397,7 +397,7 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
         {/* Shimmer effect */}
         <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
-        <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
+        <span className="inline lg:hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>
     </div>
   );

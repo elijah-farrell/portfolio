@@ -109,7 +109,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-4 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-5 xl:px-8 2xl:px-16 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
@@ -317,10 +317,8 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: visible ? "100%" : "100%",
-        paddingRight: visible ? "15px" : "10px",
-        paddingLeft: visible ? "15px" : "10px",
-        y: visible ? 0 : 0,
+        width: visible ? "95%" : "100%",
+        y: 0,
       }}
       transition={{
         type: "spring",
@@ -328,7 +326,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-between px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90",
+        `relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-between px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90 ${visible ? 'md:rounded-full' : ''}`,
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
@@ -347,7 +345,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between px-4 py-3",
+        "flex w-full flex-row items-center justify-between px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-3",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
@@ -372,7 +370,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "absolute inset-x-0 top-full z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-4 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700",
+            "absolute inset-x-0 top-full z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700",
             className,
           )}
         >
@@ -385,14 +383,14 @@ export const MobileNavMenu = ({
 
 export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
   return (
-    <div className={`flex items-center ${visible ? 'ml-0 mr-1' : 'ml-2 mr-2'}`}>
+    <div className={`flex items-center ${visible ? 'ml-0 mr-1' : 'ml-0 mr-0'}`}>
       <a 
         href="/"
         onClick={(e) => {
           e.preventDefault();
           window.location.href = '/';
         }}
-        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded px-2 py-1 hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
+        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1 hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
       >
         {/* Shimmer effect */}
         <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>

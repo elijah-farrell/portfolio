@@ -204,8 +204,8 @@ export function Navbar() {
         {/* Mobile Navigation */}
         <MobileNav isMenuOpen={isMobileMenuOpen}>
           <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
-            <NavbarLogo />
-            <div className="flex items-center gap-2">
+            <NavbarLogo visible={false} />
+            <div className="flex items-center gap-2 mr-0">
               <button
                 onClick={toggleTheme}
                 className="p-2.5 rounded-full bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"

@@ -131,7 +131,7 @@ export default function HeroSection(): JSX.Element {
 
   return (
     <>
-      <div className="min-h-screen h-auto flex flex-col lg:flex-row justify-center items-center px-1 xs:px-2 sm:px-4 md:px-40 space-x-2 mt-10 relative overflow-hidden">
+      <div className="min-h-screen h-auto flex flex-col lg:flex-row justify-center items-center px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 space-x-2 mt-10 relative overflow-hidden">
         <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full">
           {/* Status Badge */}
           {settings.showAvailableForOpportunities && (

@@ -3,7 +3,6 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ContactForm from "@/components/ContactForm";
-import { Boxes } from "@/components/ui/background-boxes";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import {
   Modal,
@@ -101,14 +100,9 @@ export default function ServicesPage() {
       <main className="mt-10">
         <div id="services">
           {/* Hero Section */}
-          <section className="h-[40vh] flex flex-col justify-center text-center relative overflow-hidden bg-white dark:bg-black">
-            <div className="absolute inset-0 w-full h-full">
-              <Boxes />
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-white/90 via-white/70 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/50 z-10 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,white)] dark:[mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,transparent,black)] pointer-events-none" />
-            </div>
-            
-             <div className="max-w-7xl mx-auto relative z-20 px-4 lg:px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gradient-to-br hover:from-emerald-100/30 hover:to-emerald-200/30 dark:hover:from-emerald-950/20 dark:hover:to-emerald-900/20">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+          <section className="pt-16 pb-8 flex flex-col justify-center bg-white dark:bg-neutral-950">
+            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white text-left">
                 My Services
               </h1>
             </div>

@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
-import { ScrollProgress } from "../magicui/scroll-progress";
 import { ChevronDown } from "lucide-react";
 
 interface NavbarProps {
@@ -96,32 +95,35 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
+        paddingTop: visible ? "24px" : "20px",
+        paddingBottom: visible ? "24px" : "20px",
+        paddingRight: visible ? "24px" : "0px",
+        paddingLeft: visible ? "24px" : "0px",
         width: visible ? "90%" : "100%",
-        paddingTop: visible ? "15px" : "10px",
-        paddingBottom: visible ? "10px" : "10px",
-        paddingRight: visible ? "20px" : "0px",
-        paddingLeft: visible ? "20px" : "0px",
         y: visible ? 0 : 0,
       }}
       transition={{
         type: "spring",
-        stiffness: 200,
-        damping: 50,
+        stiffness: 400,
+        damping: 45,
+        duration: 0.8,
+        ease: "easeOut",
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-7xl flex-row items-center justify-between px-5 xl:px-8 2xl:px-16 py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
-      <ScrollProgress className={visible ? `top-[52px] mx-9` : 'top-[39.6px] mx-9'} />
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(
-              child as React.ReactElement<{ visible?: boolean }>,
-              { visible },
-            )
-          : child,
-      )}
+      <div className="w-full px-0 md:px-4 lg:px-6 xl:px-8 flex flex-row items-center justify-between">
+        {React.Children.map(children, (child) =>
+          React.isValidElement(child)
+            ? React.cloneElement(
+                child as React.ReactElement<{ visible?: boolean }>,
+                { visible },
+              )
+            : child,
+        )}
+      </div>
     </motion.div>
   );
 };
@@ -310,6 +312,18 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
 };
 
 export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
+  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsTabletOrLarger(window.innerWidth >= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
     <motion.div
       animate={{
@@ -317,23 +331,26 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: "100%",
+        width: visible && isTabletOrLarger ? "90%" : "100%",
+        paddingTop: visible ? "8px" : "4px",
+        paddingBottom: visible ? "8px" : "4px",
         paddingLeft: visible ? "8px" : "0px",
         paddingRight: visible ? "8px" : "0px",
         y: 0,
       }}
       transition={{
         type: "spring",
-        stiffness: 200,
-        damping: 50,
+        stiffness: 400,
+        damping: 45,
+        duration: 0.8,
+        ease: "easeOut",
       }}
       className={cn(
-        `relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-between px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90 ${visible ? 'md:rounded-full' : ''}`,
+        `relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90 ${visible ? 'md:rounded-full' : ''}`,
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
     >
-      <ScrollProgress className={'top-[52px]'} />
       {children}
     </motion.div>
   );
@@ -347,7 +364,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-3",
+        "flex w-full flex-row items-center justify-between px-1 sm:px-2 md:px-2 lg:px-2 xl:px-4 2xl:px-6 py-3",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
@@ -372,7 +389,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
+            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-2 md:px-2 lg:px-2 xl:px-4 2xl:px-6 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
             className,
           )}
         >
@@ -397,7 +414,7 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
         {/* Shimmer effect */}
         <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
-        <span className="inline lg:hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
+        <span className="hidden sm:inline lg:hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>
     </div>
   );

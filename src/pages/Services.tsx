@@ -3,7 +3,9 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ContactForm from "@/components/ContactForm";
-import { WobbleCard } from "@/components/ui/wobble-card";
+import ServicesBentoGrid from "@/components/ui/services-bento-grid";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { TracingBeam } from "@/components/ui/tracing-beam";
 import {
   Modal,
   ModalBody,
@@ -12,64 +14,9 @@ import {
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
 import { 
-  FiCode, 
-  FiGlobe, 
-  FiDatabase, 
-  FiServer,
-  FiSmartphone,
-  FiZap,
-  FiArrowRight,
-  FiCheck
+  FiArrowRight
 } from "react-icons/fi";
-
-const services = [
-  {
-    name: "Web Development",
-    description: "Custom websites and web applications",
-    icon: <FiGlobe className="text-2xl text-emerald-600" />,
-    examples: [
-      "Portfolio sites",
-      "Business websites", 
-      "Web apps with React/TypeScript",
-      "Landing pages"
-    ]
-  },
-  {
-    name: "Backend & APIs",
-    description: "Server-side development and database work",
-    icon: <FiServer className="text-2xl text-emerald-600" />,
-    examples: [
-      "REST APIs",
-      "Database design",
-      "Authentication systems",
-      "Data processing scripts"
-    ]
-  },
-  {
-    name: "Data & Automation",
-    description: "Scripts and tools to make your life easier",
-    icon: <FiZap className="text-2xl text-emerald-600" />,
-    examples: [
-      "Data analysis scripts",
-      "Automation tools",
-      "File processing",
-      "API integrations"
-    ]
-  },
-  {
-    name: "Technical Consulting",
-    description: "Help with your tech decisions and implementation",
-    icon: <FiCode className="text-2xl text-emerald-600" />,
-    examples: [
-      "Tech stack recommendations",
-      "Architecture planning",
-      "Code review",
-      "Performance optimization"
-    ]
-  }
-];
-
-
+import { motion } from "motion/react";
 
 export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -97,13 +44,40 @@ export default function ServicesPage() {
         url="https://elijahfarrell.com/services"
       />
 
-      <main className="mt-10">
+      <main className="mt-10 relative">
+        
         <div id="services">
           {/* Hero Section */}
-          <section className="pt-16 pb-8 flex flex-col justify-center bg-white dark:bg-neutral-950">
-            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white text-left">
-                My Services
+          <section className="pt-16 pb-8 flex flex-col justify-center bg-white dark:bg-neutral-950 relative">
+            
+            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 relative z-10">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-left relative group px-8 py-6 cursor-pointer">
+                {/* 3D Text Effect */}
+                <div className="relative z-20">
+                  <TextGenerateEffect 
+                    words="My Services" 
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold [&_span]:!text-gray-900 dark:[&_span]:!text-white [&>div]:!leading-none [&>div>div]:!leading-none"
+                    duration={0.5}
+                  />
+                </div>
+                {/* Shadow layer for 3D effect */}
+                <div className="absolute top-6 left-8 opacity-30 transform translate-x-1 translate-y-1 z-10">
+                  <TextGenerateEffect 
+                    words="My Services" 
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold [&_span]:!text-gray-900 dark:[&_span]:!text-white [&>div]:!leading-none [&>div>div]:!leading-none"
+                    duration={0.5}
+                  />
+                </div>
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-emerald-400/30 to-emerald-500/20 blur-sm rounded-xl -z-10"></div>
+                {/* Animated border with gradient */}
+                <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
+                <div className="absolute inset-[2px] bg-white dark:bg-neutral-950 rounded-lg"></div>
+                {/* Corner accent lines */}
+                <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-emerald-500 rounded-tl-lg"></div>
+                <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-emerald-500 rounded-tr-lg"></div>
+                <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-emerald-500 rounded-bl-lg"></div>
+                <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-emerald-500 rounded-br-lg"></div>
               </h1>
             </div>
           </section>
@@ -111,49 +85,24 @@ export default function ServicesPage() {
           {/* What I Can Help With */}
           <section id="what-i-do" className="py-12 bg-white dark:bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
-              <div className="text-center md:text-center text-left mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">What I Can Help With</h2>
-                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
-                  Based on my background in CS and experience building things. Here's what I'm comfortable tackling:
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {services.map((service, index) => (
-                  <WobbleCard 
-                    key={index} 
-                    containerClassName="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-700 shadow-lg dark:shadow-white/10 dark:shadow-xl"
-                    className="text-gray-900 dark:text-white py-8"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      {service.icon}
-                      <h3 className="text-xl font-semibold">{service.name}</h3>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
-                    
-                    <div className="mb-4">
-                      <h4 className="font-semibold mb-2">Examples:</h4>
-                      <ul className="space-y-1">
-                        {service.examples.map((example, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <FiCheck className="text-emerald-500 flex-shrink-0" />
-                            {example}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </WobbleCard>
-                ))}
-              </div>
+              <TracingBeam className="px-6">
+                <div className="text-left mb-12 pt-8">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">What I Can Help With</h2>
+                </div>
+                
+                <div className="flex justify-center">
+                  <ServicesBentoGrid />
+                </div>
+              </TracingBeam>
             </div>
           </section>
 
 
 
           {/* Contact Section */}
-          <section id="contact-form" className="py-12 bg-white dark:bg-neutral-950">
+          <section id="contact-form" className="pb-12 bg-white dark:bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
-              <div className="text-center md:text-center text-left mb-8">
+              <div className="text-center mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Let's Work Together</h2>
               </div>
               

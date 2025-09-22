@@ -130,7 +130,6 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavItemsProps) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-  const [clickedDropdowns, setClickedDropdowns] = useState<Set<number>>(new Set());
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -138,7 +137,6 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
-        setClickedDropdowns(new Set());
       }
     };
 
@@ -161,79 +159,58 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
           {item.isDropdown ? (
             <div 
               className="relative"
-              onMouseEnter={() => setOpenDropdown(idx)}
+              onMouseEnter={() => {
+                setOpenDropdown(idx);
+              }}
               onMouseLeave={() => {
-                // Only close if not clicked (locked)
-                if (!clickedDropdowns.has(idx)) {
-                  setOpenDropdown(null);
-                }
+                setOpenDropdown(null);
               }}
             >
-              <div className="flex items-center">
-                <div className="flex items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200 pr-1">
-                  <a 
-                    href={item.link}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.location.href = item.link;
-                    }}
-                    className={`relative px-2 py-2 flex items-center text-sm font-medium ${
-                      item.isActive 
-                        ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                        : 'text-neutral-600 dark:text-neutral-300'
-                    }`}
-                  >
-                    {item.icon && <span className="relative z-20 -mr-1">{item.icon}</span>}
-                    <span className="relative z-20">{item.name}</span>
-                  </a>
-                  <button 
-                    onClick={() => {
-                      // Toggle dropdown and lock it when clicked
-                      const newOpenDropdown = openDropdown === idx ? null : idx;
-                      setOpenDropdown(newOpenDropdown);
-                      
-                      // Track clicked state
-                      if (newOpenDropdown === idx) {
-                        setClickedDropdowns(prev => new Set(prev).add(idx));
-                      } else {
-                        setClickedDropdowns(prev => {
-                          const newSet = new Set(prev);
-                          newSet.delete(idx);
-                          return newSet;
-                        });
-                      }
-                    }}
-                    className={`py-2 -ml-1 transition-all duration-200 ${
-                      clickedDropdowns.has(idx)
-                        ? 'text-emerald-500 dark:text-emerald-400' 
-                        : 'text-neutral-600 dark:text-neutral-300'
-                    }`}
-                  >
-                    <ChevronDown className={`w-4 h-4 transition-all duration-200 ${
-                      openDropdown === idx ? 'rotate-180' : ''
-                    }`} />
-                  </button>
+                <div className={`flex items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200 ${
+                  item.isActive 
+                    ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
+                    : 'text-neutral-600 dark:text-neutral-300'
+                }`}>
+                 <a 
+                   href={item.link}
+                   onClick={(e) => {
+                     e.preventDefault();
+                     window.location.href = item.link;
+                   }}
+                   className="relative px-2 py-2 flex items-center text-sm font-medium"
+                 >
+                   {item.icon && <span className="relative z-20 -mr-1">{item.icon}</span>}
+                   <span className="relative z-20">{item.name}</span>
+                 </a>
+                 <button
+                   onClick={(e) => {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     const newOpenDropdown = openDropdown === idx ? null : idx;
+                     setOpenDropdown(newOpenDropdown);
+                   }}
+                   className="pr-2 py-2 text-sm font-medium"
+                 >
+                   <ChevronDown className={`w-4 h-4 transition-all duration-200 relative z-20 ${
+                     openDropdown === idx ? 'rotate-180' : ''
+                   }`} />
+                 </button>
                 </div>
-              </div>
               
               {/* Dropdown */}
               <AnimatePresence>
                 {openDropdown === idx && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-2 z-[9999]"
-                    onMouseEnter={() => setOpenDropdown(idx)}
-                    onMouseLeave={() => {
-                      // Only close if not clicked (locked)
-                      if (!clickedDropdowns.has(idx)) {
-                        setOpenDropdown(null);
-                      }
-                    }}
-                  >
-                    {item.sections?.map((section, sectionIdx) => (
+                  <>
+                    {/* Invisible bridge to prevent dropdown from closing */}
+                    <div className="absolute top-full left-0 w-48 h-1 bg-transparent" />
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-1 z-[9999]"
+                    >
+                      {item.sections?.map((section, sectionIdx) => (
                       <a
                         key={sectionIdx}
                         href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
@@ -259,12 +236,13 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
                             }
                           }
                         }}
-                        className="block w-full text-left px-4 py-2 text-sm transition-colors duration-150 rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
+                        className="block w-full text-left px-4 py-1.5 text-sm transition-colors duration-150 rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
                       >
                         {section.name}
                       </a>
-                    ))}
-                  </motion.div>
+                      ))}
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
             </div>

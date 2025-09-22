@@ -18,23 +18,15 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
         return;
       }
 
-      // Check if ANY dropdown is open - if so, don't close modal
-      const hasOpenDropdown = document.querySelector('[data-radix-popper-content-wrapper]') ||
-                             document.querySelector('[data-radix-select-content]') ||
-                             document.querySelector('[role="listbox"]') ||
-                             document.querySelector('[data-radix-portal]');
-      
-      if (hasOpenDropdown) {
-        return;
-      }
-
       // Don't close modal if clicking on any Radix UI elements
       if (target.closest('[data-radix]') || 
           target.hasAttribute('data-radix') ||
           target.closest('[role="combobox"]') ||
           target.closest('[role="listbox"]') ||
           target.closest('[aria-expanded]') ||
-          target.closest('[data-state]')) {
+          target.closest('[data-state]') ||
+          target.closest('[data-radix-select-content]') ||
+          target.closest('[data-radix-popper-content-wrapper]')) {
         return;
       }
 

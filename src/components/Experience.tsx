@@ -207,7 +207,7 @@ const ExperienceSection: React.FC = () => (
     <p className="text-gray-600 dark:text-gray-400 mb-6 px-4 sm:px-0">
       What I have done so far
     </p>
-    <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
+    <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl transition-colors duration-300">
       <div className="space-y-4 sm:space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 py-3 rounded-2xl">
         {timelineData.map((item, index) => (
           <TimelineItem key={index} {...item} />

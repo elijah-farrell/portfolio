@@ -247,33 +247,4 @@ export const skillsData: SkillCategory[] = [
       },
     ],
   },
-  {
-    category: "Soft Skills",
-    items: [
-      {
-        name: "Problem-solving",
-        description: "Analytical thinking and systematic issue resolution",
-      },
-      {
-        name: "Teamwork",
-        description: "Collaboration and effective group dynamics",
-      },
-      {
-        name: "Customer Service",
-        description: "User support and satisfaction-focused assistance",
-      },
-      {
-        name: "Written Communication",
-        description: "Clear documentation and technical writing",
-      },
-      {
-        name: "Research",
-        description: "Information gathering and solution discovery",
-      },
-      {
-        name: "GRIT",
-        description: "Perseverance and determination in challenging situations",
-      },
-    ],
-  },
 ];

@@ -1,5 +1,4 @@
 import React from "react";
-import { WobbleCard } from "@/components/ui/wobble-card";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 export default function Education() {
@@ -7,7 +6,7 @@ export default function Education() {
     <>
       {/* Education Section */}
       <div id="education" className="mt-12">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl">
           <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
             EDUCATION
           </h2>
@@ -71,19 +70,16 @@ export default function Education() {
 
       {/* Coursework Section */}
       <div>
-        <section className="p-6 md:p-12 max-w-4xl mx-auto">
-          <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+        <section className="p-6 md:p-12 max-w-4xl">
+          <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white text-left">
             Relevant Coursework
           </h4>
-          <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm text-left">
             A comprehensive curriculum covering computer science fundamentals, advanced programming, and mathematical foundations
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <WobbleCard 
-              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
-              className="p-3"
-            >
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Computer Science Core</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>CS 108 – Computing Fundamentals</li>
@@ -95,12 +91,9 @@ export default function Education() {
                 <li>CS 431 – Principles of Programming Languages</li>
                 <li>CS 350 – Information & Knowledge Management</li>
               </ul>
-            </WobbleCard>
+            </div>
             
-            <WobbleCard 
-              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
-              className="p-3"
-            >
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Advanced Topics</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>IS 320 – Systems Analysis & Design</li>
@@ -110,12 +103,9 @@ export default function Education() {
                 <li>CS 477 – Algorithms</li>
                 <li>CS 498 – Capstone Project</li>
               </ul>
-            </WobbleCard>
+            </div>
             
-            <WobbleCard 
-              containerClassName="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"
-              className="p-3"
-            >
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
               <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Mathematics & Sciences</h5>
               <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li>MAT 151 – Calculus I</li>
@@ -124,7 +114,7 @@ export default function Education() {
                 <li>PHY 101 – General Physics I</li>
                 <li>CHE 110T/L – Chemistry Lecture & Lab</li>
               </ul>
-            </WobbleCard>
+            </div>
           </div>
         </section>
       </div>

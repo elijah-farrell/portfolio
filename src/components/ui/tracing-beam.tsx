@@ -101,13 +101,13 @@ export const TracingBeam = ({
 
   useEffect(() => {
     if (contentRef.current && isVisible) {
-      // Calculate height excluding Contact section
+      // Calculate height to extend above contact title
       const contactSection = contentRef.current.querySelector('#contact');
       if (contactSection) {
         const contactRect = contactSection.getBoundingClientRect();
         const contentRect = contentRef.current.getBoundingClientRect();
-        const heightBeforeContact = contactRect.top - contentRect.top;
-        setSvgHeight(heightBeforeContact);
+        const heightAboveContact = contactRect.top - contentRect.top - 20; // Stop 20px above contact title
+        setSvgHeight(heightAboveContact);
       } else {
         setSvgHeight(contentRef.current.offsetHeight);
       }

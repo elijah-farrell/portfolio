@@ -136,7 +136,6 @@ const categoryIconMap: Record<string, JSX.Element> = {
   "Frameworks & Libraries": <FaPalette />,
   "Tools & Platforms": <FaTools />,
   Databases: <FaDatabase />,
-  "Soft Skills": <FaUsers />,
 };
 
 export default function SkillsSection() {
@@ -147,7 +146,7 @@ export default function SkillsSection() {
         These are many of the technical skills that I have acquired thus far in my computer science career. I am not claiming to be a master in all of these skills, that would be amazing, but it is simply not true. With that said, I am confident that I can hold a position that utilizes any of these following competencies and increase my mastery in any of these skills if needed.
       </p>
 
-      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl mx-auto transition-colors duration-300">
+      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl transition-colors duration-300">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {skillsData.map((skill, idx) => (
             <CardSpotlight

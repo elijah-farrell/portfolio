@@ -78,7 +78,9 @@ export const ModalBody = ({
 
   const modalRef = useRef<HTMLDivElement>(null);
   const { setOpen } = useModal();
-  useOnClickOutside(modalRef as React.RefObject<HTMLElement>, () => setOpen(false));
+  
+  // Click outside detection disabled to prevent dropdown interference
+  // Modal can only be closed via the X button
 
   return (
     <AnimatePresence>

@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "./ui/card";
 import { GoLinkExternal } from "react-icons/go";
-import { CardContainer } from "./ui/3d-card";
 
 interface ProjectCardProps {
   title: string;
@@ -37,8 +36,7 @@ export default function ProjectCard(props: ProjectCardProps) {
     duration,
   } = props;
   const cardContent = (
-    <CardContainer className="inter-var h-full">
-      <Card className="max-w-sm md:max-w-sm w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto">
+    <Card className="max-w-sm md:max-w-sm w-full h-full shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 ease-out relative group/card dark:hover:shadow-emerald-500/20 dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto">
         <CardHeader className="flex-shrink-0">
           <img
             src={imageUrl}
@@ -56,7 +54,7 @@ export default function ProjectCard(props: ProjectCardProps) {
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-shrink-0">
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {techStack.map((tech, index) => (
               <Badge
                 key={index}
@@ -99,7 +97,6 @@ export default function ProjectCard(props: ProjectCardProps) {
           )}
         </CardFooter>
       </Card>
-    </CardContainer>
   );
 
   return cardContent;

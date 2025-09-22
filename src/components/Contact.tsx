@@ -55,24 +55,24 @@ export default function Contact(): JSX.Element {
   return (
     <div id="contact">
       <h1 className="text-3xl my-5">CONTACT</h1>
-      <BackgroundBeamsWithCollision className="w-full h-auto z-10 translate-y-7">
-        <Card className="border-none py-28">
-          <CardBody className="w-full h-auto  z-20 ">
+      <BackgroundBeamsWithCollision className="w-full h-auto z-0 translate-y-7">
+        <Card className="border-none py-28 px-2 md:px-4">
+          <CardBody className="w-full h-auto z-30 relative">
             <p className="leading-9 text-center mb-12">
               Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
 
             {/* Contact Information Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto relative z-40 px-2">
               {contactInfo.map((info, index) => (
                 <a
                   key={index}
                   href={info.link}
                   target={info.external ? "_blank" : "_self"}
                   rel={info.external ? "noopener noreferrer" : undefined}
-                  className="block no-underline"
+                  className="block no-underline relative z-40"
                 >
-                  <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[200px] flex flex-col justify-center cursor-pointer group">
+                  <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[200px] flex flex-col justify-center cursor-pointer group relative z-40">
                     <div className="flex justify-center mb-4">
                       <div className="text-3xl text-emerald-600 group-hover:scale-110 transition-transform duration-300">
                         {info.icon}
@@ -87,11 +87,11 @@ export default function Contact(): JSX.Element {
               ))}
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4 py-8">
+            <div className="flex flex-wrap justify-center gap-4 py-8 relative z-40 px-2">
               {links.map(
                 (element, index) =>
                   element && (
-                    <div key={index}>
+                    <div key={index} className="relative z-40">
                       <LinkCard
                         key={index}
                         title={element.title}

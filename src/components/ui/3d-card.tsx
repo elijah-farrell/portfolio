@@ -20,12 +20,12 @@ export const CardContainer = ({
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !isMouseEntered) return;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
     const x = (e.clientX - left - width / 2) / 25;
     const y = (e.clientY - top - height / 2) / 25;
-    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    containerRef.current.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(10px)`;
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,7 +36,7 @@ export const CardContainer = ({
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     setIsMouseEntered(false);
-    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    containerRef.current.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0px)`;
   };
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
@@ -54,7 +54,7 @@ export const CardContainer = ({
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "transition-all duration-200 ease-linear",
+            "transition-transform duration-150 ease-out will-change-transform",
             className
           )}
           style={{
@@ -120,16 +120,16 @@ export const CardItem = ({
   const handleAnimations = () => {
     if (!ref.current) return;
     if (isMouseEntered) {
-      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+      ref.current.style.transform = `translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
     } else {
-      ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
+      ref.current.style.transform = `translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
     }
   };
 
   return (
     <Tag
       ref={ref}
-      className={cn(" transition duration-200 ease-linear", className)}
+      className={cn("transition-transform duration-150 ease-out will-change-transform", className)}
       {...rest}
     >
       {children}

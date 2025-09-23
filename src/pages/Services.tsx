@@ -86,7 +86,7 @@ export default function ServicesPage() {
           <section id="what-i-do" className="py-12 bg-white dark:bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <TracingBeam className="px-6">
-                <div className="text-left mb-12 pt-8">
+                <div className="text-left mb-6 pt-8">
                   <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">What I Can Help With</h2>
                 </div>
                 

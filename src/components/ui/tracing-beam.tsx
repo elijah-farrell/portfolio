@@ -14,6 +14,10 @@ export const TracingBeam = ({
   const [isVisible, setIsVisible] = useState(false);
   const [textRevealInView, setTextRevealInView] = useState(false);
   const [textRevealVerticalOffset, setTextRevealVerticalOffset] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Debounce timer ref for resize/orientation changes
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -25,6 +29,11 @@ export const TracingBeam = ({
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
+    // Update mobile state based on viewport
+    const updateMobileState = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
     // Check if component is visible in viewport
     const checkVisibility = () => {
       if (ref.current) {
@@ -64,8 +73,7 @@ export const TracingBeam = ({
         const containerRect = textRevealContainer.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         
-        // Simple mobile adjustment - add fixed offset for TextReveal positioning
-        const isMobile = window.innerWidth < 768;
+        // Use current mobile state instead of recalculating
         if (isMobile) {
           setTextRevealVerticalOffset(viewportHeight * 0.4); // Fixed mobile offset
         } else {
@@ -85,20 +93,75 @@ export const TracingBeam = ({
       }
     };
 
-    // Initial check
-    checkVisibility();
-    checkTextReveal();
+    // Recalculate SVG height
+    const recalculateSvgHeight = () => {
+      if (contentRef.current && isVisible) {
+        const contactSection = contentRef.current.querySelector('#contact');
+        if (contactSection) {
+          const contactRect = contactSection.getBoundingClientRect();
+          const contentRect = contentRef.current.getBoundingClientRect();
+          const heightAboveContact = contactRect.top - contentRect.top - 20;
+          setSvgHeight(heightAboveContact);
+        } else {
+          setSvgHeight(contentRef.current.offsetHeight);
+        }
+      }
+    };
+
+    // Comprehensive recalculation function
+    const recalculateAll = () => {
+      updateMobileState();
+      checkVisibility();
+      checkTextReveal();
+      recalculateSvgHeight();
+    };
+
+    // Initial calculations
+    recalculateAll();
     
-    // Check on scroll
+    // Handle scroll events
     const handleScroll = () => {
       checkVisibility();
       checkTextReveal();
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
+    // Debounced resize handler
+    const handleResize = () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      
+      resizeTimeoutRef.current = setTimeout(() => {
+        recalculateAll();
+      }, 150);
+    };
+
+    // Handle orientation changes with longer debounce
+    const handleOrientationChange = () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      
+      resizeTimeoutRef.current = setTimeout(() => {
+        recalculateAll();
+      }, 400);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('orientationchange', handleOrientationChange, { passive: true });
+    
+    return () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
+    };
+  }, [isVisible, isMobile]);
+
+  // Additional effect to handle SVG height changes when content changes
   useEffect(() => {
     if (contentRef.current && isVisible) {
       // Calculate height to extend above contact title

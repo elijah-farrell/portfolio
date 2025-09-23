@@ -7,7 +7,6 @@ const domain = 'https://elijahfarrell.com';
 const staticRoutes = [
   '/',
   '/services',
-  '/ElijahFarrell.pdf',
   // Add more routes as you create them
 ];
 
@@ -29,7 +28,7 @@ async function generate() {
     sitemap.write({
       url: route,
       changefreq: 'monthly',
-      priority: route === '/' ? 1.0 : route === '/ElijahFarrell.pdf' ? 0.7 : 0.5,
+      priority: route === '/' ? 1.0 : 0.5,
       lastmod: new Date().toISOString(),
     });
   }

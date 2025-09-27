@@ -184,6 +184,29 @@ a[href^="#"] {
     }
   }
   
+  /* Safari-specific bottom toolbar fixes - GENTLE APPROACH */
+  @supports (-webkit-touch-callout: none) and (max-width: 768px) {
+    html {
+      /* Force Safari to use the correct background for bottom toolbar */
+      background-color: hsl(var(--background)) !important;
+      -webkit-background-size: 100% 100% !important;
+    }
+    
+    body {
+      /* Ensure body background propagates to Safari UI */
+      background-color: hsl(var(--background)) !important;
+      min-height: 100vh !important;
+      min-height: -webkit-fill-available !important;
+    }
+    
+    /* Force Safari bottom area to update */
+    @media (max-height: 900px) {
+      html {
+        background-image: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background))) !important;
+      }
+    }
+  }
+  
   /* Force overscroll color update on theme change */
   .dark {
     --overscroll-bg: hsl(var(--background));
@@ -191,6 +214,22 @@ a[href^="#"] {
   
   :root:not(.dark) {
     --overscroll-bg: hsl(var(--background));
+  }
+  
+  /* Force overscroll repaint on theme change */
+  html.theme-changing {
+    animation: overscroll-repaint 0.1s ease-in-out;
+  }
+  
+  @keyframes overscroll-repaint {
+    0% { 
+      overscroll-behavior-color: hsl(var(--background)) !important;
+      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
+    }
+    100% { 
+      overscroll-behavior-color: hsl(var(--background)) !important;
+      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
+    }
   }
   
   /* Performance optimizations */

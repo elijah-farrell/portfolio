@@ -35,17 +35,50 @@ export function ThemeProvider({
 
     root.classList.remove("light", "dark");
 
+    let currentTheme: "light" | "dark";
+    
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+      currentTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
         ? "dark"
         : "light";
-
-      root.classList.add(systemTheme);
-      return;
+    } else {
+      currentTheme = theme;
     }
 
-    root.classList.add(theme);
+    root.classList.add(currentTheme);
+    
+    // Update meta theme-color for mobile browsers
+    const themeColor = currentTheme === "dark" ? "#0a0a0a" : "#ffffff";
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', themeColor);
+    }
+    
+    // Update msapplication-navbutton-color for Windows mobile
+    const navButtonMeta = document.querySelector('meta[name="msapplication-navbutton-color"]');
+    if (navButtonMeta) {
+      navButtonMeta.setAttribute('content', themeColor);
+    }
+    
+    // Force overscroll color update on mobile browsers
+    const updateOverscrollColors = () => {
+      const elements = [document.documentElement, document.body];
+      elements.forEach(el => {
+        if (el) {
+          el.style.setProperty('overscroll-behavior-color', themeColor, 'important');
+          el.style.setProperty('-webkit-overscroll-behavior-color', themeColor, 'important');
+          el.style.setProperty('background-color', themeColor, 'important');
+        }
+      });
+    };
+    
+    // Update immediately
+    updateOverscrollColors();
+    
+    // Update again after a short delay to ensure it sticks
+    setTimeout(updateOverscrollColors, 100);
+    
   }, [theme]);
 
   const value = {

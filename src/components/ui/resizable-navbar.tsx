@@ -79,7 +79,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
         React.isValidElement(child)
           ? React.cloneElement(
               child as React.ReactElement<{ visible?: boolean }>,
-              { visible },
+              { visible: child.type === NavBody || child.type === MobileNav ? visible : undefined },
             )
           : child,
       )}
@@ -97,8 +97,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
           : "none",
         paddingTop: visible ? "24px" : "20px",
         paddingBottom: visible ? "24px" : "20px",
-        paddingRight: visible ? "24px" : "0px",
-        paddingLeft: visible ? "24px" : "0px",
+        paddingRight: visible ? "16px" : "0px",
+        paddingLeft: visible ? "16px" : "0px",
         width: visible ? "90%" : "100%",
         y: visible ? 0 : 0,
       }}
@@ -310,10 +310,10 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
         width: visible && isTabletOrLarger ? "90%" : "100%",
-        paddingTop: visible ? "8px" : "4px",
-        paddingBottom: visible ? "8px" : "4px",
-        paddingLeft: visible ? "8px" : "0px",
-        paddingRight: visible ? "8px" : "0px",
+        paddingTop: visible ? "16px" : "12px",
+        paddingBottom: visible ? "16px" : "12px",
+        paddingLeft: visible ? "16px" : "0px",
+        paddingRight: visible ? "16px" : "0px",
         y: 0,
       }}
       transition={{
@@ -342,7 +342,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between px-1 sm:px-2 md:px-2 lg:px-2 xl:px-4 2xl:px-6 py-3",
+        "flex w-full flex-row items-center justify-between px-2 sm:px-4 md:px-8 lg:px-8 xl:px-10 2xl:px-12 py-3",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
@@ -367,7 +367,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-1 sm:px-2 md:px-2 lg:px-2 xl:px-4 2xl:px-6 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
+            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-2 sm:px-4 md:px-8 lg:px-8 xl:px-10 2xl:px-12 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
             className,
           )}
         >

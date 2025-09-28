@@ -85,15 +85,6 @@ export default function HeroSection(): JSX.Element {
       href: "#education",
     },
     {
-      value: animatedStats.languages,
-      suffix: "+",
-      label: "Programming Languages",
-      icon: <FiCode size={20} />,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
-      href: "#skills",
-    },
-    {
       value: animatedStats.projects,
       suffix: "+",
       label: "Projects Built",
@@ -101,6 +92,15 @@ export default function HeroSection(): JSX.Element {
       color: "text-emerald-600",
       bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
       href: "#projects",
+    },
+    {
+      value: animatedStats.languages,
+      suffix: "+",
+      label: "Programming Languages",
+      icon: <FiCode size={20} />,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+      href: "#skills",
     },
     {
       value: animatedStats.skills,
@@ -131,7 +131,7 @@ export default function HeroSection(): JSX.Element {
 
   return (
     <>
-      <div className="min-h-screen h-auto flex flex-col lg:flex-row justify-center items-center px-1 sm:px-4 md:px-4 lg:px-4 xl:px-40 space-x-2 pt-16 sm:pt-12 md:pt-12 lg:mt-10 relative overflow-hidden">
+      <div className="min-h-screen h-auto flex flex-col lg:flex-row justify-center items-center px-2 sm:px-4 md:px-8 lg:px-8 xl:px-40 space-x-2 pt-20 sm:pt-16 md:pt-16 lg:mt-10 relative overflow-hidden">
         <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full">
           {/* Status Badge */}
           {settings.showAvailableForOpportunities && (
@@ -144,7 +144,7 @@ export default function HeroSection(): JSX.Element {
 
           <FlipWords words={greetings} duration={3000} />
           <br />
-           <span className="text-xs xs:text-sm sm:text-base">I am Elijah, I am a </span>
+           <span className="text-sm sm:text-base">I am Elijah, I am a </span>
            <FlipWords
              words={[
                "<Developer/>", 
@@ -156,10 +156,10 @@ export default function HeroSection(): JSX.Element {
                "Tech Nerd"
              ]}
              duration={10000}
-             className="dark:text-emerald-500 text-emerald-600 text-xs xs:text-sm sm:text-base"
+             className="dark:text-emerald-500 text-emerald-600 text-sm sm:text-base"
            />
            <br />
-           <span className="text-xs xs:text-sm sm:text-base">Welcome to my over-engineered portfolio site.</span>
+           <span className="text-sm sm:text-base">Welcome to my over-engineered portfolio site.</span>
 
           {/* Call-to-Action Buttons & Social Links */}
           <div className="flex items-center gap-1 xs:gap-2 sm:gap-3 mt-8">
@@ -172,7 +172,7 @@ export default function HeroSection(): JSX.Element {
             <div className="flex gap-1 xs:gap-2">
              <a
                href="mailto:farrellelijah@outlook.com"
-               className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300"
+               className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
              >
                <FiMail size={14} className="sm:w-4 sm:h-4" />
              </a>
@@ -180,7 +180,7 @@ export default function HeroSection(): JSX.Element {
               href="https://github.com/elijah-farrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiGithub size={14} className="sm:w-4 sm:h-4" />
             </a>
@@ -188,7 +188,7 @@ export default function HeroSection(): JSX.Element {
               href="https://www.linkedin.com/in/elijah-farrell-915047349/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiLinkedin size={14} className="sm:w-4 sm:h-4" />
             </a>
@@ -196,7 +196,7 @@ export default function HeroSection(): JSX.Element {
                                href="https://discord.gg/h9QSQZzn"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <SiDiscord size={14} className="sm:w-4 sm:h-4" />
             </a>
@@ -204,7 +204,7 @@ export default function HeroSection(): JSX.Element {
               href="https://cal.com/elijahfarrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
               <FiPhone size={14} className="sm:w-4 sm:h-4" />
             </a>
@@ -224,11 +224,11 @@ export default function HeroSection(): JSX.Element {
                 >
                   {stat.icon}
                 </div>
-                 <div className="text-sm xs:text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100">
+                 <div className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100">
                    {isStatsVisible ? stat.value.toLocaleString() : 0}
                    {stat.suffix}
                  </div>
-                 <div className="text-xs xs:text-sm sm:text-xs text-muted-foreground group-hover:text-opacity-80 transition-all duration-300">
+                 <div className="text-sm text-muted-foreground group-hover:text-opacity-80 transition-all duration-300">
                    {stat.label}
                  </div>
               </a>

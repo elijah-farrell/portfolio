@@ -33,7 +33,7 @@ export default function Contact(): JSX.Element {
     {
       icon: <FiMapPin />,
       title: "Location",
-      value: "Watertown, NY",
+      value: "New York",
       link: "https://maps.google.com/?q=Watertown,NY",
       external: true
     },

@@ -143,7 +143,7 @@ export default function SkillsSection() {
     <div className="pt-5" id="skills">
       <h1 className="text-3xl font-bold mb-2">TECHNICAL SKILLS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-6">
-        These are many of the technical skills that I have acquired thus far in my computer science career. I am not claiming to be a master in all of these skills, that would be amazing, but it is simply not true. With that said, I am confident that I can hold a position that utilizes any of these following competencies and increase my mastery in any of these skills if needed.
+        A comprehensive collection of technical competencies I've developed throughout my CS journey. While I'm not claiming mastery in all areas, I'm confident in my ability to excel in any role utilizing these skills.
       </p>
 
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl transition-colors duration-300">

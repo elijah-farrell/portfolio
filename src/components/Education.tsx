@@ -7,9 +7,12 @@ export default function Education() {
       {/* Education Section */}
       <div id="education" className="mt-12">
         <div className="max-w-4xl">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
             EDUCATION
           </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            My academic journey and educational achievements
+          </p>
           <div className="space-y-6">
             <CardSpotlight className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm">
               <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
@@ -66,57 +69,6 @@ export default function Education() {
             </CardSpotlight>
           </div>
         </div>
-      </div>
-
-      {/* Coursework Section */}
-      <div>
-        <section className="p-6 md:p-12 max-w-4xl">
-          <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white text-left">
-            Relevant Coursework
-          </h4>
-          <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm text-left">
-            A comprehensive curriculum covering computer science fundamentals, advanced programming, and mathematical foundations
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
-              <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Computer Science Core</h5>
-              <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
-                <li>CS 108 – Computing Fundamentals</li>
-                <li>CS 240 – Data Structures & Algorithms</li>
-                <li>CS 220 – Computer Organization</li>
-                <li>CS 330 – Operating Systems & Networking</li>
-                <li>CS 249 – Object-Oriented Programming</li>
-                <li>CS 370 – Software Engineering</li>
-                <li>CS 431 – Principles of Programming Languages</li>
-                <li>CS 350 – Information & Knowledge Management</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
-              <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Advanced Topics</h5>
-              <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
-                <li>IS 320 – Systems Analysis & Design</li>
-                <li>CS 324 – Internet Tools (Web Programming)</li>
-                <li>CS 377 – Introduction to Theory of Computing</li>
-                <li>CS 470 – Computer Vision and Image Processing</li>
-                <li>CS 477 – Algorithms</li>
-                <li>CS 498 – Capstone Project</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm rounded-2xl p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out">
-              <h5 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Mathematics & Sciences</h5>
-              <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
-                <li>MAT 151 – Calculus I</li>
-                <li>MAT 152 – Calculus II</li>
-                <li>MAT 115 – Finite Math for CS</li>
-                <li>PHY 101 – General Physics I</li>
-                <li>CHE 110T/L – Chemistry Lecture & Lab</li>
-              </ul>
-            </div>
-          </div>
-        </section>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ export default function AboutMe() {
     {
       icon: <FiMapPin size={16} />,
       label: "Location",
-      value: "Watertown, NY",
+      value: "New York",
     },
     { icon: <FiAward size={16} />, label: "Education", value: "B.S. CS" },
   ];

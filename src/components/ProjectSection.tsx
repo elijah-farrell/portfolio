@@ -68,7 +68,6 @@ const projects = [
       "Tailwind CSS",
       "Radix UI",
       "GitHub API",
-      "3D Graphics",
     ],
     imageUrl: "/assets/projects/downgit.png",
     github: "https://github.com/elijah-farrell/downgit",

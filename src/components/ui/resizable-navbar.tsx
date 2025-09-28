@@ -79,7 +79,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
         React.isValidElement(child)
           ? React.cloneElement(
               child as React.ReactElement<{ visible?: boolean }>,
-              { visible: child.type === NavBody || child.type === MobileNav ? visible : undefined },
+              { visible: (child.type as any)?.name === 'NavBody' || (child.type as any)?.name === 'MobileNav' ? visible : undefined },
             )
           : child,
       )}
@@ -114,15 +114,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         className,
       )}
     >
-      <div className="w-full px-0 md:px-4 lg:px-6 xl:px-8 flex flex-row items-center justify-between">
-        {React.Children.map(children, (child) =>
-          React.isValidElement(child)
-            ? React.cloneElement(
-                child as React.ReactElement<{ visible?: boolean }>,
-                { visible },
-              )
-            : child,
-        )}
+      <div className="w-full px-0 md:px-4 lg:px-12 xl:px-8 flex flex-row items-center justify-between">
+        {children}
       </div>
     </motion.div>
   );

@@ -6,24 +6,24 @@
 html {
   scroll-behavior: auto;
   /* Account for fixed navbar height on both mobile and desktop */
-  scroll-padding-top: 30px; /* Desktop navbar height - very tight */
+  scroll-padding-top: 30px; /* Desktop navbar height with tight spacing */
 }
 
 /* Mobile scroll padding adjustment */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 30px; /* Mobile navbar height - very tight */
+    scroll-padding-top: 30px; /* Mobile navbar height with tight spacing */
   }
 }
 
 /* Ensure content sections have proper spacing from navbar */
 [id] {
-  scroll-margin-top: 30px; /* Desktop - very tight */
+  scroll-margin-top: 30px; /* Desktop - tight spacing */
 }
 
 @media (max-width: 768px) {
   [id] {
-    scroll-margin-top: 30px; /* Mobile - very tight */
+    scroll-margin-top: 30px; /* Mobile - tight spacing */
   }
 }
 

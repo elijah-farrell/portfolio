@@ -83,7 +83,7 @@ export default function ServicesPage() {
           </section>
 
           {/* What I Can Help With */}
-          <section id="what-i-do" className="py-12 bg-white dark:bg-neutral-950">
+          <section id="what-i-do" className="pt-8 pb-12 bg-white dark:bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <TracingBeam className="px-6">
                 <div className="text-left mb-6 pt-8">

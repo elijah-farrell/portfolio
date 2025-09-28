@@ -69,21 +69,30 @@ export const useScrollPreservation = () => {
       attributeFilter: ['class']
     });
     
-    // Restore scroll position on page load
-    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
-    if (savedScrollPosition) {
-      const scrollY = parseInt(savedScrollPosition, 10);
-      // Use multiple attempts to ensure scroll restoration works on mobile
-      const restoreScroll = () => {
-        window.scrollTo(0, scrollY);
-        // Try again after a short delay for mobile devices
-        setTimeout(() => {
+    // Check if this is a page refresh (not navigation)
+    const isPageRefresh = performance.navigation.type === 1 || 
+                         performance.getEntriesByType('navigation')[0]?.type === 'reload';
+    
+    // Only restore scroll position on page refresh, not on navigation
+    if (isPageRefresh) {
+      const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+      if (savedScrollPosition) {
+        const scrollY = parseInt(savedScrollPosition, 10);
+        // Use multiple attempts to ensure scroll restoration works on mobile
+        const restoreScroll = () => {
           window.scrollTo(0, scrollY);
-        }, 100);
-      };
-      
-      // Use requestAnimationFrame to ensure DOM is ready
-      requestAnimationFrame(restoreScroll);
+          // Try again after a short delay for mobile devices
+          setTimeout(() => {
+            window.scrollTo(0, scrollY);
+          }, 100);
+        };
+        
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(restoreScroll);
+      }
+    } else {
+      // Clear saved scroll position on navigation to ensure fresh start
+      sessionStorage.removeItem('scrollPosition');
     }
 
     // Save scroll position before page unload

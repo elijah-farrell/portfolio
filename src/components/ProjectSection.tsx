@@ -98,7 +98,7 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <div className="pt-5" id="projects">
+    <div className="pt-8" id="projects">
       <h1 className="text-3xl font-bold mb-2">FEATURED PROJECTS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-2">
         My Work.

@@ -5,7 +5,7 @@ export default function Education() {
   return (
     <>
       {/* Education Section */}
-      <div id="education" className="mt-12">
+      <div id="education" className="pt-8">
         <div className="max-w-4xl">
           <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
             EDUCATION

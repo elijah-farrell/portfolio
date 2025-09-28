@@ -5,10 +5,14 @@ import { Suspense } from "react";
 import { Toaster } from "./components/ui/toaster";
 import { Navbar } from "./components/Navbar";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { useScrollPreservation } from "./hooks/use-scroll-preservation";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/Services";
 
 function App() {
+  // Enable scroll position preservation
+  useScrollPreservation();
+  
   // Get current path to determine which page to render
   const currentPath = window.location.pathname;
   

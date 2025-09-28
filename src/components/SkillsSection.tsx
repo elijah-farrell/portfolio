@@ -140,7 +140,7 @@ const categoryIconMap: Record<string, JSX.Element> = {
 
 export default function SkillsSection() {
   return (
-    <div className="pt-5" id="skills">
+    <div className="pt-8" id="skills">
       <h1 className="text-3xl font-bold mb-2">TECHNICAL SKILLS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-6">
         A comprehensive collection of technical competencies I've developed throughout my CS journey. While I'm not claiming mastery in all areas, I'm confident in my ability to excel in any role utilizing these skills.

@@ -12,8 +12,8 @@ interface SEOProps {
 
 export const SEO: React.FC<SEOProps> = ({
   title = "Elijah Farrell - Computer Science Graduate & Full-Stack Developer",
-  description = "Elijah Farrell - Computer Science Graduate & Full-Stack Developer. Expert in React, TypeScript, AI/ML, and distributed systems. View my projects and experience.",
-  keywords = "Elijah Farrell, Computer Science, Full-Stack Developer, React, TypeScript, AI/ML, Distributed Systems, Portfolio, Software Engineer",
+  description = "Elijah Farrell - Computer Science Graduate & Web Developer. Portfolio showcasing interactive React projects, Minecraft mods, and modern web applications built with TypeScript, Next.js, and creative UI design.",
+  keywords = "Elijah Farrell, Computer Science, Web Developer, React, TypeScript, Next.js, Portfolio, Minecraft Mods, Interactive Design, UI/UX, Frontend Development",
   image = "https://elijahfarrell.com/android-chrome-512x512.png",
   url = "https://elijahfarrell.com/",
   type = "website",

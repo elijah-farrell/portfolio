@@ -6,7 +6,7 @@ import {
   useSpring,
   useTransform,
   useMotionTemplate,
-} from "motion/react";
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const CometCard = ({

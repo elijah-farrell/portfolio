@@ -15,14 +15,64 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-checkbox', '@radix-ui/react-dropdown-menu', '@radix-ui/react-hover-card', '@radix-ui/react-label', '@radix-ui/react-navigation-menu', '@radix-ui/react-popover', '@radix-ui/react-select', '@radix-ui/react-separator', '@radix-ui/react-slot', '@radix-ui/react-switch', '@radix-ui/react-tabs', '@radix-ui/react-toast', '@radix-ui/react-toggle', '@radix-ui/react-toggle-group', '@radix-ui/react-tooltip'],
-          motion: ['framer-motion', 'motion'],
-          icons: ['react-icons', 'lucide-react'],
+        manualChunks: (id) => {
+          // React and core libraries
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react-vendor';
+          }
+          
+          // Three.js and 3D libraries
+          if (id.includes('three') || id.includes('@react-three')) {
+            return 'three-vendor';
+          }
+          
+          // Framer Motion
+          if (id.includes('framer-motion')) {
+            return 'motion-vendor';
+          }
+          
+          // Radix UI components
+          if (id.includes('@radix-ui')) {
+            return 'ui-vendor';
+          }
+          
+          // Icons
+          if (id.includes('react-icons') || id.includes('lucide-react') || id.includes('@tabler/icons')) {
+            return 'icons-vendor';
+          }
+          
+          // Router and navigation
+          if (id.includes('react-router') || id.includes('react-helmet')) {
+            return 'router-vendor';
+          }
+          
+          // Utility libraries
+          if (id.includes('clsx') || id.includes('class-variance-authority') || id.includes('tailwind-merge')) {
+            return 'utils-vendor';
+          }
+          
+          // Large components that can be split
+          if (id.includes('components/ui/3d-card') || id.includes('components/ui/canvas-reveal-effect')) {
+            return '3d-components';
+          }
+          
+          if (id.includes('components/ui/background-') || id.includes('components/ui/glowing-effect')) {
+            return 'background-components';
+          }
+          
+          // Default chunk for everything else
+          return 'main';
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
+    target: 'esnext',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
 });

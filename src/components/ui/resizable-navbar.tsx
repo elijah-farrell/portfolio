@@ -88,26 +88,75 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsTabletOrLarger(window.innerWidth >= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
-    <div
+    <motion.div
+      animate={{
+        width: visible && isTabletOrLarger ? "85%" : "100%",
+        backdropFilter: visible ? "blur(12px)" : "blur(0px)",
+        boxShadow: visible
+          ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
+          : "0 0 0 rgba(0, 0, 0, 0)",
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 40,
+        duration: 0.8,
+        ease: "easeOut",
+      }}
       className={cn(
         "relative z-50 mx-auto hidden lg:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
-        visible && "shadow-lg",
         className,
       )}
     >
       <div className="w-full flex flex-row items-center relative">
-        <div className="absolute left-0 flex items-center">
+        <motion.div 
+          className="absolute left-0 flex items-center"
+          animate={{
+            x: visible && isTabletOrLarger ? 12 : 0,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 40,
+            duration: 0.8,
+            ease: "easeOut",
+          }}
+        >
           {React.Children.toArray(children)[0]}
-        </div>
+        </motion.div>
         <div className="w-full flex justify-center">
           {React.Children.toArray(children)[1]}
         </div>
-        <div className="absolute right-0 flex items-center">
+        <motion.div 
+          className="absolute right-0 flex items-center"
+          animate={{
+            x: visible && isTabletOrLarger ? -12 : 0,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 40,
+            duration: 0.8,
+            ease: "easeOut",
+          }}
+        >
           {React.Children.toArray(children)[2]}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -274,6 +323,68 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
 
 export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsTabletOrLarger(window.innerWidth >= 768);
+    };
+    
+    const checkTheme = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkScreenSize();
+    checkTheme();
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <motion.div
+      animate={{
+        backgroundColor: visible 
+          ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
+          : (isDarkMode ? "rgba(10, 10, 10, 0)" : "rgba(255, 255, 255, 0)"),
+        boxShadow: visible
+          ? "0 4px 16px rgba(34, 42, 53, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(34, 42, 53, 0.04)"
+          : "0 0 0 rgba(0, 0, 0, 0)",
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 40,
+        duration: 0.8,
+        ease: "easeOut",
+      }}
+      className={cn(
+        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden backdrop-blur-md",
+        isTabletOrLarger && "rounded-full",
+        visible && "shadow-lg",
+        isMenuOpen && "bg-white dark:bg-neutral-950",
+        className,
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export const MobileNavHeader = ({
+  children,
+  className,
+  isMenuOpen,
+}: MobileNavHeaderProps) => {
+  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -285,26 +396,16 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  return (
-    <div
-      className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90",
-        isTabletOrLarger && "rounded-full",
-        visible && "shadow-lg",
-        isMenuOpen && "bg-white dark:bg-neutral-950",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-};
+  // Get visible state from parent (this is a bit hacky but works)
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-export const MobileNavHeader = ({
-  children,
-  className,
-  isMenuOpen,
-}: MobileNavHeaderProps) => {
   return (
     <div
       className={cn(
@@ -313,7 +414,34 @@ export const MobileNavHeader = ({
         className,
       )}
     >
-      {children}
+      <motion.div 
+        className="flex items-center"
+        animate={{
+          x: visible && isTabletOrLarger ? 8 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 25,
+          duration: 0.4,
+        }}
+      >
+        {React.Children.toArray(children)[0]}
+      </motion.div>
+      <motion.div 
+        className="flex items-center"
+        animate={{
+          x: visible && isTabletOrLarger ? -8 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 25,
+          duration: 0.4,
+        }}
+      >
+        {React.Children.toArray(children)[1]}
+      </motion.div>
     </div>
   );
 };

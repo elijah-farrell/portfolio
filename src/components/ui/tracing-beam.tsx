@@ -70,7 +70,7 @@ export const TracingBeam = ({
         }
         
         const rect = textRevealElement.getBoundingClientRect();
-        const containerRect = textRevealContainer.getBoundingClientRect();
+        textRevealContainer.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         
         // Use current mobile state instead of recalculating
@@ -80,14 +80,12 @@ export const TracingBeam = ({
           setTextRevealVerticalOffset(12); // Default desktop position
         }
         
-        let isInView;
-        
         // Use same detection logic for both mobile and desktop
         const viewportCenter = viewportHeight / 2;
         const elementCenter = rect.top + rect.height / 2;
         const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
         const threshold = viewportHeight * 0.3;
-        isInView = distanceFromCenter < threshold;
+        const isInView = distanceFromCenter < threshold;
         
         setTextRevealInView(isInView);
       }

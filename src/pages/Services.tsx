@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import ContactForm from "@/components/ContactForm";
 import ServicesBentoGrid from "@/components/ui/services-bento-grid";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -10,13 +8,11 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalTrigger,
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
 import { 
   FiArrowRight
 } from "react-icons/fi";
-import { motion } from "motion/react";
 
 export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

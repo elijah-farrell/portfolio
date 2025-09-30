@@ -1,8 +1,5 @@
 logs
-
 node_modules
 dist
-
 .cursorrules
-
 .env

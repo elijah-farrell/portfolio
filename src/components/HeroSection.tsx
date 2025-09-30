@@ -1,19 +1,12 @@
 import { FlipWords } from "@/components/ui/flip-words";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  FiDownload,
   FiMail,
-  FiGithub,
-  FiLinkedin,
   FiChevronDown,
   FiBriefcase,
-  FiUsers,
   FiTool,
   FiCode,
   FiAward,
-  FiCalendar,
   FiPhone,
 } from "react-icons/fi";
 import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";

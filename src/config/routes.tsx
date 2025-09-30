@@ -29,6 +29,7 @@ const router = createBrowserRouter([
   },
 ]);
 
+// eslint-disable-next-line react-refresh/only-export-components
 function NotFoundPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">

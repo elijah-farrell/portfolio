@@ -12,10 +12,9 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalTrigger,
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import ContactForm from "./ContactForm";
 import { useTheme } from "./theme-provider";
 import { Monitor, ChevronDown, Sun, Moon, Mail } from "lucide-react";
@@ -78,7 +77,7 @@ export function Navbar() {
     
     // Start the transition
     if ('startViewTransition' in document) {
-      (document as any).startViewTransition(() => {
+      (document as Document & { startViewTransition?: (callback: () => void) => void }).startViewTransition?.(() => {
         setTheme(isDark ? "light" : "dark");
       });
     } else {

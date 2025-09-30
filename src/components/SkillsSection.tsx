@@ -1,7 +1,6 @@
 import {
   SiCss3,
   SiGit,
-  SiGithub,
   SiHtml5,
   SiJavascript,
   SiMysql,
@@ -25,7 +24,6 @@ import {
   SiThreedotjs,
   SiGtk,
   SiWebgl,
-  SiC,
   SiCplusplus,
   SiRender,
 } from "react-icons/si";
@@ -33,33 +31,23 @@ import {
   FaCode,
   FaRobot,
   FaDatabase,
-  FaCloud,
-  FaBookOpen,
   FaPalette,
-  FaCog,
   FaTools,
   FaCogs,
   FaProjectDiagram,
   FaLayerGroup,
   FaBrain,
-  FaChartBar,
-  FaUsers,
-  FaSync,
   FaStream,
-  FaTheaterMasks,
   FaJava,
+  FaDesktop,
+  FaShieldAlt,
+  FaMobile,
+  FaNetworkWired,
+  FaWrench,
 } from "react-icons/fa";
-import { VscAzure, VscVscode } from "react-icons/vsc";
-import { BsFiletypeXml } from "react-icons/bs";
-import { DiMsqlServer } from "react-icons/di";
-import { GoCopilot } from "react-icons/go";
-import { BiCodeBlock } from "react-icons/bi";
-import { MdDesignServices, MdArchitecture } from "react-icons/md";
 import { CardSpotlight } from "./ui/card-spotlight";
 import { useState } from "react";
-import { skillsData, type Skill } from "../config/skillsData";
-import { PiOpenAiLogo } from "react-icons/pi";
-import { LuMail } from "react-icons/lu";
+import { skillsData } from "../config/skillsData";
 
 // Tooltip component
 interface TooltipProps {
@@ -90,7 +78,6 @@ const Tooltip = ({ children, content }: TooltipProps) => {
 const iconMap: Record<string, JSX.Element> = {
   Python: <SiPython />,
   Java: <FaJava />,
-  C: <SiC />,
   "C++": <SiCplusplus />,
   JavaScript: <SiJavascript />,
   TypeScript: <SiTypescript />,
@@ -104,9 +91,7 @@ const iconMap: Record<string, JSX.Element> = {
   OpenCV: <SiOpencv />,
   HuggingFace: <SiHuggingface />,
   "Tailwind CSS": <SiTailwindcss />,
-  EmailJS: <LuMail />,
   "Three.js": <SiThreedotjs />,
-  "Material-UI": <SiReact />,
   Git: <SiGit />,
   Vite: <SiVite />,
   "Node.js": <SiNodedotjs />,
@@ -119,6 +104,16 @@ const iconMap: Record<string, JSX.Element> = {
   Firebase: <SiFirebase />,
   PostgreSQL: <SiPostgresql />,
   Ollama: <FaRobot />,
+  // IT Support Skills
+  Windows: <FaDesktop />,
+  Linux: <FaDesktop />,
+  macOS: <FaDesktop />,
+  "Hardware Troubleshooting": <FaWrench />,
+  "System Troubleshooting": <FaCogs />,
+  "Networking Fundamentals": <FaNetworkWired />,
+  "Software Installation": <FaTools />,
+  "Mobile Device Support": <FaMobile />,
+  "Security Basics": <FaShieldAlt />,
   "LLM Integration": <FaBrain />,
   "Multi-agent Systems": <FaProjectDiagram />,
   "Prompt Engineering": <FaBrain />,
@@ -134,7 +129,6 @@ const categoryIconMap: Record<string, JSX.Element> = {
   "IT Support": <FaCogs />,
   "Web Development": <SiReact />,
   "Frameworks & Libraries": <FaPalette />,
-  "Tools & Platforms": <FaTools />,
   Databases: <FaDatabase />,
 };
 

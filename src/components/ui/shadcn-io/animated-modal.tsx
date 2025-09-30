@@ -9,7 +9,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useOnClickOutside } from "@/components/ui/kibo-ui/use-on-click-outside";
 
 interface ModalContextType {
   open: boolean;
@@ -27,6 +26,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useModal = () => {
   const context = useContext(ModalContext);
   if (!context) {
@@ -77,7 +77,7 @@ export const ModalBody = ({
   }, [open]);
 
   const modalRef = useRef<HTMLDivElement>(null);
-  const { setOpen } = useModal();
+  useModal();
   
   // Click outside detection disabled to prevent dropdown interference
   // Modal can only be closed via the X button

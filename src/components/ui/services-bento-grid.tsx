@@ -1,14 +1,10 @@
 "use client";
-import { cn } from "@/lib/utils";
 import React, { useRef } from "react";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import {
   FiGlobe,
-  FiServer,
   FiZap,
   FiCode,
 } from "react-icons/fi";
-import { motion } from "motion/react";
 
 export default function ServicesBentoGrid() {
   return (
@@ -31,7 +27,7 @@ export default function ServicesBentoGrid() {
   );
 }
 
-const ServiceCard = ({ item, index }: { item: any; index: number }) => {
+const ServiceCard = ({ item, index: _index }: { item: { id: string; title: string; description: string; link: string; icon: React.ReactNode }; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -1,14 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const [isLoaded, setIsLoaded] = useState(true); // Start as true for immediate visibility
+  // Removed unused state for immediate visibility
   // Reduced number of boxes for better performance while maintaining visual appeal
   const rows = new Array(75).fill(1);
   const cols = new Array(50).fill(1);
-  let colors = [
+  const colors = [
     "#10b981", // emerald-500
     "#059669", // emerald-600
     "#047857", // emerald-700

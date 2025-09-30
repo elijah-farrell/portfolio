@@ -4,9 +4,7 @@ My personal portfolio showcasing my projects, experience, and skills.
 
 ![Portfolio Preview](public/assets/projects/portfolio-thumb.png)
 
-## Live Demo
-
-Check out the live demo of the portfolio at [https://elijahfarrell.com](https://elijahfarrell.com).
+Visit my portfolio at [https://elijahfarrell.com](https://elijahfarrell.com).
 
 ## Technologies and Libraries Used
 

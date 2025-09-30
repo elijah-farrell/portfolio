@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -53,7 +53,7 @@ interface MobileNavMenuProps {
 
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const [, setMounted] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
 
   // Ensure component is mounted before accessing window
@@ -86,7 +86,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // Check if this component should receive the visible prop
-          const shouldReceiveVisible = (child.props as any)?.isNavComponent === true;
+          const shouldReceiveVisible = (child.props as { isNavComponent?: boolean })?.isNavComponent === true;
           
           return React.cloneElement(
             child as React.ReactElement<{ visible?: boolean }>,
@@ -175,7 +175,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavItemsProps) => {
+export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectionClick }: NavItemsProps) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -476,7 +476,7 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
+  onClose: _onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>

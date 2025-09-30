@@ -17,10 +17,10 @@ export default function ResumeButton() {
     <HoverBorderGradient
       containerClassName="rounded-2xl text-sm"
       as="button"
-      className="dark:bg-black bg-white text-black dark:text-white flex items-center"
+      className="dark:bg-black bg-white text-black dark:text-white flex items-center px-3 py-2 xs:px-4 xs:py-2.5 xl:px-4 xl:py-2.5"
       onClick={handleDownload}
     >
-      <FiDownload size={16} className="mr-2" />
+      <FiDownload size={14} className="mr-2 xs:w-5 xs:h-5 xl:w-4 xl:h-4" />
       <span>Resume</span>
     </HoverBorderGradient>
   );

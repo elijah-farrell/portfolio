@@ -103,7 +103,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        width: visible && isTabletOrLarger ? "85%" : "100%",
+        width: visible && isTabletOrLarger ? "95%" : "100%",
         backdropFilter: visible ? "blur(12px)" : "blur(0px)",
         boxShadow: visible
           ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
@@ -351,7 +351,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   return (
     <motion.div
       animate={{
-        width: visible && isTabletOrLarger ? "90%" : "100%",
+        width: visible && isTabletOrLarger ? "95%" : "100%",
         backgroundColor: visible 
           ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
           : (isDarkMode ? "rgba(10, 10, 10, 0)" : "rgba(255, 255, 255, 0)"),
@@ -462,7 +462,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[28px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-28px)] overflow-y-auto",
+            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
             className,
           )}
         >

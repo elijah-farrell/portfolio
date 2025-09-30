@@ -131,7 +131,7 @@ export default function HeroSection(): JSX.Element {
 
   return (
     <>
-      <div className="min-h-screen h-auto flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-40 2xl:px-52 space-x-2 pt-16 sm:pt-20 md:pt-20 lg:mt-10 relative overflow-hidden">
+      <div className="min-h-screen h-auto flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 space-x-2 pt-16 sm:pt-20 md:pt-20 lg:mt-10 relative overflow-hidden">
         <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 xl:w-1/2 xl:pl-3 max-w-full">
           {/* Status Badge */}
           {settings.showAvailableForOpportunities && (
@@ -162,51 +162,51 @@ export default function HeroSection(): JSX.Element {
            <span className="text-sm sm:text-base">Welcome to my over-engineered portfolio site.</span>
 
           {/* Call-to-Action Buttons & Social Links */}
-          <div className="flex items-center gap-1 xs:gap-2 sm:gap-3 mt-8">
+          <div className="flex items-center gap-2 xs:gap-3 sm:gap-4 mt-8">
             {/* Main CTA Buttons - Left Side */}
             <div className="flex gap-2">
               <ResumeButton />
             </div>
 
             {/* Social Links - Right Side */}
-            <div className="flex gap-1 xs:gap-2">
+            <div className="flex gap-1 xs:gap-2 sm:gap-3">
              <a
                href="mailto:farrellelijah@outlook.com"
-               className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+               className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
              >
-               <FiMail size={14} className="sm:w-4 sm:h-4" />
+               <FiMail size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
              </a>
             <a
               href="https://github.com/elijah-farrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
-              <SiGithub size={14} className="sm:w-4 sm:h-4" />
+              <SiGithub size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
             <a
               href="https://www.linkedin.com/in/elijah-farrell-915047349/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
-              <SiLinkedin size={14} className="sm:w-4 sm:h-4" />
+              <SiLinkedin size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
             <a
                                href="https://discord.gg/h9QSQZzn"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
-              <SiDiscord size={14} className="sm:w-4 sm:h-4" />
+              <SiDiscord size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
             <a
               href="https://cal.com/elijahfarrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-1 xs:px-3 xs:py-2 sm:gap-2 sm:px-3 sm:py-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
             >
-              <FiPhone size={14} className="sm:w-4 sm:h-4" />
+              <FiPhone size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
             </div>
           </div>

@@ -46,7 +46,7 @@ export default function Contact(): JSX.Element {
     {
       icon: <FiCalendar />,
       title: "Meeting",
-      value: "Book a call via Cal.com",
+      value: "Schedule a call",
       link: "https://cal.com/elijahfarrell",
       external: true
     }

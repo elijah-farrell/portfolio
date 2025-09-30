@@ -166,7 +166,9 @@ export function Navbar() {
       <ResizableNavbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo />
+          <div className="flex items-center">
+            <NavbarLogo />
+          </div>
           <NavItems 
             items={mainNavItems}
             onSectionClick={(sectionId) => {
@@ -175,7 +177,8 @@ export function Navbar() {
               }
             }}
           />
-          <div className="flex items-center gap-2 relative z-50 ml-0 mr-1">
+
+          <div className="flex items-center gap-4 relative z-50">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}

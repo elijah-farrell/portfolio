@@ -51,15 +51,23 @@ interface MobileNavMenuProps {
 
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const currentPath = window.location.pathname;
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
     layoutEffect: false,
   });
-  const [visible, setVisible] = useState<boolean>(false);
+
+  // Ensure component is mounted before accessing window
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    if (!mounted) return;
+    
     // Trigger animation on first scroll (10px)
     const threshold = 10;
     
@@ -89,8 +97,10 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkScreenSize = () => {
       setIsTabletOrLarger(window.innerWidth >= 768);
     };
@@ -102,13 +112,13 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
   return (
     <motion.div
-      animate={{
+      animate={mounted ? {
         width: visible && isTabletOrLarger ? "95%" : "100%",
         backdropFilter: visible ? "blur(12px)" : "blur(0px)",
         boxShadow: visible
           ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
           : "0 0 0 rgba(0, 0, 0, 0)",
-      }}
+      } : {}}
       transition={{
         type: "spring",
         stiffness: 300,
@@ -124,9 +134,9 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       <div className="w-full flex flex-row items-center relative">
         <motion.div 
           className="absolute left-0 flex items-center"
-          animate={{
+          animate={mounted ? {
             x: visible && isTabletOrLarger ? 12 : 0,
-          }}
+          } : {}}
           transition={{
             type: "spring",
             stiffness: 300,
@@ -142,9 +152,9 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         </div>
         <motion.div 
           className="absolute right-0 flex items-center"
-          animate={{
+          animate={mounted ? {
             x: visible && isTabletOrLarger ? -12 : 0,
-          }}
+          } : {}}
           transition={{
             type: "spring",
             stiffness: 300,
@@ -324,8 +334,10 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
 export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkScreenSize = () => {
       setIsTabletOrLarger(window.innerWidth >= 768);
     };
@@ -350,7 +362,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
 
   return (
     <motion.div
-      animate={{
+      animate={mounted ? {
         width: visible && isTabletOrLarger ? "95%" : "100%",
         backgroundColor: visible 
           ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
@@ -358,7 +370,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         boxShadow: visible
           ? "0 4px 16px rgba(34, 42, 53, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(34, 42, 53, 0.04)"
           : "0 0 0 rgba(0, 0, 0, 0)",
-      }}
+      } : {}}
       transition={{
         type: "spring",
         stiffness: 300,
@@ -386,8 +398,10 @@ export const MobileNavHeader = ({
 }: MobileNavHeaderProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkScreenSize = () => {
       setIsTabletOrLarger(window.innerWidth >= 768);
     };
@@ -399,13 +413,15 @@ export const MobileNavHeader = ({
 
   // Get visible state from parent (this is a bit hacky but works)
   useEffect(() => {
+    if (!mounted) return;
+    
     const handleScroll = () => {
       setVisible(window.scrollY > 10);
     };
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   return (
     <div
@@ -417,9 +433,9 @@ export const MobileNavHeader = ({
     >
       <motion.div 
         className="flex items-center"
-        animate={{
+        animate={mounted ? {
           x: visible && isTabletOrLarger ? 8 : 0,
-        }}
+        } : {}}
         transition={{
           type: "spring",
           stiffness: 300,
@@ -431,9 +447,9 @@ export const MobileNavHeader = ({
       </motion.div>
       <motion.div 
         className="flex items-center"
-        animate={{
+        animate={mounted ? {
           x: visible && isTabletOrLarger ? -8 : 0,
-        }}
+        } : {}}
         transition={{
           type: "spring",
           stiffness: 300,

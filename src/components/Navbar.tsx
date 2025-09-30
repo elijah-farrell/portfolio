@@ -22,9 +22,15 @@ import { Monitor, ChevronDown, Sun, Moon, Mail } from "lucide-react";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
-  const currentPath = window.location.pathname;
+  const [mounted, setMounted] = useState(false);
+  const [currentPath, setCurrentPath] = useState('');
 
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    setMounted(true);
+    setCurrentPath(window.location.pathname);
+  }, []);
 
   const toggleTheme = () => {
     // Add polygon animation
@@ -82,6 +88,8 @@ export function Navbar() {
 
   // Navigate to contact section
   const scrollToContact = () => {
+    if (!mounted) return;
+    
     if (currentPath !== '/') {
       // If not on home page, navigate to home with contact hash
       window.location.href = '/#contact';
@@ -104,31 +112,31 @@ export function Navbar() {
       name: "About",
       link: "/#about",
       isDropdown: false,
-      isActive: currentPath === "/" && window.location.hash === "#about",
+      isActive: mounted && currentPath === "/" && window.location.hash === "#about",
     },
     {
       name: "Education",
       link: "/#education", 
       isDropdown: false,
-      isActive: currentPath === "/" && window.location.hash === "#education",
+      isActive: mounted && currentPath === "/" && window.location.hash === "#education",
     },
     {
       name: "Experience",
       link: "/#experience",
       isDropdown: false,
-      isActive: currentPath === "/" && window.location.hash === "#experience",
+      isActive: mounted && currentPath === "/" && window.location.hash === "#experience",
     },
     {
       name: "Projects",
       link: "/#projects",
       isDropdown: false,
-      isActive: currentPath === "/" && window.location.hash === "#projects",
+      isActive: mounted && currentPath === "/" && window.location.hash === "#projects",
     },
     {
       name: "Skills",
       link: "/#skills",
       isDropdown: false,
-      isActive: currentPath === "/" && window.location.hash === "#skills",
+      isActive: mounted && currentPath === "/" && window.location.hash === "#skills",
     },
     {
       name: "Services", 
@@ -136,7 +144,7 @@ export function Navbar() {
       isDropdown: true,
       sections: servicesSections,
       icon: <Monitor className="w-4 h-4 mr-2" />,
-      isActive: currentPath === "/services",
+      isActive: mounted && currentPath === "/services",
     },
   ];
 
@@ -165,7 +173,7 @@ export function Navbar() {
     <div className="relative w-full">
       <ResizableNavbar>
         {/* Desktop Navigation */}
-        <NavBody>
+        <NavBody isNavComponent={true}>
           <div className="flex items-center">
             <NavbarLogo />
           </div>
@@ -205,7 +213,7 @@ export function Navbar() {
         </NavBody>
 
         {/* Mobile Navigation */}
-        <MobileNav isMenuOpen={isMobileMenuOpen}>
+        <MobileNav isMenuOpen={isMobileMenuOpen} isNavComponent={true}>
           <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
             <NavbarLogo visible={false} />
             <div className="flex items-center gap-2 mr-0">
@@ -276,7 +284,7 @@ export function Navbar() {
                       if (item.link.includes('#')) {
                         // Section link - scroll to section
                         const sectionId = item.link.split('#')[1];
-                        if (currentPath === '/') {
+                        if (mounted && currentPath === '/') {
                           // Same page - just scroll without changing URL
                           const element = document.getElementById(sectionId);
                           if (element) {
@@ -319,7 +327,7 @@ export function Navbar() {
                             if (section.sectionId === "modal") {
                               setIsModalOpen(true);
                             } else {
-                              if (currentPath === item.link) {
+                              if (mounted && currentPath === item.link) {
                                 // Same page - just scroll without changing URL
                                 const element = document.getElementById(section.sectionId);
                                 if (element) {

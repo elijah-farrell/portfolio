@@ -13,6 +13,7 @@ interface NavBodyProps {
   children: React.ReactNode;
   className?: string;
   visible?: boolean;
+  isNavComponent?: boolean;
 }
 
 interface NavItemsProps {
@@ -34,6 +35,7 @@ interface MobileNavProps {
   className?: string;
   visible?: boolean;
   isMenuOpen?: boolean;
+  isNavComponent?: boolean;
 }
 
 interface MobileNavHeaderProps {
@@ -53,44 +55,46 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
-  
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-    layoutEffect: false,
-  });
 
   // Ensure component is mounted before accessing window
   useEffect(() => {
     setMounted(true);
+    
+    const handleScroll = () => {
+      const threshold = 10;
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      
+      if (scrollY > threshold) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    
+    // Set initial state
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (!mounted) return;
-    
-    // Trigger animation on first scroll (10px)
-    const threshold = 10;
-    
-    if (latest > threshold) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  });
 
   return (
     <motion.div
       ref={ref}
       className={cn("fixed inset-x-0 z-40 w-full", className)}
     >
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(
-              child as React.ReactElement<{ visible?: boolean }>,
-              { visible: (child.type as any)?.name === 'NavBody' || (child.type as any)?.name === 'MobileNav' ? visible : undefined },
-            )
-          : child,
-      )}
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          // Check if this component should receive the visible prop
+          const shouldReceiveVisible = (child.props as any)?.isNavComponent === true;
+          
+          return React.cloneElement(
+            child as React.ReactElement<{ visible?: boolean }>,
+            { visible: shouldReceiveVisible ? visible : undefined },
+          );
+        }
+        return child;
+      })}
     </motion.div>
   );
 };
@@ -109,6 +113,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
+
 
   return (
     <motion.div
@@ -416,10 +421,14 @@ export const MobileNavHeader = ({
     if (!mounted) return;
     
     const handleScroll = () => {
-      setVisible(window.scrollY > 10);
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      setVisible(scrollY > 10);
     };
     
-    window.addEventListener('scroll', handleScroll);
+    // Set initial state
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mounted]);
 

@@ -131,8 +131,8 @@ export default function HeroSection(): JSX.Element {
 
   return (
     <>
-      <div className="min-h-screen h-auto flex flex-col lg:flex-row justify-center items-center px-2 sm:px-4 md:px-8 lg:px-8 xl:px-40 space-x-2 pt-20 sm:pt-16 md:pt-16 lg:mt-10 relative overflow-hidden">
-        <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full">
+      <div className="min-h-screen h-auto flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-40 2xl:px-52 space-x-2 pt-16 sm:pt-20 md:pt-20 lg:mt-10 relative overflow-hidden">
+        <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 xl:w-1/2 xl:pl-3 max-w-full">
           {/* Status Badge */}
           {settings.showAvailableForOpportunities && (
             <div className="mb-4">
@@ -212,12 +212,12 @@ export default function HeroSection(): JSX.Element {
           </div>
 
            {/* Interactive Stats */}
-           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-1 xs:gap-1 sm:gap-2 mt-8 text-center">
+           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-1 xs:gap-1 sm:gap-2 md:gap-4 mt-8 text-center max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-5xl mx-auto">
             {stats.map((stat, index) => (
               <a
                 key={index}
                 href={stat.href}
-                 className={`${stat.bgColor} p-2 xs:p-3 sm:p-3 rounded-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-md group border border-transparent hover:border-opacity-20 block no-underline`}
+                 className={`${stat.bgColor} p-2 xs:p-3 sm:p-3 md:p-4 rounded-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-md group border border-transparent hover:border-opacity-20 block no-underline`}
               >
                 <div
                   className={`${stat.color} mb-1 xs:mb-2 group-hover:scale-110 transition-transform duration-300 flex justify-center`}

@@ -89,35 +89,25 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(10px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-          : "none",
-        paddingTop: visible ? "24px" : "20px",
-        paddingBottom: visible ? "24px" : "20px",
-        paddingRight: visible ? "16px" : "0px",
-        paddingLeft: visible ? "16px" : "0px",
-        width: visible ? "90%" : "100%",
-        y: visible ? 0 : 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 45,
-        duration: 0.8,
-        ease: "easeOut",
-      }}
+    <div
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-2 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden lg:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        visible && "shadow-lg",
         className,
       )}
     >
-      <div className="w-full px-0 md:px-4 lg:px-12 xl:px-8 flex flex-row items-center justify-between">
-        {children}
+      <div className="w-full flex flex-row items-center relative">
+        <div className="absolute left-0 flex items-center">
+          {React.Children.toArray(children)[0]}
+        </div>
+        <div className="w-full flex justify-center">
+          {React.Children.toArray(children)[1]}
+        </div>
+        <div className="absolute right-0 flex items-center">
+          {React.Children.toArray(children)[2]}
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -140,10 +130,10 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
   }, []);
 
   return (
-    <motion.div
+    <div
       ref={dropdownRef}
       className={cn(
-        "flex flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 mx-0",
+        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 mx-0",
         className,
       )}
     >
@@ -278,7 +268,7 @@ export const NavItems = ({ items, className, onItemClick, onSectionClick }: NavI
           )}
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
@@ -296,34 +286,17 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   }, []);
 
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(10px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-          : "none",
-        width: visible && isTabletOrLarger ? "90%" : "100%",
-        paddingTop: visible ? "16px" : "12px",
-        paddingBottom: visible ? "16px" : "12px",
-        paddingLeft: visible ? "16px" : "0px",
-        paddingRight: visible ? "16px" : "0px",
-        y: 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 45,
-        duration: 0.8,
-        ease: "easeOut",
-      }}
+    <div
       className={cn(
-        `relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-0 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90 ${visible ? 'md:rounded-full' : ''}`,
+        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden bg-white/90 backdrop-blur-md dark:bg-neutral-950/90",
+        isTabletOrLarger && "rounded-full",
+        visible && "shadow-lg",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -335,7 +308,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between px-2 sm:px-4 md:px-8 lg:px-8 xl:px-10 2xl:px-12 py-3",
+        "flex w-full flex-row items-center justify-between px-6 lg:px-24 xl:px-40 2xl:px-52 py-1",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
@@ -360,7 +333,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-2 sm:px-4 md:px-8 lg:px-8 xl:px-10 2xl:px-12 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
+            "fixed inset-x-0 top-[28px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-28px)] overflow-y-auto",
             className,
           )}
         >
@@ -385,7 +358,7 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
         {/* Shimmer effect */}
         <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
-        <span className="hidden sm:inline lg:hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
+        <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>
     </div>
   );

@@ -351,6 +351,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   return (
     <motion.div
       animate={{
+        width: visible && isTabletOrLarger ? "90%" : "100%",
         backgroundColor: visible 
           ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
           : (isDarkMode ? "rgba(10, 10, 10, 0)" : "rgba(255, 255, 255, 0)"),

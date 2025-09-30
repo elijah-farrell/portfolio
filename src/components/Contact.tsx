@@ -53,11 +53,11 @@ export default function Contact(): JSX.Element {
   ];
 
   return (
-    <div id="contact">
+    <div id="contact" className="border-0">
       <h1 className="text-3xl my-5">CONTACT</h1>
       <BackgroundBeamsWithCollision className="w-full h-auto z-0 translate-y-7">
-        <Card className="border-none py-28 px-2 md:px-4">
-          <CardBody className="w-full h-auto z-30 relative">
+        <div className="py-28 px-2 md:px-4">
+          <div className="w-full h-auto z-30 relative">
             <p className="leading-9 text-center mb-12">
               Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
@@ -107,8 +107,8 @@ export default function Contact(): JSX.Element {
             <div className="text-center text-xs text-muted-foreground pt-10">
               © Developed by Me
             </div>
-          </CardBody>
-        </Card>
+          </div>
+        </div>
       </BackgroundBeamsWithCollision>
     </div>
   );

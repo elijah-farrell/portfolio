@@ -507,10 +507,8 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
           e.preventDefault();
           window.location.href = '/';
         }}
-        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1 hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
+        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1"
       >
-        {/* Shimmer effect */}
-        <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 pointer-events-none"></div>
         <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
         <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>

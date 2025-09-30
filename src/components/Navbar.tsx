@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import ContactForm from "./ContactForm";
 import { useTheme } from "./theme-provider";
 import { Monitor, ChevronDown, Sun, Moon, Mail } from "lucide-react";
+import { ThemeToggle } from "./ui/theme-toggle";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -32,50 +33,7 @@ export function Navbar() {
   }, []);
 
   const toggleTheme = () => {
-    // Add polygon animation
-    const styleId = `theme-transition-${Date.now()}`;
-    const style = document.createElement('style');
-    style.id = styleId;
-    
-    const css = `
-      @supports (view-transition-name: root) {
-        ::view-transition-old(root) {
-          animation: none;
-        }
-        ::view-transition-new(root) {
-          animation: ${isDark ? 'wipe-in-light' : 'wipe-in-dark'} 0.4s ease-out;
-        }
-        @keyframes wipe-in-dark {
-          from {
-            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-          }
-          to {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-          }
-        }
-        @keyframes wipe-in-light {
-          from {
-            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-          }
-          to {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-          }
-        }
-      }
-    `;
-    
-    style.textContent = css;
-    document.head.appendChild(style);
-    
-    // Clean up animation styles after transition
-    setTimeout(() => {
-      const styleEl = document.getElementById(styleId);
-      if (styleEl) {
-        styleEl.remove();
-      }
-    }, 3000);
-    
-    // Start the transition
+    // Use View Transitions API for smooth theme switching
     if ('startViewTransition' in document) {
       (document as Document & { startViewTransition?: (callback: () => void) => void }).startViewTransition?.(() => {
         setTheme(isDark ? "light" : "dark");
@@ -138,6 +96,12 @@ export function Navbar() {
       isActive: mounted && currentPath === "/" && window.location.hash === "#skills",
     },
     {
+      name: "Contact",
+      link: "/#contact",
+      isDropdown: false,
+      isActive: mounted && currentPath === "/" && window.location.hash === "#contact",
+    },
+    {
       name: "Services", 
       link: "/services",
       isDropdown: true,
@@ -186,28 +150,8 @@ export function Navbar() {
           />
 
           <div className="flex items-center gap-4 relative z-50">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full transition-colors duration-200 cursor-pointer relative z-50"
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </button>
-            
-            {/* Contact Button */}
-            <button
-              onClick={scrollToContact}
-              className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-lg transition-all duration-300 flex items-center gap-1 cursor-pointer relative z-50 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
-            >
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
-              <Mail className="w-4 h-4 relative z-10" />
-              <span className="relative z-10">Contact</span>
-            </button>
+            {/* Theme Toggle Switch */}
+            <ThemeToggle />
           </div>
         </NavBody>
 
@@ -216,16 +160,7 @@ export function Navbar() {
           <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
             <NavbarLogo visible={false} />
             <div className="flex items-center gap-2 mr-0">
-              <button
-                onClick={toggleTheme}
-                className="p-2.5 rounded-full bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
-              >
-                {isDark ? (
-                  <Sun className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
-                ) : (
-                  <Moon className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
-                )}
-              </button>
+              <ThemeToggle />
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -350,19 +285,6 @@ export function Navbar() {
               </div>
             ))}
             
-            {/* Contact Button in Mobile */}
-            <div className="w-full">
-              <button
-                onClick={() => {
-                  scrollToContact();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="relative flex items-center justify-center w-full py-3 px-4 rounded-lg transition-all duration-200 text-white font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                <span className="block font-semibold">Contact</span>
-              </button>
-            </div>
           </MobileNavMenu>
         </MobileNav>
       </ResizableNavbar>

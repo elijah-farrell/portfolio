@@ -1,15 +1,8 @@
 "use client";
-import {cn} from "@/lib/utils";
-import {Canvas, useFrame, useThree} from "@react-three/fiber";
-import React, {useMemo, useRef} from "react";
-import { 
-  ShaderMaterial as ThreeShaderMaterial, 
-  Vector2, 
-  Vector3, 
-  CustomBlending, 
-  SrcAlphaFactor, 
-  OneFactor 
-} from "three";
+import { cn } from "@/lib/utils";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import React, { useMemo, useRef } from "react";
+import * as THREE from "three";
 
 export const CanvasRevealEffect = ({
   animationSpeed = 0.4,
@@ -31,7 +24,7 @@ export const CanvasRevealEffect = ({
   showGradient?: boolean;
 }) => {
   return (
-    <div className={cn("h-full relative bg-white w-full", containerClassName)}>
+    <div className={cn("h-full relative bg-white dark:bg-black w-full", containerClassName)}>
       <div className="h-full w-full">
         <DotMatrix
           colors={colors ?? [[0, 255, 255]]}
@@ -49,7 +42,7 @@ export const CanvasRevealEffect = ({
         />
       </div>
       {showGradient && (
-        <div className="absolute inset-0 bg-gradient-to-t dark:from-gray-950 from-white to-[84%]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-gray-950 to-[84%]" />
       )}
     </div>
   );
@@ -199,7 +192,7 @@ const ShaderMaterial = ({
   uniforms: Uniforms;
 }) => {
   const { size } = useThree();
-  const ref = useRef<THREE.Mesh>();
+  const ref = useRef<THREE.Mesh>(null);
   let lastFrameTime = 0;
 
   useFrame(({ clock }) => {
@@ -210,13 +203,13 @@ const ShaderMaterial = ({
     }
     lastFrameTime = timestamp;
 
-    const material = ref.current.material as ThreeShaderMaterial;
+    const material = ref.current.material as THREE.ShaderMaterial;
     const timeLocation = material.uniforms.u_time;
     timeLocation.value = timestamp;
   });
 
   const getUniforms = () => {
-    const preparedUniforms: Record<string, { value: number | number[] | Vector2 | Vector3 | Vector3[]; type?: string }> = {};
+    const preparedUniforms: Record<string, { value: number | number[] | THREE.Vector2 | THREE.Vector3 | THREE.Vector3[]; type?: string }> = {};
 
     for (const uniformName in uniforms) {
       const uniform = uniforms[uniformName] as { type: string; value: number | number[] };
@@ -227,24 +220,24 @@ const ShaderMaterial = ({
           break;
         case "uniform3f":
           preparedUniforms[uniformName] = {
-            value: new Vector3().fromArray(uniform.value as number[]),
+            value: new THREE.Vector3().fromArray(uniform.value as number[]),
             type: "3f",
           };
           break;
         case "uniform1fv":
-          preparedUniforms[uniformName] = { value: uniform.value, type: "1fv" };
+          preparedUniforms[uniformName] = { value: uniform.value as number[], type: "1fv" };
           break;
         case "uniform3fv":
           preparedUniforms[uniformName] = {
             value: (uniform.value as unknown as number[][]).map((v: number[]) =>
-              new Vector3().fromArray(v)
+              new THREE.Vector3().fromArray(v)
             ),
             type: "3fv",
           };
           break;
         case "uniform2f":
           preparedUniforms[uniformName] = {
-            value: new Vector2().fromArray(uniform.value as number[]),
+            value: new THREE.Vector2().fromArray(uniform.value as number[]),
             type: "2f",
           };
           break;
@@ -256,14 +249,14 @@ const ShaderMaterial = ({
 
     preparedUniforms["u_time"] = { value: 0, type: "1f" };
     preparedUniforms["u_resolution"] = {
-      value: new Vector2(size.width * 2, size.height * 2),
+      value: new THREE.Vector2(size.width * 2, size.height * 2),
     }; // Initialize u_resolution
     return preparedUniforms;
   };
 
   // Shader material
   const material = useMemo(() => {
-    const materialObject = new ThreeShaderMaterial({
+    const materialObject = new THREE.ShaderMaterial({
       vertexShader: `
       precision mediump float;
       in vec2 coordinates;
@@ -279,10 +272,10 @@ const ShaderMaterial = ({
       `,
       fragmentShader: source,
       uniforms: getUniforms(),
-      glslVersion: 300,
-      blending: CustomBlending,
-      blendSrc: SrcAlphaFactor,
-      blendDst: OneFactor,
+      glslVersion: THREE.GLSL3,
+      blending: THREE.CustomBlending,
+      blendSrc: THREE.SrcAlphaFactor,
+      blendDst: THREE.OneFactor,
     });
 
     return materialObject;

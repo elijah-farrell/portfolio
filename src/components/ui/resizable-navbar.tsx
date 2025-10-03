@@ -255,7 +255,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-1 z-[9999]"
+                      className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-1 z-[9999"
                     >
                       {item.sections?.map((section, sectionIdx) => (
                       <a
@@ -487,7 +487,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[60px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
+            "fixed inset-x-0 top-[60px z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05) dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
             className,
           )}
         >
@@ -507,9 +507,9 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
           e.preventDefault();
           window.location.href = '/';
         }}
-        className="relative text-lg md:text-xl font-bold whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1"
+        className="relative text-lg md:text-xl whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1"
       >
-        <span className="text-emerald-600 dark:text-emerald-500 relative z-10">Elijah</span>
+        <span className="text-xl bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent relative z-10">Elijah</span>
         <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
       </a>
     </div>
@@ -526,7 +526,7 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-2.5 rounded-lg bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 hover:border-emerald-500 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
+      className="p-2.5 rounded-lg bg-white dark:bg-[#0A0A0A border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 hover:border-emerald-500 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
     >
       <div className="w-4 h-4 flex flex-col justify-center items-center">
         <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
@@ -542,3 +542,4 @@ export const MobileNavToggle = ({
     </button>
   );
 };
+

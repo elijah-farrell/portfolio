@@ -101,7 +101,7 @@ export default function ProjectsSection() {
       <p className="text-gray-600 dark:text-gray-400 mb-2">
         My Work.
       </p>
-      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl transition-colors duration-300">
+      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[1fr] justify-items-center">
           {projects.map((project, index) => (
             <ProjectCard

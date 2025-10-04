@@ -16,48 +16,17 @@ import {
 } from "@/components/ui/shadcn-io/animated-modal";
 import { useEffect, useState } from "react";
 import ContactForm from "./ContactForm";
-import { useTheme } from "./theme-provider";
-import { Monitor, ChevronDown, Sun, Moon, Mail } from "lucide-react";
+import { Monitor, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "./ui/theme-toggle";
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentPath, setCurrentPath] = useState('');
-
-  const isDark = theme === "dark";
 
   useEffect(() => {
     setMounted(true);
     setCurrentPath(window.location.pathname);
   }, []);
-
-  const toggleTheme = () => {
-    // Use View Transitions API for smooth theme switching
-    if ('startViewTransition' in document) {
-      (document as Document & { startViewTransition?: (callback: () => void) => void }).startViewTransition?.(() => {
-        setTheme(isDark ? "light" : "dark");
-      });
-    } else {
-      setTheme(isDark ? "light" : "dark");
-    }
-  };
-
-  // Navigate to contact section
-  const scrollToContact = () => {
-    if (!mounted) return;
-    
-    if (currentPath !== '/') {
-      // If not on home page, navigate to home with contact hash
-      window.location.href = '/#contact';
-    } else {
-      // Already on home page, just scroll to contact
-      const contactSection = document.getElementById('contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  };
 
   const servicesSections = [
     { name: "What I Do", sectionId: "what-i-do" },
@@ -160,7 +129,6 @@ export function Navbar() {
           <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
             <NavbarLogo visible={false} />
             <div className="flex items-center gap-2 mr-0">
-              <ThemeToggle />
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -285,6 +253,10 @@ export function Navbar() {
               </div>
             ))}
             
+            {/* Theme Toggle at Bottom of Mobile Menu */}
+            <div className="w-full pt-4 mt-2 border-t border-gray-200 dark:border-neutral-700">
+              <ThemeToggle />
+            </div>
           </MobileNavMenu>
         </MobileNav>
       </ResizableNavbar>

@@ -165,7 +165,7 @@ export default function HeroSection(): JSX.Element {
             <div className="flex gap-1 xs:gap-2 sm:gap-3">
              <a
                href="mailto:farrellelijah@outlook.com"
-               className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+               className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium"
              >
                <FiMail size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
              </a>
@@ -173,7 +173,7 @@ export default function HeroSection(): JSX.Element {
               href="https://github.com/elijah-farrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium"
             >
               <SiGithub size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
@@ -181,7 +181,7 @@ export default function HeroSection(): JSX.Element {
               href="https://www.linkedin.com/in/elijah-farrell-915047349/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium"
             >
               <SiLinkedin size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
@@ -189,7 +189,7 @@ export default function HeroSection(): JSX.Element {
                                href="https://discord.gg/h9QSQZzn"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium"
             >
               <SiDiscord size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
@@ -197,7 +197,7 @@ export default function HeroSection(): JSX.Element {
               href="https://cal.com/elijahfarrell"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium transition-colors duration-300"
+              className="flex items-center gap-1 px-2.5 py-2.5 xs:px-3 xs:py-3 xl:px-3 xl:py-3 bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700 text-neutral-700 dark:text-neutral-300 rounded-full text-sm font-medium"
             >
               <FiPhone size={14} className="xs:w-4 xs:h-4 xl:w-4 xl:h-4" />
             </a>
@@ -210,7 +210,7 @@ export default function HeroSection(): JSX.Element {
               <a
                 key={index}
                 href={stat.href}
-                 className={`${stat.bgColor} p-2 xs:p-3 sm:p-3 md:p-4 rounded-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-md group border border-transparent hover:border-opacity-20 block no-underline`}
+                 className={`${stat.bgColor} p-2 xs:p-3 sm:p-3 md:p-4 rounded-2xl cursor-pointer transform transition-transform duration-300 hover:scale-105 hover:shadow-md group border border-transparent hover:border-opacity-20 block no-underline`}
               >
                 <div
                   className={`${stat.color} mb-1 xs:mb-2 group-hover:scale-110 transition-transform duration-300 flex justify-center`}
@@ -221,7 +221,7 @@ export default function HeroSection(): JSX.Element {
                    {isStatsVisible ? stat.value.toLocaleString() : 0}
                    {stat.suffix}
                  </div>
-                 <div className="text-sm text-muted-foreground group-hover:text-opacity-80 transition-all duration-300">
+                 <div className="text-sm text-muted-foreground group-hover:text-opacity-80">
                    {stat.label}
                  </div>
               </a>
@@ -237,7 +237,7 @@ export default function HeroSection(): JSX.Element {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <a
             href="#about"
-            className="flex flex-col items-center cursor-pointer animate-bounce hover:text-emerald-600 transition-colors duration-300 no-underline"
+            className="flex flex-col items-center cursor-pointer animate-bounce hover:text-emerald-600 no-underline"
           >
             <span className="text-xs text-muted-foreground mb-2">
               Scroll to explore

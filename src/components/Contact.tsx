@@ -72,14 +72,14 @@ export default function Contact(): JSX.Element {
                   rel={info.external ? "noopener noreferrer" : undefined}
                   className="block no-underline relative z-40"
                 >
-                  <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[200px] flex flex-col justify-center cursor-pointer group relative z-40">
+                  <Card className="p-6 text-center hover:shadow-lg transition-transform duration-300 hover:scale-105 min-h-[200px] flex flex-col justify-center cursor-pointer group relative z-40">
                     <div className="flex justify-center mb-4">
                       <div className="text-3xl text-emerald-600 group-hover:scale-110 transition-transform duration-300">
                         {info.icon}
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">{info.title}</h3>
-                    <div className="text-emerald-600 group-hover:text-emerald-700 transition-colors break-words text-sm md:text-base px-2 whitespace-pre-line">
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400">{info.title}</h3>
+                    <div className="text-emerald-600 group-hover:text-emerald-700 break-words text-sm md:text-base px-2 whitespace-pre-line">
                       {info.value}
                     </div>
                   </Card>

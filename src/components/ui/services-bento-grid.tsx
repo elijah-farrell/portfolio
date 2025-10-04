@@ -27,7 +27,7 @@ export default function ServicesBentoGrid() {
   );
 }
 
-const ServiceCard = ({ item, index: _index }: { item: { id: string; title: string; description: string; link: string; icon: React.ReactNode }; index: number }) => {
+const ServiceCard = ({ item, index: _index }: { item: { title: string; description: string; header: React.ReactNode; className: string; icon: React.ReactNode; examples: string[] }; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -45,11 +45,11 @@ const ServiceCard = ({ item, index: _index }: { item: { id: string; title: strin
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className="group/bento shadow-lg md:hover:shadow-xl flex flex-col rounded-xl border border-gray-200 md:hover:border-emerald-300 bg-white transition duration-300 md:hover:scale-105 dark:border-white/[0.2] dark:md:hover:border-emerald-500/50 dark:bg-black dark:shadow-none h-full relative overflow-hidden p-6"
+      className="group/bento shadow-lg md:hover:shadow-xl flex flex-col rounded-xl border border-gray-200 md:hover:border-emerald-300 bg-white transition-transform duration-300 md:hover:scale-105 dark:border-white/[0.2] dark:md:hover:border-emerald-500/50 dark:bg-black dark:shadow-none h-full relative overflow-hidden p-6"
     >
       {/* Spotlight effect */}
       <div 
-        className="absolute inset-0 opacity-0 md:group-hover/bento:opacity-100 transition-opacity duration-300 pointer-events-none" 
+        className="absolute inset-0 opacity-0 md:group-hover/bento:opacity-100 pointer-events-none" 
         style={{
           background: 'radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.25), transparent 40%)'
         }}
@@ -58,7 +58,7 @@ const ServiceCard = ({ item, index: _index }: { item: { id: string; title: strin
       <div className="mb-4 relative z-10">
         {item.header}
       </div>
-      <div className="transition duration-200 md:group-hover/bento:translate-x-2 flex-1 relative z-10">
+      <div className="transition-transform duration-200 md:group-hover/bento:translate-x-2 flex-1 relative z-10">
         <div className="mb-3">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.title}</h3>
         </div>

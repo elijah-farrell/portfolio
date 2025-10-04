@@ -45,10 +45,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
     <div className="absolute -left-[1.95rem] top-10 transition-none">
       <span className="relative flex h-3 w-3">
         <span className="absolute inline-flex h-3 w-3 animate-ping rounded-2xl bg-gray-400 opacity-75 group-hover:bg-emerald-400"></span>
-        <span className="relative inline-flex h-3 w-3 rounded-2xl bg-emerald-500 group-hover:bg-emerald-400 transition-colors duration-300"></span>
+        <span className="relative inline-flex h-3 w-3 rounded-2xl bg-emerald-500 group-hover:bg-emerald-400"></span>
       </span>
     </div>
-    <div className="relative h-full rounded-2xl border p-2 md:rounded-2xl md:p-3 group-hover:border-emerald-200 dark:group-hover:border-emerald-700 transition-colors duration-300">
+    <div className="relative h-full rounded-2xl border p-2 md:rounded-2xl md:p-3 group-hover:border-emerald-200 dark:group-hover:border-emerald-700">
       {settings.experience.showGlowingEffect && (
         <GlowingEffect
           spread={20}
@@ -207,7 +207,7 @@ const ExperienceSection: React.FC = () => (
     <p className="text-gray-600 dark:text-gray-400 mb-6 px-4 sm:px-0">
       What I have done so far
     </p>
-    <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl transition-colors duration-300">
+    <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl">
       <div className="space-y-4 sm:space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 py-3 rounded-2xl">
         {timelineData.map((item, index) => (
           <TimelineItem key={index} {...item} />

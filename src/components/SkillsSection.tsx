@@ -140,12 +140,12 @@ export default function SkillsSection() {
         A comprehensive collection of technical competencies I've developed throughout my CS journey. While I'm not claiming mastery in all areas, I'm confident in my ability to excel in any role utilizing these skills.
       </p>
 
-      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl transition-colors duration-300">
+      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {skillsData.map((skill, idx) => (
             <CardSpotlight
               key={idx}
-              className=" p-4 rounded-2xl shadow-sm hover:shadow-lg duration-500 ease-in-out transition-all"
+              className=" p-4 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-500 ease-in-out"
             >
               <h3 className="text-xl mb-3 text-grey-700 font-bold dark:text-gray-100 relative z-20 flex items-center gap-2">
                 {categoryIconMap[skill.category] && (
@@ -178,7 +178,7 @@ export default function SkillsSection() {
                       }
                     >
                       <span
-                        className={`relative z-20 flex items-center gap-2 px-3 py-1 rounded-2xl text-sm transition-all ease-in-out duration-300 bg-slate-100 dark:bg-zinc-900 text-slate-900 hover:text-slate-100 dark:text-gray-200 cursor-help hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:scale-105`}
+                        className={`relative z-20 flex items-center gap-2 px-3 py-1 rounded-2xl text-sm transition-transform ease-in-out duration-300 bg-gray-100 dark:bg-neutral-900 text-gray-900 hover:text-slate-100 dark:text-gray-200 cursor-help hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:scale-105`}
                       >
                         {iconMap[item.name] && (
                           <span className="text-lg">{iconMap[item.name]}</span>

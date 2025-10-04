@@ -81,7 +81,14 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      className={cn("fixed inset-x-0 z-40 w-full", className)}
+      className={cn("fixed inset-x-0 top-0 z-40 w-full", className)}
+      style={{
+        // Force GPU acceleration for better Safari compatibility
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
+      }}
     >
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
@@ -197,7 +204,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
     <div
       ref={dropdownRef}
       className={cn(
-        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 mx-0",
+        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 hover:text-zinc-800 mx-0",
         className,
       )}
     >
@@ -213,7 +220,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                 setOpenDropdown(null);
               }}
             >
-                <div className={`flex items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200 ${
+                <div className={`flex items-center rounded-md hover:bg-accent hover:text-accent-foreground ${
                   item.isActive 
                     ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
                     : 'text-neutral-600 dark:text-neutral-300'
@@ -238,8 +245,8 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                    }}
                    className="pr-2 py-2 text-sm font-medium"
                  >
-                   <ChevronDown className={`w-4 h-4 transition-all duration-200 relative z-20 ${
-                     openDropdown === idx ? 'rotate-180' : ''
+                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 relative z-20 ${
+                    openDropdown === idx ? 'rotate-180' : ''
                    }`} />
                  </button>
                 </div>
@@ -283,7 +290,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                             }
                           }
                         }}
-                        className="block w-full text-left px-4 py-1.5 text-sm transition-colors duration-150 rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
+                        className="block w-full text-left px-4 py-1.5 text-sm rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
                       >
                         {section.name}
                       </a>
@@ -320,7 +327,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                   window.location.href = item.link;
                 }
               }}
-              className={`relative px-2 py-2 transition-all duration-300 ease-in-out flex items-center rounded-lg hover:bg-accent hover:text-accent-foreground ${
+              className={`relative px-2 py-2 flex items-center rounded-lg hover:bg-accent hover:text-accent-foreground ${
                 item.isActive 
                   ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
                   : 'text-neutral-600 dark:text-neutral-300'
@@ -368,7 +375,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   return (
     <motion.div
       animate={mounted ? {
-        width: visible && isTabletOrLarger ? "95%" : "100%",
+        width: (visible && isTabletOrLarger && !isMenuOpen) ? "95%" : "100%",
         backgroundColor: visible 
           ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
           : (isDarkMode ? "rgba(10, 10, 10, 0)" : "rgba(255, 255, 255, 0)"),
@@ -385,7 +392,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden backdrop-blur-md",
-        isTabletOrLarger && "rounded-full",
+        isTabletOrLarger && !isMenuOpen && "rounded-full",
         visible && "shadow-lg",
         isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
@@ -443,7 +450,7 @@ export const MobileNavHeader = ({
       <motion.div 
         className="flex items-center"
         animate={mounted ? {
-          x: visible && isTabletOrLarger ? 8 : 0,
+          x: visible && isTabletOrLarger && !isMenuOpen ? 8 : 0,
         } : {}}
         transition={{
           type: "spring",
@@ -457,7 +464,7 @@ export const MobileNavHeader = ({
       <motion.div 
         className="flex items-center"
         animate={mounted ? {
-          x: visible && isTabletOrLarger ? -8 : 0,
+          x: visible && isTabletOrLarger && !isMenuOpen ? -8 : 0,
         } : {}}
         transition={{
           type: "spring",
@@ -487,7 +494,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={cn(
-            "fixed inset-x-0 top-[60px z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05) dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-60px)] overflow-y-auto",
+            "fixed inset-x-0 top-[70px] z-50 flex w-full flex-col items-start justify-start gap-2 bg-white px-6 lg:px-24 xl:px-40 2xl:px-52 py-4 shadow-[0_4px_20px_rgba(0,_0,_0,_0.1),_0_1px_1px_rgba(0,_0,_0,_0.05)] dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-700 max-h-[calc(100vh-70px)] overflow-y-auto",
             className,
           )}
         >
@@ -507,7 +514,7 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
           e.preventDefault();
           window.location.href = '/';
         }}
-        className="relative text-lg md:text-xl whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1"
+        className="relative text-lg md:text-xl whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-emerald-500/20 rounded py-1"
       >
         <span className="text-xl bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent relative z-10">Elijah</span>
         <span className="hidden xl:inline text-gray-900 dark:text-white relative z-10"> Farrell</span>
@@ -526,16 +533,16 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-2.5 rounded-lg bg-white dark:bg-[#0A0A0A border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 hover:border-emerald-500 dark:hover:border-emerald-700 transition-all duration-200 shadow-sm hover:shadow-md"
+      className="p-2.5 rounded-lg bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 hover:border-emerald-500 dark:hover:border-emerald-700 shadow-sm hover:shadow-md"
     >
       <div className="w-4 h-4 flex flex-col justify-center items-center">
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 ${
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-transform duration-300 ${
           isOpen ? 'rotate-45 translate-y-1' : ''
         }`} />
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-0.5 ${
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-opacity duration-300 mt-0.5 ${
           isOpen ? 'opacity-0' : ''
         }`} />
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-all duration-300 mt-0.5 ${
+        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-transform duration-300 mt-0.5 ${
           isOpen ? '-rotate-45 -translate-y-1' : ''
         }`} />
       </div>

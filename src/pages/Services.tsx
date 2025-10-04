@@ -67,7 +67,7 @@ export default function ServicesPage() {
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-emerald-400/30 to-emerald-500/20 blur-sm rounded-xl -z-10"></div>
                 {/* Animated border with gradient */}
-                <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300 ease-out"></div>
+                <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute inset-[2px] bg-white dark:bg-neutral-950 rounded-lg"></div>
                 {/* Corner accent lines */}
                 <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-emerald-500 rounded-tl-lg"></div>
@@ -105,7 +105,7 @@ export default function ServicesPage() {
               <div className="flex justify-center">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="relative px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-lg font-semibold transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
+                  className="relative px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-lg font-semibold transition-transform duration-300 flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group overflow-hidden"
                 >
                   {/* Shimmer effect */}
                   <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[calc(100%+8px)] h-[calc(100%+8px)] opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>

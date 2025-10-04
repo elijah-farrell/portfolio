@@ -1,110 +1,99 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import LinkCard from "./LinkCard";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import { Card } from "@/components/ui/card";
-import { CardBody } from "@/components/ui/3d-card";
-import {
-  SiGithub,
-  SiLinkedin,
-  SiDiscord,
-} from "react-icons/si";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
 import { FiMapPin, FiMail, FiCalendar } from "react-icons/fi";
 
 export default function Contact(): JSX.Element {
-  const links = [
+  const allLinks = [
+    { icon: <FiMail />, url: "mailto:farrellelijah@outlook.com" },
+    { icon: <FiCalendar />, url: "https://cal.com/elijahfarrell", external: true },
     {
       title: "LinkedIn",
       url: "https://www.linkedin.com/in/elijah-farrell-915047349/",
       icon: <SiLinkedin />,
     },
-    {
-      title: "GitHub",
-      url: "https://github.com/elijah-farrell",
-      icon: <SiGithub />,
-    },
-    {
-      title: "Discord",
-      url: "https://discord.gg/h9QSQZzn",
-      icon: <SiDiscord />,
-    },
-  ];
-
-  const contactInfo = [
+    { title: "GitHub", url: "https://github.com/elijah-farrell", icon: <SiGithub /> },
+    { title: "Discord", url: "https://discord.gg/h9QSQZzn", icon: <SiDiscord /> },
     {
       icon: <FiMapPin />,
       title: "Location",
-      value: "New York",
-      link: "https://maps.google.com/?q=Watertown,NY",
-      external: true
+      url: "https://maps.google.com/?q=Upstate+New+York",
+      external: true,
     },
-    {
-      icon: <FiMail />,
-      title: "Email",
-      value: "farrellelijah\n@outlook.com",
-      link: "mailto:farrellelijah@outlook.com"
-    },
-    {
-      icon: <FiCalendar />,
-      title: "Meeting",
-      value: "Schedule a call",
-      link: "https://cal.com/elijahfarrell",
-      external: true
-    }
   ];
 
+  // Professional rotating phrases
+  const phrases = [
+    "Still reviewing your options?",
+    "Feel free to reach out anytime.",
+    "Your next project deserves the right collaborator.",
+    "Building great work starts with a conversation.",
+    "I look forward to connecting with you.",
+  ];
+
+  const [showPhrases, setShowPhrases] = useState(false);
+  const [phraseIndex, setPhraseIndex] = useState(0);
+
+  // Start showing phrases after 10s
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPhrases(true), 10000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Rotate phrases every 4s once visible
+  useEffect(() => {
+    if (showPhrases) {
+      const interval = setInterval(() => {
+        setPhraseIndex((prev) => (prev + 1) % phrases.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [showPhrases, phrases.length]);
+
   return (
-    <div id="contact" className="border-0">
-      <h1 className="text-3xl my-5">CONTACT</h1>
-      <BackgroundBeamsWithCollision className="w-full h-auto z-0 translate-y-7">
-        <div className="py-28 px-2 md:px-4">
-          <div className="w-full h-auto z-30 relative">
-            <p className="leading-9 text-center mb-12">
+    <div id="contact" className="border-0 min-h-[80vh] flex flex-col">
+      {/* Title */}
+      <h1 className="text-3xl font-bold text-left">CONTACT</h1>
+
+      {/* Background beams + content */}
+      <BackgroundBeamsWithCollision className="w-full h-full z-0 flex-1">
+        <div className="px-2 md:px-4 h-full flex flex-col justify-start">
+          <div className="w-full h-full z-30 relative">
+            
+            {/* Subtitle */}
+            <p className="text-gray-600 dark:text-gray-400 mt-24 mb-6 text-center text-lg w-full">
               Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
 
-            {/* Contact Information Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto relative z-40 px-2">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.link}
-                  target={info.external ? "_blank" : "_self"}
-                  rel={info.external ? "noopener noreferrer" : undefined}
-                  className="block no-underline relative z-40"
-                >
-                  <Card className="p-6 text-center hover:shadow-lg transition-transform duration-300 hover:scale-105 min-h-[200px] flex flex-col justify-center cursor-pointer group relative z-40">
-                    <div className="flex justify-center mb-4">
-                      <div className="text-3xl text-emerald-600 group-hover:scale-110 transition-transform duration-300">
-                        {info.icon}
-                      </div>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400">{info.title}</h3>
-                    <div className="text-emerald-600 group-hover:text-emerald-700 break-words text-sm md:text-base px-2 whitespace-pre-line">
-                      {info.value}
-                    </div>
-                  </Card>
-                </a>
+            {/* Rotating professional phrases */}
+            {showPhrases && (
+              <div className="mt-4 text-center">
+                <TextGenerateEffect
+                  key={phraseIndex} // 🔑 ensures animation resets each phrase
+                  words={phrases[phraseIndex]}
+                  className="text-lg text-primary"
+                />
+              </div>
+            )}
+
+            {/* Links */}
+            <div className="flex flex-wrap justify-center gap-6 py-12 relative z-40 px-2">
+              {allLinks.map((element, index) => (
+                <div key={index} className="relative z-40">
+                  <LinkCard
+                    title={element.title}
+                    url={element.url}
+                    icon={element.icon}
+                    customText={element.value}
+                  />
+                </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4 py-8 relative z-40 px-2">
-              {links.map(
-                (element, index) =>
-                  element && (
-                    <div key={index} className="relative z-40">
-                      <LinkCard
-                        key={index}
-                        title={element.title}
-                        url={element.url}
-                        icon={element.icon}
-                        customText={element.customText}
-                      />
-                    </div>
-                  )
-              )}
-            </div>
-
-            <div className="text-center text-xs text-muted-foreground pt-10">
+            {/* Footer */}
+            <div className="text-center text-xs text-muted-foreground pt-16">
               © Developed by Me
             </div>
           </div>

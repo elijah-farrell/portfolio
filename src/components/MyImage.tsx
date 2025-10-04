@@ -16,7 +16,21 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isDark, setIsDark] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+
+  // Detect dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
 
   // Handle image loading
   useEffect(() => {
@@ -86,13 +100,14 @@ const FloatingImage: React.FC<FloatingImageProps> = ({
     <div
       ref={imageRef}
       className="relative rounded-2xl md:rounded-3xl duration-700 h-auto w-auto transition-all shadow-2xl hover:shadow-3xl group perspective-1000"
-      style={{ position: 'relative' }} // Explicit positioning to fix scroll warnings
+      style={{ position: 'relative', backgroundColor: isDark ? '#0a0a0a' : '#FEFEFE' }} // Explicit positioning to fix scroll warnings
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <div 
         className="relative h-full rounded-2xl border-3 md:rounded-3xl overflow-hidden"
         style={{
+          backgroundColor: isDark ? '#0a0a0a' : '#FEFEFE',
           transform: `
                       translateY(${scrollY * 0.1}px) 
                       rotateX(${-mousePosition.y * 0.5}deg) 

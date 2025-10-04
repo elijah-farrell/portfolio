@@ -47,18 +47,20 @@ export function ThemeToggle() {
   }
 
   return (
-    <DarkModeToggle
-      mode={effectiveTheme}
-      size="sm"
-      inactiveTrackColor="#e2e8f0"
-      inactiveTrackColorOnHover="#f8fafc"
-      inactiveTrackColorOnActive="#cbd5e1"
-      activeTrackColor="#0A0A0A"
-      activeTrackColorOnHover="#1a1a1a"
-      activeTrackColorOnActive="#000000"
-      inactiveThumbColor="#0A0A0A"
-      activeThumbColor="#ffffff"
-      onChange={handleThemeChange}
-    />
+    <div className="[&_button]:outline-none [&_button]:focus:outline-none [&_button]:focus-visible:outline-none">
+      <DarkModeToggle
+        mode={effectiveTheme}
+        size="sm"
+        inactiveTrackColor="#e2e8f0"
+        inactiveTrackColorOnHover="#f8fafc"
+        inactiveTrackColorOnActive="#cbd5e1"
+        activeTrackColor="#0A0A0A"
+        activeTrackColorOnHover="#1a1a1a"
+        activeTrackColorOnActive="#000000"
+        inactiveThumbColor="#0A0A0A"
+        activeThumbColor="#ffffff"
+        onChange={handleThemeChange}
+      />
+    </div>
   );
 }

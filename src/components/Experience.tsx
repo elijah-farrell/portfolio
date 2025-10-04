@@ -96,7 +96,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                   </div>
                   
                   {/* Date in top right */}
-                  <span className="text-sm text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 self-center sm:self-auto">
+                  <span className="text-sm text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 self-start">
                     {from} – {to}
                   </span>
                 </div>

@@ -124,7 +124,7 @@ export default function HeroSection(): JSX.Element {
 
   return (
     <>
-      <div className="min-h-screen h-auto flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 space-x-2 pt-16 sm:pt-20 md:pt-20 lg:mt-10 relative overflow-hidden">
+      <div className="min-h-screen h-auto flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 space-x-2 pt-16 lg:pt-20 relative overflow-hidden bg-[#FEFEFE] dark:bg-[#0a0a0a]">
         <div className="text-2xl mx-auto font-normal text-neutral-600 dark:text-neutral-400 xl:w-1/2 xl:pl-3 max-w-full">
           {/* Status Badge */}
           {settings.showAvailableForOpportunities && (
@@ -229,7 +229,7 @@ export default function HeroSection(): JSX.Element {
           </div>
           <div></div>
         </div>
-        <div className="lg:w-1/2 p-10 flex justify-center">
+        <div className="lg:w-1/2 p-10 flex justify-center bg-[#FEFEFE] dark:bg-[#0a0a0a]">
           <FloatingImage mainImage={mainImage} altImage={altMainImage} />
         </div>
 

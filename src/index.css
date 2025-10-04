@@ -39,7 +39,7 @@ a[href^="#"] {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 99.6%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -103,147 +103,22 @@ a[href^="#"] {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   
-  /* Overscroll behavior and colors - theme aware */
   html {
-    overscroll-behavior: auto !important;
-    background-color: hsl(var(--background)) !important;
-    overscroll-behavior-color: hsl(var(--background)) !important;
-    -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
+    background-color: #FEFEFE;
+  }
+  
+  html.dark {
+    background-color: #0a0a0a;
   }
   
   body {
-    overscroll-behavior: auto !important;
-    background-color: hsl(var(--background)) !important;
-    overscroll-behavior-color: hsl(var(--background)) !important;
-    -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
+    @apply text-foreground;
+    background-color: #FEFEFE;
   }
   
-  /* Root element background - theme aware */
-  :root {
-    background-color: hsl(var(--background)) !important;
-    overscroll-behavior-color: hsl(var(--background)) !important;
-    -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-  }
-  
-  /* Universal overscroll color fix - uses CSS variables for theme switching */
-  * {
-    overscroll-behavior-color: hsl(var(--background)) !important;
-    -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-  }
-  
-  /* Mobile-specific overscroll fixes */
-  @media (max-width: 768px) {
-    html {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-      background-color: hsl(var(--background)) !important;
-    }
-    
-    body {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-      background-color: hsl(var(--background)) !important;
-    }
-    
-    * {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-    }
-  }
-  
-  /* Safari-specific overscroll fixes */
-  @supports (-webkit-touch-callout: none) {
-    html {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-      background-color: hsl(var(--background)) !important;
-    }
-    
-    body {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-      background-color: hsl(var(--background)) !important;
-    }
-    
-    * {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-    }
-  }
-  
-  /* Additional mobile overscroll fixes for iOS */
-  @media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    html, body {
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-      background-color: hsl(var(--background)) !important;
-    }
-  }
-  
-  /* Safari-specific bottom toolbar fixes - GENTLE APPROACH */
-  @supports (-webkit-touch-callout: none) and (max-width: 768px) {
-    html {
-      /* Force Safari to use the correct background for bottom toolbar */
-      background-color: hsl(var(--background)) !important;
-      -webkit-background-size: 100% 100% !important;
-    }
-    
-    body {
-      /* Ensure body background propagates to Safari UI */
-      background-color: hsl(var(--background)) !important;
-      min-height: 100vh !important;
-      min-height: -webkit-fill-available !important;
-    }
-    
-    /* Force Safari bottom area to update */
-    @media (max-height: 900px) {
-      html {
-        background-image: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background))) !important;
-      }
-    }
-  }
-  
-  /* Force overscroll color update on theme change */
-  .dark {
-    --overscroll-bg: hsl(var(--background));
-  }
-  
-  :root:not(.dark) {
-    --overscroll-bg: hsl(var(--background));
-  }
-  
-  /* Force overscroll repaint on theme change */
-  html.theme-changing {
-    animation: overscroll-repaint 0.1s ease-in-out;
-  }
-  
-  @keyframes overscroll-repaint {
-    0% { 
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-    }
-    100% { 
-      overscroll-behavior-color: hsl(var(--background)) !important;
-      -webkit-overscroll-behavior-color: hsl(var(--background)) !important;
-    }
-  }
-  
-  /* Performance optimizations */
-  * {
-    will-change: auto;
-  }
-  
-  img {
-    content-visibility: auto;
-  }
-  
-  .motion-component {
-    transform: translateZ(0);
-    backface-visibility: hidden;
+  body.dark {
+    background-color: #0a0a0a;
   }
 }
 

@@ -345,7 +345,6 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
 
 export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -354,21 +353,11 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
       setIsTabletOrLarger(window.innerWidth >= 768);
     };
     
-    const checkTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    };
-    
     checkScreenSize();
-    checkTheme();
     window.addEventListener('resize', checkScreenSize);
-    
-    // Watch for theme changes
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     
     return () => {
       window.removeEventListener('resize', checkScreenSize);
-      observer.disconnect();
     };
   }, []);
 
@@ -376,12 +365,6 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
     <motion.div
       animate={mounted ? {
         width: (visible && isTabletOrLarger && !isMenuOpen) ? "95%" : "100%",
-        backgroundColor: visible 
-          ? (isDarkMode ? "rgba(10, 10, 10, 0.9)" : "rgba(255, 255, 255, 0.9)")
-          : (isDarkMode ? "rgba(10, 10, 10, 0)" : "rgba(255, 255, 255, 0)"),
-        boxShadow: visible
-          ? "0 4px 16px rgba(34, 42, 53, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(34, 42, 53, 0.04)"
-          : "0 0 0 rgba(0, 0, 0, 0)",
       } : {}}
       transition={{
         type: "spring",
@@ -391,10 +374,9 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         ease: "easeOut",
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden backdrop-blur-md",
-        isTabletOrLarger && !isMenuOpen && "rounded-full",
-        visible && "shadow-lg",
-        isMenuOpen && "bg-white dark:bg-neutral-950",
+        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden [background-color:transparent] [box-shadow:none]",
+        isTabletOrLarger && !isMenuOpen && "rounded-full backdrop-blur-md",
+        visible && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
         className,
       )}
     >
@@ -443,7 +425,6 @@ export const MobileNavHeader = ({
     <div
       className={cn(
         "flex w-full flex-row items-center justify-between px-6 lg:px-24 xl:px-40 2xl:px-52 py-1",
-        isMenuOpen && "bg-white dark:bg-neutral-950",
         className,
       )}
     >

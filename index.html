@@ -23,9 +23,11 @@
     
     <!-- Safari overscroll behavior -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     
     <!-- Theme color - React will update this dynamically -->
     <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="Elijah Farrell - Computer Science Graduate & Full-Stack Developer" />
@@ -53,9 +55,6 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://elijahfarrell.com/" />
     
-    <!-- Critical Resource Preloading -->
-    <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
@@ -63,6 +62,18 @@
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Inline critical theme script to prevent flash -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('vite-ui-theme') || 'dark';
+        const resolvedTheme = theme === 'system' 
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : theme;
+        document.documentElement.classList.add(resolvedTheme);
+        document.documentElement.style.colorScheme = resolvedTheme;
+      })();
+    </script>
     
     <title>Elijah Farrell - Computer Science Graduate & Full-Stack Developer</title>
   </head>

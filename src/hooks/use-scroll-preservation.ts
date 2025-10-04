@@ -70,8 +70,12 @@ export const useScrollPreservation = () => {
     });
     
     // Check if this is a page refresh (not navigation)
-    const isPageRefresh = performance.navigation.type === 1 || 
-                         performance.getEntriesByType('navigation')[0]?.type === 'reload';
+    const getNavigationType = () => {
+      const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+      return navEntry?.type === 'reload';
+    };
+    
+    const isPageRefresh = getNavigationType();
     
     // Only restore scroll position on page refresh, not on navigation
     if (isPageRefresh) {

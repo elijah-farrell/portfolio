@@ -70,7 +70,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                     <div className="flex items-center gap-2 sm:gap-3">
                       <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
                         {settings.experience.showAnimations ? (
-                          <TextAnimate animation="blurInUp" by="character" once>
+                          <TextAnimate animation="blurInUp" by="word-character" once>
                             {title}
                           </TextAnimate>
                         ) : (

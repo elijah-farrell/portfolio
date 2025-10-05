@@ -4,7 +4,7 @@ import {cn} from "@/lib/utils";
 import {AnimatePresence, motion, MotionProps, Variants} from "framer-motion";
 import {ElementType} from "react";
 
-type AnimationType = "text" | "word" | "character" | "line";
+type AnimationType = "text" | "word" | "character" | "line" | "word-character";
 type AnimationVariant =
   | "fadeIn"
   | "blurIn"
@@ -69,6 +69,7 @@ const staggerTimings: Record<AnimationType, number> = {
   word: 0.05,
   character: 0.03,
   line: 0.06,
+  "word-character": 0.03,
 };
 
 const defaultContainerVariants = {
@@ -314,6 +315,8 @@ export function TextAnimate({
   const MotionComponent = motion.create(Component);
 
   let segments: string[] = [];
+  let words: string[] = [];
+
   switch (by) {
     case "word":
       segments = children.split(/(\s+)/);
@@ -323,6 +326,9 @@ export function TextAnimate({
       break;
     case "line":
       segments = children.split("\n");
+      break;
+    case "word-character":
+      words = children.split(/(\s+)/).filter(Boolean); // Split into words, remove empty strings
       break;
     case "text":
     default:
@@ -360,13 +366,19 @@ export function TextAnimate({
               ...defaultItemAnimationVariants[animation].container.show,
               transition: {
                 delayChildren: delay,
-                staggerChildren: duration / segments.length,
+                staggerChildren:
+                  by === "word-character"
+                    ? duration / children.replace(/\s+/g, "").length // Stagger characters
+                    : duration / segments.length,
               },
             },
             exit: {
               ...defaultItemAnimationVariants[animation].container.exit,
               transition: {
-                staggerChildren: duration / segments.length,
+                staggerChildren:
+                  by === "word-character"
+                    ? duration / children.replace(/\s+/g, "").length // Stagger characters
+                    : duration / segments.length,
                 staggerDirection: -1,
               },
             },
@@ -387,20 +399,35 @@ export function TextAnimate({
         viewport={{ once }}
         {...props}
       >
-        {segments.map((segment, i) => (
-          <motion.span
-            key={`${by}-${segment}-${i}`}
-            variants={finalVariants.item}
-            custom={i * staggerTimings[by]}
-            className={cn(
-              by === "line" ? "block" : "inline-block whitespace-pre",
-              by === "character" && "",
-              segmentClassName,
-            )}
-          >
-            {segment}
-          </motion.span>
-        ))}
+        {by === "word-character"
+          ? words.map((word, wordIndex) => (
+              <span key={`word-${wordIndex}`} className="inline-block whitespace-pre">
+                {word.split("").map((char, charIndex) => (
+                  <motion.span
+                    key={`char-${wordIndex}-${charIndex}`}
+                    variants={finalVariants.item}
+                    custom={(wordIndex + charIndex) * staggerTimings[by]}
+                    className={cn(segmentClassName, "inline-block")}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))
+          : segments.map((segment, i) => (
+              <motion.span
+                key={`${by}-${segment}-${i}`}
+                variants={finalVariants.item}
+                custom={i * staggerTimings[by]}
+                className={cn(
+                  by === "line" ? "block" : "inline-block whitespace-pre",
+                  by === "character" && "",
+                  segmentClassName,
+                )}
+              >
+                {segment}
+              </motion.span>
+            ))}
       </MotionComponent>
     </AnimatePresence>
   );

@@ -4,10 +4,9 @@ import { useMotionValue, motion, useMotionTemplate } from "framer-motion";
 import React, { MouseEvent as ReactMouseEvent, useState, lazy, Suspense } from "react";
 import { cn } from "@/lib/utils";
 
-// Lazy load Three.js component - only loads when user hovers!
-const CanvasRevealEffect = lazy(() => 
-  import("@/components/ui/canvas-reveal-effect").then(module => ({ 
-    default: module.CanvasRevealEffect 
+const CanvasRevealEffect = lazy(() =>
+  import("@/components/ui/canvas-reveal-effect").then((module) => ({
+    default: module.CanvasRevealEffect,
   }))
 );
 
@@ -24,13 +23,13 @@ export const CardSpotlight = ({
 } & React.HTMLAttributes<HTMLDivElement>) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
   function handleMouseMove({
     currentTarget,
     clientX,
     clientY,
   }: ReactMouseEvent<HTMLDivElement>) {
     const { left, top } = currentTarget.getBoundingClientRect();
-
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
@@ -38,11 +37,11 @@ export const CardSpotlight = ({
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
-  
+
   return (
     <div
       className={cn(
-        "group/spotlight p-10 rounded-md relative border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black",
+        "group/spotlight p-10 rounded-md relative border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0a0a0a]",
         className
       )}
       onMouseMove={handleMouseMove}
@@ -51,7 +50,7 @@ export const CardSpotlight = ({
       {...props}
     >
       <motion.div
-        className="pointer-events-none absolute z-0 -inset-px rounded-md opacity-0 group-hover/spotlight:opacity-100 bg-gray-100/30 dark:bg-gray-800"
+        className="pointer-events-none absolute z-0 -inset-px rounded-md opacity-0 group-hover/spotlight:opacity-100 bg-gray-100/30 dark:bg-[#0a0a0a]"
         style={{
           backgroundColor: color || undefined,
           maskImage: useMotionTemplate`
@@ -77,9 +76,7 @@ export const CardSpotlight = ({
           </Suspense>
         )}
       </motion.div>
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };

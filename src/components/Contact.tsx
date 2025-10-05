@@ -7,8 +7,8 @@ import { FiMapPin, FiMail, FiCalendar } from "react-icons/fi";
 
 export default function Contact(): JSX.Element {
   const allLinks = [
-    { icon: <FiMail />, url: "mailto:farrellelijah@outlook.com" },
-    { icon: <FiCalendar />, url: "https://cal.com/elijahfarrell", external: true },
+    { title: "Email", icon: <FiMail />, url: "mailto:farrellelijah@outlook.com" },
+    { title: "Schedule Call", icon: <FiCalendar />, url: "https://cal.com/elijahfarrell", external: true },
     {
       title: "LinkedIn",
       url: "https://www.linkedin.com/in/elijah-farrell-915047349/",
@@ -17,8 +17,8 @@ export default function Contact(): JSX.Element {
     { title: "GitHub", url: "https://github.com/elijah-farrell", icon: <SiGithub /> },
     { title: "Discord", url: "https://discord.gg/h9QSQZzn", icon: <SiDiscord /> },
     {
-      icon: <FiMapPin />,
       title: "Location",
+      icon: <FiMapPin />,
       url: "https://maps.google.com/?q=Upstate+New+York",
       external: true,
     },
@@ -73,7 +73,8 @@ export default function Contact(): JSX.Element {
                 <TextGenerateEffect
                   key={phraseIndex} // 🔑 ensures animation resets each phrase
                   words={phrases[phraseIndex]}
-                  className="text-lg text-primary"
+                  className="text-lg text-primary text-center"
+                  justify="center"
                 />
               </div>
             )}
@@ -86,7 +87,6 @@ export default function Contact(): JSX.Element {
                     title={element.title}
                     url={element.url}
                     icon={element.icon}
-                    customText={element.value}
                   />
                 </div>
               ))}

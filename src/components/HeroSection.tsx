@@ -159,6 +159,7 @@ export default function HeroSection(): JSX.Element {
         <TextGenerateEffect
           words="Welcome to my over-engineered portfolio site."
           className="text-sm sm:text-base mt-2 block"
+          justify="start"
         />
 
         {/* Resume + Social Links */}

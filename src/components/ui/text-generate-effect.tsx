@@ -8,11 +8,13 @@ export const TextGenerateEffect = ({
   className,
   filter = true,
   duration = 0.5,
+  justify = "start", // Default to start for left alignment
 }: {
   words: string;
   className?: string;
   filter?: boolean;
   duration?: number;
+  justify?: "start" | "center" | "end";
 }) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
@@ -33,7 +35,7 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-normal", className)}>
-      <motion.div ref={scope} className="flex flex-wrap">
+      <motion.div ref={scope} className={`flex flex-wrap justify-${justify}`}>
         {wordsArray.map((word, idx) => (
           <motion.span
             key={idx}

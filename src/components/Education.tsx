@@ -14,7 +14,7 @@ export default function Education() {
             My academic journey and educational achievements
           </p>
           <div className="space-y-6">
-            <CardSpotlight className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm relative">
+            <CardSpotlight className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-neutral-700 shadow-sm relative">
               <span className="absolute top-2 right-0 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium z-10 pr-1">
                 May 2025
               </span>
@@ -40,7 +40,7 @@ export default function Education() {
               </div>
             </CardSpotlight>
             
-            <CardSpotlight className="bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm relative">
+            <CardSpotlight className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-neutral-700 shadow-sm relative">
               <span className="absolute top-2 right-0 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium z-10 pr-1">
                 2023
               </span>

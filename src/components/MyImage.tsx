@@ -2,9 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 
 interface FloatingImageProps {
   mainImage: string;
+  altImage: string;
 }
 
-const FloatingImage: React.FC<FloatingImageProps> = ({ mainImage }) => {
+const FloatingImage: React.FC<FloatingImageProps> = ({ mainImage, altImage }) => {
   const [scrollY, setScrollY] = useState(0);
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +24,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ mainImage }) => {
     <div ref={imageRef} className="relative rounded-2xl md:rounded-3xl h-auto w-auto">
       <img
         src={mainImage}
-        alt="Elijah Farrell - Software Developer"
+        alt={altImage}
         className="relative z-10 w-72 sm:w-80 md:w-96 h-72 sm:h-80 md:h-96 object-cover rounded-2xl md:rounded-3xl transition-transform duration-300"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`, // only scroll effect

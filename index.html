@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="background-color: #0a0a0a;">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     
@@ -25,12 +25,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="format-detection" content="telephone=no" />
     
-    <!-- Safari overscroll behavior -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
-    <!-- Theme color - will be updated dynamically by script below -->
-    <meta name="theme-color" content="#0a0a0a" id="theme-color-meta" />
+    <!-- Safari/iOS specific -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Elijah Farrell">
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="Elijah Farrell - Computer Science Graduate & Full-Stack Developer" />
@@ -69,69 +68,12 @@
     <!-- Preload custom fonts -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- Inline critical theme script to prevent flash -->
-    <style>
-      /* Prevent white flash on all browsers */
-      html, body {
-        background-color: #0a0a0a !important;
-        margin: 0;
-        padding: 0;
-      }
-      html.light, html.light body {
-        background-color: #FEFEFE !important;
-      }
-      #root {
-        background-color: #0a0a0a;
-        min-height: 100vh;
-        /* Prevent content from being hidden during React hydration */
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-      html.light #root {
-        background-color: #FEFEFE;
-      }
-      /* Prevent FOUC (Flash of Unstyled Content) during refresh */
-      #root:empty {
-        opacity: 1 !important;
-        background-color: #0a0a0a;
-      }
-      html.light #root:empty {
-        background-color: #FEFEFE;
-      }
-    </style>
-    <script>
-      (function() {
-        const theme = localStorage.getItem('vite-ui-theme') || 'dark';
-        const resolvedTheme = theme === 'system' 
-          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-          : theme;
-        
-        // Apply theme class to html
-        document.documentElement.classList.add(resolvedTheme);
-        document.documentElement.style.colorScheme = resolvedTheme;
-        
-        // Update background colors
-        const bgColor = resolvedTheme === 'dark' ? '#0a0a0a' : '#FEFEFE';
-        document.documentElement.style.backgroundColor = bgColor;
-        
-        // CRITICAL: Set body background immediately (before body is parsed)
-        document.addEventListener('DOMContentLoaded', function() {
-          document.body.style.backgroundColor = bgColor;
-          document.body.classList.add(resolvedTheme);
-        });
-        
-        // Update theme-color meta tag for mobile browsers (iPhone UI)
-        const themeColor = resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff';
-        const metaThemeColor = document.getElementById('theme-color-meta');
-        if (metaThemeColor) {
-          metaThemeColor.setAttribute('content', themeColor);
-        }
-      })();
-    </script>
+    <!-- next-themes inline script to prevent flash of wrong theme -->
+    <script>!function(){try{var e=document.documentElement,t=e.classList;t.remove("light","dark");var n="vite-ui-theme";var o=localStorage.getItem(n);if("system"===o||(!o&&true)){var a="(prefers-color-scheme: dark)",m=window.matchMedia(a);m.media!==a||m.matches?(e.style.colorScheme="dark",t.add("dark"),document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#0a0a0a')):(e.style.colorScheme="light",t.add("light"),document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#FEFEFE'))}else if(o){t.add(o||"");if(o==="light"||o==="dark"){e.style.colorScheme=o;var c=o==="dark"?"#0a0a0a":"#FEFEFE";document.querySelector('meta[name="theme-color"]')?.setAttribute('content',c)}}var r=document.querySelector('meta[name="theme-color"]');if(!r){r=document.createElement('meta');r.setAttribute('name','theme-color');document.head.appendChild(r);r.setAttribute('content',t.contains('dark')?'#0a0a0a':'#FEFEFE')}}catch(e){}}();</script>
     
     <title>Elijah Farrell - Computer Science Graduate & Full-Stack Developer</title>
   </head>
-  <body style="background-color: #0a0a0a;">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

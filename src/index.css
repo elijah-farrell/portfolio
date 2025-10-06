@@ -2,37 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add smooth scrolling behavior only for hash navigation */
+/* Smooth scrolling behavior for anchor links */
 html {
   scroll-behavior: auto;
-  /* Account for fixed navbar height on both mobile and desktop */
-  scroll-padding-top: 30px; /* Desktop navbar height with tight spacing */
+  scroll-padding-top: 30px; /* Account for fixed navbar */
 }
 
-/* Mobile scroll padding adjustment */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 30px; /* Mobile navbar height with tight spacing */
+    scroll-padding-top: 30px; /* Mobile navbar height */
   }
 }
 
 /* Ensure content sections have proper spacing from navbar */
 [id] {
-  scroll-margin-top: 30px; /* Desktop - tight spacing */
+  scroll-margin-top: 30px;
 }
 
 @media (max-width: 768px) {
   [id] {
-    scroll-margin-top: 30px; /* Mobile - tight spacing */
+    scroll-margin-top: 30px;
   }
 }
 
-/* Additional spacing for main content areas */
-.pt-10 {
-  padding-top: 3rem; /* 48px - ensures content isn't hidden behind navbar */
-}
-
-/* Smooth scroll behavior for all anchor links */
+/* Smooth scroll behavior for anchor links */
 a[href^="#"] {
   scroll-behavior: smooth;
 }
@@ -92,11 +85,6 @@ a[href^="#"] {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-  .theme {
-    --animate-aurora: aurora 8s ease-in-out infinite alternate;
-    --animate-line-shadow: line-shadow 15s linear infinite;
-    --animate-grid: grid 15s linear infinite;
-  }
 }
 
 @layer base {
@@ -105,130 +93,59 @@ a[href^="#"] {
   }
   
   html {
-    background-color: #FEFEFE !important;
     min-height: 100vh;
-  }
-  
-  html.dark {
-    background-color: #0a0a0a !important;
+    /* Allow pull-to-refresh but prevent horizontal overscroll */
+    overscroll-behavior-x: none;
   }
   
   body {
-    @apply text-foreground;
-    background-color: #FEFEFE !important;
+    @apply text-foreground bg-background font-mono;
     min-height: 100vh;
-  }
-  
-  body.dark {
-    background-color: #0a0a0a !important;
+    /* Allow pull-to-refresh but prevent horizontal overscroll */
+    overscroll-behavior-x: none;
   }
   
   #root {
     min-height: 100vh;
     background-color: inherit;
   }
+  
+  /* Safari-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    html, body {
+      /* Only prevent horizontal bounce, allow vertical pull-to-refresh */
+      overscroll-behavior-x: none;
+      /* Ensure proper background color inheritance */
+      background-color: inherit !important;
+    }
+  }
 }
 
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
-body {
-  font-family: 'JetBrains Mono', sans-serif;
-}
-
-@theme inline {
-  @keyframes aurora {
+/* Aurora animation for aurora-text component */
+@keyframes aurora {
   0% {
     background-position: 0% 50%;
     transform: rotate(-5deg) scale(0.9);
-    }
+  }
   25% {
     background-position: 50% 100%;
     transform: rotate(5deg) scale(1.1);
-    }
+  }
   50% {
     background-position: 100% 50%;
     transform: rotate(-3deg) scale(0.95);
-    }
+  }
   75% {
     background-position: 50% 0%;
     transform: rotate(3deg) scale(1.05);
-    }
+  }
   100% {
     background-position: 0% 50%;
     transform: rotate(-5deg) scale(0.9);
-    }
-  }
-  @keyframes line-shadow {
-  0% {
-    background-position: 0 0;
-    }
-  100% {
-    background-position: 100% -100%;
-    }
-  }
-  @keyframes grid {
-  0% {
-    transform: translateY(-50%);
-    }
-  100% {
-    transform: translateY(0);
-    }
-  }
-}
-@layer utilities {
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
-  .shadow-3xl {
-    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
   }
 }
 
-/* Floating animation for card spotlight effect */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) translateX(0px);
-    opacity: 0.6;
-  }
-  25% {
-    transform: translateY(-10px) translateX(5px);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-5px) translateX(-5px);
-    opacity: 1;
-  }
-  75% {
-    transform: translateY(-15px) translateX(3px);
-    opacity: 0.7;
-  }
+/* Aurora animation utility */
+.animate-aurora {
+  animation: aurora 8s ease-in-out infinite alternate;
 }
-
-/* json-highlight.css */
-
-.token.property {
-  color: #df3079;
-}
-
-.token.string {
-  color: #00a67d;
-}
-
-.token.boolean {
-  color: #2e95d3;
-}
-
-.token.null {
-  color: #2e95d3;
-}
-
-.token.number {
-  color: #fd971f;
-}
-

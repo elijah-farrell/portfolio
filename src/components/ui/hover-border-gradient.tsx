@@ -3,7 +3,7 @@ import React, {useEffect, useState, useCallback} from "react";
 
 import {motion} from "framer-motion";
 import {cn} from "@/lib/utils";
-import {useTheme} from "../theme-provider";
+import {useTheme} from "../../hooks/use-theme";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 
@@ -26,10 +26,10 @@ export function HoverBorderGradient({
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   
-  // Determine if we're in dark mode
-  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  // Determine if we're in dark mode using resolvedTheme
+  const isDark = resolvedTheme === 'dark';
 
   const rotateDirection = useCallback((currentDirection: Direction): Direction => {
     const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
@@ -67,7 +67,7 @@ export function HoverBorderGradient({
       }, duration * 1000);
       return () => clearInterval(interval);
     }
-  }, [hovered, duration, theme, rotateDirection]);
+  }, [hovered, duration, resolvedTheme, rotateDirection]);
   return (
     <Tag
       onMouseEnter={(_event: React.MouseEvent<HTMLDivElement>) => {

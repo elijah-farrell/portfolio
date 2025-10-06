@@ -8,7 +8,7 @@ import { TextReveal } from "@/components/magicui/text-reveal";
 import ExperienceSection from "@/components/Experience";
 import Contact from "@/components/Contact";
 import { SiFuturelearn } from "react-icons/si";
-import { GiBreakingChain, GiGroundbreaker } from "react-icons/gi";
+import { GiGroundbreaker } from "react-icons/gi";
 
 export default function Home(): JSX.Element {
   return (

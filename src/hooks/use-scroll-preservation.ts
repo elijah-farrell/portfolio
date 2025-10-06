@@ -2,73 +2,6 @@ import { useEffect } from 'react';
 
 export const useScrollPreservation = () => {
   useEffect(() => {
-    // Set overscroll color via JavaScript (allow normal overscroll behavior, theme-aware)
-    const setOverscrollColor = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      const overscrollColor = isDark ? '#0a0a0a' : '#ffffff';
-      const backgroundColor = isDark ? '#0a0a0a' : '#ffffff';
-      
-      // Apply to html element
-      document.documentElement.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
-      document.documentElement.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
-      document.documentElement.style.setProperty('background-color', backgroundColor, 'important');
-      
-      // Apply to body element
-      document.body.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
-      document.body.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
-      document.body.style.setProperty('background-color', backgroundColor, 'important');
-      
-      // Apply to root element
-      const rootElement = document.querySelector(':root') as HTMLElement;
-      if (rootElement) {
-        rootElement.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
-        rootElement.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
-        rootElement.style.setProperty('background-color', backgroundColor, 'important');
-      }
-      
-      // Update meta tags dynamically
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      const navButtonColorMeta = document.querySelector('meta[name="msapplication-navbutton-color"]');
-      const statusBarStyleMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-      
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', backgroundColor);
-      }
-      if (navButtonColorMeta) {
-        navButtonColorMeta.setAttribute('content', backgroundColor);
-      }
-      if (statusBarStyleMeta) {
-        statusBarStyleMeta.setAttribute('content', isDark ? 'black-translucent' : 'default');
-      }
-      
-      // Allow normal overscroll behavior
-      document.documentElement.style.setProperty('overscroll-behavior', 'auto', 'important');
-      document.body.style.setProperty('overscroll-behavior', 'auto', 'important');
-      
-      // Force update for Safari
-      if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
-        document.documentElement.style.setProperty('overscroll-behavior-color', overscrollColor, 'important');
-        document.documentElement.style.setProperty('-webkit-overscroll-behavior-color', overscrollColor, 'important');
-      }
-    };
-
-    // Apply immediately
-    setOverscrollColor();
-    
-    // Apply again after a short delay
-    setTimeout(setOverscrollColor, 100);
-    setTimeout(setOverscrollColor, 500);
-    
-    // Listen for theme changes
-    const observer = new MutationObserver(() => {
-      setOverscrollColor();
-    });
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
     // Check if this is a page refresh (not navigation)
     const getNavigationType = () => {
       const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
@@ -127,7 +60,6 @@ export const useScrollPreservation = () => {
 
     // Cleanup
     return () => {
-      observer.disconnect();
       window.removeEventListener('beforeunload', handleBeforeUnload);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('visibilitychange', handleVisibilityChange);

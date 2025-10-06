@@ -11,9 +11,6 @@ import {
   ModalContent,
   useModal,
 } from "@/components/ui/shadcn-io/animated-modal";
-import { 
-  FiArrowRight
-} from "react-icons/fi";
 
 export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

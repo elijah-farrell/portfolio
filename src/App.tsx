@@ -5,6 +5,7 @@ import { Toaster } from "./components/ui/toaster";
 import { Navbar } from "./components/Navbar";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { useScrollPreservation } from "./hooks/use-scroll-preservation";
+import { THEME_CONFIG } from "./config/theme";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/Services";
 
@@ -29,8 +30,8 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+      <ThemeProvider defaultTheme={THEME_CONFIG.defaultTheme} storageKey={THEME_CONFIG.storageKey}>
+        <div className="min-h-screen bg-background font-mono">
           <ScrollToTop />
           <Navbar />
           <div className="pt-4">

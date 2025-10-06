@@ -121,6 +121,15 @@ a[href^="#"] {
   }
 }
 
+/* Custom font loading - This tells the browser WHERE to find the font */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Aurora animation for aurora-text component */
 @keyframes aurora {
   0% {

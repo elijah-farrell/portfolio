@@ -14,7 +14,6 @@ export function ThemeToggle() {
   const handleThemeChange = (mode: string) => {
     const newTheme = mode as Theme;
     setTheme(newTheme);
-    console.log('🔄 Theme toggle: Changed theme to', newTheme);
   };
 
   // Don't render until mounted to avoid hydration mismatch

@@ -25,8 +25,6 @@ export function BodyThemeSync() {
     // Also add class for other components
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(theme);
-
-    console.log('🎨 BodyThemeSync: Updated body colors for theme', theme);
   }, [resolvedTheme]);
 
   return null;

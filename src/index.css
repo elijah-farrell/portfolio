@@ -105,20 +105,27 @@ a[href^="#"] {
   }
   
   html {
-    background-color: #FEFEFE;
+    background-color: #FEFEFE !important;
+    min-height: 100vh;
   }
   
   html.dark {
-    background-color: #0a0a0a;
+    background-color: #0a0a0a !important;
   }
   
   body {
     @apply text-foreground;
-    background-color: #FEFEFE;
+    background-color: #FEFEFE !important;
+    min-height: 100vh;
   }
   
   body.dark {
-    background-color: #0a0a0a;
+    background-color: #0a0a0a !important;
+  }
+  
+  #root {
+    min-height: 100vh;
+    background-color: inherit;
   }
 }
 

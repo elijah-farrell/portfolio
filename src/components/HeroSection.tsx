@@ -156,11 +156,13 @@ export default function HeroSection(): JSX.Element {
         </div>
 
         {/* Animated "Welcome" text */}
-        <TextGenerateEffect
-          words="Welcome to my over-engineered portfolio site."
-          className="text-sm sm:text-base mt-2 block"
-          justify="start"
-        />
+        <div className="mt-2">
+          <TextGenerateEffect
+            words="Welcome to my over-engineered portfolio site."
+            className="text-sm sm:text-base block whitespace-nowrap max-[435px]:text-xs"
+            justify="start"
+          />
+        </div>
 
         {/* Resume + Social Links */}
         <div className="flex flex-row gap-4 mt-6 w-full items-center justify-start max-[400px]:scale-[0.87] max-[400px]:origin-left max-[350px]:scale-75">

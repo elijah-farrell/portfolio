@@ -30,12 +30,14 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <ScrollToTop />
-        <Navbar />
-        <div className="min-h-screen pt-4">
-          {getCurrentPage()}
+        <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+          <ScrollToTop />
+          <Navbar />
+          <div className="pt-4">
+            {getCurrentPage()}
+          </div>
+          <Toaster />
         </div>
-        <Toaster />
       </ThemeProvider>
     </HelmetProvider>
   );

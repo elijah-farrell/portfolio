@@ -139,9 +139,6 @@ export default function ContactForm() {
 
   return (
     <div className="w-full">
-      <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-        Describe what you need help with.
-      </p>
       <form onSubmit={handleSubmit} className="space-y-6">
           {/* Contact Information */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

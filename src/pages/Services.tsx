@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
 import ContactForm from "@/components/ContactForm";
 import ServicesBentoGrid from "@/components/ui/services-bento-grid";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TracingBeam } from "@/components/ui/tracing-beam";
+import { AuroraText } from "@/components/ui/aurora-text";
 import {
   Modal,
   ModalBody,
@@ -47,33 +47,8 @@ export default function ServicesPage() {
           <section className="pt-16 pb-8 flex flex-col justify-center bg-white dark:bg-neutral-950 relative">
             
             <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 relative z-10">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-left relative group px-8 py-6 cursor-pointer">
-                {/* 3D Text Effect */}
-                <div className="relative z-20">
-                  <TextGenerateEffect 
-                    words="My Services" 
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold [&_span]:!text-gray-900 dark:[&_span]:!text-white [&>div]:!leading-none [&>div>div]:!leading-none"
-                    duration={0.5}
-                  />
-                </div>
-                {/* Shadow layer for 3D effect */}
-                <div className="absolute top-6 left-8 opacity-30 transform translate-x-1 translate-y-1 z-10">
-                  <TextGenerateEffect 
-                    words="My Services" 
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold [&_span]:!text-gray-900 dark:[&_span]:!text-white [&>div]:!leading-none [&>div>div]:!leading-none"
-                    duration={0.5}
-                  />
-                </div>
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-emerald-400/30 to-emerald-500/20 blur-sm rounded-xl -z-10"></div>
-                {/* Animated border with gradient */}
-                <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-[2px] bg-white dark:bg-neutral-950 rounded-lg"></div>
-                {/* Corner accent lines */}
-                <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-emerald-500 rounded-tl-lg"></div>
-                <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-emerald-500 rounded-tr-lg"></div>
-                <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-emerald-500 rounded-bl-lg"></div>
-                <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-emerald-500 rounded-br-lg"></div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-left">
+                My <AuroraText colors={["#34D399", "#10B981", "#059669", "#047857", "#065F46"]}>Services</AuroraText>
               </h1>
             </div>
           </section>

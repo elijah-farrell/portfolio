@@ -47,7 +47,7 @@ export default function AboutMe() {
             </div>
           )}
 
-          <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify text-gray-800 dark:text-gray-200 leading-loose hyphens-auto break-words">
+          <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify text-gray-800 dark:text-gray-200 leading-loose break-words">
             <p className="mb-4">
               I'm passionate about building software, managing data, solving system issues, and learning new tools. My tech journey began at <Highlight>Jefferson Community College</Highlight>, where I earned my <Highlight>A.S. in Computer Science</Highlight>. This foundation led me to <Highlight>SUNY Polytechnic Institute</Highlight>, where I graduated with a <Highlight>B.S. in Computer Science</Highlight>, <Highlight>Magna Cum Laude</Highlight>, and a <Highlight>3.88 GPA</Highlight>.
             </p>

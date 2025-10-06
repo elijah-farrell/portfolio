@@ -41,12 +41,6 @@ export function Navbar() {
       isActive: mounted && currentPath === "/" && window.location.hash === "#about",
     },
     {
-      name: "Education",
-      link: "/#education", 
-      isDropdown: false,
-      isActive: mounted && currentPath === "/" && window.location.hash === "#education",
-    },
-    {
       name: "Experience",
       link: "/#experience",
       isDropdown: false,

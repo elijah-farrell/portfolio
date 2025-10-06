@@ -26,11 +26,13 @@ export default function Contact(): JSX.Element {
 
   // Professional rotating phrases
   const phrases = [
-    "Still reviewing your options?",
     "Feel free to reach out anytime.",
     "Your next project deserves the right collaborator.",
     "Building great work starts with a conversation.",
     "I look forward to connecting with you.",
+    "Innovation awaits your inquiry.",
+    "Still reviewing your options?",
+    "Let's discuss how I can help your vision.",
   ];
 
   const [showPhrases, setShowPhrases] = useState(false);

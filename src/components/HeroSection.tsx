@@ -75,7 +75,7 @@ export default function HeroSection(): JSX.Element {
       icon: <FiAward size={20} />,
       color: "text-purple-600",
       bgColor: "bg-purple-50 dark:bg-purple-900/20",
-      href: "#education",
+      href: "#about",
     },
     {
       value: animatedStats.projects,
@@ -143,10 +143,10 @@ export default function HeroSection(): JSX.Element {
           <FlipWords
             words={[
               "<Developer/>",
-              "Learner",
+              "CS Graduate",
               "<Coder/>",
               "Programmer",
-              "CS Graduate",
+              "Problem Solver",
               "PC Builder",
               "Tech Nerd",
             ]}

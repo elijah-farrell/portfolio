@@ -10,7 +10,7 @@ export default function AboutMe() {
       label: "Location",
       value: "New York",
     },
-    { icon: <FiAward size={16} />, label: "Education", value: "B.S. CS" },
+    { icon: <FiAward size={16} />, label: "Education", value: "Bachelor's in Computer Science" },
   ];
 
   return (
@@ -49,16 +49,16 @@ export default function AboutMe() {
 
           <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify text-gray-800 dark:text-gray-200 leading-loose hyphens-auto break-words">
             <p className="mb-4">
-              I'm passionate about working with all sorts of <Highlight>technology</Highlight> whether it's building software, managing data, solving system issues, or learning new tools. I'm excited by the variety of paths within tech and open to opportunities in <Highlight>software development, data, IT, and other technical roles</Highlight>.
+              I'm passionate about building software, managing data, solving system issues, and learning new tools. My tech journey began at <Highlight>Jefferson Community College</Highlight>, where I earned my <Highlight>A.S. in Computer Science</Highlight>. This foundation led me to <Highlight>SUNY Polytechnic Institute</Highlight>, where I graduated with a <Highlight>B.S. in Computer Science</Highlight>, <Highlight>Magna Cum Laude</Highlight>, and a <Highlight>3.88 GPA</Highlight>.
             </p>
             <p className="mb-4">
-              At my core, I love <Highlight>solving problems and figuring out how things work</Highlight>. I enjoy diving into complex systems, simplifying workflows, and contributing to projects that make a real impact.
+              I thrive on <Highlight>solving problems and figuring out how things work</Highlight>—whether debugging code, optimizing algorithms, or building systems from scratch. My academic background provided a solid foundation in both theory and practical development skills, which I've applied in various research projects and collaborative work.
             </p>
             <p className="mb-4">
-              Outside of tech, you'll usually find me on a hiking trail, playing video games, or watching sports and hanging out with my friends. I think staying curious and engaged in different areas of life helps me stay <Highlight>creative and adaptable in my work too</Highlight>.
+              I'm excited by the diverse paths in tech and open to opportunities in <Highlight>software development, data analysis, IT, and other roles</Highlight> that foster continuous learning and growth. Outside of tech, I enjoy hiking, gaming, and watching sports with friends—activities that help me stay <Highlight>curious, creative, and adaptable</Highlight>.
             </p>
             <p>
-              I'm always open to new opportunities that challenge me and help me grow.
+              I'm always seeking new challenges that promote personal and professional development.
             </p>
           </HeroHighlight>
         </div>

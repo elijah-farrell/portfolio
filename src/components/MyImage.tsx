@@ -25,6 +25,7 @@ const FloatingImage: React.FC<FloatingImageProps> = ({ mainImage, altImage }) =>
       <img
         src={mainImage}
         alt={altImage}
+        loading="eager"
         className="relative z-10 w-72 sm:w-80 md:w-96 h-72 sm:h-80 md:h-96 object-cover rounded-2xl md:rounded-3xl transition-transform duration-300"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`, // only scroll effect

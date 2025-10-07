@@ -422,9 +422,20 @@ export const MobileNavHeader = ({
   }, [mounted]);
 
   return (
-    <div
+    <motion.div
+      animate={mounted ? {
+        paddingLeft: visible ? "1.5rem" : "1.25rem",
+        paddingRight: visible ? "1.5rem" : "1.25rem",
+      } : {}}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 40,
+        duration: 0.8,
+        ease: "easeOut",
+      }}
       className={cn(
-        "flex w-full flex-row items-center justify-between px-6 lg:px-24 xl:px-40 2xl:px-52 py-1",
+        "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1",
         className,
       )}
     >
@@ -456,7 +467,7 @@ export const MobileNavHeader = ({
       >
         {React.Children.toArray(children)[1]}
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -514,17 +525,17 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-2.5 rounded-lg bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 hover:bg-gray-50 hover:border-emerald-500 dark:hover:border-emerald-700 shadow-sm hover:shadow-md"
+      className="p-0 relative -left-[2px]"
     >
-      <div className="w-4 h-4 flex flex-col justify-center items-center">
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-transform duration-300 ${
-          isOpen ? 'rotate-45 translate-y-1' : ''
+      <div className="w-4 h-4 flex flex-col justify-center items-start">
+        <span className={`block w-4 h-[2px] bg-neutral-700 dark:bg-neutral-200 transition-transform duration-300 ${
+          isOpen ? 'rotate-45 translate-y-[5px]' : ''
         }`} />
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-opacity duration-300 mt-0.5 ${
+        <span className={`block w-4 h-[2px] bg-neutral-700 dark:bg-neutral-200 transition-opacity duration-300 mt-[3px] ${
           isOpen ? 'opacity-0' : ''
         }`} />
-        <span className={`block w-3.5 h-0.5 bg-neutral-600 dark:bg-neutral-300 transition-transform duration-300 mt-0.5 ${
-          isOpen ? '-rotate-45 -translate-y-1' : ''
+        <span className={`block w-4 h-[2px] bg-neutral-700 dark:bg-neutral-200 transition-transform duration-300 mt-[3px] ${
+          isOpen ? '-rotate-45 -translate-y-[5px]' : ''
         }`} />
       </div>
     </button>

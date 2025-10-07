@@ -86,7 +86,7 @@ export default function Hero(): JSX.Element {
     {
       value: animatedStats.languages,
       suffix: "+",
-      label: "Programming Languages",
+      label: "Coding Languages",
       icon: <FiCode size={20} />,
       color: "text-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-900/20",
@@ -120,9 +120,9 @@ export default function Hero(): JSX.Element {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-0 xl:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a] xl:justify-start hero-container">
       {/* Left Text Section */}
-      <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full">
+      <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full hero-text-container">
         {/* Available Badge */}
         {settings.showAvailableForOpportunities && (
           <div className="mb-4">
@@ -132,10 +132,10 @@ export default function Hero(): JSX.Element {
           </div>
         )}
 
-        <FlipWords words={greetings} duration={3000} />
+        <FlipWords words={greetings} duration={3000} className="greeting-text" />
 
         {/* Main text */}
-        <div className="flex flex-wrap items-center mt-2 text-sm sm:text-base">
+        <div className="flex flex-wrap items-center mt-2 text-sm sm:text-base intro-text">
           <span>I am Elijah, I am a&nbsp;</span>
           <FlipWords
             words={[
@@ -156,13 +156,131 @@ export default function Hero(): JSX.Element {
         <div className="mt-2">
           <TextGenerateEffect
             words="Welcome to my over-engineered portfolio site."
-            className="text-sm sm:text-base block whitespace-nowrap max-[435px]:text-xs"
+            className="text-sm sm:text-base max-[435px]:text-xs block welcome-text"
             justify="start"
           />
         </div>
+        
+        <style>{`
+          @media (max-width: 1100px) and (min-width: 1024px) {
+            .welcome-text {
+              font-size: calc(clamp(0.6rem, 3vw, 1rem) - 2px) !important;
+            }
+            .intro-text {
+              font-size: calc(1rem - 2px) !important;
+            }
+            .intro-text span {
+              font-size: calc(1rem - 2px) !important;
+            }
+            .intro-text * {
+              font-size: calc(1rem - 2px) !important;
+            }
+          }
+          @media (max-width: 640px) {
+            .resume-section {
+              margin-top: 1rem !important;
+              margin-bottom: 0.5rem !important;
+            }
+            .stats-section {
+              margin-top: 0.5rem !important;
+              gap: 0.75rem !important;
+            }
+            .hero-container {
+              padding-left: 1rem !important;
+              padding-right: 1rem !important;
+              width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+            }
+            .hero-text-container {
+              max-width: calc(100vw - 2rem) !important;
+            }
+          }
+          @media (min-width: 641px) {
+            .resume-section {
+              margin-top: 1.5rem !important;
+            }
+            .stats-section {
+              margin-top: 2rem !important;
+            }
+          }
+          @media (max-width: 640px) {
+            .hero-container {
+              padding-top: 2.5rem !important;
+            }
+          }
+          @media (max-width: 475px) {
+            .intro-text {
+              font-size: 0.875rem !important;
+            }
+            .intro-text span {
+              font-size: 0.875rem !important;
+            }
+            .intro-text * {
+              font-size: 0.875rem !important;
+            }
+            .greeting-text {
+              font-size: 1.375rem !important;
+            }
+            .greeting-text * {
+              font-size: 1.375rem !important;
+            }
+            .welcome-text {
+              font-size: 0.875rem !important;
+              width: 100% !important;
+            }
+            .hero-container {
+              padding-left: 1.25rem !important;
+              padding-right: 1.25rem !important;
+            }
+            .hero-text-container {
+              max-width: calc(100vw - 2.5rem) !important;
+              width: 100% !important;
+            }
+          }
+          @media (max-width: 435px) {
+            .greeting-text {
+              font-size: 1.2rem !important;
+            }
+            .greeting-text * {
+              font-size: 1.2rem !important;
+            }
+            .intro-text {
+              font-size: 0.8rem !important;
+            }
+            .intro-text span {
+              font-size: 0.8rem !important;
+            }
+            .intro-text * {
+              font-size: 0.8rem !important;
+            }
+            .welcome-text {
+              font-size: 0.8rem !important;
+            }
+          }
+          @media (max-width: 395px) {
+            .greeting-text {
+              font-size: 1.5rem !important;
+            }
+            .greeting-text * {
+              font-size: 1.5rem !important;
+            }
+            .intro-text {
+              font-size: 1rem !important;
+            }
+            .intro-text span {
+              font-size: 1rem !important;
+            }
+            .intro-text * {
+              font-size: 1rem !important;
+            }
+            .welcome-text {
+              font-size: 1rem !important;
+            }
+          }
+        `}</style>
 
         {/* Resume + Social Links */}
-        <div className="flex flex-row gap-4 mt-6 w-full items-center justify-start max-[400px]:scale-[0.87] max-[400px]:origin-left max-[350px]:scale-75">
+        <div className="flex flex-row gap-4 w-full items-center justify-start max-[400px]:scale-[0.87] max-[400px]:origin-left max-[350px]:scale-75 resume-section">
           {/* Resume button */}
           <div className="w-auto">
             <ResumeButton />
@@ -191,7 +309,7 @@ export default function Hero(): JSX.Element {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 mt-8 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 text-center stats-section">
           {stats.map((stat, index) => (
             <a
               key={index}

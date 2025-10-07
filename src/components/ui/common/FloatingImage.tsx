@@ -39,18 +39,18 @@ const FloatingImage: React.FC = () => {
       }}
     >
       {/* Main image */}
-      <img
-        src={currentSrc}
-        alt="Elijah Farrell - Software Developer"
-        width={384}
-        height={384}
-        loading="lazy"
-        className={`
-                      w-96 h-96 object-cover rounded-2xl md:rounded-3xl 
+        <img
+          src={currentSrc}
+          alt="Elijah Farrell - Software Developer"
+          width={384}
+          height={384}
+          loading="lazy"
+          className={`
+                      w-80 h-96 xl:w-96 xl:h-96 object-cover rounded-2xl md:rounded-3xl 
                       transition-all duration-500 
                       ${fade ? "opacity-50" : "opacity-100"}
                   `}
-      />
+        />
     </div>
   );
 };

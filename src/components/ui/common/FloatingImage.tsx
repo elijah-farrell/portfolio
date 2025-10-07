@@ -4,9 +4,9 @@ const mainImage = "/assets/pfp.jpeg";
 const altMainImage = "/assets/animated.png";
 
 const FloatingImage: React.FC = () => {
-  const [currentSrc, setCurrentSrc] = useState(mainImage);
+  const [currentSrc, setCurrentSrc] = useState(altMainImage);
   const [fade, setFade] = useState(false);
-  const [showAlt, setShowAlt] = useState(false);
+  const [showAlt, setShowAlt] = useState(true);
   const [scrollY, setScrollY] = useState(0);
 
   // Handle image transitions

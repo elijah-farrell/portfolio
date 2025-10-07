@@ -120,9 +120,9 @@ export default function Hero(): JSX.Element {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col xl:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a]">
+    <div className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a]">
       {/* Left Text Section */}
-      <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 xl:w-1/2 xl:pl-3 max-w-full">
+      <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full">
         {/* Available Badge */}
         {settings.showAvailableForOpportunities && (
           <div className="mb-4">
@@ -196,7 +196,7 @@ export default function Hero(): JSX.Element {
             <a
               key={index}
               href={stat.href}
-              className={`${stat.bgColor} p-4 sm:p-5 lg:p-6 rounded-2xl hover:scale-105 transition-transform duration-300 group block flex flex-col items-center justify-center text-center`}
+              className={`${stat.bgColor} p-3 sm:p-4 lg:p-4 rounded-2xl hover:scale-105 transition-transform duration-300 group block flex flex-col items-center justify-center text-center`}
             >
               <div className={`${stat.color} mb-2 flex justify-center`}>
                 {stat.icon}
@@ -205,7 +205,7 @@ export default function Hero(): JSX.Element {
                 {isStatsVisible ? stat.value.toLocaleString() : 0}
                 {stat.suffix}
               </div>
-              <div className="text-xs text-muted-foreground whitespace-nowrap">{stat.label}</div>
+              <div className={`text-xs text-muted-foreground break-words ${stat.label === "Programming Languages" ? "text-[11px]" : ""}`}>{stat.label}</div>
             </a>
           ))}
         </div>

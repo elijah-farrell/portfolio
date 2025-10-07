@@ -1,10 +1,10 @@
 import React from "react";
-import { ThemeProvider } from "./components/theme-provider";
 import { HelmetProvider } from "react-helmet-async";
-import { Toaster } from "./components/ui/toaster";
-import { Navbar } from "./components/Navbar";
-import { ScrollToTop } from "./components/ScrollToTop";
+import { ThemeProvider } from "./components/theme/theme-provider";
+import { Toaster } from "./components/ui/common/toaster";
+import { Navbar } from "./components/layout/Navbar";
 import { useScrollPreservation } from "./hooks/use-scroll-preservation";
+import { useScrollToSection } from "./hooks/use-scroll-to-section";
 import { THEME_CONFIG } from "./config/theme";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/Services";
@@ -12,6 +12,9 @@ import ServicesPage from "./pages/Services";
 function App() {
   // Enable scroll position preservation
   useScrollPreservation();
+  
+  // Enable scroll to section functionality
+  useScrollToSection();
   
   // Get current path to determine which page to render
   const currentPath = window.location.pathname;
@@ -32,7 +35,6 @@ function App() {
     <HelmetProvider>
       <ThemeProvider defaultTheme={THEME_CONFIG.defaultTheme} storageKey={THEME_CONFIG.storageKey}>
         <div className="min-h-screen bg-background font-mono">
-          <ScrollToTop />
           <Navbar />
           <div className="pt-4">
             {getCurrentPage()}

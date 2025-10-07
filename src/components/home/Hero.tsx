@@ -12,13 +12,10 @@ import {
 } from "react-icons/fi";
 import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
 
-import FloatingImage from "@/components/ui/common/MyImage";
+import FloatingImage from "@/components/ui/common/FloatingImage";
 import ResumeButton from "@/components/ui/common/DownloadResumeBtn";
 import { settings } from "@/config/settings";
 import { TextGenerateEffect } from "@/components/ui/aceternity/text-generate-effect";
-
-const mainImage = "/assets/pfp.jpeg";
-const altMainImage = "/assets/animated.png";
 
 export default function Hero(): JSX.Element {
   const [animatedStats, setAnimatedStats] = useState({
@@ -168,7 +165,7 @@ export default function Hero(): JSX.Element {
         <div className="flex flex-row gap-4 mt-6 w-full items-center justify-start max-[400px]:scale-[0.87] max-[400px]:origin-left max-[350px]:scale-75">
           {/* Resume button */}
           <div className="w-auto">
-            <ResumeButton className="w-auto px-4 py-2 text-sm sm:text-base" />
+            <ResumeButton />
           </div>
 
           {/* Socials */}
@@ -194,12 +191,12 @@ export default function Hero(): JSX.Element {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 mt-8 text-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 mt-8 text-center">
           {stats.map((stat, index) => (
             <a
               key={index}
               href={stat.href}
-              className={`${stat.bgColor} p-4 rounded-2xl hover:scale-105 transition-transform duration-300 group block`}
+              className={`${stat.bgColor} p-4 sm:p-5 lg:p-6 rounded-2xl hover:scale-105 transition-transform duration-300 group block flex flex-col items-center justify-center text-center`}
             >
               <div className={`${stat.color} mb-2 flex justify-center`}>
                 {stat.icon}
@@ -208,7 +205,7 @@ export default function Hero(): JSX.Element {
                 {isStatsVisible ? stat.value.toLocaleString() : 0}
                 {stat.suffix}
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-xs text-muted-foreground whitespace-nowrap">{stat.label}</div>
             </a>
           ))}
         </div>
@@ -216,7 +213,7 @@ export default function Hero(): JSX.Element {
 
       {/* Right Image Section */}
       <div className="lg:w-1/2 flex justify-center relative min-h-[400px] mt-8 xl:mt-0">
-        <FloatingImage mainImage={mainImage} altImage={altMainImage} />
+        <FloatingImage />
       </div>
 
       {/* Scroll Indicator */}

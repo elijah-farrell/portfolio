@@ -113,7 +113,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   useEffect(() => {
     setMounted(true);
     const checkScreenSize = () => {
-      setIsTabletOrLarger(window.innerWidth >= 768);
+      setIsTabletOrLarger(window.innerWidth >= 830);
     };
     
     checkScreenSize();
@@ -124,13 +124,18 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
   return (
     <motion.div
-      animate={mounted ? {
-        width: visible && isTabletOrLarger ? "95%" : "100%",
+      initial={{
+        width: "100%",
+        backdropFilter: "blur(0px)",
+        boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+      }}
+      animate={{
+        width: visible ? "95%" : "100%",
         backdropFilter: visible ? "blur(12px)" : "blur(0px)",
         boxShadow: visible
           ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
           : "0 0 0 rgba(0, 0, 0, 0)",
-      } : {}}
+      }}
       transition={{
         type: "spring",
         stiffness: 300,
@@ -139,16 +144,15 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         ease: "easeOut",
       }}
       className={cn(
-        "relative z-50 mx-auto hidden lg:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden nav:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
       <div className="w-full flex flex-row items-center relative">
         <motion.div 
           className="absolute left-0 flex items-center"
-          animate={mounted ? {
-            x: visible && isTabletOrLarger ? 12 : 0,
-          } : {}}
+          initial={{ x: 0 }}
+          animate={{ x: visible ? 12 : 0 }}
           transition={{
             type: "spring",
             stiffness: 300,
@@ -164,9 +168,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         </div>
         <motion.div 
           className="absolute right-0 flex items-center"
-          animate={mounted ? {
-            x: visible && isTabletOrLarger ? -12 : 0,
-          } : {}}
+          initial={{ x: 0 }}
+          animate={{ x: visible ? -12 : 0 }}
           transition={{
             type: "spring",
             stiffness: 300,
@@ -243,7 +246,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                      const newOpenDropdown = openDropdown === idx ? null : idx;
                      setOpenDropdown(newOpenDropdown);
                    }}
-                   className="pr-2 py-2 text-sm font-medium"
+                   className="pr-1 py-2 text-sm font-medium"
                  >
                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 relative z-20 ${
                     openDropdown === idx ? 'rotate-180' : ''
@@ -350,7 +353,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   useEffect(() => {
     setMounted(true);
     const checkScreenSize = () => {
-      setIsTabletOrLarger(window.innerWidth >= 768);
+      setIsTabletOrLarger(window.innerWidth >= 830);
     };
     
     checkScreenSize();
@@ -363,9 +366,12 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
 
   return (
     <motion.div
-      animate={mounted ? {
+      initial={{
+        width: "100%",
+      }}
+      animate={{
         width: (visible && isTabletOrLarger && !isMenuOpen) ? "95%" : "100%",
-      } : {}}
+      }}
       transition={{
         type: "spring",
         stiffness: 300,
@@ -374,7 +380,7 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
         ease: "easeOut",
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 lg:hidden [background-color:transparent] [box-shadow:none]",
+        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
         isTabletOrLarger && !isMenuOpen && "rounded-full backdrop-blur-md",
         visible && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
         className,
@@ -397,7 +403,7 @@ export const MobileNavHeader = ({
   useEffect(() => {
     setMounted(true);
     const checkScreenSize = () => {
-      setIsTabletOrLarger(window.innerWidth >= 768);
+      setIsTabletOrLarger(window.innerWidth >= 830);
     };
     
     checkScreenSize();
@@ -423,10 +429,14 @@ export const MobileNavHeader = ({
 
   return (
     <motion.div
-      animate={mounted ? {
+      initial={{
+        paddingLeft: "1.25rem",
+        paddingRight: "1.25rem",
+      }}
+      animate={{
         paddingLeft: visible ? "1.5rem" : "1.25rem",
         paddingRight: visible ? "1.5rem" : "1.25rem",
-      } : {}}
+      }}
       transition={{
         type: "spring",
         stiffness: 300,
@@ -441,9 +451,8 @@ export const MobileNavHeader = ({
     >
       <motion.div 
         className="flex items-center"
-        animate={mounted ? {
-          x: visible && isTabletOrLarger && !isMenuOpen ? 8 : 0,
-        } : {}}
+        initial={{ x: 0 }}
+        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? 8 : 0 }}
         transition={{
           type: "spring",
           stiffness: 300,
@@ -455,9 +464,8 @@ export const MobileNavHeader = ({
       </motion.div>
       <motion.div 
         className="flex items-center"
-        animate={mounted ? {
-          x: visible && isTabletOrLarger && !isMenuOpen ? -8 : 0,
-        } : {}}
+        initial={{ x: 0 }}
+        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? -8 : 0 }}
         transition={{
           type: "spring",
           stiffness: 300,

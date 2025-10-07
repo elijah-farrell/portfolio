@@ -19,6 +19,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        nav: "830px",
+      },
       fontFamily: {
         'mono': ['JetBrains Mono', 'monospace'],
       },

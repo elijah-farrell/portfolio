@@ -69,7 +69,6 @@ export function Navbar() {
       link: "/services",
       isDropdown: true,
       sections: servicesSections,
-      icon: <Monitor className="w-4 h-4 mr-2" />,
       isActive: mounted && currentPath === "/services",
     },
   ];

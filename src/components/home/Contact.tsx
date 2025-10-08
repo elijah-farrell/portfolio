@@ -70,16 +70,16 @@ export default function Contact(): JSX.Element {
             </p>
 
             {/* Rotating professional phrases */}
-            {showPhrases && (
-              <div className="mt-4 text-center">
+            <div className="mt-4 mb-8 text-center min-h-[4rem]">
+              {showPhrases && (
                 <TextGenerateEffect
                   key={phraseIndex} // 🔑 ensures animation resets each phrase
                   words={phrases[phraseIndex]}
                   className="text-lg text-primary text-center"
                   justify="center"
                 />
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Links */}
             <div className="flex flex-wrap justify-center gap-6 py-12 relative z-40 px-2">
@@ -95,7 +95,7 @@ export default function Contact(): JSX.Element {
             </div>
 
             {/* Footer */}
-            <div className="text-center text-xs text-muted-foreground pt-16">
+            <div className="text-center text-xs text-muted-foreground pt-16 pb-12 md:pb-8">
               © Developed by Me
             </div>
           </div>

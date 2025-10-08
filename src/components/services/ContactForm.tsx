@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FiSend, FiCheckCircle } from "react-icons/fi";
 import { toast } from "@/hooks/use-toast";
 
-interface FormData {
+interface ContactFormData {
   from_name: string;
   from_email: string;
   phone: string;
@@ -18,7 +18,7 @@ interface FormData {
 }
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     from_name: "",
     from_email: "",
     phone: "",
@@ -32,7 +32,7 @@ export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [consultationRequested, setConsultationRequested] = useState(false);
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -59,7 +59,7 @@ export default function ContactForm() {
       const result = await emailjs.send(
         serviceId,
         templateId,
-        formData,
+        formData as unknown as Record<string, unknown>,
         publicKey
       );
 

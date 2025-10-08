@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/shadcn/animated-modal";
 import { useEffect, useState } from "react";
 import ContactForm from "../services/ContactForm";
-import { Monitor, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,7 +75,6 @@ export function Navbar() {
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(false);
 

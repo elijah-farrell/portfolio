@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
-import { FiMail, FiPhone } from "react-icons/fi";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "../theme/theme-toggle";
 
 interface FullscreenMobileNavProps {
   isOpen: boolean;
@@ -29,18 +26,6 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
     };
   }, [isOpen]);
 
-  const handleNavClick = (link: string, isDropdown: boolean, index: number) => {
-    onClose();
-    window.location.href = link;
-  };
-
-  const socialLinks = [
-    { href: "mailto:farrellelijah@outlook.com", icon: <FiMail size={20} />, label: "Email" },
-    { href: "https://github.com/elijah-farrell", icon: <SiGithub size={20} />, label: "GitHub" },
-    { href: "https://www.linkedin.com/in/elijah-farrell-915047349/", icon: <SiLinkedin size={20} />, label: "LinkedIn" },
-    { href: "https://discord.gg/h9QSQZzn", icon: <SiDiscord size={20} />, label: "Discord" },
-    { href: "https://cal.com/elijahfarrell", icon: <FiPhone size={20} />, label: "Schedule Call" },
-  ];
 
   return (
     <AnimatePresence>

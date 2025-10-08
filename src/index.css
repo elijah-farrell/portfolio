@@ -88,10 +88,6 @@ a[href^="#"] {
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  
   html {
     min-height: 100vh;
     /* Allow pull-to-refresh but prevent horizontal overscroll */
@@ -99,7 +95,6 @@ a[href^="#"] {
   }
   
   body {
-    @apply text-foreground bg-background font-mono;
     min-height: 100vh;
     /* Allow pull-to-refresh but prevent horizontal overscroll */
     overscroll-behavior-x: none;

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ContactForm from "./ContactForm";
 import {
   Modal,
   ModalBody,
   ModalContent,
+  useModal,
 } from "@/components/ui/shadcn/animated-modal";
 
 interface ServicesModalProps {
@@ -11,24 +12,44 @@ interface ServicesModalProps {
   onClose: () => void;
 }
 
-export default function ServicesModal({ isOpen, onClose }: ServicesModalProps) {
-  const [internalOpen, setInternalOpen] = useState(false);
-
+// Custom Modal Trigger Component for Services
+const ServicesModalTrigger = ({ isOpen, onClose }: ServicesModalProps) => {
+  const { setOpen } = useModal();
+  
   useEffect(() => {
     if (isOpen) {
-      setInternalOpen(true);
+      setOpen(true);
     }
-  }, [isOpen]);
+  }, [isOpen, setOpen]);
+  
+  // Listen for modal close and call onClose
+  useEffect(() => {
+    const handleModalClose = () => {
+      onClose();
+    };
+    
+    // Custom event listener for when modal closes
+    const checkModalState = () => {
+      const modalElement = document.querySelector('[data-modal-open="true"]');
+      if (!modalElement && isOpen) {
+        onClose();
+      }
+    };
+    
+    const interval = setInterval(checkModalState, 100);
+    
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isOpen, onClose]);
+  
+  return null;
+};
 
-  const handleClose = () => {
-    setInternalOpen(false);
-    onClose();
-  };
-
-  if (!internalOpen) return null;
-
+export default function ServicesModal({ isOpen, onClose }: ServicesModalProps) {
   return (
     <Modal>
+      <ServicesModalTrigger isOpen={isOpen} onClose={onClose} />
       <ModalBody>
         <ModalContent>
           <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-4">

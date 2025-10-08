@@ -44,6 +44,7 @@ import {
   FaMobile,
   FaNetworkWired,
   FaWrench,
+  FaGlobe,
 } from "react-icons/fa";
 import { CardSpotlight } from "../ui/aceternity/card-spotlight";
 import { useState } from "react";
@@ -108,12 +109,12 @@ const iconMap: Record<string, JSX.Element> = {
   Windows: <FaDesktop />,
   Linux: <FaDesktop />,
   macOS: <FaDesktop />,
-  "Hardware Troubleshooting": <FaWrench />,
-  "System Troubleshooting": <FaCogs />,
-  "Networking Fundamentals": <FaNetworkWired />,
-  "Software Installation": <FaTools />,
-  "Mobile Device Support": <FaMobile />,
-  "Security Basics": <FaShieldAlt />,
+  Hardware: <FaWrench />,
+  Troubleshooting: <FaCogs />,
+  Networking: <FaNetworkWired />,
+  Software: <FaTools />,
+  Mobile: <FaMobile />,
+  Security: <FaShieldAlt />,
   "LLM Integration": <FaBrain />,
   "Multi-agent Systems": <FaProjectDiagram />,
   "Prompt Engineering": <FaBrain />,
@@ -127,7 +128,7 @@ const iconMap: Record<string, JSX.Element> = {
 const categoryIconMap: Record<string, JSX.Element> = {
   "Programming Languages": <FaCode />,
   "IT Support": <FaCogs />,
-  "Web Development": <SiReact />,
+  "Web Development": <FaGlobe />,
   "Frameworks & Libraries": <FaPalette />,
   Databases: <FaDatabase />,
 };
@@ -136,11 +137,11 @@ export default function Skills() {
   return (
     <div className="pt-8" id="skills">
       <h1 className="text-3xl font-bold mb-2">TECHNICAL SKILLS</h1>
-      <p className="text-gray-600 dark:text-gray-400 mb-6">
-        A comprehensive collection of technical competencies I've developed throughout my CS journey. While I'm not claiming mastery in all areas, I'm confident in my ability to excel in any role utilizing these skills.
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        Technical skills developed through my CS education and hands-on experience. Ready to apply these competencies in professional roles.
       </p>
 
-      <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl">
+      <section className="p-4 md:p-8 bg-gradient-to-b max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {skillsData.map((skill, idx) => (
             <CardSpotlight

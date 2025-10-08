@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -53,30 +53,21 @@ interface MobileNavMenuProps {
 
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [, setMounted] = useState(false);
+  const { scrollY } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
   const [visible, setVisible] = useState<boolean>(false);
 
-  // Ensure component is mounted before accessing window
-  useEffect(() => {
-    setMounted(true);
-    
-    const handleScroll = () => {
-      const threshold = 10;
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      
-      if (scrollY > threshold) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-    
-    // Set initial state
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Use framer-motion's useMotionValueEvent for smoother scroll tracking
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // Trigger animation on any scroll, even first scroll
+    if (latest > 10) {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  });
 
   return (
     <motion.div
@@ -107,45 +98,65 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+  const [slideAmount, setSlideAmount] = useState(0);
+  const [paddingAmount, setPaddingAmount] = useState({ normal: "1.5rem", scrolled: "2.5rem" });
 
+  useEffect(() => {
+    // Calculate slide amount and padding based on screen width
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      
+      // 1280px+: Subtle animation that keeps items close to edges
+      if (width >= 1280) {
+        setSlideAmount(4);
+        setPaddingAmount({ normal: "1.5rem", scrolled: "1.8rem" });
+      } 
+      // 830-1280px: NO slide, NO padding change - items stay at edges
+      else if (width >= 830) {
+        setSlideAmount(0);
+        setPaddingAmount({ normal: "1.5rem", scrolled: "1.5rem" });
+      } else {
+        setSlideAmount(0);
+        setPaddingAmount({ normal: "1.5rem", scrolled: "1.5rem" });
+      }
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   return (
     <motion.div
-      initial={{
-        width: "100%",
-        backdropFilter: "blur(0px)",
-        boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
-      }}
       animate={{
-        width: visible ? "95%" : "100%",
-        backdropFilter: visible ? "blur(12px)" : "blur(0px)",
+        width: visible ? "90%" : "100%",
+        backdropFilter: visible ? "blur(10px)" : "blur(0px)",
         boxShadow: visible
-          ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
+          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "0 0 0 rgba(0, 0, 0, 0)",
+        paddingTop: visible ? "1rem" : "1rem",
+        paddingBottom: visible ? "1rem" : "1rem",
+        paddingLeft: visible ? paddingAmount.scrolled : paddingAmount.normal,
+        paddingRight: visible ? paddingAmount.scrolled : paddingAmount.normal,
       }}
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 40,
-        duration: 0.8,
-        ease: "easeOut",
+        stiffness: 200,
+        damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden nav:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden nav:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
         className,
       )}
     >
       <div className="w-full flex flex-row items-center relative">
         <motion.div 
           className="absolute left-0 flex items-center"
-          initial={{ x: 0 }}
-          animate={{ x: visible ? 12 : 0 }}
+          animate={{ x: visible ? slideAmount : 0 }}
           transition={{
             type: "spring",
-            stiffness: 300,
-            damping: 40,
-            duration: 0.8,
-            ease: "easeOut",
+            stiffness: 200,
+            damping: 50,
           }}
         >
           {React.Children.toArray(children)[0]}
@@ -155,14 +166,11 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         </div>
         <motion.div 
           className="absolute right-0 flex items-center"
-          initial={{ x: 0 }}
-          animate={{ x: visible ? -12 : 0 }}
+          animate={{ x: visible ? -slideAmount : 0 }}
           transition={{
             type: "spring",
-            stiffness: 300,
-            damping: 40,
-            duration: 0.8,
-            ease: "easeOut",
+            stiffness: 200,
+            damping: 50,
           }}
         >
           {React.Children.toArray(children)[2]}
@@ -337,23 +345,21 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
 
   return (
     <motion.div
-      initial={{
-        width: "100%",
-        height: "auto",
-      }}
       animate={{
         width: "100%",
         height: isMenuOpen ? "100vh" : "auto",
+        backdropFilter: visible && !isMenuOpen ? "blur(10px)" : "blur(0px)",
       }}
       transition={{
-        type: "tween",
-        duration: isMenuOpen ? 0.3 : 0.2,
-        ease: isMenuOpen ? "easeInOut" : "easeOut",
-        delay: 0,
+        type: isMenuOpen ? "tween" : "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: isMenuOpen ? 0.3 : undefined,
+        ease: isMenuOpen ? "easeInOut" : undefined,
       }}
       className={cn(
         "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
-        visible && !isMenuOpen && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
+        visible && !isMenuOpen && "!shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
         isMenuOpen && "!bg-white dark:!bg-neutral-950",
         className,
       )}
@@ -369,13 +375,31 @@ export const MobileNavHeader = ({
   isMenuOpen,
 }: MobileNavHeaderProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+  const [slideAmount, setSlideAmount] = useState(0);
+  const [paddingAmount, setPaddingAmount] = useState({ normal: "1.25rem", scrolled: "1.5rem" });
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Check for 830px+ screens and calculate slide amount
     const checkScreenSize = () => {
-      setIsTabletOrLarger(window.innerWidth >= 830);
+      const width = window.innerWidth;
+      setIsTabletOrLarger(width >= 830);
+      
+      // 1280px+: Subtle animation that keeps items close to edges
+      if (width >= 1280) {
+        setSlideAmount(3);
+        setPaddingAmount({ normal: "1.25rem", scrolled: "1.4rem" });
+      }
+      // 830-1280px: NO slide, NO padding change - items stay at edges
+      else if (width >= 830) {
+        setSlideAmount(0);
+        setPaddingAmount({ normal: "1.25rem", scrolled: "1.25rem" });
+      } else {
+        setSlideAmount(0);
+        setPaddingAmount({ normal: "1.25rem", scrolled: "1.25rem" });
+      }
     };
     
     checkScreenSize();
@@ -383,12 +407,13 @@ export const MobileNavHeader = ({
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Get visible state from parent (this is a bit hacky but works)
+  // Track scroll position for animations
   useEffect(() => {
     if (!mounted) return;
     
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
+      // Trigger animation on any scroll, even first scroll
       setVisible(scrollY > 10);
     };
     
@@ -401,20 +426,14 @@ export const MobileNavHeader = ({
 
   return (
     <motion.div
-      initial={{
-        paddingLeft: "1.25rem",
-        paddingRight: "1.25rem",
-      }}
       animate={{
-        paddingLeft: visible ? "1.5rem" : "1.25rem",
-        paddingRight: visible ? "1.5rem" : "1.25rem",
+        paddingLeft: visible && isTabletOrLarger && !isMenuOpen ? paddingAmount.scrolled : paddingAmount.normal,
+        paddingRight: visible && isTabletOrLarger && !isMenuOpen ? paddingAmount.scrolled : paddingAmount.normal,
       }}
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 40,
-        duration: 0.8,
-        ease: "easeOut",
+        stiffness: 200,
+        damping: 50,
       }}
       className={cn(
         "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1 relative z-40",
@@ -423,26 +442,22 @@ export const MobileNavHeader = ({
     >
       <motion.div 
         className="flex items-center"
-        initial={{ x: 0 }}
-        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? 8 : 0 }}
+        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? slideAmount : 0 }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 25,
-          duration: 0.4,
+          stiffness: 200,
+          damping: 50,
         }}
       >
         {React.Children.toArray(children)[0]}
       </motion.div>
       <motion.div 
         className="flex items-center"
-        initial={{ x: 0 }}
-        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? -8 : 0 }}
+        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? -slideAmount : 0 }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 25,
-          duration: 0.4,
+          stiffness: 200,
+          damping: 50,
         }}
       >
         {React.Children.toArray(children)[1]}

@@ -65,17 +65,17 @@ export default function Contact(): JSX.Element {
           <div className="w-full h-full z-30 relative">
             
             {/* Subtitle */}
-            <p className="text-gray-600 dark:text-gray-400 mt-16 md:mt-8 mb-0 text-center text-lg w-full">
+            <p className="text-black dark:text-white mt-16 md:mt-8 mb-0 text-center text-lg w-full">
               Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
 
             {/* Rotating professional phrases */}
-            <div className="mt-2 md:mt-1 mb-4 md:mb-2 text-center min-h-[4rem]">
+            <div className="mt-6 md:mt-4 mb-4 md:mb-2 text-center min-h-[4rem]">
               {showPhrases && (
                 <TextGenerateEffect
                   key={phraseIndex} // 🔑 ensures animation resets each phrase
                   words={phrases[phraseIndex]}
-                  className="text-lg text-primary text-center"
+                  className="text-lg text-black dark:text-white text-center [&_span]:!text-black [&_span]:dark:!text-white"
                   justify="center"
                 />
               )}

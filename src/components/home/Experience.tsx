@@ -205,7 +205,7 @@ const ExperienceSection: React.FC = () => (
   <div className="pt-8" id="experience">
     <h1 className="text-2xl sm:text-3xl font-bold mb-2 px-4 sm:px-0">EXPERIENCE</h1>
     <p className="text-gray-600 dark:text-gray-400 mb-6 px-4 sm:px-0">
-      What I have done so far
+      An overview of my professional journey so far.
     </p>
     <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl">
       <div className="space-y-4 sm:space-y-6 border-l-2 border-dotted border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 py-3 rounded-2xl">

@@ -99,7 +99,7 @@ export default function Projects() {
     <div className="pt-8" id="projects">
       <h1 className="text-3xl font-bold mb-2">FEATURED PROJECTS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-2">
-        My Work.
+        A showcase of my recent work, highlighting the technologies I've used and the problems I've solved.
       </p>
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[1fr] justify-items-center">

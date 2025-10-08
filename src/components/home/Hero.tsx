@@ -16,6 +16,7 @@ import FloatingImage from "@/components/ui/common/FloatingImage";
 import ResumeButton from "@/components/ui/common/DownloadResumeBtn";
 import { settings } from "@/config/settings";
 import { TextGenerateEffect } from "@/components/ui/aceternity/text-generate-effect";
+import { scrollToSection } from "@/lib/scroll-utils";
 
 export default function Hero(): JSX.Element {
   const [animatedStats, setAnimatedStats] = useState({
@@ -314,6 +315,10 @@ export default function Hero(): JSX.Element {
             <a
               key={index}
               href={stat.href}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(stat.href, { behavior: 'auto' });
+              }}
               className={`${stat.bgColor} p-3 sm:p-4 lg:p-4 rounded-2xl hover:scale-105 transition-transform duration-300 group block flex flex-col items-center justify-center text-center`}
             >
               <div className={`${stat.color} mb-2 flex justify-center`}>
@@ -336,10 +341,15 @@ export default function Hero(): JSX.Element {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <a
-          href="#about"
-          className="flex flex-col items-center cursor-pointer animate-bounce hover:text-emerald-600 no-underline"
-        >
+         <a
+           href="#about"
+           title="Scroll to About section"
+           onClick={(e) => {
+             e.preventDefault();
+             scrollToSection("#about");
+           }}
+           className="flex flex-col items-center cursor-pointer animate-bounce hover:text-emerald-600"
+         >
           <span className="text-xs text-muted-foreground mb-2">
             Scroll to explore
           </span>

@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling behavior for anchor links */
 html {
-  scroll-behavior: auto;
   scroll-padding-top: 30px; /* Account for fixed navbar */
 }
 
@@ -23,11 +21,6 @@ html {
   [id] {
     scroll-margin-top: 10px;
   }
-}
-
-/* Smooth scroll behavior for anchor links */
-a[href^="#"] {
-  scroll-behavior: smooth;
 }
 
 @layer base {

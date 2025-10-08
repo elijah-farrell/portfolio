@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { scrollToSectionOnly } from "@/lib/scroll-utils";
 
 interface FullscreenMobileNavProps {
   isOpen: boolean;
@@ -20,11 +21,13 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
 
   useEffect(() => {
+    console.log('FullscreenMobileNav mounted, isOpen:', isOpen);
+    console.log('mainNavItems:', mainNavItems);
     document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isOpen, mainNavItems]);
 
 
   return (
@@ -61,9 +64,19 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
                     : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
                 )}>
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log('Main nav clicked:', item.link);
                       onClose();
-                      window.location.href = item.link;
+                      if (item.link.includes('#')) {
+                        const sectionId = item.link.split('#')[1];
+                        console.log('Extracted sectionId:', sectionId);
+                        scrollToSectionOnly(sectionId);
+                      } else {
+                        console.log('Regular page link, navigating to:', item.link);
+                        window.location.href = item.link;
+                      }
                     }}
                     className="text-center"
                   >
@@ -101,13 +114,18 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
                         {item.sections.map((section, sectionIndex) => (
                           <button
                             key={sectionIndex}
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              console.log('Dropdown section clicked:', section.sectionId);
                               onClose();
                               if (section.sectionId === "modal") {
+                                console.log('Modal clicked');
                                 onModalOpen?.();
                                 return;
                               }
-                              window.location.href = `/services#${section.sectionId}`;
+                              console.log('Scrolling to section:', section.sectionId);
+                              scrollToSectionOnly(section.sectionId);
                             }}
                             className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
                           >

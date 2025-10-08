@@ -19,6 +19,7 @@ import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { scrollToSectionOnly } from "@/lib/scroll-utils";
 
 export function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -197,7 +198,12 @@ export function Navbar() {
                             <button
                               onClick={() => {
                                 setIsMobileMenuOpen(false);
-                                window.location.href = item.link;
+                                if (item.link.includes('#')) {
+                                  const sectionId = item.link.split('#')[1];
+                                  scrollToSectionOnly(sectionId);
+                                } else {
+                                  window.location.href = item.link;
+                                }
                               }}
                               className="text-center"
                             >
@@ -241,7 +247,7 @@ export function Navbar() {
                                           setIsModalOpen(true);
                                           return;
                                         }
-                                        window.location.href = `/services#${section.sectionId}`;
+                                        scrollToSectionOnly(section.sectionId);
                                       }}
                                       className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
                                     >
@@ -257,7 +263,12 @@ export function Navbar() {
                         <button
                           onClick={() => {
                             setIsMobileMenuOpen(false);
-                            window.location.href = item.link;
+                            if (item.link.includes('#')) {
+                              const sectionId = item.link.split('#')[1];
+                              scrollToSectionOnly(sectionId);
+                            } else {
+                              window.location.href = item.link;
+                            }
                           }}
                           className={cn(
                             "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg",

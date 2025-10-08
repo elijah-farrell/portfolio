@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { handleNavigationWithScroll } from "@/lib/scroll-utils";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -265,19 +266,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                           if (section.sectionId === "modal") {
                             onSectionClick?.(section.sectionId);
                           } else {
-                            const currentPath = window.location.pathname;
-                            
-                            if (currentPath === item.link) {
-                              // Same page - just scroll without changing URL
-                              const element = document.getElementById(section.sectionId);
-                              if (element) {
-                                element.scrollIntoView({ behavior: "smooth", block: "start" });
-                              }
-                            } else {
-                              // Different page - store scroll target and navigate
-                              sessionStorage.setItem('scrollToSection', section.sectionId);
-                              window.location.href = item.link;
-                            }
+                            handleNavigationWithScroll(`${item.link}#${section.sectionId}`);
                           }
                         }}
                         className="block w-full text-left px-4 py-1.5 text-sm rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
@@ -295,27 +284,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
               href={item.link}
               onClick={(e) => {
                 e.preventDefault();
-                
-                if (item.link.includes('#')) {
-                  // Section link - scroll to section
-                  const sectionId = item.link.split('#')[1];
-                  const currentPath = window.location.pathname;
-                  
-                  if (currentPath === '/') {
-                    // Same page - just scroll without changing URL
-                    const element = document.getElementById(sectionId);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                  } else {
-                    // Different page - store scroll target and navigate
-                    sessionStorage.setItem('scrollToSection', sectionId);
-                    window.location.href = '/';
-                  }
-                } else {
-                  // Page link - navigate directly
-                  window.location.href = item.link;
-                }
+                handleNavigationWithScroll(item.link);
               }}
               className={`relative px-2 py-2 flex items-center rounded-lg hover:bg-accent hover:text-accent-foreground ${
                 item.isActive 

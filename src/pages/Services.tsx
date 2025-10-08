@@ -21,7 +21,7 @@ export default function Services(): JSX.Element {
       <ServicesHero />
       
       <section id="what-i-do" className="pt-8 pb-12 bg-white dark:bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto">
           <TracingBeam className="px-6">
             <WhatIDoCards />
           </TracingBeam>

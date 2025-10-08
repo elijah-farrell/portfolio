@@ -30,11 +30,6 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
   }, [isOpen]);
 
   const handleNavClick = (link: string, isDropdown: boolean, index: number) => {
-    if (isDropdown) {
-      setOpenDropdowns(prev => prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]);
-      return;
-    }
-
     onClose();
     window.location.href = link;
   };
@@ -74,26 +69,39 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
           <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-6">
             {mainNavItems.map((item, index) => (
               <div key={index} className="w-full max-w-sm">
-                <button
-                  onClick={() => handleNavClick(item.link, item.isDropdown, index)}
-                  className={cn(
-                    "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg inline-flex items-center justify-center gap-1.5",
-                    item.isActive
-                      ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
-                      : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
-                  )}
-                >
-                  <span>{item.name}</span>
+                <div className={cn(
+                  "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg inline-flex items-center justify-center",
+                  item.isActive
+                    ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
+                    : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+                )}>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      window.location.href = item.link;
+                    }}
+                    className="text-center"
+                  >
+                    {item.name}
+                  </button>
                   {item.isDropdown && (
-                    <ChevronDown 
-                      size={18} 
-                      className={cn(
-                        "transition-transform duration-200 text-neutral-600 dark:text-neutral-400",
-                        openDropdowns.includes(index) && "rotate-180"
-                      )} 
-                    />
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenDropdowns(prev => prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]);
+                      }}
+                      className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                    >
+                      <ChevronDown 
+                        size={18} 
+                        className={cn(
+                          "transition-transform duration-200",
+                          openDropdowns.includes(index) && "rotate-180"
+                        )} 
+                      />
+                    </button>
                   )}
-                </button>
+                </div>
 
                 <AnimatePresence>
                   {openDropdowns.includes(index) && item.sections && (

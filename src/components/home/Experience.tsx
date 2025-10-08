@@ -48,7 +48,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         <span className="relative inline-flex h-3 w-3 rounded-2xl bg-emerald-500 group-hover:bg-emerald-400"></span>
       </span>
     </div>
-    <div className="relative h-full rounded-2xl border p-2 md:rounded-2xl md:p-3 group-hover:border-emerald-200 dark:group-hover:border-emerald-700">
+    <div className="relative h-full rounded-2xl border p-2 md:rounded-2xl md:p-3 group-hover:border-emerald-200 dark:border-neutral-800 dark:group-hover:border-emerald-700">
       {settings.experience.showGlowingEffect && (
         <GlowingEffect
           spread={20}

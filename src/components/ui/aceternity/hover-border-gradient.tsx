@@ -25,6 +25,25 @@ export function HoverBorderGradient({
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
+  const [isDark, setIsDark] = useState<boolean>(false);
+
+  // Detect dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    // Watch for changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
 
   const rotateDirection = (currentDirection: Direction): Direction => {
     const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
@@ -35,7 +54,16 @@ export function HoverBorderGradient({
     return directions[nextIndex];
   };
 
-  const movingMap: Record<Direction, string> = {
+  const movingMapLight: Record<Direction, string> = {
+    TOP: "radial-gradient(20.7% 50% at 50% 0%, hsl(0, 0%, 0%) 0%, rgba(0, 0, 0, 0) 100%)",
+    LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, hsl(0, 0%, 0%) 0%, rgba(0, 0, 0, 0) 100%)",
+    BOTTOM:
+      "radial-gradient(20.7% 50% at 50% 100%, hsl(0, 0%, 0%) 0%, rgba(0, 0, 0, 0) 100%)",
+    RIGHT:
+      "radial-gradient(16.2% 41.199999999999996% at 100% 50%, hsl(0, 0%, 0%) 0%, rgba(0, 0, 0, 0) 100%)",
+  };
+
+  const movingMapDark: Record<Direction, string> = {
     TOP: "radial-gradient(20.7% 50% at 50% 0%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
     LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
     BOTTOM:
@@ -43,6 +71,8 @@ export function HoverBorderGradient({
     RIGHT:
       "radial-gradient(16.2% 41.199999999999996% at 100% 50%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
   };
+
+  const movingMap = isDark ? movingMapDark : movingMapLight;
 
   const highlight =
   "radial-gradient(75% 181.15942028985506% at 50% 50%, #00FF00 0%, rgba(255, 255, 255, 0) 100%)";
@@ -62,14 +92,14 @@ export function HoverBorderGradient({
       }}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex rounded-full border  content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap h-min justify-center overflow-visible p-px decoration-clone w-fit",
+        "relative flex rounded-full border dark:border-neutral-800 content-center bg-black/20 hover:bg-black/10 dark:bg-white/20 items-center flex-col flex-nowrap h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
       )}
       {...props}
     >
       <div
         className={cn(
-          "w-auto text-white z-10 bg-black px-4 py-2 rounded-[inherit]",
+          "w-auto text-white dark:text-white z-10 bg-black dark:bg-black px-4 py-2 rounded-[inherit]",
           className
         )}
       >
@@ -93,7 +123,7 @@ export function HoverBorderGradient({
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
-      <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
+      <div className="bg-black dark:bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
     </Tag>
   );
 }

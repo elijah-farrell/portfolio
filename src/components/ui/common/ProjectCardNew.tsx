@@ -24,7 +24,7 @@ interface ProjectCardProps {
   duration?: string;
 }
 
-export default function ProjectCard(props: ProjectCardProps) {
+export default function ProjectCardNew(props: ProjectCardProps) {
   const {
     title,
     description,
@@ -36,16 +36,18 @@ export default function ProjectCard(props: ProjectCardProps) {
     playstore,
     duration,
   } = props;
+  
   const cardContent = (
     <CardContainer className="inter-var h-full">
-      <Card className="max-w-sm w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col md:min-h-[500px]">
+      <Card className="w-full h-full shadow-md hover:shadow-lg transition-shadow duration-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:border-white/[0.2] border-black/[0.1] flex flex-col">
         <CardHeader className="flex-shrink-0">
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-48 object-cover rounded-2xl mb-4"
+            className={`w-full h-48 rounded-2xl mb-4 bg-gray-100 dark:bg-gray-800 ${
+              title === "More-Armor Mod" ? "object-cover" : "object-contain"
+            }`}
           />
-          <br />
           <div className="text-xs text-muted-foreground">{duration}</div>
           <CardTitle className="flex items-center gap-2">
             {title}
@@ -53,12 +55,12 @@ export default function ProjectCard(props: ProjectCardProps) {
               <span className="inline-block h-2 w-2 rounded-2xl bg-emerald-500 -translate-y-0.5"></span>
             )}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="line-clamp-3">
             {description}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
-          <div className="flex flex-wrap gap-2 md:min-h-[120px] items-start">
+          <div className="flex flex-wrap gap-2">
             {techStack.map((tech, index) => (
               <Badge
                 key={index}

@@ -3,7 +3,7 @@ import { SEO } from "@/components/seo/SEO";
 import Hero from "@/components/home/Hero";
 import Skills from "@/components/home/Skills";
 import AboutMe from "@/components/home/AboutMe";
-import Projects from "@/components/home/Projects";
+import ProjectsModern from "@/components/home/ProjectsModern";
 import { TextReveal } from "@/components/ui/magic/text-reveal";
 import ExperienceSection from "@/components/home/Experience";
 import Contact from "@/components/home/Contact";
@@ -18,7 +18,7 @@ export default function Home(): JSX.Element {
       <TracingBeam className="px-6">
         <AboutMe />
         <ExperienceSection />
-        <Projects />
+        <ProjectsModern />
         <Skills />
         <TextReveal>
           I learn

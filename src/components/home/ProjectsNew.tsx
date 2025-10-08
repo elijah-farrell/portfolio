@@ -1,4 +1,4 @@
-import ProjectCard from "../ui/common/ProjectCard";
+import ProjectCardNew from "../ui/common/ProjectCardNew";
 
 const projects = [
   {
@@ -14,7 +14,7 @@ const projects = [
       "Framer Motion",
       "Aceternity UI",
     ],
-            imageUrl: "/assets/projects/portfolio-thumb.png",
+    imageUrl: "/assets/projects/portfolio-thumb.png",
     github: "https://github.com/elijah-farrell/portfolio",
     liveUrl: "https://elijahfarrell.com",
     live: true,
@@ -22,7 +22,7 @@ const projects = [
   {
     title: "More-Armor Mod",
     description:
-      "A comprehensive Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and designs.",
+      "A comprehensive Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
     techStack: [
       "Java",
       "Minecraft 1.20.1",
@@ -56,44 +56,25 @@ const projects = [
   {
     title: "DownGit",
     description:
-      "A tool that lets you download any GitHub repository or folder as a ZIP file with a simple link.",
+      "Download any GitHub repository or folder as a ZIP file with a simple link. No need to clone repos or use Git commands - just paste a GitHub URL and get your files instantly.",
     techStack: [
       "Next.js 14",
       "React 18",
       "TypeScript",
       "Three.js",
+      "React Three Fiber",
       "Tailwind CSS",
       "Radix UI",
       "GitHub API",
     ],
     imageUrl: "/assets/projects/downgit.png",
     github: "https://github.com/elijah-farrell/downgit",
-                liveUrl: "https://ef-downgit.vercel.app", // Update with actual URL when deployed
+    liveUrl: "https://ef-downgit.vercel.app",
     live: true,
   },
-  // Temporarily removed Portfolio Template project
-  // {
-  //   title: "Portfolio Template",
-  //   description:
-  //     "A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.",
-  //   techStack: [
-  //     "React 19",
-  //     "TypeScript",
-  //     "Vite",
-  //     "Responsive Design",
-  //     "Smooth Animations",
-  //     "Accessibility",
-  //     "Customizable",
-  //     "Performance Optimized",
-  //   ],
-  //   imageUrl: "/assets/projects/portfolio-template01.png",
-  //   github: "https://github.com/elijah-farrell/portfolio-template",
-  //   liveUrl: "https://ef-portfolio01.vercel.app/",
-  //   live: true,
-  // },
 ];
 
-export default function Projects() {
+export default function ProjectsNew() {
   return (
     <div className="pt-8" id="projects">
       <h1 className="text-3xl font-bold mb-2">FEATURED PROJECTS</h1>
@@ -101,18 +82,19 @@ export default function Projects() {
         A showcase of my recent work, highlighting the technologies I've used and the problems I've solved.
       </p>
       <section className="p-6 md:p-12 bg-gradient-to-b max-w-4xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[1fr] justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              description={project.description}
-              techStack={project.techStack}
-              imageUrl={project.imageUrl}
-              github={project.github}
-              liveUrl={project.liveUrl}
-              live={project.live}
-            />
+            <div key={index} className="max-w-md mx-auto">
+              <ProjectCardNew
+                title={project.title}
+                description={project.description}
+                techStack={project.techStack}
+                imageUrl={project.imageUrl}
+                github={project.github}
+                liveUrl={project.liveUrl}
+                live={project.live}
+              />
+            </div>
           ))}
         </div>
       </section>

@@ -55,22 +55,22 @@ export default function Contact(): JSX.Element {
   }, [showPhrases, phrases.length]);
 
   return (
-    <div id="contact" className="border-0 min-h-[80vh] flex flex-col">
+    <div id="contact" className="border-0 min-h-[80vh] md:min-h-[70vh] flex flex-col">
       {/* Title */}
       <h1 className="text-3xl font-bold text-left">CONTACT</h1>
 
       {/* Background beams + content */}
-      <BackgroundBeamsWithCollision className="w-full h-full z-0 flex-1">
+      <BackgroundBeamsWithCollision className="w-full h-full md:h-[40vh] z-0 flex-1">
         <div className="px-2 md:px-4 h-full flex flex-col justify-start">
           <div className="w-full h-full z-30 relative">
             
             {/* Subtitle */}
-            <p className="text-gray-600 dark:text-gray-400 mt-24 mb-6 text-center text-lg w-full">
+            <p className="text-gray-600 dark:text-gray-400 mt-16 md:mt-8 mb-0 text-center text-lg w-full">
               Ready to collaborate? Let's discuss your next project or just say hello!
             </p>
 
             {/* Rotating professional phrases */}
-            <div className="mt-4 mb-8 text-center min-h-[4rem]">
+            <div className="mt-2 md:mt-1 mb-4 md:mb-2 text-center min-h-[4rem]">
               {showPhrases && (
                 <TextGenerateEffect
                   key={phraseIndex} // 🔑 ensures animation resets each phrase
@@ -82,7 +82,7 @@ export default function Contact(): JSX.Element {
             </div>
 
             {/* Links */}
-            <div className="flex flex-wrap justify-center gap-6 py-12 relative z-40 px-2">
+            <div className="flex flex-wrap justify-center gap-6 py-6 md:py-4 relative z-40 px-2">
               {allLinks.map((element, index) => (
                 <div key={index} className="relative z-40">
                   <LinkCard
@@ -95,7 +95,7 @@ export default function Contact(): JSX.Element {
             </div>
 
             {/* Footer */}
-            <div className="text-center text-xs text-muted-foreground pt-16 pb-12 md:pb-8">
+            <div className="text-center text-xs text-muted-foreground pt-8 pb-4 md:pb-8">
               © Developed by Me
             </div>
           </div>

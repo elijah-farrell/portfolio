@@ -1,7 +1,6 @@
 import {
   MobileNav,
   MobileNavHeader,
-  MobileNavMenu,
   MobileNavToggle,
   ResizableNavbar,
   NavbarLogo,
@@ -18,6 +17,8 @@ import { useEffect, useState } from "react";
 import ContactForm from "../services/ContactForm";
 import { Monitor, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -76,6 +77,19 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState(false);
+
+  // Close mobile menu when screen size changes to desktop
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth >= 830) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
 
 
@@ -100,7 +114,7 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <NavBody isNavComponent={true}>
           <div className="flex items-center">
-            <NavbarLogo />
+            <NavbarLogo visible={true} />
           </div>
           <NavItems 
             items={mainNavItems}
@@ -120,138 +134,147 @@ export function Navbar() {
         {/* Mobile Navigation */}
         <MobileNav isMenuOpen={isMobileMenuOpen} isNavComponent={true}>
           <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
-            <NavbarLogo visible={false} />
-            <div className="flex items-center gap-2 mr-0">
+            <NavbarLogo visible={!isMobileMenuOpen} />
+            <div className="flex items-center gap-2 mr-0 relative">
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               />
             </div>
           </MobileNavHeader>
+          
+          {/* Mobile Menu Content */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ 
+                  duration: 0.3, 
+                  ease: "easeOut",
+                  exit: { duration: 0 }
+                }}
+                className="absolute inset-0 flex flex-col items-center justify-center px-6 py-8 w-full pt-20"
+              >
+                {/* Logo in center */}
+                <motion.a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    window.location.href = '/';
+                  }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1, duration: 0.3, ease: "easeOut" }}
+                  className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-8"
+                >
+                  Elijah Farrell
+                </motion.a>
 
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
-            {/* Main nav items */}
-            {mainNavItems.map((item, idx) => (
-              <div key={`mobile-nav-${idx}`} className="w-full">
-                {item.isDropdown ? (
-                  <div className="flex items-center rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700">
-                    <a
-                      href={item.link}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = item.link;
+                {/* Navigation Links */}
+                <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-8">
+                  {mainNavItems.map((item, index) => (
+                    <motion.div 
+                      key={index} 
+                      className="w-full max-w-sm"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ 
+                        delay: 0.2 + (index * 0.1), 
+                        duration: 0.4, 
+                        ease: "easeOut" 
                       }}
-                      className={`relative flex items-center text-left flex-1 py-3 px-4 transition-colors duration-200 rounded-l-lg hover:bg-accent hover:text-accent-foreground ${
-                        item.isActive 
-                          ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
-                          : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20"
-                      }`}
                     >
-                      {item.icon && item.icon}
-                      <span className="block font-medium ml-2">{item.name}</span>
-                    </a>
-                    <button
-                      onClick={() => {
-                        // Close other dropdowns and toggle current one
-                        if (openDropdowns.includes(idx)) {
-                          setOpenDropdowns([]);
-                        } else {
-                          setOpenDropdowns([idx]);
-                        }
-                      }}
-                      className="px-3 py-3 transition-colors border-l border-gray-200 dark:border-neutral-700 h-full bg-gray-50 dark:bg-neutral-800/30 text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground rounded-r-lg"
-                    >
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                        openDropdowns.includes(idx) ? 'rotate-180' : ''
-                      }`} />
-                    </button>
-                  </div>
-                ) : (
-                  <a
-                    href={item.link}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsMobileMenuOpen(false);
-                      
-                      if (item.link.includes('#')) {
-                        // Section link - scroll to section
-                        const sectionId = item.link.split('#')[1];
-                        if (mounted && currentPath === '/') {
-                          // Same page - just scroll without changing URL
-                          const element = document.getElementById(sectionId);
-                          if (element) {
-                            element.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }
-                        } else {
-                          // Different page - store scroll target and navigate
-                          sessionStorage.setItem('scrollToSection', sectionId);
-                          window.location.href = '/';
-                        }
-                      } else {
-                        // Page link - navigate directly
-                        window.location.href = item.link;
-                      }
-                    }}
-                    className={`relative flex items-center text-left w-full py-3 px-4 transition-colors duration-200 rounded-lg hover:bg-accent hover:text-accent-foreground border border-gray-200 dark:border-neutral-700 ${
-                      item.isActive 
-                        ? "text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50/80 dark:bg-emerald-950/30" 
-                        : "text-neutral-700 dark:text-neutral-200 bg-gray-50/50 dark:bg-neutral-800/20"
-                    }`}
-                  >
-                    <span className="block font-medium">{item.name}</span>
-                  </a>
-                )}
-                
-                {/* Dropdown sections for Services */}
-                {item.isDropdown && (
-                  <div className={`ml-4 mt-2 space-y-1.5 transition-all duration-200 ${
-                    openDropdowns.includes(idx) ? 'block opacity-100' : 'hidden opacity-0'
-                  }`}>
-                    {item.sections?.map((section, sectionIdx) => (
-                      <div key={`mobile-${item.name}-${sectionIdx}`} className="flex items-center">
-                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500 ml-1 mr-3 flex-shrink-0"></span>
-                        <a
-                          href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
-                          onClick={(e) => {
-                            e.preventDefault();
+                      {item.isDropdown ? (
+                        <div className="w-full">
+                          <button
+                            onClick={() => setOpenMobileDropdown(!openMobileDropdown)}
+                            className={cn(
+                              "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg inline-flex items-center justify-center gap-1.5",
+                              item.isActive
+                                ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
+                                : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+                            )}
+                          >
+                            <span>{item.name}</span>
+                            <ChevronDown 
+                              size={18} 
+                              className={cn(
+                                "transition-transform duration-200 text-neutral-600 dark:text-neutral-400",
+                                openMobileDropdown && "rotate-180"
+                              )} 
+                            />
+                          </button>
+                          
+                          {/* Dropdown Content */}
+                          <AnimatePresence>
+                            {openMobileDropdown && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="overflow-hidden"
+                              >
+                                <div className="px-6 space-y-1 pt-2">
+                                  {item.sections?.map((section, sectionIndex) => (
+                                    <button
+                                      key={sectionIndex}
+                                      onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        setOpenMobileDropdown(false);
+                                        if (section.sectionId === "modal") {
+                                          setIsModalOpen(true);
+                                          return;
+                                        }
+                                        window.location.href = `/services#${section.sectionId}`;
+                                      }}
+                                      className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
+                                    >
+                                      {section.name}
+                                    </button>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => {
                             setIsMobileMenuOpen(false);
-                            
-                            if (section.sectionId === "modal") {
-                              setIsModalOpen(true);
-                            } else {
-                              if (mounted && currentPath === item.link) {
-                                // Same page - just scroll without changing URL
-                                const element = document.getElementById(section.sectionId);
-                                if (element) {
-                                  element.scrollIntoView({ behavior: "smooth", block: "start" });
-                                }
-                              } else {
-                                // Different page - store scroll target and navigate
-                                sessionStorage.setItem('scrollToSection', section.sectionId);
-                                window.location.href = item.link;
-                              }
-                            }
+                            window.location.href = item.link;
                           }}
-                          className="flex-1 text-sm transition-colors text-left py-2.5 px-3 rounded-md text-neutral-600 dark:text-neutral-300 bg-gray-50/30 dark:bg-neutral-800/10 hover:bg-accent hover:text-accent-foreground border border-gray-200 dark:border-neutral-700"
+                          className={cn(
+                            "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg",
+                            item.isActive
+                              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
+                              : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+                          )}
                         >
-                          {section.name}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            {/* Theme Toggle at Bottom of Mobile Menu */}
-            <div className="w-full pt-4 mt-2 border-t border-gray-200 dark:border-neutral-700">
-              <ThemeToggle />
-            </div>
-          </MobileNavMenu>
+                          {item.name}
+                        </button>
+                      )}
+                    </motion.div>
+                  ))}
+                </nav>
+
+                {/* Theme Toggle */}
+                <motion.div 
+                  className="flex items-center justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.3, ease: "easeOut" }}
+                >
+                  <ThemeToggle />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </MobileNav>
+
       </ResizableNavbar>
       
       {/* Modal for Get Started */}

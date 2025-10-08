@@ -8,9 +8,9 @@ html {
   scroll-padding-top: 30px; /* Account for fixed navbar */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   html {
-    scroll-padding-top: 30px; /* Mobile navbar height */
+    scroll-padding-top: 25px;
   }
 }
 
@@ -19,9 +19,9 @@ html {
   scroll-margin-top: 30px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   [id] {
-    scroll-margin-top: 30px;
+    scroll-margin-top: 10px;
   }
 }
 

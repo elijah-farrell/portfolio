@@ -368,21 +368,23 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
     <motion.div
       initial={{
         width: "100%",
+        height: "auto",
       }}
       animate={{
         width: (visible && isTabletOrLarger && !isMenuOpen) ? "95%" : "100%",
+        height: isMenuOpen ? "100vh" : "auto",
       }}
       transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 40,
-        duration: 0.8,
-        ease: "easeOut",
+        type: "tween",
+        duration: isMenuOpen ? 0.3 : 0.2,
+        ease: isMenuOpen ? "easeInOut" : "easeOut",
+        delay: 0,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-full flex-col items-center justify-center px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
+        "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
         isTabletOrLarger && !isMenuOpen && "rounded-full backdrop-blur-md",
-        visible && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
+        visible && !isMenuOpen && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
+        isMenuOpen && "!bg-white dark:!bg-neutral-950",
         className,
       )}
     >
@@ -445,7 +447,7 @@ export const MobileNavHeader = ({
         ease: "easeOut",
       }}
       className={cn(
-        "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1",
+        "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1 relative z-40",
         className,
       )}
     >
@@ -507,7 +509,7 @@ export const MobileNavMenu = ({
 
 export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
   return (
-    <div className={`flex items-center ${visible ? 'ml-0 mr-1' : 'ml-0 mr-0'}`}>
+    <div className={`flex items-center ml-0 mr-1 ${!visible ? 'opacity-0 pointer-events-none' : ''}`}>
       <a 
         href="/"
         onClick={(e) => {

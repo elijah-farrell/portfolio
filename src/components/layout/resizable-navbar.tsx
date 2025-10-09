@@ -175,6 +175,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectionClick }: NavItemsProps) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -194,108 +195,106 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
   return (
     <div
       ref={dropdownRef}
+      onMouseLeave={() => {
+        setHovered(null);
+        setOpenDropdown(null);
+      }}
       className={cn(
-        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 hover:text-zinc-800 mx-0",
+        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 hover:text-zinc-800 mx-0 max-[900px]:space-x-0 max-[875px]:-space-x-1 max-[850px]:-space-x-2 max-[840px]:-space-x-3 max-[830px]:-space-x-4",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <div key={`nav-item-${idx}`} className="relative">
-          {item.isDropdown ? (
-            <div 
-              className="relative"
-              onMouseEnter={() => {
-                setOpenDropdown(idx);
-              }}
-              onMouseLeave={() => {
-                setOpenDropdown(null);
-              }}
-            >
-                <div className={`flex items-center rounded-md hover:bg-accent hover:text-accent-foreground ${
-                  item.isActive 
-                    ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                    : 'text-neutral-600 dark:text-neutral-300'
-                }`}>
-                 <a 
-                   href={item.link}
-                   onClick={(e) => {
-                     e.preventDefault();
-                     window.location.href = item.link;
-                   }}
-                   className="relative px-2 py-2 flex items-center text-sm font-medium"
-                 >
-                   {item.icon && <span className="relative z-20 -mr-1">{item.icon}</span>}
-                   <span className="relative z-20">{item.name}</span>
-                 </a>
-                 <button
-                   onClick={(e) => {
-                     e.preventDefault();
-                     e.stopPropagation();
-                     const newOpenDropdown = openDropdown === idx ? null : idx;
-                     setOpenDropdown(newOpenDropdown);
-                   }}
-                   className="pr-1 py-2 text-sm font-medium"
-                 >
-                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 relative z-20 ${
-                    openDropdown === idx ? 'rotate-180' : ''
-                   }`} />
-                 </button>
-                </div>
-              
-              {/* Dropdown */}
-              <AnimatePresence>
-                {openDropdown === idx && (
-                  <>
-                    {/* Invisible bridge to prevent dropdown from closing */}
-                    <div className="absolute top-full left-0 w-48 h-1 bg-transparent" />
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700 py-1 z-[9999"
-                    >
-                      {item.sections?.map((section, sectionIdx) => (
-                      <a
-                        key={sectionIdx}
-                        href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setOpenDropdown(null);
-                          
-                          if (section.sectionId === "modal") {
-                            onSectionClick?.(section.sectionId);
-                          } else {
-                            handleNavigationWithScroll(`${item.link}#${section.sectionId}`);
-                          }
-                        }}
-                        className="block w-full text-left px-4 py-1.5 text-sm rounded-md text-neutral-600 dark:text-neutral-300 hover:bg-accent hover:text-accent-foreground"
-                      >
-                        {section.name}
-                      </a>
-                      ))}
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
-            </div>
-          ) : (
-            <a
-              href={item.link}
-              onClick={(e) => {
+        <div
+          key={`link-${idx}`}
+          className="relative"
+          onMouseEnter={() => {
+            setHovered(idx);
+            if (item.isDropdown) {
+              setOpenDropdown(idx);
+            } else {
+              setOpenDropdown(null);
+            }
+          }}
+        >
+          <a
+            onClick={(e) => {
+              if (item.isDropdown) {
+                e.preventDefault();
+              } else {
                 e.preventDefault();
                 handleNavigationWithScroll(item.link);
-              }}
-              className={`relative px-2 py-2 flex items-center rounded-lg hover:bg-accent hover:text-accent-foreground ${
-                item.isActive 
-                  ? 'text-emerald-500 dark:text-emerald-400 font-semibold' 
-                  : 'text-neutral-600 dark:text-neutral-300'
-              }`}
-            >
-              {item.icon && <span className="relative z-20 mr-2">{item.icon}</span>}
-              <span className="relative z-20">{item.name}</span>
-            </a>
-          )}
+              }
+            }}
+            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-all duration-500 ease-in-out flex items-center"
+            href={item.link}
+          >
+            {hovered === idx && (
+              <motion.div
+                layoutId="hovered"
+                className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+              />
+            )}
+            <span className="relative z-20">{item.name}</span>
+            {item.isDropdown && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 ml-1 relative z-20 transition-transform duration-300 ease-in-out"
+                style={{
+                  transform:
+                    openDropdown === idx ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            )}
+          </a>
+
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {item.isDropdown && openDropdown === idx && (
+              <>
+                {/* Invisible bridge to prevent dropdown from closing */}
+                <div className="absolute top-full left-0 w-48 h-1 bg-transparent" />
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full left-0 mt-1 w-48 rounded-md shadow-lg bg-white dark:bg-neutral-900 ring-1 ring-black ring-opacity-5 z-30"
+                >
+                <div className="py-1">
+                  {item.sections?.map((section, dropIdx) => (
+                    <a
+                      key={`dropdown-${idx}-${dropIdx}`}
+                      href={section.sectionId === "modal" ? "#" : `${item.link}#${section.sectionId}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenDropdown(null);
+                        
+                        if (section.sectionId === "modal") {
+                          onSectionClick?.(section.sectionId);
+                        } else {
+                          handleNavigationWithScroll(`${item.link}#${section.sectionId}`);
+                        }
+                      }}
+                      className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-500 dark:hover:text-emerald-400"
+                    >
+                      {section.name}
+                    </a>
+                  ))}
+                </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>

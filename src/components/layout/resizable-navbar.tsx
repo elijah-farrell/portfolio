@@ -305,30 +305,19 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
 export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
 
   return (
-    <motion.div
-      initial={{
-        width: "100%",
-        height: "auto",
-      }}
-      animate={{
-        width: "100%",
-        height: isMenuOpen ? "100vh" : "auto",
-      }}
-      transition={{
-        type: "tween",
-        duration: isMenuOpen ? 0.3 : 0.2,
-        ease: isMenuOpen ? "easeInOut" : "easeOut",
-        delay: 0,
-      }}
+    <div
       className={cn(
         "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
         visible && !isMenuOpen && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
         isMenuOpen && "!bg-white dark:!bg-neutral-950",
         className,
       )}
+      style={{
+        height: isMenuOpen ? "100vh" : "auto",
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

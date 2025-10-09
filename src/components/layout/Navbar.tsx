@@ -144,48 +144,27 @@ export function Navbar() {
           </MobileNavHeader>
           
           {/* Mobile Menu Content */}
-          <AnimatePresence>
-            {isMobileMenuOpen && (
-              <motion.div 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ 
-                  duration: 0.3, 
-                  ease: "easeOut",
-                  exit: { duration: 0 }
-                }}
-                className="absolute inset-0 flex flex-col items-center justify-center px-6 py-8 w-full pt-20"
-              >
+          {isMobileMenuOpen && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 py-8 w-full pt-20">
                 {/* Logo in center */}
-                <motion.a
+                <a
                   href="/"
                   onClick={(e) => {
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
                     window.location.href = '/';
                   }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1, duration: 0.3, ease: "easeOut" }}
                   className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-8"
                 >
                   Elijah Farrell
-                </motion.a>
+                </a>
 
                 {/* Navigation Links */}
                 <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-8">
                   {mainNavItems.map((item, index) => (
-                    <motion.div 
+                    <div 
                       key={index} 
                       className="w-full max-w-sm"
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ 
-                        delay: 0.2 + (index * 0.1), 
-                        duration: 0.4, 
-                        ease: "easeOut" 
-                      }}
                     >
                       {item.isDropdown ? (
                         <div className="w-full">
@@ -227,37 +206,27 @@ export function Navbar() {
                           </div>
                           
                           {/* Dropdown Content */}
-                          <AnimatePresence>
-                            {openMobileDropdown && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: 0.2, ease: "easeOut" }}
-                                className="overflow-hidden"
-                              >
-                                <div className="px-6 space-y-1 pt-2">
-                                  {item.sections?.map((section, sectionIndex) => (
-                                    <button
-                                      key={sectionIndex}
-                                      onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        setOpenMobileDropdown(false);
-                                        if (section.sectionId === "modal") {
-                                          setIsModalOpen(true);
-                                          return;
-                                        }
-                                        scrollToSectionOnly(section.sectionId);
-                                      }}
-                                      className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
-                                    >
-                                      {section.name}
-                                    </button>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
+                          {openMobileDropdown && (
+                            <div className="px-6 space-y-1 pt-2">
+                              {item.sections?.map((section, sectionIndex) => (
+                                <button
+                                  key={sectionIndex}
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setOpenMobileDropdown(false);
+                                    if (section.sectionId === "modal") {
+                                      setIsModalOpen(true);
+                                      return;
+                                    }
+                                    scrollToSectionOnly(section.sectionId);
+                                  }}
+                                  className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
+                                >
+                                  {section.name}
+                                </button>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <button
@@ -280,22 +249,16 @@ export function Navbar() {
                           {item.name}
                         </button>
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </nav>
 
                 {/* Theme Toggle */}
-                <motion.div 
-                  className="flex items-center justify-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.3, ease: "easeOut" }}
-                >
+                <div className="flex items-center justify-center">
                   <ThemeToggle />
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             )}
-          </AnimatePresence>
         </MobileNav>
 
       </ResizableNavbar>

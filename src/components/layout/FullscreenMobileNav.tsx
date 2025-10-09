@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { scrollToSectionOnly } from "@/lib/scroll-utils";
@@ -31,15 +30,9 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
 
 
   return (
-    <AnimatePresence>
+    <>
       {isOpen && (
-        <motion.div
-          initial={{ x: "-100%" }}
-          animate={{ x: "0%" }}
-          exit={{ x: "-100%" }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed inset-0 z-50 bg-white dark:bg-neutral-950 flex flex-col items-center justify-center p-6 overflow-y-auto md:hidden pt-20"
-        >
+        <div className="fixed inset-0 z-50 bg-white dark:bg-neutral-950 flex flex-col items-center justify-center p-6 overflow-y-auto md:hidden pt-20">
           {/* Logo */}
           <a
             href="/"
@@ -101,48 +94,38 @@ export function FullscreenMobileNav({ isOpen, onClose, mainNavItems, onModalOpen
                   )}
                 </div>
 
-                <AnimatePresence>
-                  {openDropdowns.includes(index) && item.sections && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 space-y-1 pt-2">
-                        {item.sections.map((section, sectionIndex) => (
-                          <button
-                            key={sectionIndex}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              console.log('Dropdown section clicked:', section.sectionId);
-                              onClose();
-                              if (section.sectionId === "modal") {
-                                console.log('Modal clicked');
-                                onModalOpen?.();
-                                return;
-                              }
-                              console.log('Scrolling to section:', section.sectionId);
-                              scrollToSectionOnly(section.sectionId);
-                            }}
-                            className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
-                          >
-                            {section.name}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {openDropdowns.includes(index) && item.sections && (
+                  <div className="px-6 space-y-1 pt-2">
+                    {item.sections.map((section, sectionIndex) => (
+                      <button
+                        key={sectionIndex}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          console.log('Dropdown section clicked:', section.sectionId);
+                          onClose();
+                          if (section.sectionId === "modal") {
+                            console.log('Modal clicked');
+                            onModalOpen?.();
+                            return;
+                          }
+                          console.log('Scrolling to section:', section.sectionId);
+                          scrollToSectionOnly(section.sectionId);
+                        }}
+                        className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
+                      >
+                        {section.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </nav>
 
           
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

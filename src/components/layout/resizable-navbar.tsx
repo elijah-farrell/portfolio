@@ -219,12 +219,8 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
         >
           <a
             onClick={(e) => {
-              if (item.isDropdown) {
-                e.preventDefault();
-              } else {
-                e.preventDefault();
-                handleNavigationWithScroll(item.link);
-              }
+              e.preventDefault();
+              handleNavigationWithScroll(item.link);
             }}
             className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-all duration-500 ease-in-out flex items-center"
             href={item.link}

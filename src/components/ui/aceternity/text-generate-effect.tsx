@@ -35,7 +35,7 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-normal", className)}>
-      <motion.div ref={scope} className={`flex flex-wrap justify-${justify}`}>
+      <motion.div ref={scope} className={`flex flex-wrap justify-${justify} leading-relaxed`}>
         {wordsArray.map((word, idx) => (
           <motion.span
             key={idx}
@@ -43,6 +43,7 @@ export const TextGenerateEffect = ({
             style={{
               filter: filter ? "blur(6px)" : "none",
               whiteSpace: "pre", // Preserve spaces
+              lineHeight: "1.625", // Add proper line height for wrapped text
             }}
           >
             {word}{" "}

@@ -82,7 +82,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      className={cn("fixed inset-x-0 top-0 z-40 w-full", className)}
+      className={cn("fixed inset-x-0 top-0 z-40 mx-auto max-w-[1279px]", className)}
       style={{
         // Force GPU acceleration for better Safari compatibility
         willChange: 'transform',
@@ -132,7 +132,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         ease: "easeOut",
       }}
       className={cn(
-        "relative z-50 mx-auto hidden nav:flex w-full max-w-6xl xl:max-w-7xl 2xl:max-w-8xl flex-row items-center justify-center py-4 px-6 bg-white/80 backdrop-blur-md dark:bg-neutral-950/80 rounded-full",
+        "relative z-50 mx-auto hidden nav:flex w-full flex-row items-center justify-center py-4 px-6 backdrop-blur-md rounded-full",
+        visible ? "bg-white/80 dark:bg-neutral-950/80" : "[background-color:transparent]",
         className,
       )}
     >

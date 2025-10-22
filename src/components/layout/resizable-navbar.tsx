@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
 import { handleNavigationWithScroll } from "@/lib/scroll-utils";
 
 interface NavbarProps {

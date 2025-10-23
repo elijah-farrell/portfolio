@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /ElijahFarrell.pdf
 
 # Sitemap location
 Sitemap: https://elijahfarrell.com/sitemap.xml

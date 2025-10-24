@@ -10,6 +10,7 @@ import {
   FiShoppingCart,
   FiCloud,
   FiTool,
+  FiUsers,
 } from "react-icons/fi";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
@@ -65,7 +66,7 @@ const getServicesList = (onGetStarted?: () => void) => [
   },
   {
     title: "Technical Consulting",
-    icon: <FiSettings className="h-6 w-6 text-emerald-500" />,
+    icon: <FiUsers className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
 ];
@@ -73,7 +74,7 @@ const getServicesList = (onGetStarted?: () => void) => [
 const servicesItems = [
   {
     title: "Full-Stack Development",
-    description: "Complete web development solutions from concept to deployment. I specialize in building modern, responsive websites and web applications that help businesses establish their online presence. From simple landing pages to complex web applications, I handle both frontend and backend development to bring your ideas to life.",
+    description: "Complete web development solutions from concept to deployment. I specialize in helping small businesses, startups, and entrepreneurs establish their online presence, from affordable one-time projects to comprehensive enterprise solutions.",
     header: <FullStackSkeleton />,
     className: "",
     icon: <FiGlobe className="h-4 w-4 text-emerald-500" />,
@@ -87,38 +88,49 @@ const servicesItems = [
       "Website Maintenance & Support"
     ],
     // No main image - focused on work showcase
-    recentWork: [
+    myProjects: [
       {
         title: "Minimal Portfolio Template",
         description: "Minimal portfolio template focused on showcasing your work without distractions.",
         image: "/assets/projects/minimal.png",
         link: "https://ef-portfolio03.vercel.app",
-        tech: ["Next.js", "React", "Tailwind CSS"]
-      }
-    ],
-    templates: [
+        tech: ["Next.js", "React", "Tailwind CSS"],
+        type: "project",
+      },
       {
         title: "Lawn Care Website",
         description: "Custom lawn care website template with a modern design and responsive layout. Ready to customize and deploy.",
         image: "/assets/projects/lawn_care_template.png",
         link: "https://themewagon.com/themes/free-bootstrap-4-html5-lawn-care-website-template-lawncare/?utm_source=chatgpt.com",
-        price: "$75"
+        price: "$75",
+        type: "template",
       },
       {
         title: "Welding Services Website",
         description: "Professional welding and metalwork website with modern design and responsive layout",
         image: "/assets/projects/welding_template.png",
         link: "https://themewagon.github.io/Weldork/index.html",
-        price: "$75"
+        price: "$75",
+        type: "template",
       },
       {
         title: "E-commerce Store",
         description: "Modern online store with shopping cart, product catalog, and responsive design",
         image: "/assets/projects/stylish_template.png",
         link: "https://themewagon.github.io/stylish/",
-        price: "$75"
-      }
-    ]
+        price: "$75",
+        type: "template",
+      },
+      {
+        title: "Custom Solutions",
+        description: "Didn't find something you like? We create custom websites tailored to your specific needs. From unique designs to specialized functionality, we'll bring your vision to life.",
+        image: "/assets/projects/portfolio-thumb.png",
+        link: "#",
+        price: "Contact Us",
+        type: "custom",
+        isCustom: true,
+      },
+    ],
   },
 ];
 
@@ -127,29 +139,16 @@ interface ServiceTabsProps {
 }
 
 export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
-  const [workScrollPosition, setWorkScrollPosition] = useState(0);
-  const [templateScrollPosition, setTemplateScrollPosition] = useState(0);
+  const [projectsScrollPosition, setProjectsScrollPosition] = useState(0);
 
-  const scrollWork = (direction: 'left' | 'right') => {
-    const container = document.getElementById('work-container');
+  const scrollProjects = (direction: 'left' | 'right') => {
+    const container = document.getElementById('my-projects');
     if (container) {
       const scrollAmount = 300;
       const newPosition = direction === 'left' 
-        ? workScrollPosition - scrollAmount 
-        : workScrollPosition + scrollAmount;
-      setWorkScrollPosition(Math.max(0, Math.min(newPosition, container.scrollWidth - container.clientWidth)));
-      container.scrollTo({ left: newPosition, behavior: 'smooth' });
-    }
-  };
-
-  const scrollTemplates = (direction: 'left' | 'right') => {
-    const container = document.getElementById('template-container');
-    if (container) {
-      const scrollAmount = 300;
-      const newPosition = direction === 'left' 
-        ? templateScrollPosition - scrollAmount 
-        : templateScrollPosition + scrollAmount;
-      setTemplateScrollPosition(Math.max(0, Math.min(newPosition, container.scrollWidth - container.clientWidth)));
+        ? projectsScrollPosition - scrollAmount 
+        : projectsScrollPosition + scrollAmount;
+      setProjectsScrollPosition(Math.max(0, Math.min(newPosition, container.scrollWidth - container.clientWidth)));
       container.scrollTo({ left: newPosition, behavior: 'smooth' });
     }
   };
@@ -168,13 +167,18 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
       </div>
 
       {/* Recent Sites I've Made Section - Outside the main card */}
-      {servicesItems[0].recentWork && (
+      {servicesItems[0].myProjects && (
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Sites I've Made</h4>
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">My Websites and Templates</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Choose from our ready-made templates for quick deployment, or let us create something custom for your unique requirements. From one-time payments to monthly subscriptions, I can accommodate your budget and help establish or expand your online presence.
+              </p>
+            </div>
             <div className="flex gap-2">
               <button
-                onClick={() => scrollWork('left')}
+                onClick={() => scrollProjects('left')}
                 className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,7 +186,7 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
                 </svg>
               </button>
               <button
-                onClick={() => scrollWork('right')}
+                onClick={() => scrollProjects('right')}
                 className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,11 +196,11 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
             </div>
           </div>
           <div 
-            id="work-container"
+            id="my-projects"
             className="flex gap-4 overflow-x-auto scrollbar-hide py-8 px-2 pb-12"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {servicesItems[0].recentWork.map((work, idx) => (
+            {servicesItems[0].myProjects.map((work, idx) => (
               <div key={idx} className="flex-shrink-0 w-80 bg-white dark:bg-[#0a0a0a] rounded-2xl overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-neutral-800 hover:border-gray-200 dark:hover:border-neutral-700">
                 <div className="relative h-48 overflow-hidden">
                   <img 
@@ -209,87 +213,41 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
                 <div className="p-5">
                   <h5 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg leading-tight">{work.title}</h5>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 leading-relaxed">{work.description}</p>
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {work.tech.map((tech, techIdx) => (
-                      <span key={techIdx} className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-xs rounded-full font-medium">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <a 
-                    href={work.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
-                  >
-                    View Project 
-                    <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Templates Section - Outside the main card */}
-      {servicesItems[0].templates && (
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Available Templates</h4>
-            <div className="flex gap-2">
-              <button
-                onClick={() => scrollTemplates('left')}
-                className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => scrollTemplates('right')}
-                className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div 
-            id="template-container"
-            className="flex gap-4 overflow-x-auto scrollbar-hide py-8 px-2 pb-12"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {servicesItems[0].templates.map((template, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 bg-white dark:bg-[#0a0a0a] rounded-2xl overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-neutral-800 hover:border-gray-200 dark:hover:border-neutral-700">
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={template.image} 
-                    alt={template.title}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h5 className="font-semibold text-gray-900 dark:text-white text-lg leading-tight">{template.title}</h5>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">{template.price}</span>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{template.description}</p>
-                  <a 
-                    href={template.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
-                  >
-                    View Template 
-                    <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
+                  {work.tech && (
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {work.tech.map((tech, techIdx) => (
+                        <span key={techIdx} className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-xs rounded-full font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {work.price && (
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg mb-3 block">{work.price}</span>
+                  )}
+                  {work.isCustom ? (
+                    <button 
+                      onClick={onGetStarted}
+                      className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
+                    >
+                      Contact Us
+                      <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </button>
+                  ) : (
+                    <a 
+                      href={work.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
+                    >
+                      View {work.type === "project" ? "Project" : "Template"}
+                      <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

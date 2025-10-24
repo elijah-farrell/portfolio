@@ -17,7 +17,7 @@ export default function ContactCTA({ onGetStarted }: ContactCTAProps) {
               className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full bg-black text-white dark:bg-white dark:text-black px-6 font-medium"
               onClick={onGetStarted}
             >
-              <span>Get Started</span>
+              <span>Start a Project</span>
               <div className="relative ml-1 h-5 w-5 overflow-hidden">
                 <div className="absolute transition-all duration-200 group-hover:-translate-y-5 group-hover:translate-x-4">
                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">

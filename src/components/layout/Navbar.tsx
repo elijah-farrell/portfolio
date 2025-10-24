@@ -31,8 +31,9 @@ export function Navbar() {
   }, []);
 
   const servicesSections = [
-    { name: "What I Do", sectionId: "what-i-do" },
-    { name: "Get Started", sectionId: "modal" },
+    { name: "What I Offer", sectionId: "what-i-do" },
+    { name: "My Websites and Templates", sectionId: "my-projects" },
+    { name: "Start a Project", sectionId: "modal" },
   ];
 
   const mainNavItems = [
@@ -263,7 +264,7 @@ export function Navbar() {
 
       </ResizableNavbar>
       
-      {/* Modal for Get Started */}
+      {/* Modal for Start a Project */}
       <Modal>
         <CustomModalTrigger />
         <ModalBody>

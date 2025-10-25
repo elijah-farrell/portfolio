@@ -57,15 +57,14 @@ export default function ProjectCard(props: ProjectCardProps) {
             <CardHeader className="flex-shrink-0">
               <CardItem
                 translateZ="60"
-                className="w-full h-48 object-contain rounded-2xl mb-4"
+                className="w-full h-48 object-contain rounded-2xl mb-2"
               >
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full h-48 object-contain rounded-2xl mb-4"
+                  className="w-full h-48 object-contain rounded-2xl"
                 />
               </CardItem>
-              <br />
               <div className="text-xs text-muted-foreground">{duration}</div>
               <CardTitle className="flex items-center gap-2">
                 {title}

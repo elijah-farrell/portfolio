@@ -15,7 +15,6 @@ export default function ContactCTA({ onGetStarted }: ContactCTAProps) {
               containerClassName="rounded-full p-[2px]"
               as="button"
               className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full bg-black text-white dark:bg-white dark:text-black px-6 font-medium"
-              duration={0}
               onClick={onGetStarted}
             >
               <span>Start a Project</span>

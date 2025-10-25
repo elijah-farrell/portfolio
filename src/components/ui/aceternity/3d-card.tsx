@@ -20,12 +20,8 @@ export const CardContainer = ({
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 25;
-    const y = (e.clientY - top - height / 2) / 25;
-    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    // Disable 3D transforms to prevent blurriness
+    return;
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,7 +32,8 @@ export const CardContainer = ({
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     setIsMouseEntered(false);
-    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    // Keep transform disabled
+    containerRef.current.style.transform = `none`;
   };
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
@@ -45,7 +42,7 @@ export const CardContainer = ({
           containerClassName
         )}
         style={{
-          perspective: "1000px",
+          perspective: "none",
         }}
       >
         <div
@@ -58,7 +55,7 @@ export const CardContainer = ({
             className
           )}
           style={{
-            transformStyle: "preserve-3d",
+            transformStyle: "flat",
           }}
         >
           {children}
@@ -78,7 +75,7 @@ export const CardBody = ({
   return (
     <div
       className={cn(
-        " [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
+        " [transform-style:flat]  [&>*]:[transform-style:flat]",
         className
       )}
     >

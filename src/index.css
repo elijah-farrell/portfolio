@@ -185,3 +185,63 @@ html {
 .animate-aurora {
   animation: aurora 8s ease-in-out infinite alternate;
 }
+
+/* Improve image rendering quality for project cards */
+.project-card img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Fix blurry text in project cards */
+.project-card {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: always;
+  transform: translateZ(0);
+  will-change: auto;
+  backface-visibility: hidden;
+  perspective: none;
+  transform-style: flat;
+}
+
+.project-card .text-sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translateZ(0);
+}
+
+.project-card h3,
+.project-card .text-xl {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translateZ(0);
+}
+
+/* Ensure crisp text rendering on all text elements in project cards */
+.project-card * {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translateZ(0);
+}
+
+/* Disable all 3D transforms on project cards */
+.project-card,
+.project-card *,
+.project-card .inter-var,
+.project-card [class*="CardItem"],
+.project-card [class*="CardBody"],
+.project-card [class*="CardContainer"] {
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
+  backface-visibility: visible !important;
+}

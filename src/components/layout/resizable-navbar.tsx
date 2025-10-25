@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
 import { handleNavigationWithScroll } from "@/lib/scroll-utils";
 
 interface NavbarProps {
@@ -223,7 +222,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
               e.preventDefault();
               handleNavigationWithScroll(item.link);
             }}
-            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-all duration-500 ease-in-out flex items-center"
+            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 flex items-center"
             href={item.link}
           >
             {hovered === idx && (
@@ -236,7 +235,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
             {item.isDropdown && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-1 relative z-20 transition-transform duration-300 ease-in-out"
+                className="h-4 w-4 ml-1 relative z-20"
                 style={{
                   transform:
                     openDropdown === idx ? "rotate(180deg)" : "rotate(0deg)",

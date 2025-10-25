@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SEO } from "@/components/seo/SEO";
 import ServicesHero from "@/components/services/ServicesHero";
-import WhatIDoCards from "@/components/services/WhatIDoCards";
+import ServiceTabs from "@/components/services/ServiceTabs";
 import ContactCTA from "@/components/services/ContactCTA";
 import ServicesModal from "@/components/services/ServicesModal";
 import { TracingBeam } from "@/components/ui/aceternity/tracing-beam";
@@ -23,7 +23,7 @@ export default function Services(): JSX.Element {
       <section id="what-i-do" className="pt-8 pb-12 bg-white dark:bg-neutral-950">
         <div className="max-w-7xl mx-auto">
           <TracingBeam className="px-6">
-            <WhatIDoCards />
+            <ServiceTabs onGetStarted={() => setIsModalOpen(true)} />
           </TracingBeam>
         </div>
       </section>

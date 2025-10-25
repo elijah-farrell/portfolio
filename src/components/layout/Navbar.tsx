@@ -18,7 +18,6 @@ import ContactForm from "../services/ContactForm";
 import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import { scrollToSectionOnly } from "@/lib/scroll-utils";
 
 export function Navbar() {
@@ -30,9 +29,13 @@ export function Navbar() {
     setCurrentPath(window.location.pathname);
   }, []);
 
+  // Development mode - hide templates section
+  const showTemplatesSection = false;
+  
   const servicesSections = [
-    { name: "What I Do", sectionId: "what-i-do" },
-    { name: "Get Started", sectionId: "modal" },
+    { name: "What I Offer", sectionId: "full-stack-dev" },
+    ...(showTemplatesSection ? [{ name: "My Websites and Templates", sectionId: "my-projects" }] : []),
+    { name: "Start a Project", sectionId: "modal" },
   ];
 
   const mainNavItems = [
@@ -168,8 +171,8 @@ export function Navbar() {
                     >
                       {item.isDropdown ? (
                         <div className="w-full">
-                          <div className={cn(
-                            "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg inline-flex items-center justify-center",
+                          <div                           className={cn(
+                            "w-full px-6 py-3 text-lg font-medium rounded-lg inline-flex items-center justify-center",
                             item.isActive
                               ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
                               : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
@@ -193,7 +196,7 @@ export function Navbar() {
                                 e.stopPropagation();
                                 setOpenMobileDropdown(!openMobileDropdown);
                               }}
-                              className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                              className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400"
                             >
                               <ChevronDown 
                                 size={18} 
@@ -220,7 +223,7 @@ export function Navbar() {
                                     }
                                     scrollToSectionOnly(section.sectionId);
                                   }}
-                                  className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
+                                  className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
                                 >
                                   {section.name}
                                 </button>
@@ -240,7 +243,7 @@ export function Navbar() {
                             }
                           }}
                           className={cn(
-                            "w-full px-6 py-3 text-lg font-medium transition-all duration-200 rounded-lg",
+                            "w-full px-6 py-3 text-lg font-medium rounded-lg",
                             item.isActive
                               ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
                               : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
@@ -263,7 +266,7 @@ export function Navbar() {
 
       </ResizableNavbar>
       
-      {/* Modal for Get Started */}
+      {/* Modal for Start a Project */}
       <Modal>
         <CustomModalTrigger />
         <ModalBody>

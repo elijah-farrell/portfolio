@@ -6,8 +6,6 @@ import {
   FiGlobe,
   FiCode,
   FiDatabase,
-  FiSettings,
-  FiShoppingCart,
   FiCloud,
   FiTool,
   FiUsers,

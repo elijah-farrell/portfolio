@@ -18,7 +18,6 @@ import ContactForm from "../services/ContactForm";
 import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import { scrollToSectionOnly } from "@/lib/scroll-utils";
 
 export function Navbar() {

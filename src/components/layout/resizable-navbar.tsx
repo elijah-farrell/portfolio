@@ -111,28 +111,20 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
   return (
     <motion.div
-      initial={{
-        width: "100%",
-        backdropFilter: "blur(0px)",
-        boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
-      }}
       animate={{
         width: visible ? "95%" : "100%",
-        backdropFilter: visible ? "blur(12px)" : "blur(0px)",
+        backdropFilter: visible ? "blur(10px)" : "none",
         boxShadow: visible
           ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
-          : "0 0 0 rgba(0, 0, 0, 0)",
+          : "none",
       }}
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 40,
-        duration: 0.8,
-        ease: "easeOut",
+        stiffness: 200,
+        damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto hidden nav:flex w-full flex-row items-center justify-center py-4 px-6 backdrop-blur-md rounded-full",
-        visible ? "bg-white/80 dark:bg-neutral-950/80" : "[background-color:transparent]",
+        "relative z-50 mx-auto hidden nav:flex w-full flex-row items-center justify-center py-4 px-6 backdrop-blur-md rounded-full bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
     >

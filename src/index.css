@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom carousel hover effects */
+.card-group:hover .card-group-hover\:scale-105 {
+  transform: scale(1.05);
+}
+.card-group:hover .card-group-hover\:opacity-100 {
+  opacity: 1;
+}
+.card-group:hover .card-group-hover\:scale-100 {
+  transform: scale(1);
+}
+.card-group:hover .card-group-hover\:text-emerald-600 {
+  color: rgb(5 150 105);
+}
+.dark .card-group:hover .card-group-hover\:text-emerald-400 {
+  color: rgb(52 211 153);
+}
+
+/* Force emerald focus colors for theme toggle - only on keyboard focus */
+[data-theme-toggle] *:focus-visible,
+.dark-mode-toggle *:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgb(16 185 129) !important;
+}
+
+/* Remove focus styles on click */
+[data-theme-toggle] *:focus:not(:focus-visible),
+.dark-mode-toggle *:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure no focus ring on mouse interactions */
+[data-theme-toggle] *:focus:not(:focus-visible),
+.dark-mode-toggle *:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 html {
   scroll-padding-top: 30px; /* Account for fixed navbar */
 }

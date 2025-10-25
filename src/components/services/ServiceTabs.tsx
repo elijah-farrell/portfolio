@@ -11,6 +11,8 @@ import {
   FiCloud,
   FiTool,
   FiUsers,
+  FiSearch,
+  FiSmartphone,
 } from "react-icons/fi";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
@@ -30,43 +32,43 @@ const FullStackSkeleton = () => {
 
 const getServicesList = (onGetStarted?: () => void) => [
   {
-    title: "Custom Web Applications & Websites",
+    title: "Custom Business Websites",
     icon: <FiGlobe className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
   {
-    title: "Frontend & Backend Development",
-    icon: <FiCode className="h-6 w-6 text-emerald-500" />,
+    title: "Personal & Portfolio Sites",
+    icon: <FiUsers className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
   {
-    title: "Database Design & API Development",
+    title: "Backend & Database Development",
     icon: <FiDatabase className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
   {
-    title: "Content Management Systems (CMS)",
-    icon: <FiSettings className="h-6 w-6 text-emerald-500" />,
-    onClick: onGetStarted,
-  },
-  {
-    title: "E-commerce Solutions",
-    icon: <FiShoppingCart className="h-6 w-6 text-emerald-500" />,
-    onClick: onGetStarted,
-  },
-  {
-    title: "Deployment & Hosting Solutions",
+    title: "Fast, Reliable Hosting",
     icon: <FiCloud className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
   {
-    title: "Website Maintenance & Support",
+    title: "Ongoing Support & Maintenance",
     icon: <FiTool className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
   {
+    title: "Mobile-Responsive Design",
+    icon: <FiSmartphone className="h-6 w-6 text-emerald-500" />,
+    onClick: onGetStarted,
+  },
+  {
+    title: "SEO & Search Optimization",
+    icon: <FiSearch className="h-6 w-6 text-emerald-500" />,
+    onClick: onGetStarted,
+  },
+  {
     title: "Technical Consulting",
-    icon: <FiUsers className="h-6 w-6 text-emerald-500" />,
+    icon: <FiCode className="h-6 w-6 text-emerald-500" />,
     onClick: onGetStarted,
   },
 ];
@@ -74,7 +76,7 @@ const getServicesList = (onGetStarted?: () => void) => [
 const servicesItems = [
   {
     title: "Full-Stack Development",
-    description: "Complete web development solutions from concept to deployment. I specialize in helping small businesses, startups, and entrepreneurs establish their online presence, from affordable one-time projects to comprehensive enterprise solutions.",
+    description: "Get a professional website that brings in more customers. I build and host custom websites for businesses and individuals of all types. Fast turnaround, ongoing support, and hands-on guidance.",
     header: <FullStackSkeleton />,
     className: "",
     icon: <FiGlobe className="h-4 w-4 text-emerald-500" />,
@@ -89,47 +91,48 @@ const servicesItems = [
     ],
     // No main image - focused on work showcase
     myProjects: [
-      {
-        title: "Minimal Portfolio Template",
-        description: "Minimal portfolio template focused on showcasing your work without distractions.",
-        image: "/assets/projects/minimal.png",
-        link: "https://ef-portfolio03.vercel.app",
-        tech: ["Next.js", "React", "Tailwind CSS"],
-        type: "project",
-      },
-      {
-        title: "Lawn Care Website",
-        description: "Custom lawn care website template with a modern design and responsive layout. Ready to customize and deploy.",
-        image: "/assets/projects/lawn_care_template.png",
-        link: "https://themewagon.com/themes/free-bootstrap-4-html5-lawn-care-website-template-lawncare/?utm_source=chatgpt.com",
-        price: "$75",
-        type: "template",
-      },
-      {
-        title: "Welding Services Website",
-        description: "Professional welding and metalwork website with modern design and responsive layout",
-        image: "/assets/projects/welding_template.png",
-        link: "https://themewagon.github.io/Weldork/index.html",
-        price: "$75",
-        type: "template",
-      },
-      {
-        title: "E-commerce Store",
-        description: "Modern online store with shopping cart, product catalog, and responsive design",
-        image: "/assets/projects/stylish_template.png",
-        link: "https://themewagon.github.io/stylish/",
-        price: "$75",
-        type: "template",
-      },
-      {
-        title: "Custom Solutions",
-        description: "Didn't find something you like? We create custom websites tailored to your specific needs. From unique designs to specialized functionality, we'll bring your vision to life.",
-        image: "/assets/projects/portfolio-thumb.png",
-        link: "#",
-        price: "Contact Us",
-        type: "custom",
-        isCustom: true,
-      },
+       {
+         title: "Minimal Portfolio",
+         description: "Perfect for professionals, freelancers, or creatives who want a clean, distraction-free website to showcase their work. I'll customize this template with your content, branding, and deploy it for you.",
+         image: "/assets/projects/minimal.png",
+         link: "https://ef-portfolio03.vercel.app",
+         tech: ["Next.js", "React", "Tailwind CSS"],
+         type: "project",
+         price: "$39",
+       },
+       {
+         title: "Lawn Care Website",
+         description: "Ready-to-launch website for lawn care and landscaping businesses. Includes service pages, contact forms, and mobile-responsive design. I'll customize it with your business details and get it live.",
+         image: "/assets/projects/lawn_care_template.png",
+         link: "https://themewagon.com/themes/free-bootstrap-4-html5-lawn-care-website-template-lawncare/?utm_source=chatgpt.com",
+         price: "$75/month",
+         type: "template",
+       },
+       {
+         title: "Welding Services Website",
+         description: "Professional website designed specifically for welding and metalwork businesses. Features service galleries, project showcases, and contact forms. I'll personalize it for your business.",
+         image: "/assets/projects/welding_template.png",
+         link: "https://themewagon.github.io/Weldork/index.html",
+         price: "$75/month",
+         type: "template",
+       },
+       {
+         title: "E-commerce Store",
+         description: "Complete online store solution with shopping cart, product catalog, and payment integration. Perfect for small businesses wanting to sell products online. I'll set up everything for you.",
+         image: "/assets/projects/stylish_template.png",
+         link: "https://themewagon.github.io/stylish/",
+         price: "$75/month",
+         type: "template",
+       },
+       {
+         title: "Custom Website Development",
+         description: "Don't see what you need? I'll create a completely custom website tailored to your specific business requirements. From unique designs to specialized functionality, I'll bring your vision to life. Much more coming soon!",
+         image: "/assets/animated.png",
+         link: "#",
+         price: "Contact Us",
+         type: "custom",
+         isCustom: true,
+       },
     ],
   },
 ];
@@ -140,6 +143,9 @@ interface ServiceTabsProps {
 
 export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
   const [projectsScrollPosition, setProjectsScrollPosition] = useState(0);
+  
+  // Development mode - hide templates section
+  const showTemplatesSection = false;
 
   const scrollProjects = (direction: 'left' | 'right') => {
     const container = document.getElementById('my-projects');
@@ -156,7 +162,7 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4">
       {/* Service Header */}
-      <div className="pt-8 mb-10">
+      <div className="pt-8 mb-10" id="full-stack-dev">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">{servicesItems[0].title}</h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">{servicesItems[0].description}</p>
@@ -166,91 +172,116 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
         </div>
       </div>
 
-      {/* Recent Sites I've Made Section - Outside the main card */}
-      {servicesItems[0].myProjects && (
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">My Websites and Templates</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Choose from our ready-made templates for quick deployment, or let us create something custom for your unique requirements. From one-time payments to monthly subscriptions, I can accommodate your budget and help establish or expand your online presence.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => scrollProjects('left')}
-                className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => scrollProjects('right')}
-                className="p-2 rounded-full bg-gray-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
+      {/* Portfolio Showcase Section */}
+      {servicesItems[0].myProjects && showTemplatesSection && (
+        <div className="mb-3">
+          {/* Section Header */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Website Templates & Examples</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-3xl">
+              Here are some examples of websites I could use to build your site. Choose from these ready-made templates or let me create something custom for your brand or style. We can also find more templates to suit your specific needs.
+            </p>
           </div>
-          <div 
-            id="my-projects"
-            className="flex gap-4 overflow-x-auto scrollbar-hide py-8 px-2 pb-12"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {servicesItems[0].myProjects.map((work, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 bg-white dark:bg-[#0a0a0a] rounded-2xl overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-neutral-800 hover:border-gray-200 dark:hover:border-neutral-700">
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={work.image} 
-                    alt={work.title}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
-                <div className="p-5">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg leading-tight">{work.title}</h5>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 leading-relaxed">{work.description}</p>
-                  {work.tech && (
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {work.tech.map((tech, techIdx) => (
-                        <span key={techIdx} className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-xs rounded-full font-medium">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {work.price && (
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg mb-3 block">{work.price}</span>
-                  )}
-                  {work.isCustom ? (
-                    <button 
-                      onClick={onGetStarted}
-                      className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
-                    >
-                      Contact Us
-                      <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                      </svg>
-                    </button>
-                  ) : (
-                    <a 
-                      href={work.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200"
-                    >
-                      View {work.type === "project" ? "Project" : "Template"}
-                      <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
+
+          {/* Carousel Container */}
+          <div className="relative group">
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => scrollProjects('left')}
+              className="absolute -left-12 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/60 backdrop-blur-sm text-white hover:bg-black/80 transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-xl"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollProjects('right')}
+              className="absolute -right-12 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/60 backdrop-blur-sm text-white hover:bg-black/80 transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-xl"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Carousel Content */}
+            <div 
+              id="my-projects"
+              className="flex gap-6 overflow-x-auto scrollbar-hide py-4"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+               {servicesItems[0].myProjects.map((work, idx) => (
+                 work.isCustom ? (
+                   <div key={idx} className="flex-shrink-0 w-96 card-group cursor-pointer" onClick={onGetStarted}>
+                     {/* Image Container */}
+                     <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                      <img 
+                        src={work.image} 
+                        alt={work.title}
+                        className="w-full h-full object-cover card-group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 card-group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                       {/* Action Button */}
+                       <div className="absolute inset-0 flex items-center justify-center opacity-0 card-group-hover:opacity-100 transition-opacity duration-300">
+                         <div className="px-6 py-3 bg-emerald-600 text-white rounded-full font-medium shadow-lg transform scale-95 card-group-hover:scale-100">
+                           Contact Us
+                         </div>
+                       </div>
+                     </div>
+
+                     {/* Content */}
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 card-group-hover:text-emerald-600 dark:card-group-hover:text-emerald-400 transition-colors">
+                         {work.title}
+                       </h3>
+                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                         {work.description}
+                       </p>
+                     </div>
+                   </div>
+                 ) : (
+                   <a key={idx} href={work.link} target="_blank" rel="noopener noreferrer" className="flex-shrink-0 w-96 card-group cursor-pointer block">
+                     {/* Image Container */}
+                     <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                      <img 
+                        src={work.image} 
+                        alt={work.title}
+                        className="w-full h-full object-cover card-group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 card-group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                       {/* Action Button */}
+                       <div className="absolute inset-0 flex items-center justify-center opacity-0 card-group-hover:opacity-100 transition-opacity duration-300">
+                         <div className="px-6 py-3 bg-emerald-600 text-white rounded-full font-medium shadow-lg transform scale-95 card-group-hover:scale-100">
+                           View {work.type === "project" ? "Project" : "Template"}
+                         </div>
+                       </div>
+
+                       {/* Price Badge */}
+                       {work.price && (
+                         <div className="absolute top-3 right-3">
+                           <span className="px-3 py-1 bg-emerald-600 text-white text-sm font-semibold rounded-full">
+                             {work.price}
+                           </span>
+                         </div>
+                       )}
+                     </div>
+
+                     {/* Content */}
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 card-group-hover:text-emerald-600 dark:card-group-hover:text-emerald-400 transition-colors">
+                         {work.title}
+                       </h3>
+                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                         {work.description}
+                       </p>
+                     </div>
+                   </a>
+                 )
+               ))}
+            </div>
           </div>
         </div>
       )}

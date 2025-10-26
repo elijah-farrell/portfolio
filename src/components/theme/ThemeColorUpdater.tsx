@@ -33,6 +33,15 @@ export function ThemeColorUpdater() {
     const currentTheme = resolvedTheme as ResolvedTheme;
     const color = getSafariThemeColor(currentTheme);
 
+    // LOCK background colors with !important BEFORE any flash happens
+    document.documentElement.style.setProperty('background-color', color, 'important');
+    document.body.style.setProperty('background-color', color, 'important');
+
+    // Update color scheme and classes
+    document.documentElement.style.colorScheme = currentTheme;
+    document.body.classList.remove('light', 'dark');
+    document.body.classList.add(currentTheme);
+
     // FORCE Safari to recognize the change by removing and recreating
     const existingMeta = document.querySelector('meta[name="theme-color"]');
     if (existingMeta) {

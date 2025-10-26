@@ -154,7 +154,18 @@ html {
   src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+/* Prevent layout shifts and font flashes */
+html {
+  font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
+}
+
+body, #root {
+  font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
 }
 
 /* Aurora animation for aurora-text component */

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/common/card";
 import { GoLinkExternal } from "react-icons/go";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/aceternity/3d-card";
+import { useState } from "react";
 
 interface ProjectCardProps {
   title: string;
@@ -37,12 +38,18 @@ export default function ProjectCard(props: ProjectCardProps) {
     duration,
   } = props;
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const handleCardClick = () => {
     // Prioritize liveUrl, then github, then playstore
     const url = liveUrl || github || playstore;
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
+  };
+
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
   };
 
   const cardContent = (
@@ -57,13 +64,22 @@ export default function ProjectCard(props: ProjectCardProps) {
             <CardHeader className="flex-shrink-0">
               <CardItem
                 translateZ="0"
-                className="w-full h-48 rounded-2xl mb-2 overflow-hidden"
+                className="w-full h-48 rounded-2xl mb-2 overflow-hidden relative"
               >
+                {/* Skeleton placeholder while loading */}
+                {!isImageLoaded && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-emerald-50 to-blue-100 dark:from-emerald-900/20 dark:via-emerald-800/10 dark:to-blue-900/20 animate-pulse" />
+                )}
+                
+                {/* Image with fade-in */}
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className={`w-full h-full object-cover rounded-2xl transition-opacity duration-500 ${
+                    isImageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
                   style={{ imageRendering: 'crisp-edges' }}
+                  onLoad={handleImageLoad}
                 />
               </CardItem>
               <div className="text-xs text-muted-foreground">{duration}</div>

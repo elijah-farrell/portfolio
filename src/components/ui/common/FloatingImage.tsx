@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const mainImage = "/assets/pfp.jpeg";
-const altMainImage = "/assets/animated.png";
+const mainImage = "/assets/pfp.webp";
+const altMainImage = "/assets/animated.webp";
 
 const FloatingImage: React.FC = () => {
   const [currentSrc, setCurrentSrc] = useState(altMainImage);
@@ -15,8 +15,10 @@ const FloatingImage: React.FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Handle image transitions
+  // Handle image transitions (defer to avoid blocking initial render)
   useEffect(() => {
+    // Defer to next frame to avoid blocking initial paint
+    const timeoutId = setTimeout(() => {
       const interval = setInterval(() => {
         setFade(true);
         setTimeout(() => {
@@ -25,15 +27,26 @@ const FloatingImage: React.FC = () => {
           setFade(false);
         }, 500);
       }, 10000);
+      
       return () => clearInterval(interval);
+    }, 0);
+    
+    return () => clearTimeout(timeoutId);
   }, [mainImage, altMainImage, showAlt]);
 
-  // Handle scroll-based parallax effect
+  // Handle scroll-based parallax effect with passive listeners for better performance
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -45,19 +58,20 @@ const FloatingImage: React.FC = () => {
         opacity: isMounted ? 1 : 0,
       }}
     >
-      {/* Main image */}
-        <img
-          src={currentSrc}
-          alt="Elijah Farrell - Software Developer"
-          width={384}
-          height={384}
-          loading="lazy"
-          className={`
-                      w-80 h-96 xl:w-96 xl:h-96 object-cover rounded-2xl md:rounded-3xl 
-                      transition-all duration-500 
-                      ${fade ? "opacity-50" : "opacity-100"}
-                  `}
-        />
+      {/* Main image - eager load first image for better LCP */}
+      <img
+        src={currentSrc}
+        alt="Elijah Farrell - Software Developer"
+        width={384}
+        height={384}
+        loading="eager"
+        decoding="async"
+        className={`
+                    w-80 h-96 xl:w-96 xl:h-96 object-cover rounded-2xl md:rounded-3xl 
+                    transition-all duration-500 
+                    ${fade ? "opacity-50" : "opacity-100"}
+                `}
+      />
     </div>
   );
 };

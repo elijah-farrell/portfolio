@@ -67,10 +67,12 @@ export default function ProjectCard(props: ProjectCardProps) {
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-emerald-50 to-blue-100 dark:from-emerald-900/20 dark:via-emerald-800/10 dark:to-blue-900/20 animate-pulse" />
                 )}
                 
-                {/* Image with fade-in */}
+                {/* Image with fade-in - lazy load images below the fold */}
                 <img
                   src={imageUrl}
                   alt={title}
+                  loading="lazy"
+                  decoding="async"
                   className={`w-full h-48 object-cover rounded-2xl transition-opacity duration-500 ${
                     isImageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}

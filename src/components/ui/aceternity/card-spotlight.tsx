@@ -61,7 +61,7 @@ export const CardSpotlight = ({
         }}
       >
         {isHovering && (
-          <Suspense fallback={<div className="bg-transparent absolute inset-0 pointer-events-none" />}>
+          <Suspense fallback={null}>
             <CanvasRevealEffect
               animationSpeed={5}
               containerClassName="bg-transparent absolute inset-0 pointer-events-none"

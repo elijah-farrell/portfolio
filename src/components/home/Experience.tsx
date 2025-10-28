@@ -186,7 +186,7 @@ const timelineData: TimelineData[] = [
 • Coordinated tasks and adapted quickly to new challenges to ensure smooth progress`,
     from: "Feb 2025",
     to: "May 2025",
-            logoPath: "/assets/logos/suny-poly-logo.jpg",
+            logoPath: "/assets/logos/suny-poly-logo.webp",
   },
   {
     title: "Work Study Assistant",
@@ -196,7 +196,7 @@ const timelineData: TimelineData[] = [
 • Gained initial exposure to technical support environments and team coordination.`,
     from: "Aug 2021",
     to: "Dec 2021",
-            logoPath: "/assets/logos/workplace.jpeg",
+            logoPath: "/assets/logos/workplace.webp",
   },
 ];
 

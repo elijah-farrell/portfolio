@@ -121,7 +121,7 @@ export default function Hero(): JSX.Element {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-0 xl:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a] xl:justify-start hero-container">
+    <main className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-0 xl:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a] xl:justify-start hero-container">
       {/* Left Text Section */}
       <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full hero-text-container">
         {/* Available Badge */}
@@ -295,17 +295,27 @@ export default function Hero(): JSX.Element {
               { href: "https://www.linkedin.com/in/elijah-farrell-915047349/", icon: <SiLinkedin size={16} /> },
               { href: "https://discord.gg/h9QSQZzn", icon: <SiDiscord size={16} /> },
               { href: "https://cal.com/elijahfarrell", icon: <FiPhone size={16} /> },
-            ].map((link, i) => (
-              <a
-                key={i}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700"
-              >
-                {link.icon}
-              </a>
-            ))}
+            ].map((link, i) => {
+              const linkLabels = [
+                "Email Elijah Farrell",
+                "Visit Elijah's GitHub profile",
+                "Connect with Elijah on LinkedIn",
+                "Join Elijah's Discord server",
+                "Schedule a call with Elijah"
+              ];
+              return (
+                <a
+                  key={i}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={linkLabels[i]}
+                  className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700"
+                >
+                  {link.icon}
+                </a>
+              );
+            })}
           </div>
         </div>
 
@@ -315,6 +325,7 @@ export default function Hero(): JSX.Element {
             <a
               key={index}
               href={stat.href}
+              aria-label={`${stat.label}: ${stat.value}${stat.suffix}`}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(stat.href, { behavior: 'auto' });
@@ -343,6 +354,7 @@ export default function Hero(): JSX.Element {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
          <a
            href="#about"
+           aria-label="Scroll to About section"
            title="Scroll to About section"
            onClick={(e) => {
              e.preventDefault();
@@ -356,6 +368,6 @@ export default function Hero(): JSX.Element {
           <FiChevronDown className="text-emerald-600" size={20} />
         </a>
       </div>
-    </div>
+    </main>
   );
 }

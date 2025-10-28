@@ -1,8 +1,11 @@
 "use client";
 
 import {cn} from "@/lib/utils";
-import React, {useEffect, useRef, useState,} from "react";
-import { useMouseEnter, MouseEnterContext } from "@/hooks/use-mouse-enter";
+import React, {createContext, useContext, useEffect, useRef, useState,} from "react";
+
+const MouseEnterContext = createContext<
+  [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
+>(undefined);
 
 export const CardContainer = ({
   children,
@@ -84,7 +87,7 @@ export const CardContainer = ({
           containerClassName
         )}
         style={{
-          perspective: "none",
+          perspective: "1000px",
         }}
       >
         <div
@@ -99,7 +102,7 @@ export const CardContainer = ({
             className
           )}
           style={{
-            transformStyle: "flat",
+            transformStyle: "preserve-3d",
           }}
         >
           {children}
@@ -119,7 +122,7 @@ export const CardBody = ({
   return (
     <div
       className={cn(
-        " [transform-style:flat]  [&>*]:[transform-style:flat]",
+        " [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
         className
       )}
     >
@@ -178,3 +181,11 @@ export const CardItem = ({
   );
 };
 
+// Create a hook to use the context
+export const useMouseEnter = () => {
+  const context = useContext(MouseEnterContext);
+  if (context === undefined) {
+    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
+  }
+  return context;
+};

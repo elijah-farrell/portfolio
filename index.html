@@ -66,6 +66,20 @@
     <!-- Preload custom fonts -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
+    <!-- Prevent font flash by setting font immediately -->
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+      }
+      html, body, #root {
+        font-family: 'JetBrains Mono', monospace, sans-serif !important;
+      }
+    </style>
+    
     <!-- next-themes inline script to prevent flash and set initial bg/meta -->
     <script>!function(){try{var e=document.documentElement,t=e.classList;t.remove("light","dark");var n="vite-ui-theme";var o=localStorage.getItem(n);var setMeta=function(col){var m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement('meta');m.setAttribute('name','theme-color');document.head.appendChild(m)}m.setAttribute('content',col)};var apply=function(mode){if(mode==="dark"){e.style.colorScheme="dark";t.add("dark");setMeta('#0a0a0a');e.style.backgroundColor='#0a0a0a';if(document.body)document.body.style.backgroundColor='#0a0a0a'}else{e.style.colorScheme="light";t.add("light");setMeta('#ffffff');e.style.backgroundColor='#ffffff';if(document.body)document.body.style.backgroundColor='#ffffff'}};if("system"===o||(!o&&true)){var a="(prefers-color-scheme: dark)",m=window.matchMedia(a);apply(m.media!==a||m.matches?"dark":"light")}else if(o){apply(o==="dark"?"dark":"light")}else{apply('light')}}
     catch(e){}}();</script>

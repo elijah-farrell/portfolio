@@ -214,7 +214,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
               e.preventDefault();
               handleNavigationWithScroll(item.link);
             }}
-            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 flex items-center"
+            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-500 transition-colors duration-0 flex items-center"
             href={item.link}
           >
             {hovered === idx && (
@@ -273,7 +273,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
                           handleNavigationWithScroll(`${item.link}#${section.sectionId}`);
                         }
                       }}
-                      className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-500 dark:hover:text-emerald-400"
+                      className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-0"
                     >
                       {section.name}
                     </a>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 const mainImage = "/assets/pfp.jpeg";
 const altMainImage = "/assets/animated.png";
@@ -8,6 +8,12 @@ const FloatingImage: React.FC = () => {
   const [fade, setFade] = useState(false);
   const [showAlt, setShowAlt] = useState(true);
   const [scrollY, setScrollY] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Handle initial mount fade-in
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Handle image transitions
   useEffect(() => {
@@ -35,7 +41,8 @@ const FloatingImage: React.FC = () => {
     <div
       style={{
         transform: `translateY(${scrollY * 0.1}px)`,
-        transition: "transform 0.3s ease-out",
+        transition: "transform 0.3s ease-out, opacity 0.5s ease-in",
+        opacity: isMounted ? 1 : 0,
       }}
     >
       {/* Main image */}

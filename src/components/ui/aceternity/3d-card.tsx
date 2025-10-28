@@ -35,6 +35,26 @@ export const CardContainer = ({
     // Keep transform disabled
     containerRef.current.style.transform = `none`;
   };
+
+  const handleTouchStart = () => {
+    setIsMouseEntered(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!containerRef.current || e.touches.length === 0) return;
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = (touch.clientX - left - width / 2) / 25;
+    const y = (touch.clientY - top - height / 2) / 25;
+    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+  };
+
+  const handleTouchEnd = () => {
+    if (!containerRef.current) return;
+    setIsMouseEntered(false);
+    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+  };
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
       <div
@@ -50,6 +70,9 @@ export const CardContainer = ({
           onMouseEnter={handleMouseEnter}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           className={cn(
             "transition-all duration-200 ease-linear",
             className

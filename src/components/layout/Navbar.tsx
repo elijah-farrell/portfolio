@@ -171,8 +171,8 @@ export function Navbar() {
                     >
                       {item.isDropdown ? (
                         <div className="w-full">
-                          <div                           className={cn(
-                            "w-full px-6 py-3 text-lg font-medium rounded-lg inline-flex items-center justify-center",
+                          <div className={cn(
+                            "w-full px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg inline-flex items-center justify-center",
                             item.isActive
                               ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
                               : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
@@ -196,7 +196,7 @@ export function Navbar() {
                                 e.stopPropagation();
                                 setOpenMobileDropdown(!openMobileDropdown);
                               }}
-                              className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400"
+                              className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-0"
                             >
                               <ChevronDown 
                                 size={18} 
@@ -223,7 +223,7 @@ export function Navbar() {
                                     }
                                     scrollToSectionOnly(section.sectionId);
                                   }}
-                                  className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
+                                  className="block w-full text-center text-base text-neutral-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-0 py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800/30"
                                 >
                                   {section.name}
                                 </button>
@@ -243,7 +243,7 @@ export function Navbar() {
                             }
                           }}
                           className={cn(
-                            "w-full px-6 py-3 text-lg font-medium rounded-lg",
+                            "w-full px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg",
                             item.isActive
                               ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
                               : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"

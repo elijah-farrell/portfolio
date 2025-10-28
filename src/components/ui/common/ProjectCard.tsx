@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SiGithub, SiGoogleplay } from "react-icons/si";
 import { Badge } from "@/components/ui/common/badge";
 import { Button } from "@/components/ui/common/button";
@@ -37,12 +38,18 @@ export default function ProjectCard(props: ProjectCardProps) {
     duration,
   } = props;
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const handleCardClick = () => {
     // Prioritize liveUrl, then github, then playstore
     const url = liveUrl || github || playstore;
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
+  };
+
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
   };
 
   const cardContent = (
@@ -56,14 +63,13 @@ export default function ProjectCard(props: ProjectCardProps) {
                 onClick={handleCardClick}>
             <CardHeader className="flex-shrink-0">
               <CardItem
-                translateZ="0"
-                className="w-full h-48 rounded-2xl mb-2 overflow-hidden"
+                translateZ="60"
+                className="w-full h-48 object-contain rounded-2xl mb-4"
               >
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full h-full object-cover rounded-2xl"
-                  style={{ imageRendering: 'crisp-edges' }}
+                  className="w-full h-48 object-contain rounded-2xl mb-4"
                 />
               </CardItem>
               <div className="text-xs text-muted-foreground">{duration}</div>
@@ -93,6 +99,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
+                  className="transition-colors duration-0"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -106,6 +113,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
+                  className="transition-colors duration-0"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -119,7 +127,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-emerald-500"
+                  className="text-emerald-500 transition-colors duration-0"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >

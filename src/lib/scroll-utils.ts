@@ -126,7 +126,7 @@ export const scrollToSectionOnly = (sectionId: string): void => {
     console.log('ScrollIntoView called');
   } else {
     console.log('Element NOT found:', sectionId);
-        
+    
     if (sectionId === 'what-i-do' || sectionId === 'get-started') {
       // Services sections - navigate to services page
       console.log('Cross-page navigation needed for:', sectionId);

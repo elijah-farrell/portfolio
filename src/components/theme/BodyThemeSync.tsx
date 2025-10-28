@@ -4,7 +4,7 @@ import { getSafariThemeColor, type ResolvedTheme } from "../../config/theme";
 
 /**
  * BodyThemeSync - Handles body background color and color-scheme updates
- * Separate from ThemeColorUpdater to keep concerns separated
+ * Separate from SafariThemeColorFix to keep concerns separated
  */
 export function BodyThemeSync() {
   const { resolvedTheme } = useTheme();

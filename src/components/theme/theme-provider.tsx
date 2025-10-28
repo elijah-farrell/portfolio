@@ -1,7 +1,7 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import type { ThemeProviderProps } from "next-themes"
 import { THEME_CONFIG } from "../../config/theme"
-import { ThemeColorUpdater } from "./ThemeColorUpdater"
+import { SafariThemeColorFix } from "./SafariThemeColorFix"
 import { BodyThemeSync } from "./BodyThemeSync"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
@@ -15,7 +15,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       enableColorScheme={THEME_CONFIG.enableColorScheme}
       disableTransitionOnChange={THEME_CONFIG.disableTransitionOnChange}
     >
-      <ThemeColorUpdater />
+      <SafariThemeColorFix />
       <BodyThemeSync />
       {children}
     </NextThemesProvider>

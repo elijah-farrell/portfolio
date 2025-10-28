@@ -3,21 +3,11 @@ import { useTheme } from "../../hooks/use-theme";
 import { getSafariThemeColor, type ResolvedTheme } from "../../config/theme";
 
 /**
- * ThemeColorUpdater - Fixes Safari theme-color sync issues
+ * SafariThemeColorFix - Fixes Safari theme-color sync issues
  * 
- * Problems solved:
- * 1. Hydration issue: next-themes hydrates client-side after SSR, causing theme-color
- *    to lag one theme behind on first load
- * 2. Safari caching: Safari caches theme-color and doesn't visually update the status bar
- *    even when the meta tag changes
- * 
- * Solutions:
- * 1. Wait until mounted before setting theme-color meta tag (fixes hydration)
- * 2. Remove and recreate meta tag with unique attributes (forces Safari recognition)
- * 3. Temporary color flash technique (forces Safari to notice the change)
- * 4. Visibility change trigger (hacks Safari into re-evaluating meta tags)
+ 
  */
-export function ThemeColorUpdater() {
+export function SafariThemeColorFix() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 

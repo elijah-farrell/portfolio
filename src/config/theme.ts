@@ -10,7 +10,7 @@ export const THEME_CONFIG = {
 // Theme colors for consistent usage across the app
 export const THEME_COLORS = {
   light: {
-    background: '#FEFEFE',
+    background: '#ffffff',
     foreground: '#0a0a0a',
     primary: '#0a0a0a',
     secondary: '#f4f4f5',
@@ -35,7 +35,7 @@ export const THEME_COLORS = {
 
 // Safari-specific theme colors for status bar
 export const SAFARI_THEME_COLORS = {
-  light: '#FEFEFE',
+  light: '#fefefe',
   dark: '#0a0a0a',
 } as const;
 

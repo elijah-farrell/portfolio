@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async';
+import { useTheme } from '../../hooks/use-theme';
+import { getSafariThemeColor, type ResolvedTheme } from '../../config/theme';
 
 interface SEOProps {
   title?: string;
@@ -19,9 +21,14 @@ export const SEO: React.FC<SEOProps> = ({
   type = "website",
   author = "Elijah Farrell"
 }) => {
+  const { resolvedTheme } = useTheme();
+  
   const fullTitle = title === "Elijah Farrell - Computer Science Graduate & Full-Stack Developer" 
     ? title 
     : `${title} | Elijah Farrell`;
+  
+  // Get theme color based on current theme (defaults to dark)
+  const themeColor = resolvedTheme ? getSafariThemeColor(resolvedTheme as ResolvedTheme) : '#0a0a0a';
 
   // Structured data for better SEO
   const structuredData = {
@@ -84,7 +91,7 @@ export const SEO: React.FC<SEOProps> = ({
       
       {/* Additional Meta Tags */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="theme-color" content="#10b981" />
+      <meta name="theme-color" content={themeColor} />
       <meta name="msapplication-TileColor" content="#10b981" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

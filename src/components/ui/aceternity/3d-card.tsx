@@ -20,20 +20,34 @@ export const CardContainer = ({
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Disable 3D transforms to prevent blurriness
-    return;
+    if (!containerRef.current) return;
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / 30;
+    const y = (e.clientY - top - height / 2) / 30;
+    // Clamp values to prevent extreme rotation
+    const clampedX = Math.max(-15, Math.min(15, x));
+    const clampedY = Math.max(-15, Math.min(15, y));
+    containerRef.current.style.transform = `rotateY(${clampedX}deg) rotateX(${clampedY}deg)`;
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseEnter = (_e: React.MouseEvent<HTMLDivElement>) => {
     setIsMouseEntered(true);
     if (!containerRef.current) return;
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseLeave = (_e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     setIsMouseEntered(false);
-    // Keep transform disabled
-    containerRef.current.style.transform = `none`;
+    // Add smooth transition back to center
+    containerRef.current.style.transition = 'transform 0.3s ease-out';
+    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    // Remove transition after animation completes
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.style.transition = '';
+      }
+    }, 300);
   };
 
   const handleTouchStart = () => {
@@ -45,15 +59,26 @@ export const CardContainer = ({
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
     const touch = e.touches[0];
-    const x = (touch.clientX - left - width / 2) / 25;
-    const y = (touch.clientY - top - height / 2) / 25;
-    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    const x = (touch.clientX - left - width / 2) / 30;
+    const y = (touch.clientY - top - height / 2) / 30;
+    // Clamp values to prevent extreme rotation
+    const clampedX = Math.max(-15, Math.min(15, x));
+    const clampedY = Math.max(-15, Math.min(15, y));
+    containerRef.current.style.transform = `rotateY(${clampedX}deg) rotateX(${clampedY}deg)`;
   };
 
   const handleTouchEnd = () => {
     if (!containerRef.current) return;
     setIsMouseEntered(false);
+    // Add smooth transition back to center
+    containerRef.current.style.transition = 'transform 0.3s ease-out';
     containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    // Remove transition after animation completes
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.style.transition = '';
+      }
+    }, 300);
   };
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
@@ -74,7 +99,6 @@ export const CardContainer = ({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           className={cn(
-            "transition-all duration-200 ease-linear",
             className
           )}
           style={{
@@ -128,7 +152,7 @@ export const CardItem = ({
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMouseEntered] = useMouseEnter();

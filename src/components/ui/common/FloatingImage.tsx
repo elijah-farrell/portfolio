@@ -15,23 +15,18 @@ const FloatingImage: React.FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Handle image transitions (defer to avoid blocking initial render)
+  // Handle image transitions
   useEffect(() => {
-    // Defer to next frame to avoid blocking initial paint
-    const timeoutId = setTimeout(() => {
-      const interval = setInterval(() => {
-        setFade(true);
-        setTimeout(() => {
-          setShowAlt((prev) => !prev);
-          setCurrentSrc(showAlt ? mainImage : altMainImage);
-          setFade(false);
-        }, 500);
-      }, 10000);
-      
-      return () => clearInterval(interval);
-    }, 0);
+    const interval = setInterval(() => {
+      setFade(true);
+      setTimeout(() => {
+        setShowAlt((prev) => !prev);
+        setCurrentSrc(showAlt ? mainImage : altMainImage);
+        setFade(false);
+      }, 300);
+    }, 10000);
     
-    return () => clearTimeout(timeoutId);
+    return () => clearInterval(interval);
   }, [mainImage, altMainImage, showAlt]);
 
   // Handle scroll-based parallax effect with passive listeners for better performance
@@ -68,8 +63,8 @@ const FloatingImage: React.FC = () => {
         decoding="async"
         className={`
                     w-80 h-96 xl:w-96 xl:h-96 object-cover rounded-2xl md:rounded-3xl 
-                    transition-all duration-500 
-                    ${fade ? "opacity-50" : "opacity-100"}
+                    transition-opacity duration-300 
+                    ${fade ? "opacity-0" : "opacity-100"}
                 `}
       />
     </div>

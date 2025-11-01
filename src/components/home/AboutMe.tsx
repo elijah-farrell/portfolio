@@ -17,7 +17,7 @@ export default function AboutMe() {
     <>
       <div className="pt-8 mb-10" id="about">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-2">ABOUT ME</h2>
+          <h1 className="text-3xl font-bold mb-2">ABOUT ME</h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             Get to know me better - my journey, achievements, and passion for
             technology

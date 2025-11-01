@@ -136,7 +136,7 @@ const categoryIconMap: Record<string, JSX.Element> = {
 export default function Skills() {
   return (
     <div className="pt-8" id="skills">
-      <h2 className="text-3xl font-bold mb-2">TECHNICAL SKILLS</h2>
+      <h1 className="text-3xl font-bold mb-2">TECHNICAL SKILLS</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-4">
         Technical skills developed through my CS education and hands-on experience. Ready to apply these competencies in professional roles.
       </p>

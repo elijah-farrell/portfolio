@@ -55,19 +55,8 @@ export default function ProjectCard(props: ProjectCardProps) {
           translateZ="50"
           className="text-xl font-bold text-neutral-600 dark:text-white h-full"
         >
-          <Card 
-                className="project-card max-w-sm md:max-w-md lg:max-w-sm w-full h-full shadow-lg hover:shadow-2xl transition-transform duration-300 ease-out relative group/card dark:hover:shadow-emerald-500/20 dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto cursor-pointer"
-                onClick={handleCardClick}
-                role="button"
-                tabIndex={0}
-                aria-label={`View ${title} project${liveUrl ? ` - Visit live site` : github ? ` - View on GitHub` : ''}`}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleCardClick();
-                  }
-                }}
-          >
+          <Card className="project-card max-w-sm md:max-w-md lg:max-w-sm w-full h-full shadow-lg hover:shadow-2xl transition-transform duration-300 ease-out relative group/card dark:hover:shadow-emerald-500/20 dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto cursor-pointer"
+                onClick={handleCardClick}>
             <CardHeader className="flex-shrink-0">
               <CardItem
                 translateZ="60"
@@ -82,11 +71,8 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <img
                   src={imageUrl}
                   alt={title}
-                  width={597}
-                  height={336}
                   loading="lazy"
                   decoding="async"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 24rem"
                   className={`w-full h-48 object-cover rounded-2xl transition-opacity duration-500 ${
                     isImageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -124,13 +110,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <a
-                    href={github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`View ${title} on GitHub`}
-                    title="GitHub"
-                  >
+                  <a href={github} target="_blank" rel="noopener noreferrer">
                     <SiGithub />
                     GitHub
                   </a>
@@ -144,13 +124,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <a
-                    href={playstore}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open ${title} on the app store`}
-                    title="App"
-                  >
+                  <a href={playstore} target="_blank" rel="noopener noreferrer">
                     <SiGoogleplay />
                     App
                   </a>
@@ -164,15 +138,8 @@ export default function ProjectCard(props: ProjectCardProps) {
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <a
-                    href={liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open live site for ${title}`}
-                    title={`Open ${title}`}
-                  >
+                  <a href={liveUrl} target="_blank" rel="noopener noreferrer">
                     <GoLinkExternal />
-                    <span className="sr-only">Live Site</span>
                   </a>
                 </Button>
               )}

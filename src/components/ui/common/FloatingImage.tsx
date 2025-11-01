@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const mainImage = "/assets/pfp.webp"; // smaller, optimized
-const altMainImage = "/assets/animated.webp"; // larger, decorative
+const mainImage = "/assets/pfp.webp";
+const altMainImage = "/assets/animated.webp";
 
 const FloatingImage: React.FC = () => {
-  const [currentSrc, setCurrentSrc] = useState(mainImage);
+  const [currentSrc, setCurrentSrc] = useState(altMainImage);
   const [fade, setFade] = useState(false);
   const [showAlt, setShowAlt] = useState(true);
   const [scrollY, setScrollY] = useState(0);
@@ -15,12 +15,8 @@ const FloatingImage: React.FC = () => {
     setIsMounted(true);
   }, []);
 
-  // Handle image transitions (desktop only, and respect reduced motion)
+  // Handle image transitions
   useEffect(() => {
-    const canAnimate = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
-    const isDesktop = window.innerWidth >= 1024;
-    if (!canAnimate || !isDesktop) return;
-
     const interval = setInterval(() => {
       setFade(true);
       setTimeout(() => {
@@ -29,9 +25,9 @@ const FloatingImage: React.FC = () => {
         setFade(false);
       }, 300);
     }, 10000);
-
+    
     return () => clearInterval(interval);
-  }, [showAlt]);
+  }, [mainImage, altMainImage, showAlt]);
 
   // Handle scroll-based parallax effect with passive listeners for better performance
   useEffect(() => {
@@ -57,7 +53,7 @@ const FloatingImage: React.FC = () => {
         opacity: isMounted ? 1 : 0,
       }}
     >
-      {/* LCP image - smaller first, eager with high fetch priority */}
+      {/* Main image - eager load first image for better LCP */}
       <img
         src={currentSrc}
         alt="Elijah Farrell - Software Developer"
@@ -65,8 +61,6 @@ const FloatingImage: React.FC = () => {
         height={384}
         loading="eager"
         decoding="async"
-        fetchPriority="high"
-        sizes="(max-width: 640px) 18rem, (max-width: 1024px) 24rem, 24rem"
         className={`
                     w-80 h-96 xl:w-96 xl:h-96 object-cover rounded-2xl md:rounded-3xl 
                     transition-opacity duration-300 

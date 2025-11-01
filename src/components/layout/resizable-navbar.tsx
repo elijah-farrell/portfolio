@@ -192,7 +192,7 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
         setOpenDropdown(null);
       }}
       className={cn(
-        "relative flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 hover:text-zinc-800 mx-0 max-[900px]:space-x-0 max-[875px]:-space-x-1 max-[850px]:-space-x-2 max-[840px]:-space-x-3 max-[830px]:-space-x-4",
+        "flex flex-row items-center space-x-2 text-sm font-medium text-zinc-600 hover:text-zinc-800 mx-0 max-[900px]:space-x-0 max-[875px]:-space-x-1 max-[850px]:-space-x-2 max-[840px]:-space-x-3 max-[830px]:-space-x-4",
         className,
       )}
     >
@@ -449,11 +449,8 @@ export const MobileNavToggle = ({
 }) => {
   return (
     <button
-      type="button"
       onClick={onClick}
       className="p-0 relative -left-[2px]"
-      aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-      title={isOpen ? "Close menu" : "Open menu"}
     >
       <div className="w-4 h-4 flex flex-col justify-center items-start">
         <span className={`block w-4 h-[2px] bg-neutral-700 dark:bg-neutral-200 transition-transform duration-300 ${

@@ -84,6 +84,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                           <img
                             src={logoPath}
                             alt={`${company} logo`}
+                            width={40}
+                            height={40}
+                            loading="lazy"
+                            decoding="async"
                             className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain"
                           />
                         </div>
@@ -203,7 +207,7 @@ const timelineData: TimelineData[] = [
 // Main Timeline component
 const ExperienceSection: React.FC = () => (
   <div className="pt-8" id="experience">
-    <h1 className="text-2xl sm:text-3xl font-bold mb-2 px-4 sm:px-0">EXPERIENCE</h1>
+    <h2 className="text-2xl sm:text-3xl font-bold mb-2 px-4 sm:px-0">EXPERIENCE</h2>
     <p className="text-gray-600 dark:text-gray-400 mb-6 px-4 sm:px-0">
       An overview of my professional journey so far.
     </p>

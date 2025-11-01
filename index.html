@@ -57,8 +57,11 @@
 
     <!-- Preload custom fonts -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preload hero image for faster LCP without React props -->
+    <link rel="preload" as="image" href="/assets/pfp.webp" fetchpriority="high">
 
-    <!-- Prevent font flash by setting font immediately -->
+    <!-- Critical CSS - Inline to prevent render blocking -->
     <style>
       @font-face {
         font-family: 'JetBrains Mono';
@@ -67,8 +70,24 @@
         font-style: normal;
         font-display: block;
       }
+      /* Critical above-the-fold styles */
       html, body, #root {
         font-family: 'JetBrains Mono', monospace, sans-serif !important;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        overscroll-behavior-x: none;
+      }
+      /* Prevent FOUC */
+      html.dark {
+        background-color: #0a0a0a;
+        color-scheme: dark;
+      }
+      html.light {
+        background-color: #ffffff;
+        color-scheme: light;
       }
     </style>
     

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   FiGlobe,
   FiCode,
@@ -12,7 +12,7 @@ import {
   FiSearch,
   FiSmartphone,
 } from "react-icons/fi";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { HoverEffect } from "@/components/ui/aceternity/card-hover-effect";
 
 const FullStackSkeleton = () => {
   return (

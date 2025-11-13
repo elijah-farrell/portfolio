@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/common/form/button";
+import { Button } from "@/components/ui/common/button";
 import { Input } from "@/components/ui/common/form/input";
 import { Label } from "@/components/ui/common/form/label";
 import { Textarea } from "@/components/ui/common/form/textarea";

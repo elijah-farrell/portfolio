@@ -14,7 +14,7 @@ import {
   useModal,
 } from "@/components/ui/shadcn/animated-modal";
 import { useEffect, useState } from "react";
-import ContactForm from "../services/ContactForm";
+import ContactForm from "../../pages/services/ContactForm";
 import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -172,7 +172,7 @@ export function Navbar() {
                       {item.isDropdown ? (
                         <div className="w-full">
                           <div className={cn(
-                            "w-full px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg inline-flex items-center justify-center",
+                            "w-full px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg inline-flex items-center justify-center relative",
                             item.isActive
                               ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
                               : "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
@@ -187,7 +187,7 @@ export function Navbar() {
                                   window.location.href = item.link;
                                 }
                               }}
-                              className="text-center"
+                              className="text-center relative"
                             >
                               {item.name}
                             </button>
@@ -196,7 +196,7 @@ export function Navbar() {
                                 e.stopPropagation();
                                 setOpenMobileDropdown(!openMobileDropdown);
                               }}
-                              className="text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-0"
+                              className="absolute left-1/2 translate-x-[calc(50%+2.5rem)] text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-0 p-2"
                             >
                               <ChevronDown 
                                 size={18} 

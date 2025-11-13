@@ -1,7 +1,7 @@
 import React from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "./components/theme/theme-provider";
-import { Toaster } from "./components/ui/common/toaster";
+import { Toaster } from "./components/ui/common/toast";
 import { Navbar } from "./components/layout/Navbar";
 import { useScrollPreservation } from "./hooks/use-scroll-preservation";
 import { initializeScrollBehavior } from "./lib/scroll-utils";

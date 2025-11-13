@@ -1,17 +1,17 @@
 import { lazy, Suspense } from "react";
 import { SEO } from "@/components/seo/SEO";
-import Hero from "@/components/home/Hero";
-import AboutMe from "@/components/home/AboutMe";
-import Projects from "@/components/home/Projects";
-import ExperienceSection from "@/components/home/Experience";
-import Contact from "@/components/home/Contact";
+import Hero from "@/pages/home/Hero";
+import AboutMe from "@/pages/home/AboutMe";
+import Projects from "@/pages/home/Projects";
+import ExperienceSection from "@/pages/home/Experience";
+import Contact from "@/pages/home/Contact";
 import { TracingBeam } from "@/components/ui/aceternity/tracing-beam";
 import { TextReveal } from "@/components/ui/magic/text-reveal";
 import { SiFuturelearn } from "react-icons/si";
 import { GiGroundbreaker } from "react-icons/gi";
 
 // Lazy load Skills since it uses heavy Three.js effects (CardSpotlight)
-const Skills = lazy(() => import("@/components/home/Skills"));
+const Skills = lazy(() => import("@/pages/home/Skills"));
 
 export default function Home(): JSX.Element {
   return (

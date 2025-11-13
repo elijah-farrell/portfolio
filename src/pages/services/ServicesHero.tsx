@@ -1,4 +1,4 @@
-import { AuroraTextEffect } from "@/components/lightswind/aurora-text-effect";
+import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
 
 export default function ServicesHero() {
   return (

@@ -34,7 +34,7 @@ import {
   FaTools,
   FaWrench,
 } from "react-icons/fa";
-import { CardSpotlight } from "../ui/aceternity/card-spotlight";
+import { CardSpotlight } from "../../components/ui/aceternity/card-spotlight";
 import { useState } from "react";
 import { skillsData } from "../../config/skillsData";
 

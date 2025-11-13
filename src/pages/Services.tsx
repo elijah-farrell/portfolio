@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { SEO } from "@/components/seo/SEO";
-import ServicesHero from "@/components/services/ServicesHero";
-import ServicesShowcase from "@/components/services/ServicesShowcase";
-import StartProjectButton from "@/components/services/StartProjectButton";
-import ContactForm from "@/components/services/ContactForm";
+import ServicesHero from "@/pages/services/ServicesHero";
+import ServicesShowcase from "@/pages/services/ServicesShowcase";
+import StartProjectButton from "@/pages/services/StartProjectButton";
+import ContactForm from "@/pages/services/ContactForm";
 import {
   Modal,
   ModalBody,

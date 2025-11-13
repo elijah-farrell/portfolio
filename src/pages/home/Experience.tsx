@@ -1,7 +1,7 @@
 // Timeline.tsx
 import React from "react";
-import { TextAnimate } from "../ui/magic/text-animate";
-import { GlowingEffect } from "../ui/aceternity/glowing-effect";
+import { TextAnimate } from "../../components/ui/magic/text-animate";
+import { GlowingEffect } from "../../components/ui/aceternity/glowing-effect";
 import { settings } from "@/config/settings";
 
 // Define the type for each timeline entry

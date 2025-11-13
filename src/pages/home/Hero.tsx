@@ -12,8 +12,8 @@ import {
 } from "react-icons/fi";
 import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";
 
-import FloatingImage from "@/components/ui/common/FloatingImage";
-import ResumeButton from "@/components/ui/common/DownloadResumeBtn";
+import FloatingImage from "@/components/ui/common/floating-image";
+import ResumeButton from "@/components/ui/common/download-resume-btn";
 import { settings } from "@/config/settings";
 import { TextGenerateEffect } from "@/components/ui/aceternity/text-generate-effect";
 import { scrollToSection } from "@/lib/scroll-utils";

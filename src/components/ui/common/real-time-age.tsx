@@ -69,3 +69,4 @@ export function RealTimeAge({ birthDate }: RealTimeAgeProps) {
   return <span className="font-mono text-sm whitespace-nowrap">{age}</span>;
 }
 
+

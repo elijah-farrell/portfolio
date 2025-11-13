@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import LinkCard from "@/components/ui/common/LinkCard";
+import LinkCard from "@/components/ui/common/link-card";
 import { BackgroundBeamsWithCollision } from "@/components/ui/aceternity/background-beams-with-collision";
 import { TextGenerateEffect } from "@/components/ui/aceternity/text-generate-effect";
 import { SiGithub, SiLinkedin, SiDiscord } from "react-icons/si";

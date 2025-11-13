@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/common/form/button";
+import { Button } from "@/components/ui/common/button";
 
 interface Link {
   title: string;
@@ -31,3 +31,5 @@ const LinkCard: React.FC<Link> = (ele) => {
 };
 
 export default LinkCard;
+
+

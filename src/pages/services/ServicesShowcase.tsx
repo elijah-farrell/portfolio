@@ -161,7 +161,7 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4">
       {/* Service Header */}
-      <div className="pt-8 mb-10" id="full-stack-dev">
+      <div className="pt-8 mb-10" id="what-i-offer">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">{servicesItems[0].title}</h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">{servicesItems[0].description}</p>

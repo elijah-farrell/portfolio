@@ -33,7 +33,7 @@ export function Navbar() {
   const showTemplatesSection = false;
   
   const servicesSections = [
-    { name: "What I Offer", sectionId: "full-stack-dev" },
+    { name: "What I Offer", sectionId: "what-i-offer" },
     ...(showTemplatesSection ? [{ name: "My Websites and Templates", sectionId: "my-projects" }] : []),
     { name: "Start a Project", sectionId: "modal" },
   ];

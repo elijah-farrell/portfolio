@@ -3,7 +3,7 @@
  */
 
 export interface ScrollOptions {
-  behavior?: 'smooth' | 'auto' | 'instant';
+  behavior?: 'smooth' | 'auto';
   block?: 'start' | 'center' | 'end' | 'nearest';
   inline?: 'start' | 'center' | 'end' | 'nearest';
   preserveHash?: boolean;
@@ -116,9 +116,9 @@ export const scrollToSectionOnly = (sectionId: string): void => {
     // Ensure body overflow is restored before scrolling (in case mobile menu was open)
     document.body.style.overflow = "unset";
     
-    // Use instant scroll (no animation)
+    // Use auto scroll (no animation, instant jump)
     element.scrollIntoView({ 
-      behavior: 'instant', 
+      behavior: 'auto', 
       block: 'start',
       inline: 'nearest'
     });
@@ -127,14 +127,26 @@ export const scrollToSectionOnly = (sectionId: string): void => {
   } else {
     console.log('Element NOT found:', sectionId);
     
-    if (sectionId === 'what-i-do' || sectionId === 'get-started') {
+    if (sectionId === 'what-i-do' || sectionId === 'get-started' || sectionId === 'what-i-offer' || sectionId === 'full-stack-dev' || sectionId === 'my-projects') {
       // Services sections - navigate to services page
       console.log('Cross-page navigation needed for:', sectionId);
-      window.location.href = `/services#${sectionId}`;
+      // Store scroll target in sessionStorage for reliable scrolling after page load
+      // Mark as mobile nav (scrollToSectionOnly is only used by mobile menu)
+      sessionStorage.setItem('scrollToSection', sectionId);
+      sessionStorage.setItem('isMobileNav', 'true');
+      // Store approximate position to prevent top flash
+      sessionStorage.setItem('pendingScroll', 'true');
+      window.location.href = '/services';
     } else if (['about', 'experience', 'projects', 'skills', 'contact'].includes(sectionId)) {
       // Home page sections - navigate to home page
       console.log('Cross-page navigation needed for home section:', sectionId);
-      window.location.href = `/#${sectionId}`;
+      // Store scroll target in sessionStorage for reliable scrolling after page load
+      // Mark as mobile nav (scrollToSectionOnly is only used by mobile menu)
+      sessionStorage.setItem('scrollToSection', sectionId);
+      sessionStorage.setItem('isMobileNav', 'true');
+      // Store approximate position to prevent top flash
+      sessionStorage.setItem('pendingScroll', 'true');
+      window.location.href = '/';
     } else {
       console.log('Unknown section:', sectionId);
     }
@@ -149,33 +161,76 @@ export const initializeScrollBehavior = (): void => {
   const scrollToId = sessionStorage.getItem('scrollToSection');
   
   if (scrollToId) {
-    const element = document.getElementById(scrollToId);
-    if (element) {
-      setTimeout(() => {
-        scrollToElement(scrollToId, { behavior: 'smooth', block: 'start' });
-        // Clear the scroll target after scrolling
+    const isMobileNav = sessionStorage.getItem('isMobileNav') === 'true';
+    const isMobile = window.innerWidth < 830;
+    // Use auto scroll (no animation) only if it's from mobile nav AND we're on mobile
+    const scrollBehavior = (isMobileNav && isMobile) ? 'auto' : 'smooth';
+    const isAuto = scrollBehavior === 'auto';
+    
+    // Check if inline script already handled the auto scroll
+    const alreadyHandled = isAuto && sessionStorage.getItem('scrollHandled') === 'true';
+    
+    const attemptScroll = (retries = 10, delay = 200, isFirstAttempt = true) => {
+      const element = document.getElementById(scrollToId);
+      if (element) {
+        if (isAuto && !alreadyHandled) {
+          // For auto scrolls, inline script should have handled it, but ensure it happened
+          // This is a backup in case inline script didn't find the element (lazy-loaded)
+          scrollToElement(scrollToId, { behavior: 'auto', block: 'start' });
+          // Clear the scroll target and mobile nav flag after scrolling
+          sessionStorage.removeItem('scrollToSection');
+          sessionStorage.removeItem('isMobileNav');
+          sessionStorage.removeItem('scrollHandled');
+        } else if (isAuto && alreadyHandled) {
+          // Already handled by inline script, just clean up
+          sessionStorage.removeItem('scrollToSection');
+          sessionStorage.removeItem('isMobileNav');
+          sessionStorage.removeItem('scrollHandled');
+        } else {
+          // For smooth scrolls, use a small delay to ensure page is rendered
+          const scrollDelay = isFirstAttempt ? 50 : 100;
+          setTimeout(() => {
+            scrollToElement(scrollToId, { behavior: 'smooth', block: 'start' });
+            // Clear the scroll target and mobile nav flag after scrolling
+            sessionStorage.removeItem('scrollToSection');
+            sessionStorage.removeItem('isMobileNav');
+          }, scrollDelay);
+        }
+      } else if (retries > 0) {
+        // Retry for lazy-loaded components (like Skills)
+        setTimeout(() => attemptScroll(retries - 1, delay, false), delay);
+      } else {
+        // Clear if element doesn't exist after all retries
         sessionStorage.removeItem('scrollToSection');
-      }, 100); // small delay after route loads
-    } else {
-      // Clear if element doesn't exist
-      sessionStorage.removeItem('scrollToSection');
-    }
+        sessionStorage.removeItem('isMobileNav');
+        sessionStorage.removeItem('scrollHandled');
+      }
+    };
+    
+    attemptScroll();
   }
   
   // Handle hash-based navigation if any exists
   const hash = window.location.hash;
   if (hash) {
     const elementId = hash.replace("#", "");
-    const element = document.getElementById(elementId);
-    if (element) {
-      setTimeout(() => {
-        scrollToElement(elementId, { behavior: 'smooth', block: 'start' });
-        // Clear hash after scrolling to prevent URL pollution
+    const attemptHashScroll = (retries = 10, delay = 200) => {
+      const element = document.getElementById(elementId);
+      if (element) {
         setTimeout(() => {
-          const currentUrl = window.location.href.split('#')[0];
-          window.history.replaceState(null, '', currentUrl);
-        }, 150);
-      }, 100);
-    }
+          scrollToElement(elementId, { behavior: 'smooth', block: 'start' });
+          // Clear hash after scrolling to prevent URL pollution
+          setTimeout(() => {
+            const currentUrl = window.location.href.split('#')[0];
+            window.history.replaceState(null, '', currentUrl);
+          }, 150);
+        }, 100);
+      } else if (retries > 0) {
+        // Retry for lazy-loaded components
+        setTimeout(() => attemptHashScroll(retries - 1, delay), delay);
+      }
+    };
+    
+    attemptHashScroll();
   }
 };

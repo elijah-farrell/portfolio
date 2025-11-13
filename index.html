@@ -80,6 +80,43 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Prevent top flash for auto scrolls - runs immediately when body loads, before React renders -->
+    <script>
+      (function() {
+        try {
+          var scrollToId = sessionStorage.getItem('scrollToSection');
+          var isMobileNav = sessionStorage.getItem('isMobileNav') === 'true';
+          var isMobile = window.innerWidth < 830;
+          
+          if (scrollToId && isMobileNav && isMobile) {
+            // For auto scrolls, try to scroll immediately to prevent top flash
+            var attemptScroll = function() {
+              var element = document.getElementById(scrollToId);
+              if (element) {
+                element.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' });
+                // Mark as handled so scroll-utils doesn't duplicate the scroll
+                sessionStorage.setItem('scrollHandled', 'true');
+              } else {
+                // Retry if element doesn't exist yet (will retry up to ~2 seconds)
+                setTimeout(function() {
+                  if (document.getElementById(scrollToId)) {
+                    attemptScroll();
+                  }
+                }, 50);
+              }
+            };
+            // Try immediately when DOM is ready
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', attemptScroll);
+            } else {
+              attemptScroll();
+            }
+            // Also try on next frame as backup
+            requestAnimationFrame(attemptScroll);
+          }
+        } catch(e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

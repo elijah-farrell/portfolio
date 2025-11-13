@@ -1,7 +1,7 @@
 import { HeroHighlight, Highlight } from "@/components/ui/aceternity/hero-highlight";
 import { settings } from "@/config/settings";
 import { FiMapPin, FiAward, FiClock } from "react-icons/fi";
-import { RealTimeAge } from "./RealTimeAge";
+import { RealTimeAge } from "../ui/common/RealTimeAge";
 
 export default function AboutMe() {
   // Birth date: June 9, 2003 at 5:21 AM

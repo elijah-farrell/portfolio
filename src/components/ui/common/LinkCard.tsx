@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/common/button";
+import { Button } from "@/components/ui/common/form/button";
 
 interface Link {
   title: string;

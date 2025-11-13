@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/common/button";
-import { Input } from "@/components/ui/common/input";
-import { Label } from "@/components/ui/common/label";
-import { Textarea } from "@/components/ui/common/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/common/select";
-import { FiSend, FiCheckCircle } from "react-icons/fi";
+import { Button } from "@/components/ui/common/form/button";
+import { Input } from "@/components/ui/common/form/input";
+import { Label } from "@/components/ui/common/form/label";
+import { Textarea } from "@/components/ui/common/form/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/common/form/select";
+import { FiSend } from "react-icons/fi";
 import { toast } from "@/hooks/use-toast";
 
 interface ContactFormData {
@@ -17,7 +17,11 @@ interface ContactFormData {
   consultation: string;
 }
 
-export default function ContactForm() {
+interface ContactFormProps {
+  onClose?: () => void;
+}
+
+export default function ContactForm({ onClose }: ContactFormProps) {
   const [formData, setFormData] = useState<ContactFormData>({
     from_name: "",
     from_email: "",
@@ -29,8 +33,6 @@ export default function ContactForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [consultationRequested, setConsultationRequested] = useState(false);
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData(prev => ({
@@ -64,9 +66,6 @@ export default function ContactForm() {
       );
 
       if (result.status === 200) {
-        setIsSubmitted(true);
-        setConsultationRequested(formData.consultation === "Yes");
-        
         // Show different messages based on consultation preference
         if (formData.consultation === "Yes") {
           toast({
@@ -92,6 +91,11 @@ export default function ContactForm() {
           budget: "",
           consultation: "",
         });
+        
+        // Close modal after a short delay to show the toast
+        setTimeout(() => {
+          onClose?.();
+        }, 500);
       }
     } catch (error) {
       console.error("Error sending email:", error);
@@ -105,40 +109,27 @@ export default function ContactForm() {
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div className="text-center py-8">
-        <FiCheckCircle className="text-6xl text-emerald-500 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold mb-2">Thank you!</h3>
-        {consultationRequested ? (
-          <div className="mb-6">
-            <p className="text-gray-600 dark:text-gray-400 mb-2">
-              Your message has been sent successfully!
-            </p>
-            <p className="text-emerald-600 dark:text-emerald-400 font-medium">
-              📅 Cal.com opened in new tab - please schedule your consultation there.
-            </p>
-          </div>
-        ) : (
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Your message has been sent successfully. I'll get back to you within 24 hours.
-          </p>
-        )}
-        <Button 
-          onClick={() => {
-            setIsSubmitted(false);
-            setConsultationRequested(false);
-          }}
-          variant="outline"
-        >
-          Send Another Message
-        </Button>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full">
+      <style>{`
+        @keyframes paper-plane {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-2px) rotate(-10deg);
+          }
+          50% {
+            transform: translateY(-4px) rotate(0deg);
+          }
+          75% {
+            transform: translateY(-2px) rotate(10deg);
+          }
+        }
+        .paper-plane-animate {
+          animation: paper-plane 2s ease-in-out infinite;
+        }
+      `}</style>
       <form onSubmit={handleSubmit} className="space-y-6">
           {/* Contact Information */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -152,6 +143,7 @@ export default function ContactForm() {
                 onChange={(e) => handleInputChange("from_name", e.target.value)}
                 required
                 placeholder="Your full name"
+                className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
               />
             </div>
             <div>
@@ -165,6 +157,7 @@ export default function ContactForm() {
                 onChange={(e) => handleInputChange("from_email", e.target.value)}
                 required
                 placeholder="your.email@example.com"
+                className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -179,6 +172,7 @@ export default function ContactForm() {
               value={formData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
               placeholder="(555) 123-4567"
+              className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
             />
           </div>
 
@@ -194,6 +188,7 @@ export default function ContactForm() {
               required
               placeholder="Describe your project, goals, and any specific requirements..."
               rows={4}
+              className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
             />
           </div>
 
@@ -206,15 +201,15 @@ export default function ContactForm() {
                 value={formData.timeline}
                 onValueChange={(value) => handleInputChange("timeline", value)}
               >
-                <SelectTrigger id="timeline">
+                <SelectTrigger id="timeline" className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white data-[placeholder]:text-gray-400 dark:data-[placeholder]:text-neutral-500">
                   <SelectValue placeholder="Select timeline" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="ASAP">ASAP</SelectItem>
-                  <SelectItem value="1-2 weeks">1-2 weeks</SelectItem>
-                  <SelectItem value="1 month">1 month</SelectItem>
-                  <SelectItem value="2-3 months">2-3 months</SelectItem>
-                  <SelectItem value="Flexible">Flexible</SelectItem>
+                <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
+                  <SelectItem value="ASAP" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">ASAP</SelectItem>
+                  <SelectItem value="1-2 weeks" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">1-2 weeks</SelectItem>
+                  <SelectItem value="1 month" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">1 month</SelectItem>
+                  <SelectItem value="2-3 months" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">2-3 months</SelectItem>
+                  <SelectItem value="Flexible" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Flexible</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -225,15 +220,15 @@ export default function ContactForm() {
                 value={formData.budget}
                 onValueChange={(value) => handleInputChange("budget", value)}
               >
-                <SelectTrigger id="budget">
+                <SelectTrigger id="budget" className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white data-[placeholder]:text-gray-400 dark:data-[placeholder]:text-neutral-500">
                   <SelectValue placeholder="Select budget range" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Under $100">Under $100</SelectItem>
-                  <SelectItem value="$100-500">$100-500</SelectItem>
-                  <SelectItem value="$500-1000">$500-1000</SelectItem>
-                  <SelectItem value="$1000+">$1000+</SelectItem>
-                  <SelectItem value="To be discussed">To be discussed</SelectItem>
+                <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
+                  <SelectItem value="Under $100" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Under $100</SelectItem>
+                  <SelectItem value="$100-500" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$100-500</SelectItem>
+                  <SelectItem value="$500-1000" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$500-1000</SelectItem>
+                  <SelectItem value="$1000+" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$1000+</SelectItem>
+                  <SelectItem value="To be discussed" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">To be discussed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -247,12 +242,12 @@ export default function ContactForm() {
               value={formData.consultation}
               onValueChange={(value) => handleInputChange("consultation", value)}
             >
-              <SelectTrigger id="consultation">
+              <SelectTrigger id="consultation" className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white data-[placeholder]:text-gray-400 dark:data-[placeholder]:text-neutral-500">
                 <SelectValue placeholder="Would you like a free consultation?" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Yes">Yes</SelectItem>
-                <SelectItem value="No, email or message is fine">No, email or message is fine</SelectItem>
+              <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
+                <SelectItem value="Yes" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Yes</SelectItem>
+                <SelectItem value="No, email or message is fine" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">No, email or message is fine</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -262,7 +257,7 @@ export default function ContactForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full"
+            className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
             size="lg"
           >
             {isSubmitting ? (
@@ -272,7 +267,7 @@ export default function ContactForm() {
               </>
             ) : (
               <>
-                <FiSend className="mr-2" />
+                <FiSend className="mr-2 paper-plane-animate" />
                 Send Message
               </>
             )}

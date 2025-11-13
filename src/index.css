@@ -61,62 +61,6 @@ html {
   }
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
-
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
 
 @layer base {
   html {
@@ -148,17 +92,6 @@ html {
   }
 }
 
-/* Custom font loading - This tells the browser WHERE to find the font */
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-  letter-spacing: 0;
-  word-spacing: 0;
-}
-
 /* Prevent layout shifts and font flashes */
 html {
   font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
@@ -168,91 +101,44 @@ body, #root {
   font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
 }
 
-/* Aurora animation for aurora-text component */
-@keyframes aurora {
-  0% {
-    background-position: 0% 50%;
-    transform: rotate(-5deg) scale(0.9);
+
+
+@layer components {
+  .ls-lightwind-btn {
+    @apply inline-flex h-12 items-center justify-center rounded-full px-6 font-medium;
+    color: #ffffff;
+    background:
+      linear-gradient(180deg, rgba(6, 95, 70, 0.06), rgba(6, 95, 70, 0.14)),
+      rgb(5 150 105);
+    border: 1px solid rgba(5, 150, 105, 0.3);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.2) inset,
+      0 2px 6px rgba(0, 0, 0, 0.1);
   }
-  25% {
-    background-position: 50% 100%;
-    transform: rotate(5deg) scale(1.1);
+
+  .dark .ls-lightwind-btn {
+    color: #0a0a0a;
+    background:
+      linear-gradient(180deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.2)),
+      #ffffff;
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.25) inset,
+      0 2px 6px rgba(0, 0, 0, 0.3);
   }
-  50% {
-    background-position: 100% 50%;
-    transform: rotate(-3deg) scale(0.95);
+
+  @keyframes orbit-glow {
+    0%, 100% {
+      opacity: 0.8;
+      box-shadow: 0 0 20px 5px rgba(16, 185, 129, 0.4);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 30px 8px rgba(16, 185, 129, 0.6);
+    }
   }
-  75% {
-    background-position: 50% 0%;
-    transform: rotate(3deg) scale(1.05);
+
+  .animate-orbit-glow {
+    animation: orbit-glow 3s ease-in-out infinite;
   }
-  100% {
-    background-position: 0% 50%;
-    transform: rotate(-5deg) scale(0.9);
-  }
-}
-
-/* Aurora animation utility */
-.animate-aurora {
-  animation: aurora 8s ease-in-out infinite alternate;
-}
-
-/* Improve image rendering quality for project cards */
-.project-card img {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-/* Fix blurry text in project cards */
-.project-card {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-smooth: always;
-  transform: translateZ(0);
-  will-change: auto;
-  backface-visibility: hidden;
-  perspective: none;
-  transform-style: flat;
-}
-
-.project-card .text-sm {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0);
-}
-
-.project-card h3,
-.project-card .text-xl {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0);
-}
-
-/* Ensure crisp text rendering on all text elements in project cards */
-.project-card * {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0);
-}
-
-/* Disable all 3D transforms on project cards */
-.project-card,
-.project-card *,
-.project-card .inter-var,
-.project-card [class*="CardItem"],
-.project-card [class*="CardBody"],
-.project-card [class*="CardContainer"] {
-  transform: none !important;
-  transform-style: flat !important;
-  perspective: none !important;
-  backface-visibility: visible !important;
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SiGithub, SiGoogleplay } from "react-icons/si";
 import { Badge } from "@/components/ui/common/badge";
-import { Button } from "@/components/ui/common/button";
+import { Button } from "@/components/ui/common/form/button";
 import {
   Card,
   CardContent,

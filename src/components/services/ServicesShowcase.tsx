@@ -12,7 +12,8 @@ import {
   FiSearch,
   FiSmartphone,
 } from "react-icons/fi";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { HoverEffect } from "@/components/ui/aceternity/card-hover-effect";
+import { settings } from "../../config/settings";
 
 const FullStackSkeleton = () => {
   return (
@@ -135,15 +136,15 @@ const servicesItems = [
   },
 ];
 
-interface ServiceTabsProps {
+interface ServicesShowcaseProps {
   onGetStarted?: () => void;
 }
 
-export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
+export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps) {
   const [projectsScrollPosition, setProjectsScrollPosition] = useState(0);
   
   // Development mode - hide templates section
-  const showTemplatesSection = false;
+  const showTemplatesSection = settings.services.showTemplatesSection;
 
   const scrollProjects = (direction: 'left' | 'right') => {
     const container = document.getElementById('my-projects');
@@ -286,3 +287,6 @@ export default function ServiceTabs({ onGetStarted }: ServiceTabsProps) {
     </div>
   );
 }
+
+
+

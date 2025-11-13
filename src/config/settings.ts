@@ -13,8 +13,11 @@ export const settings = {
   
   // About section settings
   about: {
-    showHighlights: false,
     showStats: true,
-    compactMode: false,
+  },
+
+  // Services Page settings
+  services: {
+    showTemplatesSection: false,
   },
 };

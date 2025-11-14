@@ -33,6 +33,23 @@ export const THEME_COLORS = {
   },
 } as const;
 
+// Brand accent colors reused across light and dark themes
+export const BRAND_COLORS = {
+  light: {
+    primary: '#0303fc', // Tailwind emerald-600
+    accent: '#34D399',  // Tailwind emerald-400
+    focus: '#10B981',   // Tailwind emerald-500
+  },
+  dark: {
+    primary: '#34D399', // Tailwind emerald-400
+    accent: '#059669',  // Tailwind emerald-600
+    focus: '#10B981',   // Tailwind emerald-500
+  },
+  shared: {
+    focus: '#10B981',
+  },
+} as const;
+
 // Safari-specific theme colors for status bar
 export const SAFARI_THEME_COLORS = {
   light: '#fefefe',

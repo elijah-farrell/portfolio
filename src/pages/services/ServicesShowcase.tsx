@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { HoverEffect } from "@/components/ui/aceternity/card-hover-effect";
 import { settings } from "../../config/settings";
+import { BRAND_COLORS } from "../../config/theme";
 
 const FullStackSkeleton = () => {
   return (
@@ -136,6 +137,36 @@ const servicesItems = [
   },
 ];
 
+const SERVICES_CARD_HOVER_STYLES = `
+  .services-card:hover .services-card__image {
+    transform: scale(1.05);
+  }
+  .services-card:hover .services-card__overlay {
+    opacity: 1;
+  }
+  .services-card:hover .services-card__button {
+    transform: scale(1);
+  }
+  .services-card:hover .services-card__title {
+    color: ${BRAND_COLORS.light.primary};
+  }
+  .dark .services-card:hover .services-card__title {
+    color: ${BRAND_COLORS.dark.primary};
+  }
+  .services-card__button {
+    background-color: ${BRAND_COLORS.light.primary};
+  }
+  .dark .services-card__button {
+    background-color: ${BRAND_COLORS.dark.primary};
+  }
+  .services-card__badge {
+    background-color: ${BRAND_COLORS.light.primary};
+  }
+  .dark .services-card__badge {
+    background-color: ${BRAND_COLORS.dark.primary};
+  }
+`;
+
 interface ServicesShowcaseProps {
   onGetStarted?: () => void;
 }
@@ -160,6 +191,7 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4">
+      <style>{SERVICES_CARD_HOVER_STYLES}</style>
       {/* Service Header */}
       <div className="pt-8 mb-10" id="what-i-offer">
         <div className="max-w-4xl mx-auto">
@@ -209,21 +241,21 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                {servicesItems[0].myProjects.map((work, idx) => (
-                 work.isCustom ? (
-                   <div key={idx} className="flex-shrink-0 w-96 card-group cursor-pointer" onClick={onGetStarted}>
+               work.isCustom ? (
+                   <div key={idx} className="flex-shrink-0 w-96 services-card cursor-pointer" onClick={onGetStarted}>
                      {/* Image Container */}
                      <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                       <img 
                         src={work.image} 
                         alt={work.title}
-                        className="w-full h-full object-cover card-group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover transition-transform duration-500 services-card__image"
                       />
                       {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 card-group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 services-card__overlay"></div>
                       
                        {/* Action Button */}
-                       <div className="absolute inset-0 flex items-center justify-center opacity-0 card-group-hover:opacity-100 transition-opacity duration-300">
-                         <div className="px-6 py-3 bg-emerald-600 text-white rounded-full font-medium shadow-lg transform scale-95 card-group-hover:scale-100">
+                       <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 services-card__overlay">
+                         <div className="px-6 py-3 text-white rounded-full font-medium shadow-lg transform scale-95 transition-transform duration-300 services-card__button">
                            Contact Us
                          </div>
                        </div>
@@ -231,7 +263,7 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
 
                      {/* Content */}
                      <div className="mt-4">
-                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 card-group-hover:text-emerald-600 dark:card-group-hover:text-emerald-400 transition-colors">
+                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 transition-colors duration-300 services-card__title">
                          {work.title}
                        </h3>
                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
@@ -240,20 +272,20 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
                      </div>
                    </div>
                  ) : (
-                   <a key={idx} href={work.link} target="_blank" rel="noopener noreferrer" className="flex-shrink-0 w-96 card-group cursor-pointer block">
+                   <a key={idx} href={work.link} target="_blank" rel="noopener noreferrer" className="flex-shrink-0 w-96 services-card cursor-pointer block">
                      {/* Image Container */}
                      <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                       <img 
                         src={work.image} 
                         alt={work.title}
-                        className="w-full h-full object-cover card-group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover transition-transform duration-500 services-card__image"
                       />
                       {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 card-group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 services-card__overlay"></div>
                       
                        {/* Action Button */}
-                       <div className="absolute inset-0 flex items-center justify-center opacity-0 card-group-hover:opacity-100 transition-opacity duration-300">
-                         <div className="px-6 py-3 bg-emerald-600 text-white rounded-full font-medium shadow-lg transform scale-95 card-group-hover:scale-100">
+                       <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 services-card__overlay">
+                         <div className="px-6 py-3 text-white rounded-full font-medium shadow-lg transform scale-95 transition-transform duration-300 services-card__button">
                            View {work.type === "project" ? "Project" : "Template"}
                          </div>
                        </div>
@@ -261,7 +293,7 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
                        {/* Price Badge */}
                        {work.price && (
                          <div className="absolute top-3 right-3">
-                           <span className="px-3 py-1 bg-emerald-600 text-white text-sm font-semibold rounded-full">
+                           <span className="px-3 py-1 text-white text-sm font-semibold rounded-full services-card__badge">
                              {work.price}
                            </span>
                          </div>
@@ -270,7 +302,7 @@ export default function ServicesShowcase({ onGetStarted }: ServicesShowcaseProps
 
                      {/* Content */}
                      <div className="mt-4">
-                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 card-group-hover:text-emerald-600 dark:card-group-hover:text-emerald-400 transition-colors">
+                       <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2 transition-colors duration-300 services-card__title">
                          {work.title}
                        </h3>
                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">

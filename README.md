@@ -2,7 +2,7 @@
 
 My personal portfolio showcasing my projects, experience, and skills.
 
-![Portfolio Preview](public/assets/projects/portfolio-thumb.png)
+![Portfolio Preview](public/assets/projects/portfolio-thumb.webp)
 
 Visit my portfolio at [https://elijahfarrell.com](https://elijahfarrell.com).
 

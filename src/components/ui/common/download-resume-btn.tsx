@@ -2,7 +2,7 @@ import { HoverBorderGradient } from "@/components/ui/aceternity/hover-border-gra
 import { FiDownload } from "react-icons/fi";
 
 export default function ResumeButton() {
-  const pdfUrl = "/ElijahFarrell.pdf";
+  const pdfUrl = "/api/resume";
   return (
     <HoverBorderGradient
       containerClassName="rounded-2xl text-sm"

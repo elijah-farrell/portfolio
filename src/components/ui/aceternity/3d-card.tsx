@@ -103,6 +103,8 @@ export const CardContainer = ({
           )}
           style={{
             transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden",
+            willChange: "transform",
           }}
         >
           {children}
@@ -174,6 +176,10 @@ export const CardItem = ({
     <Tag
       ref={ref}
       className={cn(" transition duration-200 ease-linear", className)}
+      style={{
+        backfaceVisibility: "hidden",
+        willChange: "transform",
+      }}
       {...rest}
     >
       {children}

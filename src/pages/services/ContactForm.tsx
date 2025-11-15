@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/common/button";
 import { Input } from "@/components/ui/common/form/input";
 import { Label } from "@/components/ui/common/form/label";
@@ -33,6 +33,20 @@ export default function ContactForm({ onClose }: ContactFormProps) {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    checkDarkMode();
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData(prev => ({
@@ -205,11 +219,11 @@ export default function ContactForm({ onClose }: ContactFormProps) {
                   <SelectValue placeholder="Select timeline" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
-                  <SelectItem value="ASAP" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">ASAP</SelectItem>
-                  <SelectItem value="1-2 weeks" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">1-2 weeks</SelectItem>
-                  <SelectItem value="1 month" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">1 month</SelectItem>
-                  <SelectItem value="2-3 months" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">2-3 months</SelectItem>
-                  <SelectItem value="Flexible" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Flexible</SelectItem>
+                  <SelectItem value="ASAP" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">ASAP</SelectItem>
+                  <SelectItem value="1-2 weeks" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">1-2 weeks</SelectItem>
+                  <SelectItem value="1 month" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">1 month</SelectItem>
+                  <SelectItem value="2-3 months" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">2-3 months</SelectItem>
+                  <SelectItem value="Flexible" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">Flexible</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -224,11 +238,11 @@ export default function ContactForm({ onClose }: ContactFormProps) {
                   <SelectValue placeholder="Select budget range" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
-                  <SelectItem value="Under $100" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Under $100</SelectItem>
-                  <SelectItem value="$100-500" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$100-500</SelectItem>
-                  <SelectItem value="$500-1000" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$500-1000</SelectItem>
-                  <SelectItem value="$1000+" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">$1000+</SelectItem>
-                  <SelectItem value="To be discussed" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">To be discussed</SelectItem>
+                  <SelectItem value="Under $100" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">Under $100</SelectItem>
+                  <SelectItem value="$100-500" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">$100-500</SelectItem>
+                  <SelectItem value="$500-1000" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">$500-1000</SelectItem>
+                  <SelectItem value="$1000+" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">$1000+</SelectItem>
+                  <SelectItem value="To be discussed" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">To be discussed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -246,8 +260,8 @@ export default function ContactForm({ onClose }: ContactFormProps) {
                 <SelectValue placeholder="Would you like a free consultation?" />
               </SelectTrigger>
               <SelectContent className="bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-700">
-                <SelectItem value="Yes" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">Yes</SelectItem>
-                <SelectItem value="No, email or message is fine" className="hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">No, email or message is fine</SelectItem>
+                <SelectItem value="Yes" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">Yes</SelectItem>
+                <SelectItem value="No, email or message is fine" className="hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer focus:bg-gray-200 dark:focus:bg-neutral-800">No, email or message is fine</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -257,12 +271,27 @@ export default function ContactForm({ onClose }: ContactFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
+            variant="default"
+            className="w-full rounded-2xl transition-[transform,shadow] duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] focus-visible:ring-0 focus-visible:ring-offset-0"
+            style={{
+              backgroundColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)',
+              color: isDark ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+            }}
+            onMouseEnter={(e) => {
+              if (!e.currentTarget.disabled) {
+                e.currentTarget.style.backgroundColor = isDark ? 'rgb(229, 231, 235)' : 'rgb(38, 38, 38)'; // gray-200 for dark, neutral-800 for light
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!e.currentTarget.disabled) {
+                e.currentTarget.style.backgroundColor = isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)';
+              }
+            }}
             size="lg"
           >
             {isSubmitting ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                <div className={`animate-spin rounded-full h-4 w-4 border-b-2 mr-2 ${isDark ? 'border-black' : 'border-white'}`}></div>
                 Sending...
               </>
             ) : (

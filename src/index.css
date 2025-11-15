@@ -62,3 +62,11 @@ html {
 body, #root {
   font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
 }
+
+/* Fix blurry text during 3D transforms */
+.project-card,
+.project-card * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

@@ -53,9 +53,10 @@ export default function ProjectCard(props: ProjectCardProps) {
       <CardBody className="w-auto h-full">
         <CardItem
           translateZ="50"
-          className="text-xl font-bold text-neutral-600 dark:text-white h-full"
+          className="text-xl font-bold text-neutral-600 dark:text-white h-full transition-none"
         >
-          <Card className="project-card max-w-sm md:max-w-md lg:max-w-sm w-full h-full shadow-lg hover:shadow-2xl transition-transform duration-300 ease-out relative group/card dark:hover:shadow-emerald-500/20 dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto cursor-pointer"
+          <Card className="project-card max-w-sm md:max-w-md lg:max-w-sm w-full h-full shadow-lg hover:shadow-2xl transition-[transform,shadow] duration-300 ease-out relative group/card dark:hover:shadow-emerald-500/20 dark:border-white/[0.2] border-black/[0.1] flex flex-col mx-auto cursor-pointer"
+                style={{ backfaceVisibility: 'hidden', willChange: 'transform' }}
                 onClick={handleCardClick}>
             <CardHeader className="flex-shrink-0">
               <CardItem
@@ -79,14 +80,14 @@ export default function ProjectCard(props: ProjectCardProps) {
                   onLoad={() => setIsImageLoaded(true)}
                 />
               </CardItem>
-              <div className="text-xs text-muted-foreground mb-1">{duration}</div>
-              <CardTitle className="flex items-center gap-2">
+              <div className="text-xs text-muted-foreground mb-1 transition-none">{duration}</div>
+              <CardTitle className="flex items-center gap-2 transition-none text-gray-900 dark:text-white">
                 {title}
                 {live && (
                   <span className="inline-block h-2 w-2 rounded-2xl bg-emerald-500 -translate-y-0.5"></span>
                 )}
               </CardTitle>
-              <CardDescription>{description}</CardDescription>
+              <CardDescription className="transition-none">{description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-shrink-0">
               <div className="flex flex-wrap gap-2">
@@ -94,7 +95,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                   <Badge
                     key={index}
                     variant="outline"
-                    className="font-normal rounded-2xl"
+                    className="font-normal rounded-2xl transition-none"
                   >
                     {tech}
                   </Badge>
@@ -106,7 +107,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="transition-colors duration-0"
+                  className="transition-none"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -120,7 +121,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="transition-colors duration-0"
+                  className="transition-none"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -134,7 +135,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-emerald-500 transition-colors duration-0"
+                  className="text-emerald-500 transition-none"
                   asChild
                   onClick={(e) => e.stopPropagation()}
                 >

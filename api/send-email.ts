@@ -1,4 +1,4 @@
-import type { IncomingMessage, ServerResponse } from 'http';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 interface EmailData {
   from_name: string;
@@ -11,29 +11,28 @@ interface EmailData {
 }
 
 export default async function handler(
-  req: IncomingMessage,
-  res: ServerResponse
+  req: VercelRequest,
+  res: VercelResponse
 ) {
   // Only allow POST requests
   if (req.method !== 'POST') {
-    res.statusCode = 405;
-    res.setHeader('Content-Type', 'application/json');
-    return res.end(JSON.stringify({ error: 'Method not allowed' }));
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Read request body
-    let body = '';
-    for await (const chunk of req) {
-      body += chunk.toString();
+    // Vercel automatically parses JSON body, but handle both cases
+    let emailData: EmailData;
+    
+    if (req.body && typeof req.body === 'object') {
+      emailData = req.body as EmailData;
+    } else {
+      // Fallback: parse if it's a string
+      emailData = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     }
-    const emailData: EmailData = JSON.parse(body);
 
     // Validate required fields
-    if (!emailData.from_name || !emailData.from_email || !emailData.description) {
-      res.statusCode = 400;
-      res.setHeader('Content-Type', 'application/json');
-      return res.end(JSON.stringify({ error: 'Missing required fields' }));
+    if (!emailData || !emailData.from_name || !emailData.from_email || !emailData.description) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
     // Get EmailJS configuration from environment variables
@@ -48,12 +47,10 @@ export default async function handler(
         privateKey: privateKey ? 'SET' : 'MISSING',
         allEnvVars: Object.keys(process.env).filter(key => key.includes('EMAILJS')),
       });
-      res.statusCode = 500;
-      res.setHeader('Content-Type', 'application/json');
-      return res.end(JSON.stringify({ 
+      return res.status(500).json({ 
         error: 'Email service not configured',
         details: 'Check Vercel environment variables: EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PRIVATE_KEY'
-      }));
+      });
     }
 
     // Send email using EmailJS REST API (server-side, secure)
@@ -73,29 +70,23 @@ export default async function handler(
     const result = await response.json();
 
     if (response.ok && result.status === 200) {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      return res.end(JSON.stringify({ 
+      return res.status(200).json({ 
         success: true,
         message: 'Email sent successfully' 
-      }));
+      });
     } else {
       console.error('EmailJS API error:', result);
-      res.statusCode = 500;
-      res.setHeader('Content-Type', 'application/json');
-      return res.end(JSON.stringify({ 
+      return res.status(500).json({ 
         error: 'Failed to send email',
-        details: result.text || 'Unknown error'
-      }));
+        details: result.text || result.error || 'Unknown error'
+      });
     }
   } catch (error) {
     console.error('Error sending email:', error);
-    res.statusCode = 500;
-    res.setHeader('Content-Type', 'application/json');
-    return res.end(JSON.stringify({ 
+    return res.status(500).json({ 
       error: 'Failed to send email',
       details: error instanceof Error ? error.message : 'Unknown error'
-    }));
+    });
   }
 }
 

@@ -43,13 +43,17 @@ export default async function handler(
 
     if (!serviceId || !templateId || !privateKey) {
       console.error('EmailJS configuration missing:', {
-        serviceId: !!serviceId,
-        templateId: !!templateId,
-        privateKey: !!privateKey,
+        serviceId: serviceId ? 'SET' : 'MISSING',
+        templateId: templateId ? 'SET' : 'MISSING',
+        privateKey: privateKey ? 'SET' : 'MISSING',
+        allEnvVars: Object.keys(process.env).filter(key => key.includes('EMAILJS')),
       });
       res.statusCode = 500;
       res.setHeader('Content-Type', 'application/json');
-      return res.end(JSON.stringify({ error: 'Email service not configured' }));
+      return res.end(JSON.stringify({ 
+        error: 'Email service not configured',
+        details: 'Check Vercel environment variables: EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PRIVATE_KEY'
+      }));
     }
 
     // Send email using EmailJS REST API (server-side, secure)

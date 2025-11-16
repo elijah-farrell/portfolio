@@ -34,6 +34,7 @@ export default function ContactForm({ onClose }: ContactFormProps) {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [phoneError, setPhoneError] = useState<string>("");
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -53,69 +54,168 @@ export default function ContactForm({ onClose }: ContactFormProps) {
       ...prev,
       [field]: value
     }));
+    
+    // Clear phone error when user starts typing
+    if (field === "phone") {
+      setPhoneError("");
+    }
+  };
+
+  const validatePhoneNumber = (phone: string): boolean => {
+    if (!phone || phone.trim() === "") {
+      return true; // Empty is valid since it's optional
+    }
+    
+    // Allow plus sign only at the start (for international format like +1, +44, etc.)
+    const hasPlus = phone.trim().startsWith('+');
+    let cleaned = phone.trim();
+    
+    if (hasPlus) {
+      cleaned = cleaned.substring(1); // Remove the plus for validation
+    }
+    
+    // Remove common phone formatting characters (spaces, dashes, parentheses, dots)
+    cleaned = cleaned.replace(/[\s\-().]/g, '');
+    
+    // Check if it contains only digits (after removing formatting)
+    if (!/^\d+$/.test(cleaned)) {
+      return false; // Contains non-digit characters (like letters)
+    }
+    
+    // Check length: 7-15 digits (covers most international formats)
+    // 7 digits: some local numbers
+    // 10 digits: US/Canada standard
+    // 11-15 digits: international with country code
+    if (cleaned.length < 7 || cleaned.length > 15) {
+      return false;
+    }
+    
+    return true;
+  };
+
+  const handlePhoneBlur = () => {
+    if (formData.phone && !validatePhoneNumber(formData.phone)) {
+      setPhoneError("Please enter a valid phone number (7-15 digits, formatting allowed)");
+    } else {
+      setPhoneError("");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate phone number if provided
+    if (formData.phone && !validatePhoneNumber(formData.phone)) {
+      setPhoneError("Please enter a valid phone number (7-15 digits, formatting allowed)");
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
-      // EmailJS configuration
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_KEY;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      // In development, use client-side EmailJS (API routes don't work in Vite dev server)
+      // In production, use secure API route
+      if (import.meta.env.DEV) {
+        // Development: Use client-side EmailJS
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_KEY;
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS configuration missing");
+        if (!serviceId || !templateId || !publicKey) {
+          throw new Error("EmailJS configuration missing for development");
+        }
+
+        const { default: emailjs } = await import('@emailjs/browser');
+        const result = await emailjs.send(
+          serviceId,
+          templateId,
+          formData as unknown as Record<string, unknown>,
+          publicKey
+        );
+
+        if (result.status !== 200) {
+          throw new Error('Failed to send email');
+        }
+        
+        // Dev mode success - continue to show success message
+      } else {
+        // Production: Use secure API route
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || result.details || 'Failed to send email');
+        }
+        
+        if (!result.success) {
+          throw new Error('Failed to send email');
+        }
       }
 
-      // Load EmailJS dynamically
-      const { default: emailjs } = await import('@emailjs/browser');
+      // Success - show toast and handle modal
+      // Close modal immediately
+      onClose?.();
       
-      const result = await emailjs.send(
-        serviceId,
-        templateId,
-        formData as unknown as Record<string, unknown>,
-        publicKey
-      );
-
-      if (result.status === 200) {
-        // Show different messages based on consultation preference
-        if (formData.consultation === "Yes") {
+      // Show different messages based on consultation preference
+      if (formData.consultation === "Yes") {
+          // Open Cal.com in new tab
+          window.open("https://cal.com/elijahfarrell/30min", "_blank");
+          
+          // Show toast that stays until user dismisses it manually
+          // This way they can see it even after scheduling an appointment
           toast({
             title: "Message sent successfully!",
             description: "Cal.com opened in new tab - schedule your consultation!",
+            duration: Infinity, // Never auto-dismiss - user must click X
           });
-          // Open Cal.com in new tab
-          window.open("https://cal.com/elijahfarrell/30min", "_blank");
         } else {
-          toast({
+          // For "No" consultation - auto-dismiss after 30 seconds (or user can close)
+          const toastInstance = toast({
             title: "Message sent successfully!",
             description: "I'll get back to you within 24 hours.",
+            duration: Infinity, // Disable Radix's default 5-second auto-dismiss, we'll handle it manually
           });
+          
+          // Manually dismiss after exactly 30 seconds
+          setTimeout(() => {
+            toastInstance.dismiss();
+          }, 30000); // 30 seconds
         }
         
-        // Reset form
-        setFormData({
-          from_name: "",
-          from_email: "",
-          phone: "",
-          description: "",
-          timeline: "",
-          budget: "",
-          consultation: "",
-        });
-        
-        // Close modal after a short delay to show the toast
-        setTimeout(() => {
-          onClose?.();
-        }, 500);
-      }
-    } catch (error) {
+      // Reset form
+      setFormData({
+        from_name: "",
+        from_email: "",
+        phone: "",
+        description: "",
+        timeline: "",
+        budget: "",
+        consultation: "",
+      });
+    } catch (error: unknown) {
       console.error("Error sending email:", error);
+      
+      // Better error logging for production debugging
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      
+      // More helpful error message
+      let userMessage = "Please try again or contact me directly.";
+      if (errorMessage.includes("Failed to fetch") || errorMessage.includes("network")) {
+        userMessage = "Network error. Please check your connection and try again.";
+      } else if (errorMessage.includes("configuration") || errorMessage.includes("not configured")) {
+        userMessage = "Email service is not configured. Please contact me directly.";
+      }
+      
       toast({
         title: "Error sending message",
-        description: "Please try again or contact me directly.",
+        description: userMessage,
         variant: "destructive",
       });
     } finally {
@@ -185,9 +285,19 @@ export default function ContactForm({ onClose }: ContactFormProps) {
               autoComplete="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
-              placeholder="(555) 123-4567"
-              className="bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
+              onBlur={handlePhoneBlur}
+              placeholder="(555) 123-4567 or +1 555 123 4567"
+              className={`bg-gray-100 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 placeholder:text-gray-400 dark:placeholder:text-neutral-500 ${
+                phoneError ? "border-red-500 dark:border-red-500" : ""
+              }`}
+              aria-invalid={phoneError ? "true" : "false"}
+              aria-describedby={phoneError ? "phone-error" : undefined}
             />
+            {phoneError && (
+              <p id="phone-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+                {phoneError}
+              </p>
+            )}
           </div>
 
           {/* Project Details */}

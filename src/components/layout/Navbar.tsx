@@ -13,7 +13,7 @@ import {
   ModalContent,
   useModal,
 } from "@/components/ui/shadcn/animated-modal";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContactForm from "../../pages/services/ContactForm";
 import { ChevronDown } from "lucide-react";
 import { ThemeToggle } from "../theme/theme-toggle";
@@ -108,6 +108,12 @@ export function Navbar() {
     }, [isModalOpen, setOpen]);
     
     return null;
+  };
+
+  // Modal Close Wrapper - provides close function to children
+  const ModalCloseWrapper = ({ children }: { children: (onClose: () => void) => React.ReactNode }) => {
+    const { setOpen } = useModal();
+    return <>{children(() => setOpen(false))}</>;
   };
 
 
@@ -271,13 +277,19 @@ export function Navbar() {
         <CustomModalTrigger />
         <ModalBody>
           <ModalContent>
-            <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-4">
-              Let's Talk About Your Project
-            </h4>
-            <p className="text-neutral-600 dark:text-neutral-400 text-center mb-6">
-              Tell me about what you need help with. I'll get back to you within 24 hours to discuss your project and see how I can help.
-            </p>
-            <ContactForm />
+            <ModalCloseWrapper>
+              {(onClose) => (
+                <>
+                  <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-4">
+                    Let's Talk About Your Project
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-center mb-6">
+                    Tell me about what you need help with. I'll get back to you within 24 hours to discuss your project and see how I can help.
+                  </p>
+                  <ContactForm onClose={onClose} />
+                </>
+              )}
+            </ModalCloseWrapper>
           </ModalContent>
         </ModalBody>
       </Modal>

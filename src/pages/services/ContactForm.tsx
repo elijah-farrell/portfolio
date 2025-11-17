@@ -113,50 +113,26 @@ export default function ContactForm({ onClose }: ContactFormProps) {
     setIsSubmitting(true);
 
     try {
-      // In development, use client-side EmailJS (API routes don't work in Vite dev server)
-      // In production, use secure API route
-      if (import.meta.env.DEV) {
-        // Development: Use client-side EmailJS
-        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_KEY;
-        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      // Use client-side EmailJS (standard approach)
+      // Security: Set up domain restrictions in EmailJS dashboard (free feature)
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-        if (!serviceId || !templateId || !publicKey) {
-          throw new Error("EmailJS configuration missing for development");
-        }
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS configuration missing");
+      }
 
-        const { default: emailjs } = await import('@emailjs/browser');
-        const result = await emailjs.send(
-          serviceId,
-          templateId,
-          formData as unknown as Record<string, unknown>,
-          publicKey
-        );
+      const { default: emailjs } = await import('@emailjs/browser');
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        formData as unknown as Record<string, unknown>,
+        publicKey
+      );
 
-        if (result.status !== 200) {
-          throw new Error('Failed to send email');
-        }
-        
-        // Dev mode success - continue to show success message
-      } else {
-        // Production: Use secure API route
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          throw new Error(result.error || result.details || 'Failed to send email');
-        }
-        
-        if (!result.success) {
-          throw new Error('Failed to send email');
-        }
+      if (result.status !== 200) {
+        throw new Error('Failed to send email');
       }
 
       // Success - show toast and handle modal

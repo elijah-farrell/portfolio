@@ -294,9 +294,9 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   return (
     <div
       className={cn(
-        "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden [background-color:transparent] [box-shadow:none]",
-        visible && !isMenuOpen && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-neutral-950/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
-        isMenuOpen && "!bg-white dark:!bg-neutral-950",
+        "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden bg-white dark:bg-[#0a0a0a] [box-shadow:none]",
+        visible && !isMenuOpen && "!shadow-[0_4px_16px_rgba(34,42,53,0.08),0_1px_4px_rgba(0,0,0,0.06),0_0_0_1px_rgba(34,42,53,0.04)] !bg-white/90 dark:!bg-[#0a0a0a]/90 dark:!shadow-[0_4px_16px_rgba(0,0,0,0.3),0_1px_4px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05)]",
+        isMenuOpen && "!bg-white dark:!bg-[#0a0a0a]",
         className,
       )}
       style={{

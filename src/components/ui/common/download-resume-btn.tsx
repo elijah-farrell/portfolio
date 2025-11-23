@@ -9,7 +9,7 @@ export default function ResumeButton() {
       as="a"
       href={pdfUrl}
       download
-      className="dark:bg-black bg-white text-black dark:text-white flex items-center"
+      className="dark:bg-[#0a0a0a] bg-white text-black dark:text-white flex items-center"
     >
       <span className="hidden sm:inline">Download Resume</span>
       <div className="sm:hidden flex items-center gap-1">

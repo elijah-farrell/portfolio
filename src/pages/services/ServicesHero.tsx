@@ -2,7 +2,7 @@ import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect"
 
 export default function ServicesHero() {
   return (
-    <section className="pt-32 pb-8 flex flex-col justify-center bg-white dark:bg-neutral-950 relative">
+    <section className="pt-32 pb-8 flex flex-col justify-center bg-white dark:bg-[#0a0a0a] relative">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 relative z-10">
         <div className="flex items-baseline gap-4">
           <AuroraTextEffect

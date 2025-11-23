@@ -310,7 +310,7 @@ export default function Hero(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={linkLabels[i]}
-                  className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700"
+                  className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-neutral-800 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:border-emerald-200 dark:hover:border-emerald-700"
                 >
                   {link.icon}
                 </a>

@@ -88,7 +88,7 @@ export function AuroraTextEffect({
     <div
       className={cn(
         // Updated to support light and dark modes
-        "bg-white dark:bg-black flex items-center justify-center overflow-hidden",
+        "bg-white dark:bg-[#0a0a0a] flex items-center justify-center overflow-hidden",
         className
       )}
     >

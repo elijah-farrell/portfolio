@@ -52,7 +52,7 @@ export const BRAND_COLORS = {
 
 // Safari-specific theme colors for status bar
 export const SAFARI_THEME_COLORS = {
-  light: '#fefefe',
+  light: '#ffffff',
   dark: '#0a0a0a',
 } as const;
 

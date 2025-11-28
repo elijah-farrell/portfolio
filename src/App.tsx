@@ -5,7 +5,6 @@ import { Toaster } from "./components/ui/common/toast";
 import { Navbar } from "./components/layout/Navbar";
 import { useScrollPreservation } from "./hooks/use-scroll-preservation";
 import { initializeScrollBehavior } from "./lib/scroll-utils";
-import { THEME_CONFIG } from "./config/theme";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/Services";
 
@@ -35,7 +34,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme={THEME_CONFIG.defaultTheme} storageKey={THEME_CONFIG.storageKey}>
+      <ThemeProvider>
         <div className="min-h-screen bg-background font-mono relative">
           <Navbar />
           <div className="pt-4">

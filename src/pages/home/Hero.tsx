@@ -121,7 +121,7 @@ export default function Hero(): JSX.Element {
   ];
 
   return (
-    <main className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-16 lg:pt-0 xl:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a] xl:justify-start hero-container">
+    <main className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-28 md:pt-24 lg:pt-0 xl:pt-20 relative overflow-hidden bg-white dark:bg-[#0a0a0a] xl:justify-start hero-container">
       {/* Left Text Section */}
       <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full hero-text-container">
         {/* Available Badge */}

@@ -11,7 +11,7 @@ export function ThemeToggle() {
     setTheme(newTheme);
   };
 
-  // Use resolvedTheme to get the actual theme (handles 'system' theme)
+  // Use resolvedTheme to get the actual theme (always 'light' or 'dark')
   const currentTheme = resolvedTheme as ResolvedTheme;
   const focusRingColor = BRAND_COLORS.shared.focus;
 

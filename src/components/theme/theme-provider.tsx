@@ -1,24 +1,15 @@
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import type { ThemeProviderProps } from "next-themes"
-import { THEME_CONFIG } from "../../config/theme"
-import { SafariThemeColorFix } from "./SafariThemeColorFix"
-import { BodyThemeSync } from "./BodyThemeSync"
+import { ThemeProvider as CustomThemeProvider } from "../../hooks/use-theme";
+import { THEME_CONFIG } from "../../config/theme";
+import { SafariThemeColorFix } from "./SafariThemeColorFix";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
-    <NextThemesProvider 
-      {...props}
+    <CustomThemeProvider 
       defaultTheme={THEME_CONFIG.defaultTheme}
-      enableSystem={THEME_CONFIG.enableSystem}
       storageKey={THEME_CONFIG.storageKey}
-      attribute="class"
-      enableColorScheme={THEME_CONFIG.enableColorScheme}
-      disableTransitionOnChange={THEME_CONFIG.disableTransitionOnChange}
     >
       <SafariThemeColorFix />
-      <BodyThemeSync />
       {children}
-    </NextThemesProvider>
-  )
+    </CustomThemeProvider>
+  );
 }
-

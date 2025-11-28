@@ -54,15 +54,6 @@ html {
   }
 }
 
-/* Prevent layout shifts and font flashes */
-html {
-  font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
-}
-
-body, #root {
-  font-family: 'JetBrains Mono', monospace, 'Courier New', Courier, sans-serif;
-}
-
 /* Fix blurry text during 3D transforms */
 .project-card,
 .project-card * {

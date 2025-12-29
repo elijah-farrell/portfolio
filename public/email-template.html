@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            line-height: 1.6; 
+            /* Match site light theme text/background */
+            color: #000000; 
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .header { 
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%); 
+            color: #ffffff; 
+            padding: 40px 30px; 
+            text-align: left; 
+        }
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 24px; 
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 400;
+            /* Light text on emerald header, reuse a gray instead of a custom white */
+            color: #e5e7eb;
+        }
+        .content { 
+            background: #ffffff; 
+            padding: 40px 30px; 
+        }
+        .field {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .field:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .field-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .field-value {
+            font-size: 16px;
+            font-weight: 400;
+            /* Inherit body text color (black in light mode, white in dark) */
+            line-height: 1.6;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+        .description-field {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .description-value {
+            font-size: 15px;
+            line-height: 1.7;
+            /* Inherit body text color (black in light mode, white in dark) */
+            white-space: pre-wrap;
+        }
+        .footer { 
+            text-align: center; 
+            margin-top: 0; 
+            /* Slightly muted footer text in light mode */
+            color: #6b7280; 
+            font-size: 12px;
+            padding: 24px 30px;
+            /* Match light background */
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+        }
+        .footer p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        .footer .brand-link {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .section-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 32px 0;
+        }
+        
+        /* Dark mode support (works in Apple Mail, some Gmail clients, etc.) */
+        @media (prefers-color-scheme: dark) {
+            body { 
+                /* Match site dark theme text/background */
+                color: #ffffff; 
+                background: #0a0a0a;
+            }
+            .container { 
+                background: #0a0a0a;
+                border: 1px solid #27272a;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            }
+            .content { 
+                background: #0a0a0a; 
+            }
+            .field {
+                border-bottom: 1px solid #27272a;
+            }
+            .description-field {
+                border-bottom: 1px solid #27272a;
+            }
+            .footer { 
+                color: #e5e7eb; 
+                background: #0a0a0a;
+                border-top: 1px solid #27272a;
+            }
+            .section-divider {
+                background: #27272a;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand-name">Elijah Farrell</div>
+            <h1>New Project Inquiry</h1>
+            <p>Portfolio Contact Form Submission</p>
+        </div>
+        <div class="content">
+            <div class="field">
+                <span class="field-label">Contact Name</span>
+                <div class="field-value">{{from_name}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Email Address</span>
+                <div class="field-value">{{from_email}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Phone Number</span>
+                <div class="field-value">{{phone}}</div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="field description-field">
+                <span class="field-label">Project Description</span>
+                <div class="field-value description-value">{{description}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Project Timeline</span>
+                <div class="field-value">{{timeline}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Budget Range</span>
+                <div class="field-value">{{budget}}</div>
+            </div>
+            
+            <div class="field">
+                <span class="field-label">Consultation Request</span>
+                <div class="field-value">{{consultation}}</div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>This inquiry was submitted through your <a href="https://elijahfarrell.com" class="brand-link">portfolio website</a> contact form</p>
+        </div>
+    </div>
+</body>
+</html>

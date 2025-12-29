@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <script>
+      // Minimal boot script: default to dark for new users.
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          // If user explicitly chose light, stay light; otherwise use dark.
+          if (theme !== "light") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          // ignore storage errors; default will be dark via CSS variables
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Minimal theme variables so static shell matches light/dark before React/CSS load -->
+    <style>
+      :root {
+        color-scheme: light;
+        --background: #ffffff;
+        --text: #000000;
+      }
+      .dark {
+        color-scheme: dark;
+        --background: #0a0a0a;
+        --text: #ffffff;
+      }
+      body {
+        background-color: var(--background);
+        color: var(--text);
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+
+
+
+    <!-- Preload primary font to reduce CLS and flashes -->
+    <link
+      rel="preload"
+      href="/fonts/JetBrainsMono-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    
+    <!-- Windows Tiles (optional) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Browser compatibility -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Safari/iOS specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Elijah Farrell">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Elijah Farrell" />
+    <meta name="description" content="Elijah Farrell's portfolio. Full Stack Developer, Computer Science graduate, and aspiring IT support professional pursuing CompTIA A+ certification. Showcasing interactive React projects, Minecraft mods, and modern web applications built with TypeScript, Next.js, and creative UI design." />
+    <meta name="keywords" content="Elijah Farrell, Computer Science graduate, Full Stack Developer, Software Engineer, Web Development, Frontend, Backend, Algorithms, Data Structures, Databases, Systems, IT Support, Help Desk, Technical Support, CompTIA A+, Entry-level IT, React, TypeScript, JavaScript, Portfolio" />
+    <meta name="author" content="Elijah Farrell" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://elijahfarrell.com/" />
+    <meta property="og:title" content="Elijah Farrell" />
+    <meta property="og:description" content="Elijah Farrell's portfolio. Full Stack Developer, Computer Science graduate, and aspiring IT support professional pursuing CompTIA A+ certification. Showcasing interactive React projects, Minecraft mods, and modern web applications built with TypeScript, Next.js, and creative UI design." />
+    <meta property="og:image" content="https://elijahfarrell.com/android-chrome-512x512.png" />
+    <meta property="og:site_name" content="Elijah Farrell Portfolio" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://elijahfarrell.com/" />
+    <meta property="twitter:title" content="Elijah Farrell" />
+    <meta property="twitter:description" content="Elijah Farrell's portfolio. Full Stack Developer, Computer Science graduate, and aspiring IT support professional pursuing CompTIA A+ certification. Showcasing interactive React projects, Minecraft mods, and modern web applications built with TypeScript, Next.js, and creative UI design." />
+    <meta property="twitter:image" content="https://elijahfarrell.com/android-chrome-512x512.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://elijahfarrell.com/" />
+
+    <title>Elijah Farrell</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Minimal static shell so reloads don't look completely blank before React mounts -->
+      <div
+        style="
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          box-sizing: border-box;
+          background-color: var(--background);
+          color: var(--text);
+          font-family: 'JetBrains Mono', monospace;
+          text-align: center;
+        "
+      >
+        <div
+          style="
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #34d399, #059669);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+          "
+        >
+          Elijah Farrell
+        </div>
+        <div
+          style="
+            font-size: 0.9rem;
+            opacity: 0.7;
+          "
+        >
+          Loading portfolio…
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

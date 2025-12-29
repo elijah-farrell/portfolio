@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "elijahfarrell.com"
+        }
+      ],
+      "destination": "https://www.elijahfarrell.com/$1",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

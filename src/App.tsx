@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Home from "./pages/Home";
 import { Navbar } from "./pages/Navbar";
 import Services from "./pages/Services.tsx";
@@ -40,6 +41,7 @@ function App(): React.ReactElement {
         </Route>
       </Routes>
       <ToastContainer toasts={toasts} onDismiss={handleDismiss} />
+      <SpeedInsights />
     </>
   );
 }

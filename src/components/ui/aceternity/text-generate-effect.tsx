@@ -46,7 +46,7 @@ export const TextGenerateEffect = ({
               lineHeight: "1.625", // Add proper line height for wrapped text
             }}
           >
-            {word}{" "}
+            {word}{idx < wordsArray.length - 1 ? " " : ""}
           </motion.span>
         ))}
       </motion.div>

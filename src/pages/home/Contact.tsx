@@ -43,14 +43,66 @@ export default function Contact(): JSX.Element {
     Math.floor(Math.random() * phrases.length)
   );
 
-  // Rotate phrases every 4s once visible
+  // Rotate phrases every 4s, but pause when tab is hidden
   useEffect(() => {
-    if (showPhrases) {
-      const interval = setInterval(() => {
-        setPhraseIndex((prev) => (prev + 1) % phrases.length);
-      }, 4000);
-      return () => clearInterval(interval);
-    }
+    if (!showPhrases) return;
+
+    let intervalId: NodeJS.Timeout | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
+    const phraseChangeTimeRef = { current: Date.now() }; // Track when current phrase started
+
+    const updatePhrase = () => {
+      setPhraseIndex((prev) => {
+        phraseChangeTimeRef.current = Date.now();
+        return (prev + 1) % phrases.length;
+      });
+    };
+
+    const scheduleNextUpdate = (delay: number) => {
+      // Clear any existing timers
+      if (timeoutId) clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+
+      // Schedule the next update
+      timeoutId = setTimeout(() => {
+        updatePhrase();
+        
+        // Continue with regular 4s intervals
+        intervalId = setInterval(() => {
+          updatePhrase();
+        }, 4000);
+      }, delay);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Tab hidden - pause timers
+        if (timeoutId) clearTimeout(timeoutId);
+        if (intervalId) clearInterval(intervalId);
+        timeoutId = null;
+        intervalId = null;
+      } else {
+        // Tab visible - calculate remaining time and resume
+        const now = Date.now();
+        const timeSinceLastChange = now - phraseChangeTimeRef.current;
+        const timeRemaining = Math.max(0, 4000 - timeSinceLastChange);
+        scheduleNextUpdate(timeRemaining);
+      }
+    };
+
+    // Initialize phrase change time
+    phraseChangeTimeRef.current = Date.now();
+    // Start with full 4s delay
+    scheduleNextUpdate(4000);
+
+    // Listen for tab visibility changes
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [showPhrases, phrases.length]);
 
   return (

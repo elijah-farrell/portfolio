@@ -255,29 +255,9 @@ interface SkillCategoryModalContentProps {
 const SkillCategoryModalContent: React.FC<SkillCategoryModalContentProps> = ({
   skillCategory,
 }) => {
-  const { setOpen } = useModal();
-
   return (
     <div className="space-y-4">
-      <div className="flex items-start justify-between gap-3 mb-1">
-        <h3 className="text-2xl font-bold flex items-center gap-2 text-[var(--text)]">
-          {categoryIconMap[skillCategory.category] && (
-            <span className="text-emerald-600">
-              {categoryIconMap[skillCategory.category]}
-            </span>
-          )}
-          {skillCategory.category}
-        </h3>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="text-xl leading-none text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors"
-          aria-label="Close"
-        >
-          ✕
-        </button>
-      </div>
-      <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-1">
+      <ul className="space-y-3 max-h-[70vh] overflow-y-auto pr-1 scrollbar-hide">
         {skillCategory.items.map((item, i) => (
           <li
             key={i}
@@ -340,7 +320,18 @@ export default function Skills() {
               <Modal key={idx}>
                 <SkillCategoryCardMobile skillCategory={skillCategory} />
                 <ModalBody>
-                  <ModalContent>
+                  <ModalContent
+                    title={
+                      <h3 className="text-2xl max-[475px]:text-xl max-[380px]:text-lg font-bold flex items-center gap-2 text-[var(--text)] leading-tight">
+                        {categoryIconMap[skillCategory.category] && (
+                          <span className="text-emerald-600">
+                            {categoryIconMap[skillCategory.category]}
+                          </span>
+                        )}
+                        {skillCategory.category}
+                      </h3>
+                    }
+                  >
                     <SkillCategoryModalContent skillCategory={skillCategory} />
                   </ModalContent>
                 </ModalBody>

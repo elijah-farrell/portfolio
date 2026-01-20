@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
 import { cn } from "@/lib/utils";
@@ -38,6 +38,19 @@ interface ModalBodyProps {
 
 export const ModalBody: React.FC<ModalBodyProps> = ({ children }) => {
   const { open, setOpen } = useModal();
+
+  useEffect(() => {
+    if (!open || typeof document === "undefined") return;
+
+    const { style } = document.body;
+    const previousOverflow = style.overflow;
+
+    style.overflow = "hidden";
+
+    return () => {
+      style.overflow = previousOverflow;
+    };
+  }, [open]);
 
   return (
     <AnimatePresence>

@@ -34,6 +34,13 @@
         background-color: var(--background);
         color: var(--text);
       }
+      #app-loading {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      #app-loading.is-visible {
+        opacity: 1;
+      }
     </style>
 
     <meta charset="UTF-8" />
@@ -105,6 +112,7 @@
     <div id="root">
       <!-- Minimal static shell so reloads don't look completely blank before React mounts -->
       <div
+        id="app-loading"
         style="
           min-height: 100vh;
           display: flex;
@@ -142,6 +150,19 @@
         </div>
       </div>
     </div>
+    <script>
+      // Only reveal the loader if the app hasn't mounted quickly.
+      (function () {
+        var loader = document.getElementById("app-loading");
+        if (!loader) return;
+        window.setTimeout(function () {
+          // If React has mounted, the loader will be gone already.
+          if (document.getElementById("app-loading")) {
+            loader.classList.add("is-visible");
+          }
+        }, 175);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

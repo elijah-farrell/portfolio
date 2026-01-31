@@ -323,7 +323,8 @@ export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNa
   return (
     <div
       className={cn(
-        "relative z-40 mx-auto flex w-full max-w-full flex-col px-0 py-1 nav:hidden [box-shadow:none]",
+        "z-40 flex w-full flex-col nav:hidden [box-shadow:none]",
+        isMenuOpen ? "fixed inset-0 max-w-none px-0 py-0" : "relative mx-auto max-w-full px-0 py-1",
         visible && !isMenuOpen && "!shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset] dark:!shadow-[0_0_24px_rgba(0,0,0,0.3),0_1px_1px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05),0_0_4px_rgba(0,0,0,0.4),0_16px_68px_rgba(0,0,0,0.25),0_1px_0_rgba(255,255,255,0.1)_inset]",
         className,
       )}

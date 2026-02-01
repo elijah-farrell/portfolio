@@ -29,99 +29,64 @@ export const TracingBeam = ({
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    // Update mobile state based on viewport
-    const updateMobileState = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    // Batch all layout reads first, then apply state in rAF to avoid forced reflow.
+    const recalculateAll = () => {
+      const innerWidth = window.innerWidth;
+      const innerHeight = window.innerHeight;
+      const nextMobile = innerWidth < 768;
 
-    // Check if component is visible in viewport
-    const checkVisibility = () => {
+      let nextVisible = false;
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-        setIsVisible(isInView);
+        nextVisible = rect.top < innerHeight && rect.bottom > 0;
       }
-    };
 
-    // Check for TextReveal component (I learn fast animation)
-    const checkTextReveal = () => {
+      let nextTextRevealInView = false;
+      let nextTextRevealOffset = 12;
       const textRevealElement = document.querySelector('[data-text-reveal-content]');
       const textRevealContainer = document.querySelector('[data-text-reveal]');
-      
       if (textRevealElement && textRevealContainer) {
-        // Verify this is actually the TextReveal component by checking its content
-        const hasTextRevealContent = textRevealElement.textContent?.includes('learn') || 
-                                   textRevealElement.textContent?.includes('fast') ||
-                                   textRevealElement.textContent?.includes('break');
-        
-        if (!hasTextRevealContent) {
-          setTextRevealInView(false);
-          return;
+        const hasTextRevealContent = textRevealElement.textContent?.includes('learn') ||
+          textRevealElement.textContent?.includes('fast') ||
+          textRevealElement.textContent?.includes('break');
+        if (hasTextRevealContent) {
+          const isSkillsSection = textRevealElement.closest('#skills') ||
+            textRevealElement.textContent?.includes('Skills') ||
+            textRevealElement.textContent?.includes('technologies');
+          if (!isSkillsSection) {
+            const rect = textRevealElement.getBoundingClientRect();
+            nextTextRevealOffset = nextMobile ? innerHeight * 0.4 : 12;
+            const viewportCenter = innerHeight / 2;
+            const elementCenter = rect.top + rect.height / 2;
+            nextTextRevealInView = Math.abs(elementCenter - viewportCenter) < innerHeight * 0.3;
+          }
         }
-        
-        // Additional check: ensure this is not the Skills section
-        const isSkillsSection = textRevealElement.closest('#skills') || 
-                              textRevealElement.textContent?.includes('Skills') ||
-                              textRevealElement.textContent?.includes('technologies');
-        
-        if (isSkillsSection) {
-          setTextRevealInView(false);
-          return;
-        }
-        
-        const rect = textRevealElement.getBoundingClientRect();
-        textRevealContainer.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        
-        // Use current mobile state instead of recalculating
-        if (isMobile) {
-          setTextRevealVerticalOffset(viewportHeight * 0.4); // Fixed mobile offset
-        } else {
-          setTextRevealVerticalOffset(12); // Default desktop position
-        }
-        
-        // Use same detection logic for both mobile and desktop
-        const viewportCenter = viewportHeight / 2;
-        const elementCenter = rect.top + rect.height / 2;
-        const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
-        const threshold = viewportHeight * 0.3;
-        const isInView = distanceFromCenter < threshold;
-        
-        setTextRevealInView(isInView);
       }
-    };
 
-    // Recalculate SVG height
-    const recalculateSvgHeight = () => {
-      if (contentRef.current && isVisible) {
+      let nextSvgHeight = 0;
+      if (contentRef.current && nextVisible) {
         const contactSection = contentRef.current.querySelector('#contact');
         if (contactSection) {
           const contactRect = contactSection.getBoundingClientRect();
           const contentRect = contentRef.current.getBoundingClientRect();
-          const heightAboveContact = contactRect.top - contentRect.top - 20;
-          setSvgHeight(heightAboveContact);
+          nextSvgHeight = contactRect.top - contentRect.top - 20;
         } else {
-          setSvgHeight(contentRef.current.offsetHeight);
+          nextSvgHeight = contentRef.current.offsetHeight;
         }
       }
+
+      requestAnimationFrame(() => {
+        setIsMobile(nextMobile);
+        setIsVisible(nextVisible);
+        setTextRevealInView(nextTextRevealInView);
+        setTextRevealVerticalOffset(nextTextRevealOffset);
+        setSvgHeight(nextSvgHeight);
+      });
     };
 
-    // Comprehensive recalculation function
-    const recalculateAll = () => {
-      updateMobileState();
-      checkVisibility();
-      checkTextReveal();
-      recalculateSvgHeight();
-    };
-
-    // Initial calculations
     recalculateAll();
-    
-    // Handle scroll events
-    const handleScroll = () => {
-      checkVisibility();
-      checkTextReveal();
-    };
+
+    const handleScroll = () => recalculateAll();
 
     // Debounced resize handler
     const handleResize = () => {
@@ -157,22 +122,22 @@ export const TracingBeam = ({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleOrientationChange);
     };
-  }, [isVisible, isMobile]);
+  }, []);
 
-  // Additional effect to handle SVG height changes when content changes
+  // Additional effect to handle SVG height when visibility changes (batched read then write)
   useEffect(() => {
-    if (contentRef.current && isVisible) {
-      // Calculate height to extend above contact title
-      const contactSection = contentRef.current.querySelector('#contact');
-      if (contactSection) {
-        const contactRect = contactSection.getBoundingClientRect();
-        const contentRect = contentRef.current.getBoundingClientRect();
-        const heightAboveContact = contactRect.top - contentRect.top - 20; // Stop 20px above contact title
-        setSvgHeight(heightAboveContact);
-      } else {
-        setSvgHeight(contentRef.current.offsetHeight);
-      }
+    if (!contentRef.current || !isVisible) return;
+    const contactSection = contentRef.current.querySelector('#contact');
+    let nextSvgHeight = 0;
+    if (contactSection) {
+      const contactRect = contactSection.getBoundingClientRect();
+      const contentRect = contentRef.current.getBoundingClientRect();
+      nextSvgHeight = contactRect.top - contentRect.top - 20;
+    } else {
+      nextSvgHeight = contentRef.current.offsetHeight;
     }
+    const id = requestAnimationFrame(() => setSvgHeight(nextSvgHeight));
+    return () => cancelAnimationFrame(id);
   }, [isVisible]);
 
   const y1 = useSpring(

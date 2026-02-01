@@ -83,7 +83,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                         <div className="flex-shrink-0">
                           <img
                             src={logoPath}
+                            srcSet={logoPath.replace(".webp", "-64w.webp") + " 64w, " + logoPath.replace(".webp", "-128w.webp") + " 128w"}
+                            sizes="32px"
                             alt={`${company} logo`}
+                            width={40}
+                            height={40}
+                            loading="lazy"
+                            decoding="async"
                             className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain no-image-save"
                           />
                         </div>

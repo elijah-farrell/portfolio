@@ -4,9 +4,12 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import React, { MouseEvent as ReactMouseEvent, useState } from "react";
 import { cn } from "@/lib/utils";
 
-// CanvasRevealEffect is imported non-lazy here, but Skills component that uses CardSpotlight will be lazy loaded
-// This keeps CanvasRevealEffect bundled with Skills instead of separate chunk
-import { CanvasRevealEffect } from "@/components/ui/aceternity/canvas-reveal-effect";
+const CanvasRevealEffect = React.lazy(
+  () =>
+    import("@/components/ui/aceternity/canvas-reveal-effect").then((m) => ({
+      default: m.CanvasRevealEffect,
+    }))
+);
 
 export const CardSpotlight = ({
   children,
@@ -60,15 +63,17 @@ export const CardSpotlight = ({
         }}
       >
         {isHovering && (
-          <CanvasRevealEffect
-            animationSpeed={5}
-            containerClassName="bg-transparent absolute inset-0 pointer-events-none"
-            colors={[
-              [34, 197, 94],
-              [5, 150, 105],
-            ]}
-            dotSize={3}
-          />
+          <React.Suspense fallback={null}>
+            <CanvasRevealEffect
+              animationSpeed={5}
+              containerClassName="bg-transparent absolute inset-0 pointer-events-none"
+              colors={[
+                [34, 197, 94],
+                [5, 150, 105],
+              ]}
+              dotSize={3}
+            />
+          </React.Suspense>
         )}
       </motion.div>
       <div className="relative z-10">{children}</div>

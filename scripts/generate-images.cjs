@@ -9,11 +9,11 @@ const fs = require("fs");
 
 const PUBLIC = path.resolve(__dirname, "../public/assets");
 
-const HERO_WIDTHS = [400, 800];
+const HERO_WIDTHS = [320, 400, 800];
 const PROJECT_WIDTHS = [400, 800];
 const LOGO_WIDTHS = [64, 128];
 
-const webpOptions = { quality: 82, effort: 4 };
+const webpOptions = { quality: 76, effort: 5 };
 
 async function resizeToWidths(inputPath, widths, suffix = "w") {
   const dir = path.dirname(inputPath);

@@ -1,16 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
 import { SEO } from "@/components/seo/SEO";
 import Hero from "@/pages/home/Hero";
-import AboutMe from "@/pages/home/AboutMe";
-import Projects from "@/pages/home/Projects";
-import Skills from "@/pages/home/Skills";
-import ExperienceSection from "@/pages/home/Experience";
-import Contact from "@/pages/home/Contact";
-import { TracingBeam } from "@/components/ui/aceternity/tracing-beam";
-import { TextReveal } from "@/components/ui/magic/text-reveal";
+import { LazySection } from "@/components/ui/common/lazy-section";
 import { SiFuturelearn } from "react-icons/si";
 import { GiGroundbreaker } from "react-icons/gi";
+
+const BelowFold = lazy(() => import("@/pages/home/BelowFold"));
 
 export default function Home(): JSX.Element {
   const location = useLocation();
@@ -29,6 +25,7 @@ export default function Home(): JSX.Element {
     const sectionId =
       state?.scrollToSection ?? (location.pathname === "/" ? hash : undefined);
     if (!sectionId) return;
+    // Below-fold content will mount when LazySection forceMount is true (see render).
 
     let cancelled = false;
 
@@ -79,22 +76,24 @@ export default function Home(): JSX.Element {
     };
   }, [location]);
 
+  const hash =
+    typeof window !== "undefined" && window.location.hash
+      ? window.location.hash.replace(/^#/, "")
+      : undefined;
+  const sectionIdForMount =
+    (location.state as { scrollToSection?: string } | null)?.scrollToSection ??
+    (location.pathname === "/" ? hash : undefined);
+  const forceMountBelowFold = !!sectionIdForMount;
+
   return (
     <div>
       <SEO />
       <Hero />
-      <TracingBeam className="px-6">
-        <AboutMe />
-        <ExperienceSection />
-        <Projects />
-        <Skills />
-        <TextReveal>
-          I learn
-          <SiFuturelearn /> fast—mostly because I break
-          <GiGroundbreaker /> things faster.
-        </TextReveal>
-        <Contact />
-      </TracingBeam>
+      <LazySection forceMount={forceMountBelowFold}>
+        <Suspense fallback={<div className="min-h-[600px]" aria-hidden="true" />}>
+          <BelowFold />
+        </Suspense>
+      </LazySection>
     </div>
   );
 }

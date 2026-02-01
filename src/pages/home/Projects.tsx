@@ -15,6 +15,7 @@ const projects = [
       "Aceternity UI",
     ],
             imageUrl: "/assets/projects/portfolio-thumb.webp",
+    imageSrcSet: "/assets/projects/portfolio-thumb-400w.webp 400w, /assets/projects/portfolio-thumb-800w.webp 800w",
     github: "https://github.com/elijah-farrell/portfolio",
     liveUrl: "https://elijahfarrell.com",
     live: true,
@@ -30,6 +31,7 @@ const projects = [
       "Gradle",
     ],
     imageUrl: "/assets/projects/MoreArmorLogo.webp",
+    imageSrcSet: "/assets/projects/MoreArmorLogo-400w.webp 400w, /assets/projects/MoreArmorLogo-800w.webp 800w",
     github: "https://github.com/elijah-farrell/More-Armor",
     liveUrl: "https://www.curseforge.com/minecraft/mc-mods/more-armorsets",
     live: true,
@@ -49,6 +51,7 @@ const projects = [
       "Framer Motion",
     ],
     imageUrl: "/assets/projects/minimal.webp",
+    imageSrcSet: "/assets/projects/minimal-400w.webp 400w, /assets/projects/minimal-800w.webp 800w",
     github: "https://github.com/elijah-farrell/portfolio-tempalte03",
     liveUrl: "https://ef-portfolio03.vercel.app",
     live: true,
@@ -67,6 +70,7 @@ const projects = [
       "Framer Motion",
     ],
     imageUrl: "/assets/projects/awwards.webp",
+    imageSrcSet: "/assets/projects/awwards-400w.webp 400w, /assets/projects/awwards-800w.webp 800w",
     github: "https://github.com/elijah-farrell/Awwwards-Portfolio",
     liveUrl: "https://awwwards-portfolio-template.vercel.app/",
     live: true,
@@ -109,6 +113,7 @@ export default function Projects() {
               description={project.description}
               techStack={project.techStack}
               imageUrl={project.imageUrl}
+              imageSrcSet={project.imageSrcSet}
               github={project.github}
               liveUrl={project.liveUrl}
               live={project.live}

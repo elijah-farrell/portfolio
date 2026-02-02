@@ -15,7 +15,7 @@ const lcpPreloadSrc = "/assets/animated-800w.webp";
 const PARALLAX_FACTOR_DESKTOP = 0.14;
 const PARALLAX_MAX_DESKTOP = 130;
 const PARALLAX_FACTOR_MOBILE = 0.26;
-const PARALLAX_MAX_MOBILE = 240;
+const PARALLAX_MAX_MOBILE = 400;
 const LERP = 0.09;
 
 const FloatingImage: React.FC = () => {

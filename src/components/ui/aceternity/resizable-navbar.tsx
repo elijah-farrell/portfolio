@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { getTheme } from "@/lib/theme";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 
@@ -12,6 +13,7 @@ interface NavBodyProps {
   children: React.ReactNode;
   className?: string;
   visible?: boolean;
+  scrollProgress?: number;
   isNavComponent?: boolean;
 }
 
@@ -33,6 +35,7 @@ interface MobileNavProps {
   children: React.ReactNode;
   className?: string;
   visible?: boolean;
+  scrollProgress?: number;
   isMenuOpen?: boolean;
   isNavComponent?: boolean;
 }
@@ -50,31 +53,27 @@ interface MobileNavMenuProps {
   onClose: () => void;
 }
 
+const SCROLL_START = 0;
+const SCROLL_END = 120;
+
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [, setMounted] = useState(false);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Ensure component is mounted before accessing window
+  // Gradual progress 0→1 over scroll range so navbar eases in instead of popping
   useEffect(() => {
     setMounted(true);
-    
+
     const handleScroll = () => {
-      const threshold = 10;
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      
-      if (scrollY > threshold) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
+      const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
+      setScrollProgress(progress);
     };
-    
-    // Set initial state
+
     handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -83,22 +82,19 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
       ref={ref}
       className={cn("fixed inset-x-0 top-0 z-40 mx-auto max-w-[1279px]", "resizable-navbar", className)}
       style={{
-        // Force GPU acceleration for better Safari compatibility
-        willChange: 'transform',
-        transform: 'translateZ(0)',
-        WebkitBackfaceVisibility: 'hidden',
-        backfaceVisibility: 'hidden',
+        willChange: "transform",
+        transform: "translateZ(0)",
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
       }}
     >
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
-          // Check if this component should receive the visible prop
           const shouldReceiveVisible = (child.props as { isNavComponent?: boolean })?.isNavComponent === true;
-          
-          return React.cloneElement(
-            child as React.ReactElement<{ visible?: boolean }>,
-            { visible: shouldReceiveVisible ? visible : undefined },
-          );
+          return React.cloneElement(child as React.ReactElement<{ visible?: boolean; scrollProgress?: number }>, {
+            visible: shouldReceiveVisible ? scrollProgress >= 1 : undefined,
+            scrollProgress: shouldReceiveVisible ? scrollProgress : undefined,
+          });
         }
         return child;
       })}
@@ -106,57 +102,56 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   );
 };
 
-export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+// Original desktop shadow/light effect – same values, alpha scaled by progress for gradual fade
+const NAV_SHADOW_PARTS = [
+  "0 8px 32px rgba(34, 42, 53, ALPHA)",
+  "0 2px 8px rgba(0, 0, 0, ALPHA)",
+  "0 0 0 1px rgba(34, 42, 53, ALPHA)",
+  "0 0 8px rgba(34, 42, 53, ALPHA)",
+  "0 20px 80px rgba(47, 48, 55, ALPHA)",
+  "0 2px 0 rgba(255, 255, 255, ALPHA) inset",
+] as const;
+const NAV_ALPHAS = [0.12, 0.08, 0.06, 0.12, 0.08, 0.15] as const;
+
+function navShadowWithOpacity(p: number): string {
+  if (p <= 0) return "none";
+  return NAV_SHADOW_PARTS.map((part, i) => part.replace("ALPHA", String(NAV_ALPHAS[i] * p))).join(", ");
+}
+
+export const NavBody = ({ children, className, scrollProgress = 0 }: NavBodyProps) => {
+  const p = scrollProgress;
+  const width = `${100 - 5 * p}%`;
+  const backdropFilter = p <= 0 ? "none" : `blur(${10 * p}px)`;
+  const boxShadow = navShadowWithOpacity(p);
+
   return (
     <motion.div
       initial={false}
-      animate={{
-        width: visible ? "95%" : "100%",
-        backdropFilter: visible ? "blur(10px)" : "none",
-        boxShadow: visible
-          ? "0 8px 32px rgba(34, 42, 53, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(34, 42, 53, 0.06), 0 0 8px rgba(34, 42, 53, 0.12), 0 20px 80px rgba(47, 48, 55, 0.08), 0 2px 0 rgba(255, 255, 255, 0.15) inset"
-          : "none",
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 50,
-      }}
+      animate={{ width, backdropFilter, boxShadow }}
+      transition={{ type: "spring", stiffness: 200, damping: 50 }}
       className={cn(
         "relative z-50 mx-auto hidden nav:flex w-full flex-row items-center justify-center py-4 px-6 rounded-full text-black dark:text-[var(--text)]",
         className,
       )}
-      style={{ backgroundColor: 'var(--background)' }}
+      style={{ backgroundColor: "var(--background)" }}
     >
       <div className="w-full flex flex-row items-center relative">
-        <motion.div 
+        <motion.div
           className="absolute left-0 flex items-center"
-          initial={{ x: 0 }}
-          animate={{ x: visible ? 12 : 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 40,
-            duration: 0.8,
-            ease: "easeOut",
-          }}
+          initial={false}
+          animate={{ x: 12 * p }}
+          transition={{ type: "spring", stiffness: 200, damping: 35 }}
         >
           {React.Children.toArray(children)[0]}
         </motion.div>
         <div className="w-full flex justify-center">
           {React.Children.toArray(children)[1]}
         </div>
-        <motion.div 
+        <motion.div
           className="absolute right-0 flex items-center"
-          initial={{ x: 0 }}
-          animate={{ x: visible ? -12 : 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 40,
-            duration: 0.8,
-            ease: "easeOut",
-          }}
+          initial={false}
+          animate={{ x: -12 * p }}
+          transition={{ type: "spring", stiffness: 200, damping: 35 }}
         >
           {React.Children.toArray(children)[2]}
         </motion.div>
@@ -319,18 +314,46 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
   );
 };
 
-export const MobileNav = ({ children, className, visible, isMenuOpen }: MobileNavProps) => {
+// Original mobile shadow/light – same values as before (light + dark), alpha scaled by progress
+const MOBILE_SHADOW_LIGHT =
+  "0 0 24px rgba(34,42,53,ALPHA), 0 1px 1px rgba(0,0,0,ALPHA), 0 0 0 1px rgba(34,42,53,ALPHA), 0 0 4px rgba(34,42,53,ALPHA), 0 16px 68px rgba(47,48,55,ALPHA), 0 1px 0 rgba(255,255,255,ALPHA) inset";
+const MOBILE_ALPHAS_LIGHT = [0.06, 0.05, 0.04, 0.08, 0.05, 0.1] as const;
+const MOBILE_SHADOW_DARK =
+  "0 0 24px rgba(0,0,0,ALPHA), 0 1px 1px rgba(0,0,0,ALPHA), 0 0 0 1px rgba(255,255,255,ALPHA), 0 0 4px rgba(0,0,0,ALPHA), 0 16px 68px rgba(0,0,0,ALPHA), 0 1px 0 rgba(255,255,255,ALPHA) inset";
+const MOBILE_ALPHAS_DARK = [0.3, 0.2, 0.05, 0.4, 0.25, 0.1] as const;
+
+function mobileShadowWithOpacity(progress: number, isDark: boolean): string {
+  if (progress <= 0) return "none";
+  const alphas = isDark ? MOBILE_ALPHAS_DARK : MOBILE_ALPHAS_LIGHT;
+  const template = isDark ? MOBILE_SHADOW_DARK : MOBILE_SHADOW_LIGHT;
+  let i = 0;
+  return template.replace(/ALPHA/g, () => String(alphas[i++] * progress));
+}
+
+export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen }: MobileNavProps) => {
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    setIsDark(getTheme() === "dark");
+    const root = document.documentElement;
+    const obs = new MutationObserver(() => setIsDark(getTheme() === "dark"));
+    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+
+  const showShadow = !isMenuOpen && scrollProgress > 0;
+  const boxShadow = showShadow ? mobileShadowWithOpacity(scrollProgress, isDark) : undefined;
+
   return (
     <div
       className={cn(
         "z-40 flex w-full flex-col nav:hidden [box-shadow:none]",
         isMenuOpen ? "fixed inset-0 max-w-none px-0 py-0" : "relative mx-auto max-w-full px-0 py-1",
-        visible && !isMenuOpen && "!shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset] dark:!shadow-[0_0_24px_rgba(0,0,0,0.3),0_1px_1px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.05),0_0_4px_rgba(0,0,0,0.4),0_16px_68px_rgba(0,0,0,0.25),0_1px_0_rgba(255,255,255,0.1)_inset]",
         className,
       )}
       style={{
         height: isMenuOpen ? "100vh" : "auto",
-        backgroundColor: 'var(--background)',
+        backgroundColor: "var(--background)",
+        boxShadow,
       }}
     >
       {children}
@@ -344,7 +367,7 @@ export const MobileNavHeader = ({
   isMenuOpen,
 }: MobileNavHeaderProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -358,65 +381,51 @@ export const MobileNavHeader = ({
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Get visible state from parent (this is a bit hacky but works)
+  // Gradual scroll progress (same range as ResizableNavbar) for smooth mobile bar animation
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      setVisible(scrollY > 10);
+      const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
+      setScrollProgress(progress);
     };
-    
-    // Set initial state
+
     handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [mounted]);
+
+  const p = scrollProgress;
+  const paddingRem = 1.25 + 0.25 * p;
+  const logoX = isTabletOrLarger && !isMenuOpen ? 8 * p : 0;
 
   return (
     <motion.div
       initial={false}
       animate={{
-        paddingLeft: visible ? "1.5rem" : "1.25rem",
-        paddingRight: visible ? "1.5rem" : "1.25rem",
+        paddingLeft: `${paddingRem}rem`,
+        paddingRight: `${paddingRem}rem`,
       }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 40,
-        duration: 0.8,
-        ease: "easeOut",
-      }}
+      transition={{ type: "spring", stiffness: 200, damping: 35 }}
       className={cn(
         "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1 relative z-40",
         className,
       )}
-      style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
     >
-      <motion.div 
+      <motion.div
         className="flex items-center"
-        initial={{ x: 0 }}
-        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? 8 : 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 25,
-          duration: 0.4,
-        }}
+        initial={false}
+        animate={{ x: logoX }}
+        transition={{ type: "spring", stiffness: 200, damping: 35 }}
       >
         {React.Children.toArray(children)[0]}
       </motion.div>
-      <motion.div 
+      <motion.div
         className="flex items-center"
-        initial={{ x: 0 }}
-        animate={{ x: visible && isTabletOrLarger && !isMenuOpen ? -8 : 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 25,
-          duration: 0.4,
-        }}
+        initial={false}
+        animate={{ x: -logoX }}
+        transition={{ type: "spring", stiffness: 200, damping: 35 }}
       >
         {React.Children.toArray(children)[1]}
       </motion.div>

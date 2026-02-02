@@ -19,6 +19,9 @@ export function setTheme(theme: Theme) {
     root.classList.remove("dark");
   }
 
+  // So native scrollbar (and form controls) follow light/dark on theme button click
+  root.style.colorScheme = theme;
+
   try {
     window.localStorage.setItem("theme", theme);
   } catch {

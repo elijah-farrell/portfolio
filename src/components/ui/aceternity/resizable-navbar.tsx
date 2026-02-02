@@ -458,14 +458,6 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
         href="/"
         onClick={(e) => {
           e.preventDefault();
-          try {
-            // Clear saved scroll so clicking the home logo always goes to the top
-            if (typeof window !== "undefined" && "sessionStorage" in window) {
-              window.sessionStorage.removeItem("scrollPosition");
-            }
-          } catch {
-            // ignore storage errors
-          }
           window.location.href = '/';
         }}
         className="relative text-lg md:text-xl whitespace-nowrap outline-none py-1"

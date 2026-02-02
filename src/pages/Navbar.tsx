@@ -21,21 +21,17 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const savedScrollY = useRef(0);
   const pendingNavAction = useRef<(() => void) | null>(null);
+  const savedScrollY = useRef(0);
 
   useLayoutEffect(() => {
     if (typeof document === "undefined") return;
-    const html = document.documentElement;
-    const body = document.body;
 
     if (isMobileMenuOpen) {
-      const y = window.scrollY ?? document.documentElement.scrollTop ?? 0;
-      savedScrollY.current = y;
-      html.style.overflow = "hidden";
-      body.style.overflow = "hidden";
+      savedScrollY.current = window.scrollY;
+      const { body } = document;
       body.style.position = "fixed";
-      body.style.top = `-${y}px`;
+      body.style.top = `-${savedScrollY.current}px`;
       body.style.left = "0";
       body.style.right = "0";
       body.style.width = "100%";
@@ -47,23 +43,18 @@ export function Navbar() {
       document.addEventListener("touchmove", onTouchMove, { passive: false });
 
       return () => {
-        html.style.overflow = "";
-        body.style.overflow = "";
+        document.removeEventListener("touchmove", onTouchMove);
+        const { body } = document;
         body.style.position = "";
         body.style.top = "";
         body.style.left = "";
         body.style.right = "";
         body.style.width = "";
-        document.removeEventListener("touchmove", onTouchMove);
-        window.scrollTo(0, savedScrollY.current);
+        window.scrollTo({ top: savedScrollY.current, left: 0, behavior: "instant" });
         const fn = pendingNavAction.current;
         pendingNavAction.current = null;
         if (fn) {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              fn();
-            });
-          });
+          requestAnimationFrame(() => requestAnimationFrame(fn));
         }
       };
     }

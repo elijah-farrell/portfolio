@@ -53,7 +53,7 @@ const projects = [
     imageUrl: "/assets/projects/minimal.webp",
     imageSrcSet: "/assets/projects/minimal-400w.webp 400w, /assets/projects/minimal-800w.webp 800w",
     github: "https://github.com/elijah-farrell/portfolio-tempalte03",
-    liveUrl: "https://ef-portfolio03.vercel.app",
+    liveUrl: "https://mnml-portfolio.vercel.app",
     live: true,
   },
   {
@@ -75,26 +75,6 @@ const projects = [
     liveUrl: "https://awwwards-portfolio-template.vercel.app/",
     live: true,
   },
-  // Temporarily removed Portfolio Template project
-  // {
-  //   title: "Portfolio Template",
-  //   description:
-  //     "A modern, responsive portfolio template built with React 19, TypeScript, and Vite. Features smooth animations, optimized performance, and accessibility-first design. Includes customizable sections for Hero, Projects, About, Services, Experience, and Contact.",
-  //   techStack: [
-  //     "React 19",
-  //     "TypeScript",
-  //     "Vite",
-  //     "Responsive Design",
-  //     "Smooth Animations",
-  //     "Accessibility",
-  //     "Customizable",
-  //     "Performance Optimized",
-  //   ],
-  //   imageUrl: "/assets/projects/portfolio-template01.png",
-  //   github: "https://github.com/elijah-farrell/portfolio-template",
-  //   liveUrl: "https://ef-portfolio01.vercel.app/",
-  //   live: true,
-  // },
 ];
 
 export default function Projects() {

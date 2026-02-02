@@ -94,7 +94,7 @@ const servicesItems = [
          title: "Minimal Portfolio",
          description: "Perfect for professionals, freelancers, or creatives who want a clean, distraction-free website to showcase their work. I'll customize this template with your content, branding, and deploy it for you.",
          image: "/assets/projects/minimal.png",
-         link: "https://ef-portfolio03.vercel.app",
+         link: "https://mnml-portfolio.vercel.app/",
          tech: ["Next.js", "React", "Tailwind CSS"],
          type: "project",
          price: "$39",

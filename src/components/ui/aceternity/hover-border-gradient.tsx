@@ -1,10 +1,13 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 import {motion} from "framer-motion";
 import {cn} from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
+
+/** Ignore synthetic mouse events for this long after a touch (ms). */
+const TOUCH_IGNORE_MS = 500;
 
 export function HoverBorderGradient({
   children,
@@ -26,6 +29,7 @@ export function HoverBorderGradient({
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
   const [isDark, setIsDark] = useState<boolean>(false);
+  const lastTouchEndRef = useRef<number>(0);
 
   // Detect dark mode
   useEffect(() => {
@@ -85,12 +89,32 @@ export function HoverBorderGradient({
       return () => clearInterval(interval);
     }
   }, [hovered]);
+
+  const handlePointerEnter = () => {
+    if (Date.now() - lastTouchEndRef.current < TOUCH_IGNORE_MS) return;
+    setHovered(true);
+  };
+
+  const handlePointerLeave = () => {
+    setHovered(false);
+  };
+
+  const handleTouchStart = () => {
+    setHovered(true);
+  };
+
+  const handleTouchEnd = () => {
+    lastTouchEndRef.current = Date.now();
+    setHovered(false);
+  };
+
   return (
     <Tag
-      onMouseEnter={() => {
-        setHovered(true);
-      }}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={handlePointerEnter}
+      onMouseLeave={handlePointerLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
       className={cn(
         "relative flex rounded-full border dark:border-neutral-800 content-center bg-neutral-900/20 dark:bg-neutral-100/20 hover:bg-neutral-900/10 dark:hover:bg-neutral-100/10 items-center flex-col flex-nowrap h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
@@ -106,24 +130,35 @@ export function HoverBorderGradient({
       >
         {children}
       </div>
-      <motion.div
-        className={cn(
-          "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
+      {/* Single gradient layer at a time to avoid frozen floaters from remount/anim */}
+      <div
+        className="absolute inset-0 z-0 rounded-[inherit] overflow-hidden"
+        style={{ contain: "paint", isolation: "isolate" }}
+        aria-hidden
+      >
+        {hovered ? (
+          <motion.div
+            className="absolute inset-0 rounded-[inherit]"
+            style={{
+              filter: "blur(2px)",
+              background: highlight,
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.15 }}
+          />
+        ) : (
+          <motion.div
+            className="absolute inset-0 rounded-[inherit]"
+            style={{
+              filter: "blur(2px)",
+            }}
+            initial={false}
+            animate={{ background: movingMap[direction] }}
+            transition={{ ease: "linear", duration: duration ?? 1 }}
+          />
         )}
-        style={{
-          filter: "blur(2px)",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-        }}
-        initial={{ background: movingMap[direction] }}
-        animate={{
-          background: hovered
-            ? [movingMap[direction], highlight]
-            : movingMap[direction],
-        }}
-        transition={{ ease: "linear", duration: duration ?? 1 }}
-      />
+      </div>
       <div className="absolute z-1 flex-none inset-[2px] rounded-[100px]" style={{ backgroundColor: 'var(--background)' }} />
     </Tag>
   );

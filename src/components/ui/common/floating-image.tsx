@@ -21,6 +21,7 @@ const LERP = 0.09;
 const FloatingImage: React.FC = () => {
   const [showAlt, setShowAlt] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+  const [primaryImageLoaded, setPrimaryImageLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const currentOffsetRef = useRef(0);
@@ -115,7 +116,7 @@ const FloatingImage: React.FC = () => {
   const containerStyle: React.CSSProperties = {
     transform: "translate3d(0,0,0)",
     transition: "opacity 0.5s ease-in",
-    opacity: isMounted ? 1 : 0,
+    opacity: isMounted && primaryImageLoaded ? 1 : 0,
     transformStyle: "preserve-3d",
     backfaceVisibility: "hidden",
     willChange: "transform",
@@ -123,7 +124,6 @@ const FloatingImage: React.FC = () => {
 
   const imgCommon = {
     srcSet: altMainImageSrcSet,
-    // Sizes match display: ~320px mobile, 384px xl; browser picks 2x for sharp retina
     sizes: "(max-width: 639px) 320px, (max-width: 1279px) 400px, 768px",
     alt: "Elijah Farrell - Software Developer",
     width: 384,
@@ -131,7 +131,7 @@ const FloatingImage: React.FC = () => {
     decoding: "async" as const,
     className: "absolute inset-0 no-image-save w-80 h-96 xl:w-96 xl:h-96 object-cover object-center rounded-2xl md:rounded-3xl transition-opacity duration-500 ease-in-out",
     style: { backfaceVisibility: "hidden" as const },
-  };
+  } as const;
 
   const spacer = <div className="w-80 h-96 xl:w-96 xl:h-96" aria-hidden="true" />;
 
@@ -147,14 +147,17 @@ const FloatingImage: React.FC = () => {
                   src={altMainImage}
                   loading="eager"
                   fetchPriority="high"
-                  className={`${imgCommon.className} ${showAlt ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                  onLoad={() => setPrimaryImageLoaded(true)}
+                  style={{ ...imgCommon.style, opacity: showAlt ? 1 : 0 }}
+                  className={`${imgCommon.className} ${showAlt ? "z-10" : "z-0"}`}
                 />
                 <img
                   {...imgCommon}
                   srcSet={mainImageSrcSet}
                   src={mainImage}
                   loading="lazy"
-                  className={`${imgCommon.className} ${!showAlt ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                  style={{ ...imgCommon.style, opacity: showAlt ? 0 : 1 }}
+                  className={`${imgCommon.className} ${showAlt ? "z-0" : "z-10"}`}
                 />
                 {spacer}
               </div>
@@ -174,14 +177,17 @@ const FloatingImage: React.FC = () => {
             src={altMainImage}
             loading="eager"
             fetchPriority="high"
-            className={`${imgCommon.className} ${showAlt ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            onLoad={() => setPrimaryImageLoaded(true)}
+            style={{ ...imgCommon.style, opacity: showAlt ? 1 : 0 }}
+            className={`${imgCommon.className} ${showAlt ? "z-10" : "z-0"}`}
           />
           <img
             {...imgCommon}
             srcSet={mainImageSrcSet}
             src={mainImage}
             loading="lazy"
-            className={`${imgCommon.className} ${!showAlt ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            style={{ ...imgCommon.style, opacity: showAlt ? 0 : 1 }}
+            className={`${imgCommon.className} ${showAlt ? "z-0" : "z-10"}`}
           />
           {spacer}
         </div>

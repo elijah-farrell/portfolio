@@ -1,5 +1,5 @@
 // Timeline.tsx
-import React from "react";
+import React, { useState } from "react";
 import { TextAnimate } from "../../components/ui/magic/text-animate";
 import { GlowingEffect } from "../../components/ui/aceternity/glowing-effect";
 import { settings } from "@/config/settings";
@@ -40,7 +40,9 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   logoPath,
   technologies,
   achievements,
-}) => (
+}) => {
+  const [logoLoaded, setLogoLoaded] = useState(false);
+  return (
   <div className="relative w-full group">
     <div className="absolute -left-[1.95rem] top-10 transition-none">
       <span className="relative flex h-3 w-3">
@@ -80,7 +82,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                       
                       {/* Logo - positioned to the right of the title */}
                       {settings.experience.showCompanyLogos && logoPath && (
-                        <div className="flex-shrink-0">
+                        <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
                           <img
                             src={logoPath}
                             srcSet={logoPath.replace(".webp", "-64w.webp") + " 64w, " + logoPath.replace(".webp", "-128w.webp") + " 128w"}
@@ -90,7 +92,9 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                             height={40}
                             loading="lazy"
                             decoding="async"
-                            className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain no-image-save"
+                            onLoad={() => setLogoLoaded(true)}
+                            style={{ opacity: logoLoaded ? 1 : 0 }}
+                            className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain no-image-save transition-opacity duration-300"
                           />
                         </div>
                       )}
@@ -168,7 +172,8 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
       </div>
     </div>
   </div>
-);
+  );
+};
 
 // Define the type for the array of timeline data
 interface TimelineData {

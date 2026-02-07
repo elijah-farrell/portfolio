@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SiGithub, SiGoogleplay } from "react-icons/si";
 import { Badge } from "@/components/ui/common/badge";
 import { Button } from "@/components/ui/common/button";
@@ -40,6 +41,8 @@ export default function ProjectCard(props: ProjectCardProps) {
     duration,
   } = props;
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const handleCardClick = () => {
     // Prioritize liveUrl, then github, then playstore
     const url = liveUrl || github || playstore;
@@ -71,7 +74,9 @@ export default function ProjectCard(props: ProjectCardProps) {
                   height={384}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-48 object-cover rounded-2xl no-image-save"
+                  onLoad={() => setImageLoaded(true)}
+                  style={{ opacity: imageLoaded ? 1 : 0 }}
+                  className="w-full h-48 object-cover rounded-2xl no-image-save transition-opacity duration-300"
                 />
               </CardItem>
               <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1 transition-none">{duration}</div>

@@ -213,8 +213,8 @@ const timelineData: TimelineData[] = [
 // Main Timeline component
 const ExperienceSection: React.FC = () => (
   <div className="pt-8" id="experience">
-    <h1 className="text-2xl sm:text-3xl font-bold mb-2 px-4 sm:px-0">EXPERIENCE</h1>
-    <p className="text-neutral-600 dark:text-neutral-400 mb-6 px-4 sm:px-0">
+    <h1 className="text-3xl font-bold mb-2">EXPERIENCE</h1>
+    <p className="text-neutral-600 dark:text-neutral-400 mb-6">
       An overview of my professional journey so far.
     </p>
     <section className="px-3 sm:p-3 md:p-6 bg-gradient-to-b max-w-4xl">

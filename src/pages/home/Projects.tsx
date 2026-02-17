@@ -57,7 +57,7 @@ const projects = [
     live: true,
   },
   {
-    title: "3D Awwwards Portfolio Template",
+    title: "Portfolio Template",
     description:
       "A fully animated 3D developer portfolio template with scroll-based interactions designed to showcase work in an immersive way.",
     techStack: [

@@ -23,7 +23,7 @@ const projects = [
   {
     title: "More-Armor Mod",
     description:
-      "A comprehensive Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
+      "A Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
     techStack: [
       "Java",
       "Minecraft 1.20.1",

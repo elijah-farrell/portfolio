@@ -13,7 +13,6 @@
 @layer base {
   html {
     @apply font-mono;
-    /* Reserve scrollbar space so layout never jumps when scroll locks/unlocks */
     scrollbar-gutter: stable;
   }
 }

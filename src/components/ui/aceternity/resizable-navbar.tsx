@@ -44,6 +44,8 @@ interface MobileNavHeaderProps {
   children: React.ReactNode;
   className?: string;
   isMenuOpen?: boolean;
+  /** Scroll progress (0–1) captured when menu was opened; used so X doesn’t jump when body is fixed and scrollY becomes 0 */
+  scrollProgressWhenOpen?: number;
 }
 
 interface MobileNavMenuProps {
@@ -53,8 +55,8 @@ interface MobileNavMenuProps {
   onClose: () => void;
 }
 
-const SCROLL_START = 0;
-const SCROLL_END = 120;
+export const SCROLL_START = 0;
+export const SCROLL_END = 120;
 
 export const ResizableNavbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -347,7 +349,7 @@ export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen 
     <div
       className={cn(
         "z-40 flex w-full flex-col nav:hidden [box-shadow:none]",
-        isMenuOpen ? "fixed inset-0 max-w-none px-0 py-0" : "relative mx-auto max-w-full px-0 py-1",
+        isMenuOpen ? "fixed inset-0 max-w-none px-0 pt-1 pb-0" : "relative mx-auto max-w-full px-0 py-1",
         className,
       )}
       style={{
@@ -365,6 +367,7 @@ export const MobileNavHeader = ({
   children,
   className,
   isMenuOpen,
+  scrollProgressWhenOpen,
 }: MobileNavHeaderProps) => {
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -397,8 +400,12 @@ export const MobileNavHeader = ({
   }, [mounted]);
 
   const p = scrollProgress;
-  const paddingRem = 1.25 + 0.25 * p;
+  // When menu is open, body is fixed so scrollY is 0; use progress captured at open so X doesn’t move
+  const pFrozen = isMenuOpen && scrollProgressWhenOpen != null ? scrollProgressWhenOpen : null;
+  const pForLayout = pFrozen ?? p;
+  const paddingRem = 1.25 + 0.25 * pForLayout;
   const logoX = isTabletOrLarger && !isMenuOpen ? 8 * p : 0;
+  const toggleX = -8 * pForLayout;
 
   return (
     <motion.div
@@ -410,6 +417,7 @@ export const MobileNavHeader = ({
       transition={{ type: "spring", stiffness: 200, damping: 35 }}
       className={cn(
         "flex w-full flex-row items-center justify-between lg:px-24 xl:px-40 2xl:px-52 py-1 relative z-40",
+        isMenuOpen && "max-w-[1279px] mx-auto",
         className,
       )}
     >
@@ -424,7 +432,7 @@ export const MobileNavHeader = ({
       <motion.div
         className="flex items-center"
         initial={false}
-        animate={{ x: -logoX }}
+        animate={{ x: toggleX }}
         transition={{ type: "spring", stiffness: 200, damping: 35 }}
       >
         {React.Children.toArray(children)[1]}

@@ -6,6 +6,8 @@ import {
   NavbarLogo,
   NavBody,
   NavItems,
+  SCROLL_END,
+  SCROLL_START,
 } from "../components/ui/aceternity/resizable-navbar";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,6 +23,7 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const scrollProgressWhenOpenRef = useRef(0);
   const pendingNavAction = useRef<(() => void) | null>(null);
   const savedScrollY = useRef(0);
 
@@ -173,12 +176,26 @@ export function Navbar() {
         </NavBody>
 
         <MobileNav isMenuOpen={isMobileMenuOpen} isNavComponent={true}>
-          <MobileNavHeader isMenuOpen={isMobileMenuOpen}>
+          <MobileNavHeader
+            isMenuOpen={isMobileMenuOpen}
+            scrollProgressWhenOpen={isMobileMenuOpen ? scrollProgressWhenOpenRef.current : undefined}
+          >
             <NavbarLogo visible={!isMobileMenuOpen} />
             <div className="flex items-center gap-2 mr-0 relative">
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen((open) => !open)}
+                onClick={() => {
+                  if (isMobileMenuOpen) {
+                    setIsMobileMenuOpen(false);
+                  } else {
+                    const y = window.scrollY ?? document.documentElement.scrollTop;
+                    scrollProgressWhenOpenRef.current = Math.min(
+                      1,
+                      Math.max(0, (y - SCROLL_START) / (SCROLL_END - SCROLL_START)),
+                    );
+                    setIsMobileMenuOpen(true);
+                  }
+                }}
               />
             </div>
           </MobileNavHeader>

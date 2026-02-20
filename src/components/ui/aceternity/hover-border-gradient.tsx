@@ -83,7 +83,7 @@ export function HoverBorderGradient({
       }, duration * 1000);
       return () => clearInterval(interval);
     }
-  }, [hovered]);
+  }, [hovered, duration]);
 
   return (
     <Tag
@@ -106,19 +106,28 @@ export function HoverBorderGradient({
       </div>
       <motion.div
         className={cn(
-          "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
+          "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit] isolate"
         )}
         style={{
-          filter: "blur(2px)",
           position: "absolute",
           width: "100%",
           height: "100%",
+          transform: "translateZ(0)",
+          backfaceVisibility: "hidden",
+          willChange: "background",
         }}
-        initial={false}
-        animate={{ background: hovered ? highlight : movingMap[direction] }}
+        initial={{ background: movingMap[direction] }}
+        animate={{
+          background: hovered
+            ? [movingMap[direction], highlight]
+            : movingMap[direction],
+        }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
-      <div className="absolute z-1 flex-none inset-[2px] rounded-[100px] transition-none" style={{ backgroundColor: "var(--background)" }} />
+      <div
+        className="absolute z-[1] flex-none inset-[2px] rounded-[100px] transition-none"
+        style={{ backgroundColor: "var(--background)" }}
+      />
     </Tag>
   );
 }

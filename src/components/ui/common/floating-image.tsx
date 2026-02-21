@@ -16,6 +16,10 @@ const PARALLAX_FACTOR_DESKTOP = 0.14;
 const PARALLAX_MAX_DESKTOP = 130;
 const PARALLAX_FACTOR_MOBILE = 0.26;
 const PARALLAX_MAX_MOBILE = 400;
+/** Short viewport (e.g. landscape phone): gentle parallax so image stays visible */
+const PARALLAX_FACTOR_SHORT = 0.06;
+const PARALLAX_MAX_SHORT = 60;
+const SHORT_VIEWPORT_HEIGHT = 500;
 const LERP = 0.09;
 
 const FloatingImage: React.FC = () => {
@@ -23,11 +27,13 @@ const FloatingImage: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [primaryImageLoaded, setPrimaryImageLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isShortViewport, setIsShortViewport] = useState(false);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const currentOffsetRef = useRef(0);
   const isInViewRef = useRef(true);
   const rafIdRef = useRef<number>(0);
   const isDesktopRef = useRef(false);
+  const isShortViewportRef = useRef(false);
   const initializedRef = useRef(false);
 
   useEffect(() => {
@@ -37,8 +43,11 @@ const FloatingImage: React.FC = () => {
   useEffect(() => {
     const checkScreenSize = () => {
       const desktop = window.innerWidth >= 1024;
+      const short = window.innerHeight <= SHORT_VIEWPORT_HEIGHT;
       setIsDesktop(desktop);
+      setIsShortViewport(short);
       isDesktopRef.current = desktop;
+      isShortViewportRef.current = short;
     };
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
@@ -79,8 +88,17 @@ const FloatingImage: React.FC = () => {
 
       const scrollY = window.scrollY;
       const desktop = isDesktopRef.current;
-      const factor = desktop ? PARALLAX_FACTOR_DESKTOP : PARALLAX_FACTOR_MOBILE;
-      const maxOffset = desktop ? PARALLAX_MAX_DESKTOP : PARALLAX_MAX_MOBILE;
+      const short = isShortViewportRef.current;
+      const factor = desktop
+        ? PARALLAX_FACTOR_DESKTOP
+        : short
+          ? PARALLAX_FACTOR_SHORT
+          : PARALLAX_FACTOR_MOBILE;
+      const maxOffset = desktop
+        ? PARALLAX_MAX_DESKTOP
+        : short
+          ? PARALLAX_MAX_SHORT
+          : PARALLAX_MAX_MOBILE;
 
       let targetOffset = scrollY * factor;
       targetOffset = Math.max(0, Math.min(maxOffset, targetOffset));

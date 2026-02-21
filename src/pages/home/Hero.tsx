@@ -299,6 +299,19 @@ export default function Hero(): JSX.Element {
               height: 20rem !important;
             }
           }
+          /* Landscape / short viewport: make hero taller so full content + floating image are visible before parallax */
+          @media (max-height: 700px) {
+            .hero-container {
+              min-height: 140vh !important;
+              min-height: 140dvh !important;
+            }
+          }
+          @media (max-height: 500px) {
+            .hero-container {
+              min-height: 160vh !important;
+              min-height: 160dvh !important;
+            }
+          }
         `}</style>
 
         {/* Resume + Social Links */}

@@ -106,14 +106,17 @@ export default function Contact(): JSX.Element {
   }, [showPhrases, phrases.length]);
 
   return (
-    <div id="contact" className="border-0 min-h-[80vh] md:min-h-[70vh] flex flex-col">
+    <div
+      id="contact"
+      className="border-0 min-h-[max(80vh,32rem)] md:min-h-[max(70vh,32rem)] flex flex-col contact-section"
+    >
       {/* Title */}
       <h1 className="text-3xl font-bold text-left">CONTACT</h1>
 
       {/* Background beams + content */}
-      <BackgroundBeamsWithCollision className="w-full h-full md:h-[40vh] z-0 flex-1">
-        <div className="px-2 md:px-4 h-full flex flex-col justify-start">
-          <div className="w-full h-full z-30 relative">
+      <BackgroundBeamsWithCollision className="w-full h-full min-h-0 md:min-h-[40vh] z-0 flex-1 contact-beams">
+        <div className="px-2 md:px-4 h-full min-h-0 flex flex-col justify-start">
+          <div className="w-full min-h-full z-30 relative">
             
             {/* Subtitle */}
             <p className="text-black dark:text-[var(--text)] mt-16 md:mt-8 mb-0 text-center text-lg w-full">
@@ -151,8 +154,8 @@ export default function Contact(): JSX.Element {
               ))}
             </div>
 
-            {/* Footer */}
-            <div className="text-center text-xs text-neutral-500 dark:text-neutral-400 pt-8 pb-4 md:pb-8">
+            {/* Footer - always visible; extra padding on short/landscape viewports */}
+            <div className="text-center text-xs text-neutral-500 dark:text-neutral-400 pt-8 pb-6 md:pb-8">
               © Developed by Me
             </div>
           </div>

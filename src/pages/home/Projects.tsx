@@ -52,7 +52,7 @@ const projects = [
     ],
     imageUrl: "/assets/projects/minimal.webp",
     imageSrcSet: "/assets/projects/minimal-400w.webp 400w, /assets/projects/minimal-800w.webp 800w",
-    github: "https://github.com/elijah-farrell/portfolio-tempalte03",
+    github: "https://github.com/elijah-farrell/Minimal-Portfolio",
     liveUrl: "https://mnml-portfolio.vercel.app",
     live: true,
   },

@@ -176,7 +176,7 @@ export default function ContactForm({ onClose }: ContactFormProps) {
 
       if (missingVars.length > 0) {
         const errorMsg = `EmailJS configuration missing: ${missingVars.join(', ')}. Please configure environment variables in Vercel.`;
-        console.error(errorMsg);
+        if (import.meta.env.DEV) console.error(errorMsg);
         throw new Error(errorMsg);
       }
 

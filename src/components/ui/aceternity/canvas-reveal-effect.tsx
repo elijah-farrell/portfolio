@@ -242,7 +242,9 @@ const ShaderMaterial = ({
           };
           break;
         default:
-          console.error(`Invalid uniform type for '${uniformName}'.`);
+          if (import.meta.env.DEV) {
+            console.error(`Invalid uniform type for '${uniformName}'.`);
+          }
           break;
       }
     }

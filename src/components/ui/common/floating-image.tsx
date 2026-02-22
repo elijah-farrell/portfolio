@@ -27,7 +27,6 @@ const FloatingImage: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [primaryImageLoaded, setPrimaryImageLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isShortViewport, setIsShortViewport] = useState(false);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const currentOffsetRef = useRef(0);
   const isInViewRef = useRef(true);
@@ -45,7 +44,6 @@ const FloatingImage: React.FC = () => {
       const desktop = window.innerWidth >= 1024;
       const short = window.innerHeight <= SHORT_VIEWPORT_HEIGHT;
       setIsDesktop(desktop);
-      setIsShortViewport(short);
       isDesktopRef.current = desktop;
       isShortViewportRef.current = short;
     };

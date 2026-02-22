@@ -10,23 +10,16 @@ export function getTheme(): Theme {
 
 export function setTheme(theme: Theme) {
   if (typeof document === "undefined") return;
-
   const root = document.documentElement;
-
-  if (theme === "dark") {
-    root.classList.add("dark");
-  } else {
-    root.classList.remove("dark");
-  }
-
-  // So native scrollbar (and form controls) follow light/dark on theme button click
+  root.classList.toggle("dark", theme === "dark");
   root.style.colorScheme = theme;
-
-  try {
-    window.localStorage.setItem("theme", theme);
-  } catch {
-    // ignore storage failures
-  }
+  queueMicrotask(() => {
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      // ignore
+    }
+  });
 }
 
 export function toggleTheme() {

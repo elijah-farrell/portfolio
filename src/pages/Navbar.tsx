@@ -25,6 +25,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const scrollProgressWhenOpenRef = useRef(0);
   const pendingNavAction = useRef<(() => void) | null>(null);
+  const pendingScrollToTop = useRef(false);
   const savedScrollY = useRef(0);
 
   useLayoutEffect(() => {
@@ -53,7 +54,9 @@ export function Navbar() {
         body.style.left = "";
         body.style.right = "";
         body.style.width = "";
-        window.scrollTo({ top: savedScrollY.current, left: 0, behavior: "instant" });
+        const scrollY = pendingScrollToTop.current ? 0 : savedScrollY.current;
+        pendingScrollToTop.current = false;
+        window.scrollTo({ top: scrollY, left: 0, behavior: "instant" });
         const fn = pendingNavAction.current;
         pendingNavAction.current = null;
         if (fn) {
@@ -209,9 +212,15 @@ export function Navbar() {
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                  navigate("/");
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  pendingScrollToTop.current = true;
+                  closeMenuAnd(() => {
+                    try {
+                      sessionStorage.removeItem("scrollY");
+                    } catch {
+                      /* ignore */
+                    }
+                    window.location.href = "/";
+                  });
                 }}
                 className="mobile-menu-logo text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-4"
               >

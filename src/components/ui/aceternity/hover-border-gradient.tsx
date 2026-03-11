@@ -76,6 +76,10 @@ export function HoverBorderGradient({
   const highlight =
     "radial-gradient(75% 181.15942028985506% at 50% 50%, #10b981 0%, rgba(255, 255, 255, 0) 100%)";
 
+  const glowFilter = hovered
+    ? "drop-shadow(0 0 10px rgba(16,185,129,0.35)) drop-shadow(0 0 24px rgba(16,185,129,0.18))"
+    : "none";
+
   useEffect(() => {
     if (!hovered) {
       const interval = setInterval(() => {
@@ -115,6 +119,7 @@ export function HoverBorderGradient({
           transform: "translateZ(0)",
           backfaceVisibility: "hidden",
           willChange: "background",
+          filter: glowFilter,
         }}
         initial={{ background: movingMap[direction] }}
         animate={{

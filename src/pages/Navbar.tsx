@@ -33,32 +33,44 @@ export function Navbar() {
 
     if (isMobileMenuOpen) {
       savedScrollY.current = window.scrollY;
-      const { body } = document;
-      body.style.position = "fixed";
-      body.style.top = `-${savedScrollY.current}px`;
-      body.style.left = "0";
-      body.style.right = "0";
-      body.style.width = "100%";
+      const { documentElement, body } = document;
+      documentElement.style.overflow = "hidden";
+      documentElement.style.overscrollBehavior = "none";
+      body.style.overflow = "hidden";
+      body.style.overscrollBehavior = "none";
+
+      const lockWindowScroll = () => {
+        window.scrollTo({ top: savedScrollY.current, left: 0, behavior: "instant" });
+      };
 
       const onTouchMove = (e: TouchEvent) => {
         if ((e.target as Element).closest(".mobile-menu-container")) return;
         e.preventDefault();
       };
+      const onWheel = (e: WheelEvent) => {
+        if ((e.target as Element).closest(".mobile-menu-container")) return;
+        e.preventDefault();
+      };
       document.addEventListener("touchmove", onTouchMove, { passive: false });
+      document.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("scroll", lockWindowScroll, { passive: true });
 
       return () => {
+        window.removeEventListener("scroll", lockWindowScroll);
         document.removeEventListener("touchmove", onTouchMove);
-        const { body } = document;
-        body.style.position = "";
-        body.style.top = "";
-        body.style.left = "";
-        body.style.right = "";
-        body.style.width = "";
-        const scrollY = pendingScrollToTop.current ? 0 : savedScrollY.current;
-        pendingScrollToTop.current = false;
-        window.scrollTo({ top: scrollY, left: 0, behavior: "instant" });
+        document.removeEventListener("wheel", onWheel);
+        documentElement.style.overflow = "";
+        documentElement.style.overscrollBehavior = "";
+        body.style.overflow = "";
+        body.style.overscrollBehavior = "";
         const fn = pendingNavAction.current;
         pendingNavAction.current = null;
+        const shouldRestoreScrollAfterClose = fn == null;
+        if (shouldRestoreScrollAfterClose) {
+          const scrollY = pendingScrollToTop.current ? 0 : savedScrollY.current;
+          window.scrollTo({ top: scrollY, left: 0, behavior: "instant" });
+        }
+        pendingScrollToTop.current = false;
         if (fn) {
           requestAnimationFrame(() => requestAnimationFrame(fn));
         }

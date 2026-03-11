@@ -51,9 +51,17 @@ export default function Services(): JSX.Element {
 
   // Reset scroll position when navigating to this page (don't preserve scroll from previous page)
   useEffect(() => {
+    const state = location.state as
+      | { scrollToSection?: string; openModal?: boolean }
+      | null;
+    const hasStateDrivenTarget = Boolean(
+      state?.scrollToSection || state?.openModal
+    );
+    if (hasStateDrivenTarget) return;
+
     // Always start at top when navigating to services page
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [location.pathname]);
+  }, [location.pathname, location.state]);
 
   // Handle scroll requests and modal open requests passed via navigation state
   useEffect(() => {

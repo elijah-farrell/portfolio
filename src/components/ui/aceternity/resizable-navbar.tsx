@@ -345,19 +345,29 @@ export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen 
   const showShadow = !isMenuOpen && scrollProgress > 0;
   const boxShadow = showShadow ? mobileShadowWithOpacity(scrollProgress, isDark) : undefined;
 
+  // When menu is open: fixed wrapper stays transparent so Safari (iOS 26 Liquid Glass)
+  // doesn’t sample it and lock the bottom bar to a solid color. Background lives on an
+  // absolute child, which Safari’s tinting algorithm ignores.
   return (
     <div
       className={cn(
         "z-40 flex w-full flex-col nav:hidden [box-shadow:none]",
-        isMenuOpen ? "fixed inset-0 max-w-none px-0 pt-1 pb-0" : "relative mx-auto max-w-full px-0 py-1",
+        isMenuOpen ? "absolute inset-x-0 top-0 max-w-none px-0 pt-1 pb-0" : "relative mx-auto max-w-full px-0 py-1",
         className,
       )}
       style={{
-        height: isMenuOpen ? "100vh" : "auto",
-        backgroundColor: "var(--background)",
+        height: isMenuOpen ? "100dvh" : "auto",
+        backgroundColor: isMenuOpen ? "transparent" : "var(--background)",
         boxShadow,
       }}
     >
+      {isMenuOpen && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{ backgroundColor: "var(--background)" }}
+        />
+      )}
       {children}
     </div>
   );

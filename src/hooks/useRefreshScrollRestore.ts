@@ -13,8 +13,10 @@ function isReload(): boolean {
 }
 
 /**
- * Saves scroll on unload. On reload, restores scroll after paint (double rAF)
- * so content is laid out. Use once in Layout; works with React Router ScrollRestoration.
+ * Saves scroll on unload. On reload, restores scroll before first paint (in
+ * useLayoutEffect) so mobile doesn't flash the top, then re-applies after
+ * layout settles (double rAF) so full content height is in. Use once in Layout;
+ * works with React Router ScrollRestoration.
  */
 export function useRefreshScrollRestore(): void {
   const { pathname } = useLocation();
@@ -40,6 +42,9 @@ export function useRefreshScrollRestore(): void {
       });
     };
 
+    // Restore immediately so first paint has correct scroll (avoids mobile flash).
+    restore();
+    // Re-apply after layout settles (images, lazy content) so position stays correct.
     requestAnimationFrame(() => requestAnimationFrame(restore));
   }, []);
 

@@ -2,6 +2,7 @@ import { useLayoutEffect, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const KEY = "scrollY";
+const RELOAD_RESTORING_CLASS = "scroll-restoring-reload";
 
 function isReload(): boolean {
   if (typeof performance === "undefined" || !performance.getEntriesByType)
@@ -22,15 +23,34 @@ export function useRefreshScrollRestore(): void {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    if (!isReload()) return;
-    if (typeof window !== "undefined" && window.location.hash && pathname === "/")
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const releaseInitialMask = () => {
+      document.documentElement.classList.remove(RELOAD_RESTORING_CLASS);
+    };
+
+    if (!isReload()) {
+      releaseInitialMask();
       return;
+    }
+    if (typeof window !== "undefined" && window.location.hash && pathname === "/") {
+      releaseInitialMask();
+      return;
+    }
 
     const raw = sessionStorage.getItem(KEY);
-    if (!raw) return;
+    if (!raw) {
+      releaseInitialMask();
+      return;
+    }
 
     const y = parseInt(raw, 10);
-    if (Number.isNaN(y) || y <= 0) return;
+    if (Number.isNaN(y) || y <= 0) {
+      releaseInitialMask();
+      return;
+    }
 
     const restore = () => {
       const max =
@@ -45,7 +65,16 @@ export function useRefreshScrollRestore(): void {
     // Restore immediately so first paint has correct scroll (avoids mobile flash).
     restore();
     // Re-apply after layout settles (images, lazy content) so position stays correct.
-    requestAnimationFrame(() => requestAnimationFrame(restore));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        restore();
+        releaseInitialMask();
+      })
+    );
+
+    // Safety release in case rAF gets delayed on iOS backgrounded tabs.
+    const timeoutId = window.setTimeout(releaseInitialMask, 800);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {

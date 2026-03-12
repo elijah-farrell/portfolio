@@ -14,6 +14,21 @@
         r.style.colorScheme = t;
       })();
     </script>
+    <script>
+      (function () {
+        try {
+          if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+          var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+          var isReload = nav && nav.type === "reload";
+          var hasHash = !!window.location.hash;
+          var raw = sessionStorage.getItem("scrollY");
+          var y = raw ? parseInt(raw, 10) : 0;
+          if (isReload && !hasHash && Number.isFinite(y) && y > 0) {
+            document.documentElement.classList.add("scroll-restoring-reload");
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Minimal theme variables so static shell matches light/dark before React/CSS load -->
     <style>
@@ -37,6 +52,9 @@
       html, body {
         background-color: var(--background);
         color: var(--text);
+      }
+      .scroll-restoring-reload body {
+        visibility: hidden;
       }
     </style>
 

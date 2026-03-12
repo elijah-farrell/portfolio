@@ -43,6 +43,7 @@ export function HoverBorderGradient({
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
+  const [isMobileInput, setIsMobileInput] = useState<boolean>(false);
   const [isDark, setIsDark] = useState<boolean>(() =>
     typeof document !== "undefined"
       ? document.documentElement.classList.contains("dark")
@@ -61,6 +62,15 @@ export function HoverBorderGradient({
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const media = window.matchMedia("(hover: none), (pointer: coarse)");
+    const update = () => setIsMobileInput(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   const rotateDirection = (currentDirection: Direction): Direction => {
     const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
     const currentIndex = directions.indexOf(currentDirection);
@@ -76,9 +86,10 @@ export function HoverBorderGradient({
   const highlight =
     "radial-gradient(75% 181.15942028985506% at 50% 50%, #10b981 0%, rgba(255, 255, 255, 0) 100%)";
 
-  const glowShadow = hovered
-    ? "0 0 10px rgba(16,185,129,0.35), 0 0 24px rgba(16,185,129,0.18)"
+  const glowFilter = hovered
+    ? "drop-shadow(0 0 10px rgba(16,185,129,0.35)) drop-shadow(0 0 24px rgba(16,185,129,0.18))"
     : "none";
+  const effectiveGlowFilter = isMobileInput ? "none" : glowFilter;
 
   useEffect(() => {
     if (!hovered) {
@@ -119,7 +130,7 @@ export function HoverBorderGradient({
           transform: "translateZ(0)",
           backfaceVisibility: "hidden",
           willChange: "background",
-          boxShadow: glowShadow,
+          filter: effectiveGlowFilter,
         }}
         initial={{ background: movingMap[direction] }}
         animate={{

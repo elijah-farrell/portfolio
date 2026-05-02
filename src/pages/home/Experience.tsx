@@ -85,8 +85,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                         <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
                           <img
                             src={logoPath}
-                            srcSet={logoPath.replace(".webp", "-64w.webp") + " 64w, " + logoPath.replace(".webp", "-128w.webp") + " 128w"}
-                            sizes="32px"
+                            srcSet={
+                              logoPath.replace(".webp", "-64w.webp") +
+                              " 64w, " +
+                              logoPath.replace(".webp", "-128w.webp") +
+                              " 128w"
+                            }
+                            sizes="40px"
                             alt={`${company} logo`}
                             width={40}
                             height={40}
@@ -189,6 +194,14 @@ interface TimelineData {
 
 // Static data for the timeline
 const timelineData: TimelineData[] = [
+  {
+    title: "Daytime Janitor",
+    company: "The ARC Jefferson · Watertown, NY",
+    description: `• Facility upkeep and custodial support at a nonprofit multi-use community site — steady schedule, on-call needs, and coordination with staff.`,
+    from: "Nov 2025",
+    to: "Present",
+    logoPath: "/assets/logos/the-arc-logo.webp",
+  },
   {
     title: "Research Assistant",
     company: "SUNY Polytechnic Institute (CESSAIR)",

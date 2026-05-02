@@ -47,7 +47,22 @@ async function main() {
   const logos = [
     path.join(PUBLIC, "logos/suny-poly-logo.webp"),
     path.join(PUBLIC, "logos/workplace.webp"),
+    path.join(PUBLIC, "logos/the-arc-logo.webp"),
   ];
+
+  const arcLogoPng = path.join(PUBLIC, "logos/the-arc-logo.png");
+  const arcLogoWebp = path.join(PUBLIC, "logos/the-arc-logo.webp");
+  if (fs.existsSync(arcLogoPng)) {
+    await sharp(arcLogoPng).webp(webpOptions).toFile(arcLogoWebp);
+    console.log("Logo master:", path.relative(PUBLIC, arcLogoWebp));
+  }
+
+  const sunyLogoSrc = path.join(PUBLIC, "logos/suny-poly-logo.jpg");
+  const sunyLogoWebp = path.join(PUBLIC, "logos/suny-poly-logo.webp");
+  if (fs.existsSync(sunyLogoSrc)) {
+    await sharp(sunyLogoSrc).webp(webpOptions).toFile(sunyLogoWebp);
+    console.log("Logo master:", path.relative(PUBLIC, sunyLogoWebp));
+  }
 
   for (const p of hero) {
     if (!fs.existsSync(p)) continue;

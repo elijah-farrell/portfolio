@@ -2,25 +2,6 @@ import ProjectCard from "../../components/ui/common/project-card";
 
 const projects = [
   {
-    title: "Portfolio Website",
-    description:
-      "My personal portfolio showcasing my projects, experience, and skills with an interactive design.",
-    techStack: [
-      "React 18",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "Three.js Effects",
-      "Framer Motion",
-      "Aceternity UI",
-    ],
-            imageUrl: "/assets/projects/portfolio-thumb.webp",
-    imageSrcSet: "/assets/projects/portfolio-thumb-400w.webp 400w, /assets/projects/portfolio-thumb-800w.webp 800w",
-    github: "https://github.com/elijah-farrell/portfolio",
-    liveUrl: "https://elijahfarrell.com",
-    live: true,
-  },
-  {
     title: "More-Armor Mod",
     description:
       "A Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
@@ -31,33 +12,14 @@ const projects = [
       "Gradle",
     ],
     imageUrl: "/assets/projects/MoreArmorLogo.webp",
-    imageSrcSet: "/assets/projects/MoreArmorLogo-400w.webp 400w, /assets/projects/MoreArmorLogo-800w.webp 800w",
+    imageSrcSet:
+      "/assets/projects/MoreArmorLogo-400w.webp 400w, /assets/projects/MoreArmorLogo-800w.webp 800w",
     github: "https://github.com/elijah-farrell/More-Armor",
     liveUrl: "https://www.curseforge.com/minecraft/mc-mods/more-armorsets",
     live: true,
   },
   {
-    title: "Portfolio Template",
-    description:
-      "Minimal portfolio template focused on showcasing your work without distractions.",
-    techStack: [
-      "Next.js 15",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS",
-      "Aceternity UI",
-      "Shadcn UI",
-      "Radix UI",
-      "Framer Motion",
-    ],
-    imageUrl: "/assets/projects/minimal.webp",
-    imageSrcSet: "/assets/projects/minimal-400w.webp 400w, /assets/projects/minimal-800w.webp 800w",
-    github: "https://github.com/elijah-farrell/Minimal-Portfolio",
-    liveUrl: "https://mnml-portfolio.vercel.app",
-    live: true,
-  },
-  {
-    title: "Portfolio Template",
+    title: "Awwwards Portfolio",
     description:
       "A fully animated 3D developer portfolio template with scroll-based interactions designed to showcase work in an immersive way.",
     techStack: [
@@ -70,9 +32,45 @@ const projects = [
       "Framer Motion",
     ],
     imageUrl: "/assets/projects/awwards.webp",
-    imageSrcSet: "/assets/projects/awwards-400w.webp 400w, /assets/projects/awwards-800w.webp 800w",
+    imageSrcSet:
+      "/assets/projects/awwards-400w.webp 400w, /assets/projects/awwards-800w.webp 800w",
     github: "https://github.com/elijah-farrell/Awwwards-Portfolio",
     liveUrl: "https://awwwards-portfolio-template.vercel.app/",
+    live: true,
+  },
+  {
+    title: "Olie's Island Adventure",
+    description:
+      "Godot 4.5 2D platformer — seaside setting, coins, enemies, and traps. Work in progress: a playable proof of concept I’m building out slowly in my spare time.",
+    techStack: [
+      "Godot 4.5",
+      "GDScript",
+      "2D Physics",
+      "Mobile & Web Export",
+    ],
+    imageUrl: "/assets/projects/olies-island-adventure-cover-800w.webp",
+    imageSrcSet:
+      "/assets/projects/olies-island-adventure-cover-400w.webp 400w, /assets/projects/olies-island-adventure-cover-800w.webp 800w",
+    liveUrl: "https://olies-island-adventure.vercel.app/",
+    live: true,
+  },
+  {
+    title: "Cyber Developer Portfolio",
+    description:
+      "Cyberpunk-inspired — magnetic UI, GSAP motion, command palette (Ctrl/Cmd+K), live Discord status, optional dashboards, Snake easter egg. Still in active development.",
+    techStack: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "GSAP",
+      "Lanyard",
+      "Vitest",
+      "Playwright",
+    ],
+    imageUrl: "/assets/projects/cyber-developer-portfolio-800w.webp",
+    imageSrcSet:
+      "/assets/projects/cyber-developer-portfolio-400w.webp 400w, /assets/projects/cyber-developer-portfolio-800w.webp 800w",
+    liveUrl: "https://elijahfarrell.vercel.app/",
     live: true,
   },
 ];

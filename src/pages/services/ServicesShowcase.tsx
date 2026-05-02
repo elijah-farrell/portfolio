@@ -91,15 +91,6 @@ const servicesItems = [
     // No main image - focused on work showcase
     myProjects: [
        {
-         title: "Minimal Portfolio",
-         description: "Perfect for professionals, freelancers, or creatives who want a clean, distraction-free website to showcase their work. I'll customize this template with your content, branding, and deploy it for you.",
-         image: "/assets/projects/minimal.png",
-         link: "https://mnml-portfolio.vercel.app/",
-         tech: ["Next.js", "React", "Tailwind CSS"],
-         type: "project",
-         price: "$39",
-       },
-       {
          title: "Lawn Care Website",
          description: "Ready-to-launch website for lawn care and landscaping businesses. Includes service pages, contact forms, and mobile-responsive design. I'll customize it with your business details and get it live.",
          image: "/assets/projects/lawn_care_template.png",

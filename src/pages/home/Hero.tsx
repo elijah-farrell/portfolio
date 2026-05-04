@@ -159,11 +159,9 @@ export default function Hero(): JSX.Element {
           <span>I am Elijah, I am a&nbsp;</span>
           <FlipWords
             words={[
-              "<Developer/>",
-              "CS Graduate",
-              "<Coder/>",
+              "Computer Scientist",
+              "Software Engineer",
               "Programmer",
-              "Problem Solver",
               "PC Builder",
               "Tech Nerd",
             ]}

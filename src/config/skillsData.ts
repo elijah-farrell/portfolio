@@ -133,41 +133,6 @@ export const skillsData: SkillCategory[] = [
     ],
   },
   {
-    category: "Frameworks & Libraries",
-    items: [
-      {
-        name: "Flask",
-        experience: "1+ years",
-        description: "Python web framework for building APIs and applications",
-      },
-      {
-        name: "Pandas",
-        experience: "1+ years",
-        description: "Data manipulation and analysis library",
-      },
-      {
-        name: "NumPy",
-        experience: "1+ years",
-        description: "Numerical computing and array operations",
-      },
-      {
-        name: "PyTorch",
-        experience: "6 months",
-        description: "Machine learning framework for AI applications",
-      },
-      {
-        name: "OpenCV",
-        experience: "6 months",
-        description: "Computer vision and image processing library",
-      },
-      {
-        name: "HuggingFace",
-        experience: "6 months",
-        description: "AI model library and transformers",
-      },
-    ],
-  },
-  {
     category: "Databases",
     items: [
       {

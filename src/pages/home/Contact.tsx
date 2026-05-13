@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LinkCard from "@/components/ui/common/link-card";
+import { Magnetic } from "@/components/ui/common/magnetic";
 import { BackgroundBeamsWithCollision } from "@/components/ui/aceternity/background-beams-with-collision";
 import { TextGenerateEffect } from "@/components/ui/aceternity/text-generate-effect";
 import { SiGithub } from "react-icons/si";
@@ -144,13 +145,13 @@ export default function Contact(): JSX.Element {
             {/* Links */}
             <div className="flex flex-wrap justify-center gap-6 py-6 md:py-4 relative z-40 px-2">
               {allLinks.map((element, index) => (
-                <div key={index} className="relative z-40">
+                <Magnetic key={index} className="z-40" strength={0.32}>
                   <LinkCard
                     title={element.title}
                     url={element.url}
                     icon={element.icon}
                   />
-                </div>
+                </Magnetic>
               ))}
             </div>
 

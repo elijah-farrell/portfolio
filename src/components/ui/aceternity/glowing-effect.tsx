@@ -7,7 +7,7 @@ interface GlowingEffectProps {
   inactiveZone?: number;
   proximity?: number;
   spread?: number;
-  variant?: "default" | "white";
+  variant?: "default" | "white" | "contrast" | "mono";
   glow?: boolean;
   className?: string;
   disabled?: boolean;
@@ -136,7 +136,13 @@ const GlowingEffect = memo(
               "--glowingeffect-border-width": `${borderWidth}px`,
               "--repeating-conic-gradient-times": "5",
               "--gradient":
-                variant === "white"
+                variant === "mono"
+                  ? `repeating-conic-gradient(
+                  from 236.84deg at 50% 50%,
+                  light-dark(#0a0a0a, #fafafa) 0%,
+                  light-dark(#0a0a0a, #fafafa) calc(25% / var(--repeating-conic-gradient-times))
+                )`
+                  : variant === "white"
                   ? `repeating-conic-gradient(
                   from 236.84deg at 50% 50%,
                   var(--black),

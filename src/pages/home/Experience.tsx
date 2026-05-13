@@ -58,6 +58,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
           disabled={false}
           proximity={50}
           inactiveZone={0.01}
+          variant="mono"
         />
       )}
       <div className="border-0.75 relative flex h-full flex-col justify-between gap-4 md:gap-6 overflow-hidden rounded-xl p-4 md:p-6 transition-shadow duration-300">

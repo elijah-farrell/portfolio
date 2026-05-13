@@ -197,7 +197,7 @@ const timelineData: TimelineData[] = [
   {
     title: "Daytime Janitor",
     company: "The ARC Jefferson · Watertown, NY",
-    description: `• Facility upkeep and custodial support at a nonprofit multi-use community site — steady schedule, on-call needs, and coordination with staff.`,
+    description: `• Performed janitorial duties at a nonprofit facility, including routine cleaning, sanitation, and supply restocking while supporting staff requests and maintaining a safe environment.`,
     from: "Nov 2025",
     to: "Present",
     logoPath: "/assets/logos/the-arc-logo.webp",
@@ -205,9 +205,10 @@ const timelineData: TimelineData[] = [
   {
     title: "Research Assistant",
     company: "SUNY Polytechnic Institute (CESSAIR)",
-    description: `• Led a small research team of 5 students to develop BORGChat, an AI chat application in C++ on schedule
+    description: `• Lead the development and deployment of a software application as part of a supervised academic research project
 • Collaborated effectively with team members to solve problems and support project goals
-• Coordinated tasks and adapted quickly to new challenges to ensure smooth progress`,
+• Coordinated tasks and adapted quickly to new challenges to ensure smooth progress
+• Gained experience working in a structured technical environment using software tools and following development workflows.`,
     from: "Feb 2025",
     to: "May 2025",
             logoPath: "/assets/logos/suny-poly-logo.webp",

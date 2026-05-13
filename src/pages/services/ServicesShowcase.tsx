@@ -93,7 +93,7 @@ const servicesItems = [
        {
          title: "Lawn Care Website",
          description: "Ready-to-launch website for lawn care and landscaping businesses. Includes service pages, contact forms, and mobile-responsive design. I'll customize it with your business details and get it live.",
-         image: "/assets/projects/lawn_care_template.png",
+         image: "/assets/projects/MoreArmorLogo-400w.webp",
          link: "https://themewagon.com/themes/free-bootstrap-4-html5-lawn-care-website-template-lawncare/?utm_source=chatgpt.com",
          price: "$75/month",
          type: "template",
@@ -101,7 +101,7 @@ const servicesItems = [
        {
          title: "Welding Services Website",
          description: "Professional website designed specifically for welding and metalwork businesses. Features service galleries, project showcases, and contact forms. I'll personalize it for your business.",
-         image: "/assets/projects/welding_template.png",
+         image: "/assets/projects/cyber-developer-portfolio-400w.webp",
          link: "https://themewagon.github.io/Weldork/index.html",
          price: "$75/month",
          type: "template",
@@ -109,7 +109,7 @@ const servicesItems = [
        {
          title: "E-commerce Store",
          description: "Complete online store solution with shopping cart, product catalog, and payment integration. Perfect for small businesses wanting to sell products online. I'll set up everything for you.",
-         image: "/assets/projects/stylish_template.png",
+         image: "/assets/projects/awwards-400w.webp",
          link: "https://themewagon.github.io/stylish/",
          price: "$75/month",
          type: "template",
@@ -117,7 +117,7 @@ const servicesItems = [
        {
          title: "Custom Website Development",
          description: "Don't see what you need? I'll create a completely custom website tailored to your specific business requirements. From unique designs to specialized functionality, I'll bring your vision to life. Much more coming soon!",
-         image: "/assets/animated.png",
+         image: "/assets/animated-400w.webp",
          link: "#",
          price: "Contact Us",
          type: "custom",

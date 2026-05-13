@@ -38,7 +38,6 @@ async function main() {
     path.join(PUBLIC, "animated.webp"),
   ];
   const projects = [
-    path.join(PUBLIC, "projects/portfolio-thumb.webp"),
     path.join(PUBLIC, "projects/awwards.webp"),
     path.join(PUBLIC, "projects/MoreArmorLogo.webp"),
     path.join(PUBLIC, "projects/olies-island-adventure-cover.png"),

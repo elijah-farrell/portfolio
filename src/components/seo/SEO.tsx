@@ -12,7 +12,7 @@ interface SEOProps {
 
 export const SEO: React.FC<SEOProps> = ({
   title = "Elijah Farrell",
-  description = "Elijah Farrell's portfolio. Full Stack Developer, Computer Science graduate, and aspiring IT support professional pursuing CompTIA A+ certification. Showcasing interactive React projects, Minecraft mods, and modern web applications built with TypeScript, Next.js, and creative UI design.",
+  description = "Elijah Farrell — computer scientist and developer. SUNY Polytechnic Institute graduate. Pursuing CompTIA A+. Interested in software engineering and IT support.",
   keywords = "Elijah Farrell, Computer Science graduate, Full Stack Developer, Software Engineer, Web Development, Frontend, Backend, Algorithms, Data Structures, Databases, Systems, IT Support, Help Desk, Technical Support, CompTIA A+, Entry-level IT, React, TypeScript, JavaScript, Portfolio",
   image = "https://elijahfarrell.com/android-chrome-512x512.png",
   url = "https://elijahfarrell.com/",
@@ -79,7 +79,7 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta name="author" content={author} />
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="robots" content="index, follow, noimageindex, max-image-preview:none, max-snippet:-1, max-video-preview:-1" />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
       <meta name="distribution" content="global" />

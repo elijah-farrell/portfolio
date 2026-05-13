@@ -18,7 +18,7 @@
   ],
   "headers": [
     {
-      "source": "/assets/projects/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",

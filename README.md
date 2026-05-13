@@ -26,7 +26,7 @@ To run this portfolio locally:
 # Install dependencies
 npm install
 
-# Optional: copy .env.example to .env and add your EmailJS keys for the contact form
+# Optional: copy .env.example to .env and add your EmailJS keys for the contact form (services)
 # cp .env.example .env
 
 # Start development server

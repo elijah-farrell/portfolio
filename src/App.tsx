@@ -8,6 +8,7 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useRefreshScrollRestore } from "@/hooks/useRefreshScrollRestore";
 import Home from "./pages/Home";
@@ -43,6 +44,7 @@ function Root(): React.ReactElement {
     <>
       <Outlet />
       <ToastContainer toasts={toasts} onDismiss={handleDismiss} />
+      <Analytics />
       <SpeedInsights />
     </>
   );

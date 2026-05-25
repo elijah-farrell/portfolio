@@ -148,11 +148,19 @@ export default function Hero(): JSX.Element {
           </div>
         )}
 
-        <FlipWords
-          words={greetings}
-          duration={3000}
-          className="text-[var(--text)]"
-        />
+        <div
+          className={
+            settings.showAvailableForOpportunities
+              ? ""
+              : "mt-2 max-sm:mt-2.5 sm:mt-1.5 lg:mt-0"
+          }
+        >
+          <FlipWords
+            words={greetings}
+            duration={3000}
+            className="text-[var(--text)]"
+          />
+        </div>
 
         {/* Main text */}
         <div className="flex flex-wrap items-center mt-2 text-sm sm:text-base intro-text">

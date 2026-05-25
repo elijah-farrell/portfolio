@@ -1,7 +1,7 @@
 // Settings Configuration
 
 export const settings = {
-  showAvailableForOpportunities: true,
+  showAvailableForOpportunities: false,
 
   services: {
     enabled: false,

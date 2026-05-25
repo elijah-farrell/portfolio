@@ -1,6 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { getTheme } from "@/lib/theme";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 
@@ -316,39 +315,21 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
   );
 };
 
-// Original mobile shadow/light – same values as before (light + dark), alpha scaled by progress
-const MOBILE_SHADOW_LIGHT =
-  "0 0 24px rgba(34,42,53,ALPHA), 0 1px 1px rgba(0,0,0,ALPHA), 0 0 0 1px rgba(34,42,53,ALPHA), 0 0 4px rgba(34,42,53,ALPHA), 0 16px 68px rgba(47,48,55,ALPHA), 0 1px 0 rgba(255,255,255,ALPHA) inset";
-const MOBILE_ALPHAS_LIGHT = [0.06, 0.05, 0.04, 0.08, 0.05, 0.1] as const;
-const MOBILE_SHADOW_DARK =
-  "0 0 24px rgba(0,0,0,ALPHA), 0 1px 1px rgba(0,0,0,ALPHA), 0 0 0 1px rgba(255,255,255,ALPHA), 0 0 4px rgba(0,0,0,ALPHA), 0 16px 68px rgba(0,0,0,ALPHA), 0 1px 0 rgba(255,255,255,ALPHA) inset";
-const MOBILE_ALPHAS_DARK = [0.3, 0.2, 0.05, 0.4, 0.25, 0.1] as const;
+const MOBILE_INSET_ALPHA = 0.1;
 
-function mobileShadowWithOpacity(progress: number, isDark: boolean): string {
-  if (progress <= 0) return "none";
-  const alphas = isDark ? MOBILE_ALPHAS_DARK : MOBILE_ALPHAS_LIGHT;
-  const template = isDark ? MOBILE_SHADOW_DARK : MOBILE_SHADOW_LIGHT;
-  let i = 0;
-  return template.replace(/ALPHA/g, () => String(alphas[i++] * progress));
+function mobileInsetLine(progress: number): string | undefined {
+  if (progress <= 0) return undefined;
+  return `0 1px 0 rgba(255,255,255,${MOBILE_INSET_ALPHA * progress}) inset`;
 }
 
 export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen }: MobileNavProps) => {
-  const [isDark, setIsDark] = useState(false);
-  useEffect(() => {
-    setIsDark(getTheme() === "dark");
-    const root = document.documentElement;
-    const obs = new MutationObserver(() => setIsDark(getTheme() === "dark"));
-    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
-    return () => obs.disconnect();
-  }, []);
-
-  const showShadow = !isMenuOpen && scrollProgress > 0;
-  const boxShadow = showShadow ? mobileShadowWithOpacity(scrollProgress, isDark) : undefined;
+  const boxShadow =
+    !isMenuOpen && scrollProgress > 0 ? mobileInsetLine(scrollProgress) : undefined;
 
   return (
     <div
       className={cn(
-        "z-40 flex w-full flex-col nav:hidden [box-shadow:none]",
+        "z-40 flex w-full flex-col nav:hidden",
         isMenuOpen ? "absolute inset-x-0 top-0 max-w-none px-0 pt-1 pb-0" : "relative mx-auto max-w-full px-0 py-1",
         className,
       )}

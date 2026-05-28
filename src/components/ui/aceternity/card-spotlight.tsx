@@ -41,7 +41,7 @@ export const CardSpotlight = ({
   return (
     <div
       className={cn(
-        "group/spotlight p-10 rounded-md relative border border-neutral-200 dark:border-neutral-800 overflow-hidden",
+        "group/spotlight p-10 rounded-md relative border border-neutral-200 dark:border-neutral-800",
         className
       )}
       style={{ backgroundColor: 'var(--background)' }}
@@ -51,7 +51,7 @@ export const CardSpotlight = ({
       {...props}
     >
       <motion.div
-        className="pointer-events-none absolute bg-background z-0 -inset-px rounded-[inherit] opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
+        className="pointer-events-none absolute bg-background z-0 inset-0 rounded-[inherit] opacity-0 transition duration-300 group-hover/spotlight:opacity-100 overflow-hidden"
         style={{
           maskImage: useMotionTemplate`
             radial-gradient(

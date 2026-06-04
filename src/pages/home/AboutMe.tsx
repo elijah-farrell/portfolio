@@ -4,8 +4,8 @@ import { FiMapPin, FiAward, FiClock } from "react-icons/fi";
 import { RealTimeAge } from "../../components/ui/common/real-time-age";
 
 export default function AboutMe() {
-  // Birth date: June 9, 2003 at 5:21 AM
-  const birthDate = new Date(2003, 5, 9, 5, 21, 0); // Month is 0-indexed (5 = June)
+  // Birth date: June 9, 2003 (midnight local)
+  const birthDate = new Date(2003, 5, 9, 0, 0, 0); // Month is 0-indexed (5 = June)
 
   // Quick stats for visual appeal
   const quickStats = [
@@ -61,8 +61,8 @@ export default function AboutMe() {
                 ))}
               </div>
               
-              {/* Age Stat - Full Width (hidden on screens < 640px) */}
-              <div className="hidden sm:flex items-center gap-3 p-4 bg-gray-50 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-700 hover:border-emerald-200 dark:hover:border-emerald-700 mb-4 min-h-[76px]">
+              {/* Age Stat - Full Width */}
+              <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-700 hover:border-emerald-200 dark:hover:border-emerald-700 mb-4 min-h-[76px]">
                 <div className="text-emerald-600 dark:text-emerald-400 flex-shrink-0">
                   {ageData.icon}
                 </div>

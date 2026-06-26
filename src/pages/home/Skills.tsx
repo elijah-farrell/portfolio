@@ -3,6 +3,7 @@ import {
   SiCss3,
   SiFirebase,
   SiFlask,
+  SiGithub,
   SiHuggingface,
   SiHtml5,
   SiJavascript,
@@ -18,20 +19,26 @@ import {
   SiThreedotjs,
   SiTypescript,
   SiVercel,
-  SiVite,
 } from "react-icons/si";
 import {
+  FaApple,
   FaCode,
   FaCogs,
   FaDatabase,
   FaDesktop,
+  FaDownload,
+  FaLaptopCode,
+  FaLinux,
   FaGlobe,
   FaJava,
+  FaMicrosoft,
   FaMobile,
   FaNetworkWired,
   FaPalette,
+  FaSearch,
   FaShieldAlt,
   FaTools,
+  FaWindows,
   FaWrench,
 } from "react-icons/fa";
 import { CardSpotlight } from "../../components/ui/aceternity/card-spotlight";
@@ -104,6 +111,7 @@ const iconMap: Record<string, JSX.Element> = {
   "C++": <SiCplusplus />,
   JavaScript: <SiJavascript />,
   TypeScript: <SiTypescript />,
+  "HTML/CSS": <FaGlobe />,
   HTML: <SiHtml5 />,
   CSS: <SiCss3 />,
   React: <SiReact />,
@@ -115,30 +123,34 @@ const iconMap: Record<string, JSX.Element> = {
   HuggingFace: <SiHuggingface />,
   "Tailwind CSS": <SiTailwindcss />,
   "Three.js": <SiThreedotjs />,
-  Vite: <SiVite />,
   Vercel: <SiVercel />,
   MySQL: <SiMysql />,
   SQLite: <FaDatabase />,
   Firebase: <SiFirebase />,
   PostgreSQL: <SiPostgresql />,
-  Windows: <FaDesktop />,
-  Linux: <FaDesktop />,
-  macOS: <FaDesktop />,
+  Windows: <FaWindows />,
+  Linux: <FaLinux />,
+  macOS: <FaApple />,
   Hardware: <FaWrench />,
+  "Hardware Troubleshooting": <FaWrench />,
   Troubleshooting: <FaCogs />,
+  "Technical Troubleshooting": <FaSearch />,
   Networking: <FaNetworkWired />,
+  "Basic Networking (TCP/IP, DHCP, DNS)": <FaNetworkWired />,
   Software: <FaTools />,
+  "Software Installation & Configuration": <FaDownload />,
   Mobile: <FaMobile />,
   Security: <FaShieldAlt />,
+  "Git/GitHub": <SiGithub />,
+  "Visual Studio Code": <FaLaptopCode />,
+  "Microsoft Office": <FaMicrosoft />,
 };
 
 // Category icon map
 const categoryIconMap: Record<string, JSX.Element> = {
-  "Programming Languages": <FaCode />,
-  "IT Support": <FaCogs />,
-  "Web Development": <FaGlobe />,
-  "Frameworks & Libraries": <FaPalette />,
-  Databases: <FaDatabase />,
+  "IT Systems": <FaCogs />,
+  Development: <FaCode />,
+  Tools: <FaTools />,
 };
 
 interface SkillCategoryCardMobileProps {
@@ -225,11 +237,6 @@ const SkillCategoryCardDesktop: React.FC<SkillCategoryCardDesktopProps> = ({
                 content={
                   <div className="text-left space-y-2 text-neutral-900 dark:text-white">
                     <div className="font-semibold">{item.name}</div>
-                    {item.experience && (
-                      <div className="text-xs text-gray-700 dark:text-gray-300">
-                        Experience: {item.experience}
-                      </div>
-                    )}
                     {item.description && (
                       <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">
                         {item.description}
@@ -272,11 +279,6 @@ const SkillCategoryModalContent: React.FC<SkillCategoryModalContentProps> = ({
               <div className="font-semibold text-[var(--text)]">
                 {item.name}
               </div>
-              {item.experience && (
-                <div className="text-xs text-gray-700 dark:text-gray-300">
-                  Experience: {item.experience}
-                </div>
-              )}
               {item.description && (
                 <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">
                   {item.description}

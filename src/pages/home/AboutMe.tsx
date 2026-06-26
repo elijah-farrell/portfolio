@@ -80,10 +80,13 @@ export default function AboutMe() {
 
           <HeroHighlight className="max-w-3xl mx-auto p-6 text-justify accent-text leading-loose break-words">
             <p className="mb-4">
-              My journey began at <Highlight>Jefferson Community College</Highlight>, where I earned my <Highlight>A.S. in Computer Science</Highlight>, and continued at <Highlight>SUNY Polytechnic Institute</Highlight>, where I graduated <Highlight>Magna Cum Laude</Highlight> with a <Highlight>B.S. in Computer Science</Highlight> and a <Highlight>3.88 GPA</Highlight>. I enjoy solving problems, debugging code, optimizing algorithms, and building systems from the ground up. My academic background gave me a strong foundation in both theory and practical development, which I've applied through research and collaborative projects.
+              My journey began at <Highlight>Jefferson Community College</Highlight>, where I earned my <Highlight>A.S. in Computer Science</Highlight>, and continued at <Highlight>SUNY Polytechnic Institute</Highlight>, where I graduated <Highlight>Magna Cum Laude</Highlight> with a <Highlight>B.S. in Computer Science</Highlight> and a <Highlight>3.88 GPA</Highlight>. Throughout my education, I developed a strong foundation in programming, troubleshooting, and problem-solving while working on software projects and collaborative research initiatives. I enjoy learning new technologies, finding solutions to technical challenges, and building systems that improve the way people work.
             </p>
             <p className="mb-4">
-              I'm open to opportunities in <Highlight>software development, data analysis, IT, and other roles</Highlight> that encourage growth and continuous learning. Outside of work, I enjoy hiking in the <Highlight>Adirondacks</Highlight>, playing video games, and watching sports with friends. These activities help me stay <Highlight>curious, creative, and balanced</Highlight>.
+              I am interested in opportunities in <Highlight>IT, technical support, systems, software development, and other technology-focused roles</Highlight> where I can apply my technical background while continuing to grow professionally. My goal is to contribute to a team, expand my skills, and gain hands-on experience solving real-world technology problems.
+            </p>
+            <p className="mb-4">
+              Outside of technology, I enjoy hiking in the <Highlight>Adirondacks</Highlight>, playing video games, and watching sports with friends. These interests help me stay <Highlight>curious, creative, and balanced</Highlight> while continuing to learn both personally and professionally.
             </p>
           </HeroHighlight>
         </div>

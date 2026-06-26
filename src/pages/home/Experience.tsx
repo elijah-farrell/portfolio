@@ -197,7 +197,7 @@ interface TimelineData {
 const timelineData: TimelineData[] = [
   {
     title: "Daytime Janitor",
-    company: "The ARC Jefferson · Watertown, NY",
+    company: "The ARC Jefferson",
     description: `• Performed janitorial duties at a nonprofit facility, including routine cleaning, sanitation, and supply restocking while supporting staff requests and maintaining a safe environment.`,
     from: "Nov 2025",
     to: "Present",

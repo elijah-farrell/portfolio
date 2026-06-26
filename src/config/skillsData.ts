@@ -1,7 +1,6 @@
 // Types for skills
 export interface Skill {
   name: string;
-  experience?: string;
   description?: string;
 }
 
@@ -12,148 +11,85 @@ export interface SkillCategory {
 
 export const skillsData: SkillCategory[] = [
   {
-    category: "Programming Languages",
-    items: [
-      {
-        name: "Python",
-        experience: "2+ years",
-        description:
-          "Primary language for data analysis, automation, and AI/ML projects",
-      },
-      {
-        name: "Java",
-        experience: "3+ years",
-        description: "Object-oriented programming and application development",
-      },
-      {
-        name: "C++",
-        experience: "2+ years",
-        description: "Systems programming and performance-critical applications",
-      },
-    ],
-  },
-  {
-    category: "IT Support",
+    category: "IT Systems",
     items: [
       {
         name: "Windows",
-        experience: "2+ years",
-        description: "Desktop support, troubleshooting, and system management",
+        description: "Desktop support, OS configuration, and system troubleshooting",
       },
       {
         name: "Linux",
-        experience: "1+ years",
         description: "Command line operations and basic system administration",
       },
       {
         name: "macOS",
-        experience: "1+ years",
-        description: "Apple system support and troubleshooting",
+        description: "Apple system support, setup, and troubleshooting",
       },
       {
-        name: "Hardware",
-        experience: "2+ years",
-        description: "PC assembly, component diagnosis, and hardware repair",
+        name: "Hardware Troubleshooting",
+        description: "PC assembly, component diagnosis, and hardware issue resolution",
       },
       {
-        name: "Troubleshooting",
-        experience: "2+ years",
-        description: "Diagnosing and resolving software and OS issues",
+        name: "Software Installation & Configuration",
+        description: "Installing, configuring, and maintaining end-user applications",
       },
       {
-        name: "Networking",
-        experience: "1+ years",
-        description: "TCP/IP, DHCP, DNS, and basic network troubleshooting",
+        name: "Basic Networking (TCP/IP, DHCP, DNS)",
+        description: "Foundational networking concepts and troubleshooting",
       },
       {
-        name: "Software",
-        experience: "2+ years",
-        description: "Application deployment and configuration",
-      },
-      {
-        name: "Mobile",
-        experience: "1+ years",
-        description: "iOS and Android troubleshooting and configuration",
-      },
-      {
-        name: "Security",
-        experience: "1+ years",
-        description: "Antivirus, firewalls, and basic security practices",
+        name: "Technical Troubleshooting",
+        description: "Diagnosing and resolving software, system, and connectivity issues",
       },
     ],
   },
   {
-    category: "Web Development",
+    category: "Development",
     items: [
       {
-        name: "HTML",
-        experience: "3+ years",
-        description: "Web markup and structure",
+        name: "C++",
+        description: "Object-oriented and systems-level programming fundamentals",
       },
       {
-        name: "CSS",
-        experience: "3+ years",
-        description: "Web styling and responsive design",
+        name: "Java",
+        description: "Application development and OOP fundamentals",
+      },
+      {
+        name: "Python",
+        description: "Automation, scripting, and general-purpose development",
       },
       {
         name: "JavaScript",
-        experience: "2+ years",
-        description: "Web development and interactive applications",
+        description: "Core web scripting and interactive application behavior",
       },
       {
         name: "TypeScript",
-        experience: "4 months",
-        description: "Type-safe JavaScript for robust applications",
+        description: "Type-safe JavaScript for maintainable frontend projects",
+      },
+      {
+        name: "HTML/CSS",
+        description: "Semantic page structure and responsive styling",
       },
       {
         name: "React",
-        experience: "4 months",
-        description: "Frontend library for building dynamic user interfaces",
-      },
-      {
-        name: "Tailwind CSS",
-        experience: "4 months",
-        description: "Utility-first CSS framework for rapid UI development",
-      },
-      {
-        name: "Three.js",
-        experience: "4 months",
-        description: "3D graphics library for web applications",
-      },
-      {
-        name: "Vite",
-        experience: "4 months",
-        description: "Fast build tool for modern web projects",
-      },
-      {
-        name: "Vercel",
-        experience: "2+ years",
-        description: "Frontend deployment and hosting platform",
+        description: "Component-based frontend UI development",
       },
     ],
   },
   {
-    category: "Databases",
+    category: "Tools",
     items: [
       {
-        name: "MySQL",
-        experience: "2+ years",
-        description: "Relational database for data storage and management",
+        name: "Git/GitHub",
+        description: "Version control, branching, and collaboration workflows",
       },
       {
-        name: "SQLite",
-        experience: "1+ years",
-        description: "Lightweight database for embedded applications",
+        name: "Visual Studio Code",
+        description: "Primary development environment and debugging workflows",
       },
       {
-        name: "Firebase",
-        experience: "1+ years",
-        description: "Google's mobile and web application platform",
-      },
-      {
-        name: "PostgreSQL",
-        experience: "1+ years",
-        description: "Advanced open source relational database",
+        name: "Microsoft Office",
+        description: "Word, Excel, and PowerPoint for documentation and reporting",
       },
     ],
   },

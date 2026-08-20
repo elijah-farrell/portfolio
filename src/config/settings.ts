@@ -15,7 +15,6 @@ export const settings = {
   experience: {
     showAnimations: true,
     showGlowingEffect: true,
-    showCompanyLogos: true,
   },
   
   about: {

@@ -1,5 +1,5 @@
 // Timeline.tsx
-import React, { useState } from "react";
+import React from "react";
 import { TextAnimate } from "../../components/ui/magic/text-animate";
 import { GlowingEffect } from "../../components/ui/aceternity/glowing-effect";
 import { settings } from "@/config/settings";
@@ -11,7 +11,6 @@ interface TimelineItemProps {
   description: string;
   from: string;
   to: string;
-  logoPath?: string;
   technologies?: string[];
   achievements?: string[];
 }
@@ -37,11 +36,9 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   description,
   from,
   to,
-  logoPath,
   technologies,
   achievements,
 }) => {
-  const [logoLoaded, setLogoLoaded] = useState(false);
   return (
   <div className="relative w-full group">
     <div className="absolute -left-[1.95rem] top-10 transition-none">
@@ -69,7 +66,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               {/* Title and company info - responsive layout */}
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-0.5">
                     <div className="flex items-center gap-2 sm:gap-3">
                       <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
                         {settings.experience.showAnimations ? (
@@ -80,38 +77,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                           title
                         )}
                       </h4>
-                      
-                      {/* Logo - positioned to the right of the title */}
-                      {settings.experience.showCompanyLogos && logoPath && (
-                        <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
-                          <img
-                            src={logoPath}
-                            srcSet={
-                              logoPath.replace(".webp", "-64w.webp") +
-                              " 64w, " +
-                              logoPath.replace(".webp", "-128w.webp") +
-                              " 128w"
-                            }
-                            sizes="40px"
-                            alt={`${company} logo`}
-                            width={40}
-                            height={40}
-                            loading="lazy"
-                            decoding="async"
-                            onLoad={() => setLogoLoaded(true)}
-                            style={{ opacity: logoLoaded ? 1 : 0 }}
-                            className="h-8 w-8 sm:h-10 sm:w-10 rounded object-contain no-image-save transition-opacity duration-300"
-                          />
-                        </div>
-                      )}
                     </div>
                     
-                    <p className="text-sm text-gray-500 break-words">
+                    <p className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300 break-words">
                       {company}
                     </p>
                   </div>
                   
-                  {/* Date in top right */}
                   <span className="text-sm text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 self-start">
                     {from} – {to}
                   </span>
@@ -188,7 +160,6 @@ interface TimelineData {
   description: string;
   from: string;
   to: string;
-  logoPath?: string;
   technologies?: string[];
   achievements?: string[];
 }
@@ -196,32 +167,32 @@ interface TimelineData {
 // Static data for the timeline
 const timelineData: TimelineData[] = [
   {
-    title: "Daytime Janitor",
-    company: "The ARC Jefferson",
-    description: `• Performed janitorial duties at a nonprofit facility, including routine cleaning, sanitation, and supply restocking while supporting staff requests and maintaining a safe environment.`,
-    from: "Nov 2025",
+    title: "IS Specialist",
+    company: "Carthage Area Hospital",
+    description: `• Provide technical support and troubleshooting for hospital staff, computer systems, software, and peripheral equipment
+• Assist with hardware, software, and network-related issues in a healthcare environment
+• Collaborate with IT staff to troubleshoot technical issues and support users`,
+    from: "Aug 2026",
     to: "Present",
-    logoPath: "/assets/logos/the-arc-logo.webp",
+  },
+  {
+    title: "Supervisor of Janitorial Services & Janitor",
+    company: "The ARC Jefferson",
+    description: `• Promoted from Janitor to Supervisor based on performance and reliability
+• Supervised custodial staff, created schedules, assigned tasks, and monitored completion of daily responsibilities
+• Trained and supported team members while communicating work-quality concerns and facility needs with management
+• Independently maintained a preschool and day habilitation facility while responding to staff requests and facility needs`,
+    from: "Nov 2025",
+    to: "Aug 2026",
   },
   {
     title: "Research Assistant",
     company: "SUNY Polytechnic Institute (CESSAIR)",
-    description: `• Lead the development and deployment of a software application as part of a supervised academic research project
-• Collaborated effectively with team members to solve problems and support project goals
-• Coordinated tasks and adapted quickly to new challenges to ensure smooth progress
-• Gained experience working in a structured technical environment using software tools and following development workflows.`,
+    description: `• Developed BorgChat, a C++ desktop application used to support AI research initiatives within the CESSAIR BORG infrastructure
+• Designed and implemented application functionality and user interface components while collaborating with a multi-person development team
+• Troubleshot technical issues, tested application functionality, and assisted with deployment`,
     from: "Feb 2025",
     to: "May 2025",
-            logoPath: "/assets/logos/suny-poly-logo.webp",
-  },
-  {
-    title: "Work Study Assistant",
-    company: "The Workplace",
-    description: `• Performed general duties including facility support and janitorial tasks.
-• Assisted with basic device troubleshooting and user setup when assigned.`,
-    from: "Aug 2021",
-    to: "Dec 2021",
-            logoPath: "/assets/logos/workplace.webp",
   },
 ];
 

@@ -14,65 +14,115 @@ export const skillsData: SkillCategory[] = [
     category: "IT Systems",
     items: [
       {
+        name: "Active Directory",
+        description: "User accounts, permissions, and directory services in a networked Windows environment",
+      },
+      {
+        name: "Hardware & Software Troubleshooting",
+        description: "Diagnosing and resolving issues with PCs, laptops, printers, phones, servers, and switches",
+      },
+      {
+        name: "Basic Networking (TCP/IP, DNS, DHCP, VPN)",
+        description: "Foundational networking concepts and connectivity troubleshooting",
+      },
+      {
         name: "Windows",
-        description: "Desktop support, OS configuration, and system troubleshooting",
+        description: "Proficiency with Windows OS for desktop support, configuration, and troubleshooting",
       },
       {
         name: "Linux",
-        description: "Command line operations and basic system administration",
+        description: "Proficiency with Linux OS, including command line operations and system support",
       },
       {
         name: "macOS",
-        description: "Apple system support, setup, and troubleshooting",
+        description: "Proficiency with macOS for setup, support, and troubleshooting",
       },
       {
-        name: "Hardware Troubleshooting",
-        description: "PC assembly, component diagnosis, and hardware issue resolution",
+        name: "Remote Desktop (RDP, VNC)",
+        description: "Remote support for users and systems using RDP and VNC",
       },
       {
-        name: "Software Installation & Configuration",
-        description: "Installing, configuring, and maintaining end-user applications",
+        name: "Cybersecurity Basics",
+        description: "Foundational security practices including access control, safe configuration, and protecting systems and user data",
       },
       {
-        name: "Basic Networking (TCP/IP, DHCP, DNS)",
-        description: "Foundational networking concepts and troubleshooting",
-      },
-      {
-        name: "Technical Troubleshooting",
-        description: "Diagnosing and resolving software, system, and connectivity issues",
+        name: "Ticketing Systems (Zoho)",
+        description: "Tracking, prioritizing, and resolving IT support requests in Zoho at Carthage Area Hospital",
       },
     ],
   },
   {
-    category: "Development",
+    category: "Programming",
     items: [
-      {
-        name: "C++",
-        description: "Object-oriented and systems-level programming fundamentals",
-      },
-      {
-        name: "Java",
-        description: "Application development and OOP fundamentals",
-      },
       {
         name: "Python",
         description: "Automation, scripting, and general-purpose development",
       },
       {
+        name: "Java",
+        description: "Application development and object-oriented programming",
+      },
+      {
+        name: "C++",
+        description: "Object-oriented and systems-level programming, including BorgChat",
+      },
+      {
         name: "JavaScript",
-        description: "Core web scripting and interactive application behavior",
+        description: "Core language for web applications and interactive interfaces",
       },
       {
         name: "TypeScript",
-        description: "Type-safe JavaScript for maintainable frontend projects",
+        description: "Typed JavaScript for maintainable frontend and application code",
+      },
+    ],
+  },
+  {
+    category: "Web Development",
+    items: [
+      {
+        name: "HTML",
+        description: "Semantic page structure and accessible markup",
       },
       {
-        name: "HTML/CSS",
-        description: "Semantic page structure and responsive styling",
+        name: "CSS",
+        description: "Layout, responsive design, and visual styling",
       },
       {
         name: "React",
-        description: "Component-based frontend UI development",
+        description: "Component-based user interfaces",
+      },
+      {
+        name: "Tailwind CSS",
+        description: "Utility-first styling for consistent, responsive layouts",
+      },
+    ],
+  },
+  {
+    category: "Databases",
+    items: [
+      {
+        name: "SQL",
+        description: "Querying, updating, and managing relational data",
+      },
+      {
+        name: "MySQL",
+        description: "Relational database design, queries, and administration",
+      },
+      {
+        name: "PostgreSQL",
+        description: "Relational database development and data management",
+      },
+      {
+        name: "SQLite",
+        description: "Lightweight embedded databases for local applications",
+      },
+      {
+        name: "MongoDB",
+        description: "Document-oriented NoSQL data storage",
+      },
+      {
+        name: "SQL Server",
+        description: "Microsoft relational database used in enterprise environments",
       },
     ],
   },
@@ -88,8 +138,12 @@ export const skillsData: SkillCategory[] = [
         description: "Primary development environment and debugging workflows",
       },
       {
-        name: "Microsoft Office",
-        description: "Word, Excel, and PowerPoint for documentation and reporting",
+        name: "Microsoft 365",
+        description: "Word, Excel, Outlook, Teams, and other Microsoft productivity apps",
+      },
+      {
+        name: "Google Workspace",
+        description: "Gmail, Drive, Docs, and related Google productivity services",
       },
     ],
   },

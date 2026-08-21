@@ -1,24 +1,19 @@
 import {
   SiCplusplus,
   SiCss3,
-  SiFirebase,
-  SiFlask,
   SiGithub,
-  SiHuggingface,
+  SiGoogle,
   SiHtml5,
   SiJavascript,
+  SiMongodb,
   SiMysql,
-  SiNumpy,
-  SiOpencv,
-  SiPandas,
   SiPostgresql,
   SiPython,
-  SiPytorch,
   SiReact,
+  SiSqlite,
   SiTailwindcss,
-  SiThreedotjs,
   SiTypescript,
-  SiVercel,
+  SiZoho,
 } from "react-icons/si";
 import {
   FaApple,
@@ -26,21 +21,20 @@ import {
   FaCogs,
   FaDatabase,
   FaDesktop,
-  FaDownload,
-  FaLaptopCode,
-  FaLinux,
   FaGlobe,
   FaJava,
+  FaLinux,
   FaMicrosoft,
-  FaMobile,
   FaNetworkWired,
-  FaPalette,
-  FaSearch,
   FaShieldAlt,
   FaTools,
+  FaUsers,
   FaWindows,
   FaWrench,
 } from "react-icons/fa";
+import { DiMsqlServer } from "react-icons/di";
+import { TbSql } from "react-icons/tb";
+import { VscVscode } from "react-icons/vsc";
 import { CardSpotlight } from "../../components/ui/aceternity/card-spotlight";
 import { useEffect, useState } from "react";
 import { skillsData, type SkillCategory } from "../../config/skillsData";
@@ -106,50 +100,42 @@ const Tooltip = ({ children, content }: TooltipProps) => {
 };
 
 const iconMap: Record<string, JSX.Element> = {
+  "Active Directory": <FaUsers />,
+  "Hardware & Software Troubleshooting": <FaWrench />,
+  "Basic Networking (TCP/IP, DNS, DHCP, VPN)": <FaNetworkWired />,
+  Windows: <FaWindows />,
+  Linux: <FaLinux />,
+  macOS: <FaApple />,
+  "Remote Desktop (RDP, VNC)": <FaDesktop />,
+  "Cybersecurity Basics": <FaShieldAlt />,
+  "Ticketing Systems (Zoho)": <SiZoho />,
   Python: <SiPython />,
   Java: <FaJava />,
   "C++": <SiCplusplus />,
   JavaScript: <SiJavascript />,
   TypeScript: <SiTypescript />,
-  "HTML/CSS": <FaGlobe />,
   HTML: <SiHtml5 />,
   CSS: <SiCss3 />,
   React: <SiReact />,
-  Flask: <SiFlask />,
-  Pandas: <SiPandas />,
-  NumPy: <SiNumpy />,
-  PyTorch: <SiPytorch />,
-  OpenCV: <SiOpencv />,
-  HuggingFace: <SiHuggingface />,
   "Tailwind CSS": <SiTailwindcss />,
-  "Three.js": <SiThreedotjs />,
-  Vercel: <SiVercel />,
+  SQL: <TbSql />,
   MySQL: <SiMysql />,
-  SQLite: <FaDatabase />,
-  Firebase: <SiFirebase />,
   PostgreSQL: <SiPostgresql />,
-  Windows: <FaWindows />,
-  Linux: <FaLinux />,
-  macOS: <FaApple />,
-  Hardware: <FaWrench />,
-  "Hardware Troubleshooting": <FaWrench />,
-  Troubleshooting: <FaCogs />,
-  "Technical Troubleshooting": <FaSearch />,
-  Networking: <FaNetworkWired />,
-  "Basic Networking (TCP/IP, DHCP, DNS)": <FaNetworkWired />,
-  Software: <FaTools />,
-  "Software Installation & Configuration": <FaDownload />,
-  Mobile: <FaMobile />,
-  Security: <FaShieldAlt />,
+  SQLite: <SiSqlite />,
+  MongoDB: <SiMongodb />,
+  "SQL Server": <DiMsqlServer />,
   "Git/GitHub": <SiGithub />,
-  "Visual Studio Code": <FaLaptopCode />,
-  "Microsoft Office": <FaMicrosoft />,
+  "Visual Studio Code": <VscVscode />,
+  "Microsoft 365": <FaMicrosoft />,
+  "Google Workspace": <SiGoogle />,
 };
 
 // Category icon map
 const categoryIconMap: Record<string, JSX.Element> = {
   "IT Systems": <FaCogs />,
-  Development: <FaCode />,
+  Programming: <FaCode />,
+  "Web Development": <FaGlobe />,
+  Databases: <FaDatabase />,
   Tools: <FaTools />,
 };
 
@@ -312,7 +298,7 @@ export default function Skills() {
     <div className="pt-8" id="skills">
       <h1 className="text-3xl font-bold mb-2 text-[var(--text)]">TECHNICAL SKILLS</h1>
       <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-        Technical skills developed through my CS education and hands-on experience. Ready to apply these competencies in professional roles.
+        Technical skills I use as an Information Systems Specialist, built on my CS education and hands-on troubleshooting.
       </p>
 
       <section className="p-4 md:p-8 bg-gradient-to-b max-w-4xl">

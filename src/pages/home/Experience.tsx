@@ -1,6 +1,5 @@
 // Timeline.tsx
 import React from "react";
-import { TextAnimate } from "../../components/ui/magic/text-animate";
 import { GlowingEffect } from "../../components/ui/aceternity/glowing-effect";
 import { settings } from "@/config/settings";
 
@@ -66,18 +65,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               {/* Title and company info - responsive layout */}
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <h4 className="font-bold text-emerald-600 text-base sm:text-lg break-words">
-                        {settings.experience.showAnimations ? (
-                          <TextAnimate animation="blurInUp" by="word-character" once>
-                            {title}
-                          </TextAnimate>
-                        ) : (
-                          title
-                        )}
-                      </h4>
-                    </div>
+                  <div className="flex flex-col gap-0.5 min-w-0 w-full">
+                    <h4 className="font-bold text-emerald-600 text-base sm:text-lg text-left">
+                      {title}
+                    </h4>
                     
                     <p className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300 break-words">
                       {company}
@@ -106,7 +97,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                   return (
                     <div key={index} className="flex items-start gap-2 mb-2">
                       <span className="text-emerald-500 mt-0.5 flex-shrink-0">•</span>
-                      <span className="break-words">{line.substring(1).trim()}</span>
+                      <span className="break-words min-w-0">{line.substring(1).trim()}</span>
                     </div>
                   );
                 }
@@ -178,7 +169,7 @@ const timelineData: TimelineData[] = [
   {
     title: "Supervisor of Janitorial Services & Janitor",
     company: "The ARC Jefferson",
-    description: `• Promoted from Janitor to Supervisor based on performance and reliability
+    description: `• Promoted from Janitor to Supervisor based on performance and reliability in June 2026
 • Supervised custodial staff, created schedules, assigned tasks, and monitored completion of daily responsibilities
 • Trained and supported team members while communicating work-quality concerns and facility needs with management
 • Independently maintained a preschool and day habilitation facility while responding to staff requests and facility needs`,

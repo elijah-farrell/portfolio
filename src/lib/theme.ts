@@ -12,7 +12,8 @@ export function setTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "dark");
-  // root.style.colorScheme = theme; // looked unused in this app
+  // Keep browser chrome/scrollbar in sync after client-side toggle.
+  root.style.colorScheme = theme;
   queueMicrotask(() => {
     try {
       window.localStorage.setItem("theme", theme);

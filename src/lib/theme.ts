@@ -12,7 +12,7 @@ export function setTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "dark");
-  root.style.colorScheme = theme;
+  // root.style.colorScheme = theme; // looked unused in this app
   queueMicrotask(() => {
     try {
       window.localStorage.setItem("theme", theme);

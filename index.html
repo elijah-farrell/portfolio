@@ -12,6 +12,8 @@
         var r = document.documentElement;
         r.classList.toggle("dark", t === "dark");
         r.style.colorScheme = t;
+        // Freeze html/body (mobile overscroll) to this first-paint color.
+        r.style.setProperty("--overscroll-bg", t === "dark" ? "#0a0a0a" : "#ffffff");
       })();
     </script>
     <script>
@@ -45,13 +47,17 @@
         --text: #000000;
       }
       .dark {
-        color-scheme: dark;
         --background: #0a0a0a;
         --text: #ffffff;
       }
       html, body {
-        background-color: var(--background);
+        background-color: var(--overscroll-bg, var(--background));
         color: var(--text);
+      }
+      #root {
+        background-color: var(--overscroll-bg, var(--background));
+        background-image: linear-gradient(var(--background), var(--background));
+        min-height: 100%;
       }
       .scroll-restoring-reload body {
         visibility: hidden;

@@ -24,17 +24,30 @@
 }
 
 .dark {
-  color-scheme: dark;
   --background: #0a0a0a;
   --text: #ffffff;
 }
 
 html,
 body {
-  background-color: var(--background);
+  background-color: var(--overscroll-bg, var(--background));
   color: var(--text);
   min-height: 100%;
   overflow-x: hidden;
+}
+
+#root {
+  /* background-color is frozen for Safari overscroll; image carries the live theme. */
+  background-color: var(--overscroll-bg, var(--background));
+  background-image: linear-gradient(var(--background), var(--background));
+  min-height: 100%;
+}
+
+@media (max-width: 767px) {
+  /* Safari 26 samples this fixed top element's background-color for overscroll. */
+  .resizable-navbar {
+    background-color: var(--overscroll-bg, var(--background));
+  }
 }
 
 /* Best-effort: reduce long-press "Save Image" behavior on mobile */

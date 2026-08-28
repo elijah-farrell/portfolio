@@ -315,6 +315,13 @@ export const NavItems = ({ items, className, onItemClick: _onItemClick, onSectio
   );
 };
 
+// Safari 26 samples background-color on fixed top elements for overscroll.
+// Keep that frozen; paint the live theme with an image Safari ignores.
+const LIVE_THEME_FILL = {
+  backgroundColor: "var(--overscroll-bg, var(--background))",
+  backgroundImage: "linear-gradient(var(--background), var(--background))",
+} as const;
+
 const MOBILE_INSET_ALPHA = 0.1;
 
 function mobileInsetLine(progress: number): string | undefined {
@@ -335,7 +342,7 @@ export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen 
       )}
       style={{
         height: isMenuOpen ? "100dvh" : "auto",
-        backgroundColor: "var(--background)",
+        ...LIVE_THEME_FILL,
         boxShadow,
       }}
     >
@@ -344,7 +351,7 @@ export const MobileNav = ({ children, className, scrollProgress = 0, isMenuOpen 
         className="absolute inset-x-0 bottom-0"
         style={{
           top: "env(safe-area-inset-top)",
-          backgroundColor: "var(--background)",
+          ...LIVE_THEME_FILL,
         }}
       />
       {children}

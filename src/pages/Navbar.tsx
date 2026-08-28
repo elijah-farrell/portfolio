@@ -10,6 +10,7 @@ import {
   SCROLL_START,
 } from "../components/ui/aceternity/resizable-navbar";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/common/theme-toggle";
@@ -23,56 +24,78 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const scrollProgressWhenOpenRef = useRef(0);
   const pendingNavAction = useRef<(() => void) | null>(null);
   const pendingScrollToTop = useRef(false);
   const savedScrollY = useRef(0);
+  const bodyStyleSnapshot = useRef<{
+    position: string;
+    top: string;
+    left: string;
+    right: string;
+    width: string;
+    overflow: string;
+    overflowX: string;
+  } | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useLayoutEffect(() => {
     if (typeof document === "undefined") return;
 
     if (isMobileMenuOpen) {
       savedScrollY.current = window.scrollY;
-      const { documentElement, body } = document;
-      documentElement.style.overflow = "hidden";
-      documentElement.style.overscrollBehavior = "none";
+      const { body } = document;
+      bodyStyleSnapshot.current = {
+        position: body.style.position,
+        top: body.style.top,
+        left: body.style.left,
+        right: body.style.right,
+        width: body.style.width,
+        overflow: body.style.overflow,
+        overflowX: body.style.overflowX,
+      };
+
+      // Modal-style lock (framework-like): freeze page without touching <html>.
+      body.style.position = "fixed";
+      body.style.top = `-${savedScrollY.current}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
       body.style.overflow = "hidden";
-      body.style.overscrollBehavior = "none";
-
-      const lockWindowScroll = () => {
-        window.scrollTo({ top: savedScrollY.current, left: 0, behavior: "instant" });
-      };
-
-      const onTouchMove = (e: TouchEvent) => {
-        if ((e.target as Element).closest(".mobile-menu-container")) return;
-        e.preventDefault();
-      };
-      const onWheel = (e: WheelEvent) => {
-        if ((e.target as Element).closest(".mobile-menu-container")) return;
-        e.preventDefault();
-      };
-      document.addEventListener("touchmove", onTouchMove, { passive: false });
-      document.addEventListener("wheel", onWheel, { passive: false });
-      window.addEventListener("scroll", lockWindowScroll, { passive: true });
+      body.style.overflowX = "hidden";
 
       return () => {
-        window.removeEventListener("scroll", lockWindowScroll);
-        document.removeEventListener("touchmove", onTouchMove);
-        document.removeEventListener("wheel", onWheel);
-        documentElement.style.overflow = "";
-        documentElement.style.overscrollBehavior = "";
-        body.style.overflow = "";
-        body.style.overscrollBehavior = "";
+        const snap = bodyStyleSnapshot.current;
+        if (snap) {
+          body.style.position = snap.position;
+          body.style.top = snap.top;
+          body.style.left = snap.left;
+          body.style.right = snap.right;
+          body.style.width = snap.width;
+          body.style.overflow = snap.overflow;
+          body.style.overflowX = snap.overflowX;
+        }
+        bodyStyleSnapshot.current = null;
+
         const fn = pendingNavAction.current;
         pendingNavAction.current = null;
         const shouldRestoreScrollAfterClose = fn == null;
+        const scrollY = pendingScrollToTop.current ? 0 : savedScrollY.current;
+        pendingScrollToTop.current = false;
+
         if (shouldRestoreScrollAfterClose) {
-          const scrollY = pendingScrollToTop.current ? 0 : savedScrollY.current;
           window.scrollTo({ top: scrollY, left: 0, behavior: "instant" });
         }
-        pendingScrollToTop.current = false;
+
         if (fn) {
-          requestAnimationFrame(() => requestAnimationFrame(fn));
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: scrollY, left: 0, behavior: "instant" });
+            requestAnimationFrame(() => requestAnimationFrame(fn));
+          });
         }
       };
     }
@@ -173,6 +196,83 @@ export function Navbar() {
       ]
     : baseNavItems;
 
+  const mobileMenuOverlay =
+    isClient && isMobileMenuOpen
+      ? createPortal(
+          <div
+            className="mobile-menu-container fixed inset-0 z-[30] box-border overflow-x-hidden max-w-[100vw] flex flex-col items-center justify-center px-6 max-[475px]:px-5 py-8 w-full pt-20 overflow-y-auto"
+            style={{ backgroundColor: "var(--background)" }}
+          >
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                pendingScrollToTop.current = true;
+                closeMenuAnd(() => {
+                  try {
+                    sessionStorage.removeItem("scrollY");
+                  } catch {
+                    /* ignore */
+                  }
+                  window.location.href = "/";
+                });
+              }}
+              className="mobile-menu-logo text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-4"
+            >
+              Elijah Farrell
+            </a>
+
+            <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-4">
+              {mainNavItems.map((item, index) => {
+                const isRouteLink =
+                  item.link.startsWith("/") || item.link.startsWith("http");
+
+                return (
+                  <div
+                    key={index}
+                    className="w-full max-w-sm flex justify-center"
+                  >
+                    {isRouteLink ? (
+                      <a
+                        href={item.link}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          closeMenuAnd(() => handleNavClick(item.link));
+                        }}
+                        className={cn(
+                          "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center",
+                          "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
+                        )}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          closeMenuAnd(() => handleNavClick(item.link))
+                        }
+                        className={cn(
+                          "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center bg-transparent border-0 outline-none cursor-pointer",
+                          "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
+                        )}
+                      >
+                        {item.name}
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
+
+            <div className="flex justify-center">
+              <ThemeToggle />
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <div className="relative w-full">
       <ResizableNavbar>
@@ -190,7 +290,7 @@ export function Navbar() {
           </div>
         </NavBody>
 
-        <MobileNav isMenuOpen={isMobileMenuOpen} isNavComponent={true}>
+        <MobileNav isMenuOpen={false} isNavComponent={true}>
           <MobileNavHeader
             isMenuOpen={isMobileMenuOpen}
             scrollProgressWhenOpen={isMobileMenuOpen ? scrollProgressWhenOpenRef.current : undefined}
@@ -214,81 +314,9 @@ export function Navbar() {
               />
             </div>
           </MobileNavHeader>
-
-          {isMobileMenuOpen && (
-            <div
-              className="mobile-menu-container absolute inset-0 flex flex-col items-center justify-center px-6 max-[475px]:px-5 py-8 w-full pt-20 overflow-y-auto"
-              style={{ backgroundColor: "var(--background)" }}
-            >
-              <a
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  pendingScrollToTop.current = true;
-                  closeMenuAnd(() => {
-                    try {
-                      sessionStorage.removeItem("scrollY");
-                    } catch {
-                      /* ignore */
-                    }
-                    window.location.href = "/";
-                  });
-                }}
-                className="mobile-menu-logo text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-4"
-              >
-                Elijah Farrell
-              </a>
-
-              <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-4">
-                {mainNavItems.map((item, index) => {
-                  const isRouteLink =
-                    item.link.startsWith("/") || item.link.startsWith("http");
-
-                  return (
-                    <div
-                      key={index}
-                      className="w-full max-w-sm flex justify-center"
-                    >
-                      {isRouteLink ? (
-                        <a
-                          href={item.link}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            closeMenuAnd(() => handleNavClick(item.link));
-                          }}
-                          className={cn(
-                            "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center",
-                            "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
-                          )}
-                        >
-                          {item.name}
-                        </a>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            closeMenuAnd(() => handleNavClick(item.link))
-                          }
-                          className={cn(
-                            "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center bg-transparent border-0 outline-none cursor-pointer",
-                            "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
-                          )}
-                        >
-                          {item.name}
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-              </nav>
-
-              <div className="flex justify-center">
-                <ThemeToggle />
-              </div>
-            </div>
-          )}
         </MobileNav>
       </ResizableNavbar>
+      {mobileMenuOverlay}
       <style>{`
         @media (max-height: 450px) {
           .mobile-menu-container {

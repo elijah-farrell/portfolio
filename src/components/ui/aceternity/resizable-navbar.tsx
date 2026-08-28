@@ -485,7 +485,8 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
-      className="p-0 relative -left-[2px]"
+      className="relative -left-[2px] h-11 w-11 -m-2 flex items-center justify-center touch-manipulation"
+      aria-label={isOpen ? "Close menu" : "Open menu"}
     >
       <div className="w-4 h-4 flex flex-col justify-center items-start">
         <span className={`block w-4 h-[2px] bg-neutral-700 dark:bg-neutral-200 transition-transform duration-300 ${

@@ -201,7 +201,11 @@ export function Navbar() {
       ? createPortal(
           <div
             className="mobile-menu-container fixed inset-0 z-[30] box-border overflow-x-hidden max-w-[100vw] flex flex-col items-center justify-center px-6 max-[475px]:px-5 py-8 w-full pt-20 overflow-y-auto"
-            style={{ backgroundColor: "var(--background)" }}
+            style={{
+              backgroundColor: "var(--background)",
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-y",
+            }}
           >
             <a
               href="/"
@@ -266,7 +270,15 @@ export function Navbar() {
             </nav>
 
             <div className="flex justify-center">
-              <ThemeToggle />
+              <div
+                onClick={() => {
+                  requestAnimationFrame(() => {
+                    setIsMobileMenuOpen(false);
+                  });
+                }}
+              >
+                <ThemeToggle />
+              </div>
             </div>
           </div>,
           document.body,

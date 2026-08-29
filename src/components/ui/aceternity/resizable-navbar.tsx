@@ -6,6 +6,8 @@ import React, { useRef, useState, useEffect } from "react";
 interface NavbarProps {
   children: React.ReactNode;
   className?: string;
+  /** Freeze scroll-driven sizing while the mobile menu is open (body lock sets scrollY to 0). */
+  isMenuOpen?: boolean;
 }
 
 interface NavBodyProps {
@@ -57,8 +59,10 @@ interface MobileNavMenuProps {
 export const SCROLL_START = 0;
 export const SCROLL_END = 120;
 
-export const ResizableNavbar = ({ children, className }: NavbarProps) => {
+export const ResizableNavbar = ({ children, className, isMenuOpen = false }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isMenuOpenRef = useRef(isMenuOpen);
+  isMenuOpenRef.current = isMenuOpen;
   const [, setMounted] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -67,6 +71,7 @@ export const ResizableNavbar = ({ children, className }: NavbarProps) => {
     setMounted(true);
 
     const handleScroll = () => {
+      if (isMenuOpenRef.current || document.body.style.position === "fixed") return;
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
       setScrollProgress(progress);
@@ -368,6 +373,8 @@ export const MobileNavHeader = ({
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const isMenuOpenRef = useRef(isMenuOpen);
+  isMenuOpenRef.current = isMenuOpen;
 
   useEffect(() => {
     setMounted(true);
@@ -385,6 +392,7 @@ export const MobileNavHeader = ({
     if (!mounted) return;
 
     const handleScroll = () => {
+      if (isMenuOpenRef.current || document.body.style.position === "fixed") return;
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
       setScrollProgress(progress);
@@ -489,9 +497,23 @@ export const MobileNavToggle = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
+  const skipClickAfterPointer = useRef(false);
+
   return (
     <button
-      onClick={onClick}
+      onPointerDown={(e) => {
+        // Touch: lock/open on pointerdown so momentum scroll can't composite another frame.
+        if (e.pointerType === "mouse") return;
+        skipClickAfterPointer.current = true;
+        onClick();
+      }}
+      onClick={() => {
+        if (skipClickAfterPointer.current) {
+          skipClickAfterPointer.current = false;
+          return;
+        }
+        onClick();
+      }}
       className="relative -left-[2px] h-11 w-11 -m-2 flex items-center justify-center touch-manipulation"
       aria-label={isOpen ? "Close menu" : "Open menu"}
     >

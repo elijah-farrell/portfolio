@@ -38,7 +38,42 @@ export function Navbar() {
     width: string;
     overflow: string;
     overflowX: string;
+    backgroundColor: string;
   } | null>(null);
+  const htmlBgSnapshot = useRef<string | null>(null);
+
+  const lockBodyScroll = useCallback(() => {
+    if (typeof document === "undefined" || bodyStyleSnapshot.current) return;
+
+    savedScrollY.current = window.scrollY || document.documentElement.scrollTop;
+    const { body } = document;
+    const root = document.documentElement;
+    bodyStyleSnapshot.current = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      overflowX: body.style.overflowX,
+      backgroundColor: body.style.backgroundColor,
+    };
+    htmlBgSnapshot.current = root.style.backgroundColor;
+
+    // Lock in the open tap, not only layout effect, so iOS momentum scroll
+    // dies before the overlay mounts (otherwise it paints then jumps up).
+    body.style.position = "fixed";
+    body.style.top = `-${savedScrollY.current}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    body.style.overflowX = "hidden";
+    // Cover the iOS gap below the small viewport (collapsed URL bar) with
+    // the live theme so --overscroll-bg can't show as a contrasting slab.
+    body.style.backgroundColor = "var(--background)";
+    root.style.backgroundColor = "var(--background)";
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -48,28 +83,11 @@ export function Navbar() {
     if (typeof document === "undefined") return;
 
     if (isMobileMenuOpen) {
-      savedScrollY.current = window.scrollY;
-      const { body } = document;
-      bodyStyleSnapshot.current = {
-        position: body.style.position,
-        top: body.style.top,
-        left: body.style.left,
-        right: body.style.right,
-        width: body.style.width,
-        overflow: body.style.overflow,
-        overflowX: body.style.overflowX,
-      };
-
-      // Modal-style lock (framework-like): freeze page without touching <html>.
-      body.style.position = "fixed";
-      body.style.top = `-${savedScrollY.current}px`;
-      body.style.left = "0";
-      body.style.right = "0";
-      body.style.width = "100%";
-      body.style.overflow = "hidden";
-      body.style.overflowX = "hidden";
+      lockBodyScroll();
 
       return () => {
+        const { body } = document;
+        const root = document.documentElement;
         const snap = bodyStyleSnapshot.current;
         if (snap) {
           body.style.position = snap.position;
@@ -79,6 +97,11 @@ export function Navbar() {
           body.style.width = snap.width;
           body.style.overflow = snap.overflow;
           body.style.overflowX = snap.overflowX;
+          body.style.backgroundColor = snap.backgroundColor;
+        }
+        if (htmlBgSnapshot.current != null) {
+          root.style.backgroundColor = htmlBgSnapshot.current;
+          htmlBgSnapshot.current = null;
         }
         bodyStyleSnapshot.current = null;
         syncOverscrollToTheme();
@@ -101,7 +124,7 @@ export function Navbar() {
         }
       };
     }
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, lockBodyScroll]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -202,77 +225,81 @@ export function Navbar() {
     isClient && isMobileMenuOpen
       ? createPortal(
           <div
-            className="mobile-menu-container fixed inset-0 z-[30] box-border overflow-x-hidden max-w-[100vw] flex flex-col items-center justify-center px-6 max-[475px]:px-5 py-8 w-full pt-20 overflow-y-auto"
+            className="mobile-menu-container fixed top-0 left-0 right-0 z-[30] box-border overflow-x-hidden overflow-y-auto w-full min-h-[100lvh] h-[100lvh]"
             style={{
+              bottom: "auto",
               backgroundColor: "var(--background)",
               WebkitOverflowScrolling: "touch",
               touchAction: "pan-y",
+              transform: "translateZ(0)",
+              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: "hidden",
             }}
           >
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                pendingScrollToTop.current = true;
-                closeMenuAnd(() => {
-                  try {
-                    sessionStorage.removeItem("scrollY");
-                  } catch {
-                    /* ignore */
-                  }
-                  window.location.href = "/";
-                });
-              }}
-              className="mobile-menu-logo text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-4"
-            >
-              Elijah Farrell
-            </a>
+            <div className="mobile-menu-content flex h-[100svh] w-full shrink-0 flex-col items-center justify-center px-6 max-[475px]:px-5 pt-20 pb-8">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  pendingScrollToTop.current = true;
+                  closeMenuAnd(() => {
+                    try {
+                      sessionStorage.removeItem("scrollY");
+                    } catch {
+                      /* ignore */
+                    }
+                    window.location.href = "/";
+                  });
+                }}
+                className="mobile-menu-logo text-2xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-900 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text text-transparent mb-4 inline-flex min-h-11 items-center justify-center px-3 touch-manipulation"
+              >
+                Elijah Farrell
+              </a>
 
-            <nav className="flex flex-col items-center w-full gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-4">
-              {mainNavItems.map((item, index) => {
-                const isRouteLink =
-                  item.link.startsWith("/") || item.link.startsWith("http");
+              <nav className="flex flex-col items-center w-full max-w-sm gap-0 text-lg text-neutral-800 dark:text-neutral-100 font-medium mb-4">
+                {mainNavItems.map((item, index) => {
+                  const isRouteLink =
+                    item.link.startsWith("/") || item.link.startsWith("http");
+                  const itemClass = cn(
+                    "flex min-h-11 w-full items-center justify-center px-6 py-3 text-lg font-medium text-center rounded-lg transition-colors duration-0 touch-manipulation",
+                    "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
+                  );
 
-                return (
-                  <div
-                    key={index}
-                    className="w-full max-w-sm flex justify-center"
-                  >
-                    {isRouteLink ? (
-                      <a
-                        href={item.link}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          closeMenuAnd(() => handleNavClick(item.link));
-                        }}
-                        className={cn(
-                          "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center",
-                          "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          closeMenuAnd(() => handleNavClick(item.link))
-                        }
-                        className={cn(
-                          "px-6 py-3 text-lg font-medium transition-colors duration-0 rounded-lg block text-center bg-transparent border-0 outline-none cursor-pointer",
-                          "text-neutral-800 dark:text-neutral-100 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50",
-                        )}
-                      >
-                        {item.name}
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
-            </nav>
+                  return (
+                    <div key={index} className="w-full">
+                      {isRouteLink ? (
+                        <a
+                          href={item.link}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            closeMenuAnd(() => handleNavClick(item.link));
+                          }}
+                          className={itemClass}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            closeMenuAnd(() => handleNavClick(item.link))
+                          }
+                          className={cn(
+                            itemClass,
+                            "bg-transparent border-0 outline-none cursor-pointer",
+                          )}
+                        >
+                          {item.name}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </nav>
 
-            <div className="flex justify-center">
-              <ThemeToggle />
+              <div className="flex min-h-11 items-center justify-center px-4">
+                <ThemeToggle />
+              </div>
             </div>
           </div>,
           document.body,
@@ -281,7 +308,7 @@ export function Navbar() {
 
   return (
     <div className="relative w-full">
-      <ResizableNavbar>
+      <ResizableNavbar isMenuOpen={isMobileMenuOpen}>
         <NavBody isNavComponent={true}>
           <div className="flex items-center">
             <NavbarLogo visible={true} />
@@ -314,6 +341,7 @@ export function Navbar() {
                       1,
                       Math.max(0, (y - SCROLL_START) / (SCROLL_END - SCROLL_START)),
                     );
+                    lockBodyScroll();
                     setIsMobileMenuOpen(true);
                   }
                 }}
@@ -325,7 +353,7 @@ export function Navbar() {
       {mobileMenuOverlay}
       <style>{`
         @media (max-height: 450px) {
-          .mobile-menu-container {
+          .mobile-menu-content {
             justify-content: flex-start !important;
             padding-top: 1.5rem !important;
           }

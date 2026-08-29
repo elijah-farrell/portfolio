@@ -8,10 +8,21 @@ export function getTheme(): Theme {
   return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
+function overscrollColor(theme: Theme): string {
+  return theme === "dark" ? "#0a0a0a" : "#ffffff";
+}
+
+export function syncOverscrollToTheme(theme: Theme = getTheme()) {
+  if (typeof document === "undefined") return;
+  document.documentElement.style.setProperty("--overscroll-bg", overscrollColor(theme));
+}
+
 export function setTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "dark");
+  // Scrollbar color follows theme; overscroll stays until the mobile nav closes.
+  root.style.colorScheme = theme;
   queueMicrotask(() => {
     try {
       window.localStorage.setItem("theme", theme);

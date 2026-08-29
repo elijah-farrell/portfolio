@@ -14,6 +14,7 @@ import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/common/theme-toggle";
+import { syncOverscrollToTheme } from "@/lib/theme";
 import { settings } from "@/config/settings";
 
 const MOBILE_BREAKPOINT = 768;
@@ -80,6 +81,7 @@ export function Navbar() {
           body.style.overflowX = snap.overflowX;
         }
         bodyStyleSnapshot.current = null;
+        syncOverscrollToTheme();
 
         const fn = pendingNavAction.current;
         pendingNavAction.current = null;
@@ -270,15 +272,7 @@ export function Navbar() {
             </nav>
 
             <div className="flex justify-center">
-              <div
-                onClick={() => {
-                  requestAnimationFrame(() => {
-                    setIsMobileMenuOpen(false);
-                  });
-                }}
-              >
-                <ThemeToggle />
-              </div>
+              <ThemeToggle />
             </div>
           </div>,
           document.body,

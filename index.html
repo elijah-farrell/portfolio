@@ -44,6 +44,24 @@
         background-image: linear-gradient(var(--background), var(--background));
         min-height: 100%;
       }
+      /* Prerendered toggle is dark; follow html.dark until React hydrates. */
+      [data-theme-toggle][data-ssr] *,
+      [data-theme-toggle][data-ssr] *::before,
+      [data-theme-toggle][data-ssr] *::after {
+        transition-duration: 0ms !important;
+      }
+      html:not(.dark) [data-theme-toggle][data-ssr] input::before {
+        left: 24px;
+        background-color: var(--background);
+      }
+      html:not(.dark) [data-theme-toggle][data-ssr] input::after {
+        top: 12px;
+        right: 2px;
+        width: 1px;
+        height: 1px;
+        border-radius: 0.5px;
+        background-color: var(--text);
+      }
     </style>
 
     <meta charset="UTF-8" />

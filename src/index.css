@@ -43,6 +43,26 @@ body {
   min-height: 100%;
 }
 
+[data-theme-toggle][data-ssr] *,
+[data-theme-toggle][data-ssr] *::before,
+[data-theme-toggle][data-ssr] *::after {
+  transition-duration: 0ms !important;
+}
+
+html:not(.dark) [data-theme-toggle][data-ssr] input::before {
+  left: 24px;
+  background-color: var(--background);
+}
+
+html:not(.dark) [data-theme-toggle][data-ssr] input::after {
+  top: 12px;
+  right: 2px;
+  width: 1px;
+  height: 1px;
+  border-radius: 0.5px;
+  background-color: var(--text);
+}
+
 @media (max-width: 767px) {
   /* Safari 26 samples this fixed top element's background-color for overscroll. */
   .resizable-navbar {

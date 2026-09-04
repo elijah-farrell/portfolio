@@ -1,6 +1,7 @@
 logs
 node_modules
 dist/
+dist-ssr/
 .env
 .vercel
 .env

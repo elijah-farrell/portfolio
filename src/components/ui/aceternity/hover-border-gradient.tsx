@@ -44,11 +44,7 @@ export function HoverBorderGradient({
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
   const [isMobileInput, setIsMobileInput] = useState<boolean>(false);
-  const [isDark, setIsDark] = useState<boolean>(() =>
-    typeof document !== "undefined"
-      ? document.documentElement.classList.contains("dark")
-      : false
-  );
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const check = () =>

@@ -18,8 +18,8 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const hasAnimatedRef = useRef(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const hasAnimatedRef = useRef(true);
   const isAnimatingRef = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const wordsChangeTimeRef = useRef<number>(0);
@@ -142,9 +142,9 @@ export const TextGenerateEffect = ({
         {wordsArray.map((word, idx) => (
           <motion.span
             key={idx}
-            className="opacity-0 text-neutral-600 dark:text-neutral-400"
+            className="text-neutral-600 dark:text-neutral-400"
             style={{
-              filter: filter ? "blur(6px)" : "none",
+              filter: "none",
               whiteSpace: "pre", // Preserve spaces
               lineHeight: "1.625", // Add proper line height for wrapped text
             }}

@@ -82,7 +82,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
                 
                 {/* Duration - responsive layout */}
                 <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-3 text-xs text-gray-600 dark:text-gray-400">
-                  <span className="text-emerald-600 font-medium">
+                  <span className="text-emerald-600 font-medium" suppressHydrationWarning>
                     {calculateDuration(from, to)}
                   </span>
                 </div>

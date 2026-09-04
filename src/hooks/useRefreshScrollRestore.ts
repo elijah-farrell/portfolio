@@ -1,8 +1,9 @@
-import { useLayoutEffect, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useIsoLayoutEffect } from "@/lib/ssr";
 
 const KEY = "scrollY";
-const RELOAD_RESTORING_CLASS = "scroll-restoring-reload";
+/** Stop re-applying reload scroll once layout has had time to grow. */
+const SETTLE_MS = 2500;
 
 function isReload(): boolean {
   if (typeof performance === "undefined" || !performance.getEntriesByType)
@@ -14,67 +15,82 @@ function isReload(): boolean {
 }
 
 /**
- * Saves scroll on unload. On reload, restores scroll before first paint (in
- * useLayoutEffect) so mobile doesn't flash the top, then re-applies after
- * layout settles (double rAF) so full content height is in. Use once in Layout;
- * works with React Router ScrollRestoration.
+ * Saves scroll on unload. Reload/back restore happens in index.html after
+ * #root (before first paint). This re-applies if document height grows.
  */
 export function useRefreshScrollRestore(): void {
-  const { pathname } = useLocation();
-
-  useLayoutEffect(() => {
+  useIsoLayoutEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    const releaseInitialMask = () => {
-      document.documentElement.classList.remove(RELOAD_RESTORING_CLASS);
-    };
+    if (!isReload()) return;
+    if (window.location.hash && window.location.pathname === "/") return;
 
-    if (!isReload()) {
-      releaseInitialMask();
-      return;
-    }
-    if (typeof window !== "undefined" && window.location.hash && pathname === "/") {
-      releaseInitialMask();
-      return;
-    }
-
-    const raw = sessionStorage.getItem(KEY);
-    if (!raw) {
-      releaseInitialMask();
+    let y: number;
+    try {
+      const raw = sessionStorage.getItem(KEY);
+      if (!raw) return;
+      y = parseInt(raw, 10);
+      if (Number.isNaN(y) || y <= 0) return;
+    } catch {
       return;
     }
 
-    const y = parseInt(raw, 10);
-    if (Number.isNaN(y) || y <= 0) {
-      releaseInitialMask();
-      return;
-    }
+    let cancelled = false;
+    let lastRestoredTop = 0;
+    let settleId = 0;
+    let iosRaf = 0;
 
     const restore = () => {
-      const max =
-        document.documentElement.scrollHeight - window.innerHeight;
+      if (cancelled) return;
+      const max = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+      lastRestoredTop = Math.min(y, max);
       window.scrollTo({
-        top: Math.min(y, Math.max(0, max)),
+        top: lastRestoredTop,
         left: 0,
         behavior: "instant",
       });
     };
 
-    // Restore immediately so first paint has correct scroll (avoids mobile flash).
     restore();
-    // Re-apply after layout settles (images, lazy content) so position stays correct.
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        restore();
-        releaseInitialMask();
-      })
-    );
+    // iOS may paint one frame at y=0 before scrollTo sticks.
+    iosRaf = requestAnimationFrame(restore);
 
-    // Safety release in case rAF gets delayed on iOS backgrounded tabs.
-    const timeoutId = window.setTimeout(releaseInitialMask, 800);
-    return () => window.clearTimeout(timeoutId);
+    let lastHeight = document.documentElement.scrollHeight;
+    const ro = new ResizeObserver(() => {
+      const next = document.documentElement.scrollHeight;
+      if (next === lastHeight) return;
+      lastHeight = next;
+      restore();
+    });
+    ro.observe(document.documentElement);
+    if (document.body) ro.observe(document.body);
+    const root = document.getElementById("root");
+    if (root) ro.observe(root);
+
+    const stop = () => {
+      if (cancelled) return;
+      cancelled = true;
+      cancelAnimationFrame(iosRaf);
+      ro.disconnect();
+      window.clearTimeout(settleId);
+      window.removeEventListener("scroll", onScroll);
+    };
+
+    const onScroll = () => {
+      if (cancelled) return;
+      if (Math.abs(window.scrollY - lastRestoredTop) <= 2) return;
+      stop();
+    };
+
+    settleId = window.setTimeout(stop, SETTLE_MS);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return stop;
   }, []);
 
   useEffect(() => {

@@ -65,7 +65,11 @@ export function RealTimeAge({ birthDate }: RealTimeAgeProps) {
     return () => clearInterval(interval);
   }, [birthDate]);
 
-  return <span className="font-mono text-sm whitespace-nowrap">{age}</span>;
+  return (
+    <span className="font-mono text-sm whitespace-nowrap" suppressHydrationWarning>
+      {age}
+    </span>
+  );
 }
 
 

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DarkModeToggle } from '@anatoliygatt/dark-mode-toggle';
 import { getTheme, setTheme } from '@/lib/theme';
 
 export function ThemeToggle() {
-  // Read the current theme from the DOM once (set by the head script).
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>(() => {
-    return getTheme();
-  });
+  // Default matches prerender (no document). Sync to the real theme after mount.
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    setCurrentTheme(getTheme());
+  }, []);
 
   const handleThemeChange = (mode: string) => {
     const normalized = mode === 'light' ? 'light' : 'dark';

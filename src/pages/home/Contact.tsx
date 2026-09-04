@@ -40,9 +40,7 @@ export default function Contact(): JSX.Element {
   ];
 
   const [showPhrases] = useState(true);
-  const [phraseIndex, setPhraseIndex] = useState(() =>
-    Math.floor(Math.random() * phrases.length)
-  );
+  const [phraseIndex, setPhraseIndex] = useState(0);
 
   // Rotate phrases every 4s, but pause when tab is hidden
   useEffect(() => {

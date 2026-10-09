@@ -3,6 +3,45 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+const BEAM_TOP = 12;
+const DOT_SIZE = 16;
+const KINK_LENGTH = 24;
+
+/** Place the beam jog beside the "I learn…" reveal. A fixed fraction of the beam
+ *  drifts onto Tools when skills wrap or the viewport changes the 200vh reveal. */
+function measureBeam(contentEl: HTMLElement) {
+  const contactSection = contentEl.querySelector("#contact");
+  let svgHeight = contentEl.offsetHeight;
+  if (contactSection) {
+    svgHeight = Math.max(
+      0,
+      contactSection.getBoundingClientRect().top -
+        contentEl.getBoundingClientRect().top -
+        20
+    );
+  }
+
+  let kinkY = svgHeight * 0.8;
+  const reveal = contentEl.querySelector<HTMLElement>("[data-text-reveal]");
+  const sticky = reveal?.querySelector<HTMLElement>("[data-text-reveal-content]");
+  if (reveal && sticky && sticky.offsetHeight > 0 && svgHeight > 0) {
+    const phraseCenter =
+      reveal.getBoundingClientRect().top -
+      contentEl.getBoundingClientRect().top +
+      sticky.offsetHeight / 2;
+    // Path y=0 sits under the resting beam offset and the dot. The jog itself is KINK_LENGTH tall.
+    const raw = phraseCenter - (BEAM_TOP + DOT_SIZE) - KINK_LENGTH / 2;
+    const min = 80;
+    const max = Math.max(min, svgHeight - KINK_LENGTH - 24);
+    kinkY = Math.min(Math.max(raw, min), max);
+  }
+
+  return {
+    svgHeight: Math.round(svgHeight),
+    kinkY: Math.round(kinkY),
+  };
+}
+
 export const TracingBeam = ({
   children,
   className,
@@ -13,8 +52,6 @@ export const TracingBeam = ({
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [textRevealInView, setTextRevealInView] = useState(false);
-  const [textRevealVerticalOffset, setTextRevealVerticalOffset] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   
   // Debounce timer ref for resize/orientation changes
   const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -27,13 +64,12 @@ export const TracingBeam = ({
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [svgHeight, setSvgHeight] = useState(0);
+  const [kinkY, setKinkY] = useState(0);
 
   useEffect(() => {
     // Batch all layout reads first, then apply state in rAF to avoid forced reflow.
     const recalculateAll = () => {
-      const innerWidth = window.innerWidth;
       const innerHeight = window.innerHeight;
-      const nextMobile = innerWidth < 768;
 
       let nextVisible = false;
       if (ref.current) {
@@ -42,7 +78,6 @@ export const TracingBeam = ({
       }
 
       let nextTextRevealInView = false;
-      let nextTextRevealOffset = 12;
       const textRevealElement = document.querySelector('[data-text-reveal-content]');
       const textRevealContainer = document.querySelector('[data-text-reveal]');
       if (textRevealElement && textRevealContainer) {
@@ -55,7 +90,6 @@ export const TracingBeam = ({
             textRevealElement.textContent?.includes('technologies');
           if (!isSkillsSection) {
             const rect = textRevealElement.getBoundingClientRect();
-            nextTextRevealOffset = nextMobile ? innerHeight * 0.4 : 12;
             const viewportCenter = innerHeight / 2;
             const elementCenter = rect.top + rect.height / 2;
             nextTextRevealInView = Math.abs(elementCenter - viewportCenter) < innerHeight * 0.3;
@@ -63,24 +97,15 @@ export const TracingBeam = ({
         }
       }
 
-      let nextSvgHeight = 0;
-      if (contentRef.current && nextVisible) {
-        const contactSection = contentRef.current.querySelector('#contact');
-        if (contactSection) {
-          const contactRect = contactSection.getBoundingClientRect();
-          const contentRect = contentRef.current.getBoundingClientRect();
-          nextSvgHeight = contactRect.top - contentRect.top - 20;
-        } else {
-          nextSvgHeight = contentRef.current.offsetHeight;
-        }
-      }
+      const measured = contentRef.current && nextVisible
+        ? measureBeam(contentRef.current)
+        : { svgHeight: 0, kinkY: 0 };
 
       requestAnimationFrame(() => {
-        setIsMobile(nextMobile);
         setIsVisible(nextVisible);
         setTextRevealInView(nextTextRevealInView);
-        setTextRevealVerticalOffset(nextTextRevealOffset);
-        setSvgHeight(nextSvgHeight);
+        setSvgHeight(measured.svgHeight);
+        setKinkY(measured.kinkY);
       });
     };
 
@@ -127,16 +152,11 @@ export const TracingBeam = ({
   // Additional effect to handle SVG height when visibility changes (batched read then write)
   useEffect(() => {
     if (!contentRef.current || !isVisible) return;
-    const contactSection = contentRef.current.querySelector('#contact');
-    let nextSvgHeight = 0;
-    if (contactSection) {
-      const contactRect = contactSection.getBoundingClientRect();
-      const contentRect = contentRef.current.getBoundingClientRect();
-      nextSvgHeight = contactRect.top - contentRect.top - 20;
-    } else {
-      nextSvgHeight = contentRef.current.offsetHeight;
-    }
-    const id = requestAnimationFrame(() => setSvgHeight(nextSvgHeight));
+    const measured = measureBeam(contentRef.current);
+    const id = requestAnimationFrame(() => {
+      setSvgHeight(measured.svgHeight);
+      setKinkY(measured.kinkY);
+    });
     return () => cancelAnimationFrame(id);
   }, [isVisible]);
 
@@ -164,15 +184,6 @@ export const TracingBeam = ({
     }
   );
 
-  // Simple positioning - fixed values to prevent drift
-  const dynamicTop = useSpring(
-    textRevealInView ? textRevealVerticalOffset : 12,
-    {
-      stiffness: 200,
-      damping: 50,
-    }
-  );
-
   return (
     <motion.div
       ref={ref}
@@ -181,7 +192,7 @@ export const TracingBeam = ({
     >
       <motion.div 
         className="absolute -left-4 md:-left-20"
-        style={{ x: leftShift, top: textRevealInView ? dynamicTop : 12 }}
+        style={{ x: leftShift, top: BEAM_TOP }}
       >
         <motion.div
           transition={{
@@ -216,7 +227,7 @@ export const TracingBeam = ({
           aria-hidden="true"
         >
           <motion.path
-            d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
+            d={`M 1 0V -36 l 18 24 V ${kinkY} l -18 24V ${svgHeight}`}
             fill="none"
             stroke="#9091A0"
             strokeOpacity="0.16"
@@ -225,7 +236,7 @@ export const TracingBeam = ({
             }}
           ></motion.path>
           <motion.path
-            d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
+            d={`M 1 0V -36 l 18 24 V ${kinkY} l -18 24V ${svgHeight}`}
             fill="none"
             stroke="url(#gradient)"
             strokeWidth="1.25"

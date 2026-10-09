@@ -13,6 +13,7 @@ export const settings = {
   },
 
   experience: {
+    enabled: false,
     showAnimations: true,
     showGlowingEffect: true,
   },

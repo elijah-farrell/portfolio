@@ -195,7 +195,9 @@ export function Navbar() {
 
   const baseNavItems = [
     { name: "About", link: "about" },
-    { name: "Experience", link: "experience" },
+    ...(settings.experience.enabled
+      ? [{ name: "Experience", link: "experience" }]
+      : []),
     { name: "Projects", link: "projects" },
     { name: "Skills", link: "skills" },
     { name: "Contact", link: "contact" },

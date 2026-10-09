@@ -7,6 +7,7 @@ import Projects from "@/pages/home/Projects";
 import Skills from "@/pages/home/Skills";
 import ExperienceSection from "@/pages/home/Experience";
 import Contact from "@/pages/home/Contact";
+import { settings } from "@/config/settings";
 
 /**
  * Below-the-fold content (lazy-loaded chunk). Loads only when user scrolls near it
@@ -16,7 +17,7 @@ export default function BelowFold(): JSX.Element {
   return (
     <TracingBeam className="px-6">
       <AboutMe />
-      <ExperienceSection />
+      {settings.experience.enabled && <ExperienceSection />}
       <Projects />
       <Skills />
       <TextReveal>

@@ -38,7 +38,7 @@ export const skillsData: SkillCategory[] = [
         description: "Proficiency with macOS for setup, support, and troubleshooting",
       },
       {
-        name: "Remote Desktop (RDP, VNC)",
+        name: "Remote Desktop",
         description: "Remote support for users and systems using RDP and VNC",
       },
       {

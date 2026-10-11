@@ -106,7 +106,7 @@ const iconMap: Record<string, JSX.Element> = {
   Windows: <FaWindows />,
   Linux: <FaLinux />,
   macOS: <FaApple />,
-  "Remote Desktop (RDP, VNC)": <FaDesktop />,
+  "Remote Desktop": <FaDesktop />,
   "Cybersecurity Basics": <FaShieldAlt />,
   "Ticketing Systems": <SiZoho />,
   Python: <SiPython />,

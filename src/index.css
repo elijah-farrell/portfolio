@@ -17,6 +17,22 @@
   }
 }
 
+@keyframes type-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.type-caret {
+  animation: type-caret 1s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .type-caret {
+    animation: none;
+  }
+}
+
 :root {
   color-scheme: light;
   --background: #ffffff;

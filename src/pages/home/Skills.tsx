@@ -13,7 +13,6 @@ import {
   SiSqlite,
   SiTailwindcss,
   SiTypescript,
-  SiZoho,
 } from "react-icons/si";
 import {
   FaApple,
@@ -27,6 +26,7 @@ import {
   FaMicrosoft,
   FaNetworkWired,
   FaShieldAlt,
+  FaTicketAlt,
   FaTools,
   FaUsers,
   FaWindows,
@@ -108,7 +108,7 @@ const iconMap: Record<string, JSX.Element> = {
   macOS: <FaApple />,
   "Remote Desktop": <FaDesktop />,
   "Cybersecurity Basics": <FaShieldAlt />,
-  "Ticketing Systems": <SiZoho />,
+  "Ticketing Systems": <FaTicketAlt />,
   Python: <SiPython />,
   Java: <FaJava />,
   "C++": <SiCplusplus />,

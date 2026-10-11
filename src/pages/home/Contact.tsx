@@ -156,7 +156,7 @@ export default function Contact(): JSX.Element {
             
             {/* Subtitle */}
             <p className="mb-0 mt-16 w-full px-1 text-center text-lg text-black max-[340px]:text-[0.95rem] dark:text-[var(--text)] md:mt-8">
-              Feel free to reach me at
+              Feel free to reach me at{" "}
               <br className="hidden max-[340px]:block" />
               <a
                 href="mailto:farrellelijah@outlook.com"

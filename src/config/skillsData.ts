@@ -39,7 +39,7 @@ export const skillsData: SkillCategory[] = [
       },
       {
         name: "Remote Desktop",
-        description: "Remote support for users and systems using RDP and VNC",
+        description: "Connecting to a user's computer to diagnose and fix issues remotely",
       },
       {
         name: "Cybersecurity Basics",
@@ -47,7 +47,7 @@ export const skillsData: SkillCategory[] = [
       },
       {
         name: "Ticketing Systems",
-        description: "Tracking, prioritizing, and resolving IT support requests in Zoho at Carthage Area Hospital",
+        description: "Tracking, prioritizing, and resolving IT support requests",
       },
     ],
   },

@@ -3,36 +3,18 @@ import { useIsoLayoutEffect } from "@/lib/ssr";
 
 const KEY = "scrollY";
 
-type SavedScroll = { y: number; max: number | null };
-
-function maxScroll(): number {
-  return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-}
-
-function savedScroll(): SavedScroll | null {
+function savedScroll(): number | null {
   try {
     const raw = sessionStorage.getItem(KEY);
     if (!raw) return null;
-    if (raw.startsWith("{")) {
-      const data = JSON.parse(raw) as { y?: unknown; max?: unknown };
-      const y = typeof data.y === "number" ? data.y : Number.NaN;
-      const max = typeof data.max === "number" ? data.max : null;
-      if (!Number.isFinite(y) || y <= 0) return null;
-      return { y, max: max != null && Number.isFinite(max) && max > 0 ? max : null };
-    }
-    const y = parseInt(raw, 10);
-    if (Number.isNaN(y) || y <= 0) return null;
-    return { y, max: null };
+    const y = raw.startsWith("{")
+      ? Number((JSON.parse(raw) as { y?: unknown }).y)
+      : parseInt(raw, 10);
+    if (!Number.isFinite(y) || y <= 0) return null;
+    return y;
   } catch {
     return null;
   }
-}
-
-/** Keep the scrollbar thumb in place when the page height changed between reloads. */
-function restoreTop(saved: SavedScroll): number {
-  const max = maxScroll();
-  if (saved.max && max > 0) return Math.round((saved.y / saved.max) * max);
-  return saved.y;
 }
 
 function shouldRestore(): boolean {
@@ -44,9 +26,9 @@ function shouldRestore(): boolean {
 }
 
 /**
- * Saves scroll when the page is left. index.html restores before first paint
- * when the prerendered page is already tall enough. This applies that same
- * fraction of the page once after React commits.
+ * Saves the exact scroll offset when the page is left. index.html restores it
+ * before first paint when the prerendered page is already tall enough, and this
+ * applies that same offset once after React commits.
  * A reload that has not finished loading does not overwrite the saved position,
  * so mashing refresh cannot replace it with 0.
  */
@@ -56,9 +38,9 @@ export function useRefreshScrollRestore(): void {
       window.history.scrollRestoration = "manual";
     }
     if (!shouldRestore()) return;
-    const saved = savedScroll();
-    if (saved == null) return;
-    window.scrollTo({ top: restoreTop(saved), left: 0, behavior: "instant" });
+    const y = savedScroll();
+    if (y == null) return;
+    window.scrollTo({ top: y, left: 0, behavior: "instant" });
   }, []);
 
   useEffect(() => {
@@ -77,10 +59,7 @@ export function useRefreshScrollRestore(): void {
           sessionStorage.removeItem(KEY);
           return;
         }
-        sessionStorage.setItem(
-          KEY,
-          JSON.stringify({ y: Math.round(y), max: maxScroll() })
-        );
+        sessionStorage.setItem(KEY, String(Math.round(y)));
       } catch {
         /* sessionStorage unavailable */
       }

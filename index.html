@@ -144,20 +144,8 @@
           if (type !== "reload" && type !== "back_forward") return;
           var raw = sessionStorage.getItem("scrollY");
           if (!raw) return;
-          var y;
-          var savedMax = null;
-          if (raw.charAt(0) === "{") {
-            var data = JSON.parse(raw);
-            y = data.y;
-            savedMax = data.max;
-          } else {
-            y = parseInt(raw, 10);
-          }
+          var y = raw.charAt(0) === "{" ? JSON.parse(raw).y : parseInt(raw, 10);
           if (!Number.isFinite(y) || y <= 0) return;
-          var scrollMax = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-          if (Number.isFinite(savedMax) && savedMax > 0 && scrollMax > 0) {
-            y = Math.round((y / savedMax) * scrollMax);
-          }
           // #root already contains the page in production, so this sticks before first paint.
           document.documentElement.scrollTop = y;
           if (document.body) document.body.scrollTop = y;

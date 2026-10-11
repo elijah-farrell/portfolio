@@ -4,7 +4,7 @@ const projects = [
   {
     title: "More-Armor Mod",
     description:
-      "A Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
+      "Minecraft Forge mod that adds 36 unique armor sets with beautiful animations and unique designs. Features fully configurable armor stats and stunning visual effects.",
     techStack: [
       "Java",
       "Minecraft 1.20.1",
@@ -21,7 +21,7 @@ const projects = [
   {
     title: "Awwwards Portfolio",
     description:
-      "A fully animated 3D developer portfolio template with scroll-based interactions designed to showcase work in an immersive way.",
+      "Fully animated 3D developer portfolio template with scroll-based interactions designed to showcase work in an immersive way.",
     techStack: [
       "React 19",
       "JavaScript",
@@ -41,7 +41,7 @@ const projects = [
   {
     title: "Olie's Island Adventure",
     description:
-      "Godot 4.5 2D platformer — seaside setting, coins, enemies, and traps. Work in progress: a playable proof of concept I’m building out slowly in my spare time.",
+      "2D platformer game with a seaside setting, coins, enemies, and traps. Work in progress: a playable proof of concept I’m building out slowly in my spare time.",
     techStack: [
       "Godot 4.5",
       "GDScript",
@@ -57,7 +57,7 @@ const projects = [
   {
     title: "Cyber Developer Portfolio",
     description:
-      "Cyberpunk-inspired — magnetic UI, GSAP motion, command palette (Ctrl/Cmd+K), live Discord status, optional dashboards, Snake easter egg. Still in active development.",
+      "A minimal developer portfolio template with a command palette, made to showcase your name and work.",
     techStack: [
       "Next.js 16",
       "TypeScript",

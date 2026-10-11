@@ -36,7 +36,7 @@ import { DiMsqlServer } from "react-icons/di";
 import { TbSql } from "react-icons/tb";
 import { VscVscode } from "react-icons/vsc";
 import { CardSpotlight } from "../../components/ui/aceternity/card-spotlight";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { skillsData, type SkillCategory } from "../../config/skillsData";
 import {
   Modal,
@@ -108,7 +108,7 @@ const iconMap: Record<string, JSX.Element> = {
   macOS: <FaApple />,
   "Remote Desktop (RDP, VNC)": <FaDesktop />,
   "Cybersecurity Basics": <FaShieldAlt />,
-  "Ticketing Systems (Zoho)": <SiZoho />,
+  "Ticketing Systems": <SiZoho />,
   Python: <SiPython />,
   Java: <FaJava />,
   "C++": <SiCplusplus />,
@@ -279,21 +279,6 @@ const SkillCategoryModalContent: React.FC<SkillCategoryModalContentProps> = ({
 };
 
 export default function Skills() {
-  const [isBelow950, setIsBelow950] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const handleResize = () => {
-      setIsBelow950(window.innerWidth < 950);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div className="pt-8" id="skills">
       <h1 className="text-3xl font-bold mb-2 text-[var(--text)]">TECHNICAL SKILLS</h1>
@@ -302,31 +287,34 @@ export default function Skills() {
       </p>
 
       <section className="p-4 md:p-8 bg-gradient-to-b max-w-4xl">
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           {skillsData.map((skillCategory, idx) => (
-            isBelow950 ? (
-              <Modal key={idx}>
-                <SkillCategoryCardMobile skillCategory={skillCategory} />
-                <ModalBody>
-                  <ModalContent
-                    title={
-                      <h3 className="text-2xl max-[475px]:text-xl max-[380px]:text-lg font-bold flex items-center gap-2 text-[var(--text)] leading-tight">
-                        {categoryIconMap[skillCategory.category] && (
-                          <span className="text-emerald-600">
-                            {categoryIconMap[skillCategory.category]}
-                          </span>
-                        )}
-                        {skillCategory.category}
-                      </h3>
-                    }
-                  >
-                    <SkillCategoryModalContent skillCategory={skillCategory} />
-                  </ModalContent>
-                </ModalBody>
-              </Modal>
-            ) : (
-              <SkillCategoryCardDesktop key={idx} skillCategory={skillCategory} />
-            )
+            <Fragment key={idx}>
+              <div className="min-[950px]:hidden">
+                <Modal>
+                  <SkillCategoryCardMobile skillCategory={skillCategory} />
+                  <ModalBody>
+                    <ModalContent
+                      title={
+                        <h3 className="text-2xl max-[475px]:text-xl max-[380px]:text-lg font-bold flex items-center gap-2 text-[var(--text)] leading-tight">
+                          {categoryIconMap[skillCategory.category] && (
+                            <span className="text-emerald-600">
+                              {categoryIconMap[skillCategory.category]}
+                            </span>
+                          )}
+                          {skillCategory.category}
+                        </h3>
+                      }
+                    >
+                      <SkillCategoryModalContent skillCategory={skillCategory} />
+                    </ModalContent>
+                  </ModalBody>
+                </Modal>
+              </div>
+              <div className="hidden min-[950px]:block">
+                <SkillCategoryCardDesktop skillCategory={skillCategory} />
+              </div>
+            </Fragment>
           ))}
         </div>
       </section>

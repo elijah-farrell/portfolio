@@ -46,7 +46,7 @@ export const skillsData: SkillCategory[] = [
         description: "Foundational security practices including access control, safe configuration, and protecting systems and user data",
       },
       {
-        name: "Ticketing Systems (Zoho)",
+        name: "Ticketing Systems",
         description: "Tracking, prioritizing, and resolving IT support requests in Zoho at Carthage Area Hospital",
       },
     ],

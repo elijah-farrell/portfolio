@@ -107,13 +107,13 @@ export default function Contact(): JSX.Element {
   return (
     <div
       id="contact"
-      className="border-0 min-h-[max(80vh,32rem)] md:min-h-[max(70vh,32rem)] flex flex-col contact-section"
+      className="border-0 min-h-[max(80lvh,32rem)] md:min-h-[max(70lvh,32rem)] flex flex-col contact-section"
     >
       {/* Title */}
       <h1 className="text-3xl font-bold text-left">CONTACT</h1>
 
       {/* Background beams + content */}
-      <BackgroundBeamsWithCollision className="w-full h-full min-h-0 md:min-h-[40vh] z-0 flex-1 contact-beams">
+      <BackgroundBeamsWithCollision className="w-full h-full min-h-0 md:min-h-[40lvh] z-0 flex-1 contact-beams">
         <div className="px-2 md:px-4 h-full min-h-0 flex flex-col justify-start">
           <div className="w-full min-h-full z-30 relative">
             

@@ -8,7 +8,7 @@ const DOT_SIZE = 16;
 const KINK_LENGTH = 24;
 
 /** Place the beam jog beside the "I learn…" reveal. A fixed fraction of the beam
- *  drifts onto Tools when skills wrap or the viewport changes the 200vh reveal. */
+ *  drifts onto Tools when skills wrap or the viewport changes the 200lvh reveal. */
 function measureBeam(contentEl: HTMLElement) {
   const contactSection = contentEl.querySelector("#contact");
   let svgHeight = contentEl.offsetHeight;

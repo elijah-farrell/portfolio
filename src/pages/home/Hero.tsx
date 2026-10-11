@@ -136,7 +136,7 @@ export default function Hero(): JSX.Element {
   };
 
   return (
-    <main className="min-h-screen flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-20 md:pt-24 lg:pt-28 xl:pt-32 pb-16 md:pb-20 lg:pb-8 xl:pb-10 relative hero-container">
+    <main className="min-h-lvh flex flex-col lg:flex-row justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-20 md:pt-24 lg:pt-28 xl:pt-32 pb-16 md:pb-20 lg:pb-8 xl:pb-10 relative hero-container">
       {/* Left Text Section */}
       <div className="flex flex-col text-2xl font-normal text-neutral-600 dark:text-neutral-400 lg:w-1/2 lg:pl-3 max-w-full hero-text-container">
         {/* Available Badge */}
@@ -308,14 +308,12 @@ export default function Hero(): JSX.Element {
           /* Landscape / short viewport: make hero taller so full content + floating image are visible before parallax */
           @media (max-height: 700px) {
             .hero-container {
-              min-height: 140vh !important;
-              min-height: 140dvh !important;
+              min-height: 140lvh !important;
             }
           }
           @media (max-height: 500px) {
             .hero-container {
-              min-height: 160vh !important;
-              min-height: 160dvh !important;
+              min-height: 160lvh !important;
             }
           }
         `}</style>

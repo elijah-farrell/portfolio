@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useIsoLayoutEffect } from "@/lib/ssr";
 import LinkCard from "@/components/ui/common/link-card";
 import { Magnetic } from "@/components/ui/common/magnetic";
 import { BackgroundBeamsWithCollision } from "@/components/ui/aceternity/background-beams-with-collision";
@@ -77,7 +78,11 @@ export default function Contact(): JSX.Element {
   ];
 
   const [showPhrases] = useState(true);
-  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [phraseIndex, setPhraseIndex] = useState<number | null>(null);
+
+  useIsoLayoutEffect(() => {
+    setPhraseIndex(Math.floor(Math.random() * phrases.length));
+  }, [phrases.length]);
 
   // Rotate phrases every 4s, but pause when tab is hidden
   useEffect(() => {
@@ -90,6 +95,7 @@ export default function Contact(): JSX.Element {
     const updatePhrase = () => {
       setPhraseIndex((prev) => {
         phraseChangeTimeRef.current = Date.now();
+        if (prev == null) return Math.floor(Math.random() * phrases.length);
         return (prev + 1) % phrases.length;
       });
     };
@@ -168,7 +174,9 @@ export default function Contact(): JSX.Element {
 
             {/* Rotating professional phrases */}
             <div className="mt-6 md:mt-4 mb-4 md:mb-2 text-center min-h-[4rem]">
-              {showPhrases && <TypewriterPhrase key={phraseIndex} text={phrases[phraseIndex]} />}
+              {showPhrases && phraseIndex != null && (
+                <TypewriterPhrase key={phraseIndex} text={phrases[phraseIndex]} />
+              )}
             </div>
 
             {/* Links */}
